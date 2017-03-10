@@ -8,8 +8,17 @@
             {% include styles.scss %}
         {% endcapture %}
 
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" rel="stylesheet" />
+
         <style>
-        {{ styles | scssify }}
+            {{ styles | scssify }}
         </style>
     </head>
     <body>
+
+    <main class="container">
+        <header class="row">
+            <div class="twelve columns">
+                <h3><a href="/">Dylan Paulus</a></h3>
+            </div>
+        </header>

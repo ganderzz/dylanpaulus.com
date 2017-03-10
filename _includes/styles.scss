@@ -3,12 +3,68 @@
 
 header {
     margin-top: 40px;
+    color: #111;
 }
 
 header h3 {
     font-weight: 800;
+
+    a { 
+        text-decoration: none;
+        color: #111;
+        cursor: pointer;
+
+        transition: all 0.12s;
+    }
 }
 
+.dp__content { margin-top: 30px; }
 .dp__post {
-    line-height: 0.1rem;
+    margin-top: 30px;
+}
+.dp__post-date { 
+    color: #999;
+}
+
+.dp__post-header {
+    margin: -4px 0 0 0;
+    font-size: 3rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.dp__post-header a { 
+    color: #111;
+    text-decoration: none;
+
+    transition: all 0.12s; 
+
+    &:hover {
+        color: #1EAEDB;
+    }
+}
+
+.dp__post-tag { 
+    color: #999;
+}
+
+.dp__footer {
+    font-size: 1.5rem;
+    margin-top: 100px;
+    text-align: center;
+}
+
+.dp__footer a {
+    color: #111;
+    text-decoration: none;
+    opacity: 0.6;
+    font-size: 4rem;
+    margin-right: 10px;
+
+    transition: all 0.12s;
+
+    &:hover {
+        color: #1EAEDB;
+        opacity: 1;
+    }
 }

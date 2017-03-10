@@ -1,24 +1,23 @@
 {% include header.html %}
 
-<main class="container">
-    <header class="row">
-        <div class="offset-two eight columns">
-            <h3>Dylan Paulus</h3>
-        </div>
-    </header>
-
-    <section class="row">
+    <section class="row dp__content">
         {% for post in site.posts %}	
-            <div class="eight columns dp__post">
-                <h5>
-                    <a href="{{ post.url }}">{{ post.title }}</a>
-                </h5>
+            <div class="twelve columns dp__post">
+                <div class="row">
+                    <div class="two columns dp__post-date">
+                        {{ post.date | date: "%B %e, %Y" }}
+                    </div>
 
-                {% if post.category %}{{ post.category }} - {% endif %}
-                <small>{{ post.date | date: "%B %e, %Y" }}</small>	
+                    <div class="seven columns">
+                        <h5 class="dp__post-header">
+                            <a href="{{ post.url }}">{{ post.title }}</a>
+                        </h5>
+
+                        <span class="dp__post-tag">{% if post.category %}{{ post.category }}{% endif %}</span>
+                    </div>
+                </div>
             </div>
         {% endfor %}
     </section>
-</main>
 
 {% include footer.html %}
