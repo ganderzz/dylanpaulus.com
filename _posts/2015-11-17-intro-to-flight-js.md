@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Intro to FlightJS"
-category: "FlightJS, JavaScript"
+category: "JavaScript"
 ---
 
 > *This post is part of the archive. These are mainly random posts that were written throughout the years in no coherent order.*
