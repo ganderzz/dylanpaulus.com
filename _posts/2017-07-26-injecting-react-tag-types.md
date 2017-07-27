@@ -98,7 +98,7 @@ Will render using a React Router Link component `<Link to={'/myPage'}>Click Me!<
 
 Neat! But why is this happening?
 
-### JSX Tranformations
+### JSX Transformations
 
 Our JSX, in the render function, gets transformed into plain JavaScript functions that the browsers can use. With this in mind, our AwesomeButton's JSX gets transformed into a `React.createElement()` function with the element name as the first argument.
 With the help of our good friend Babel, let's see what different components compile to!
