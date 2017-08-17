@@ -6,7 +6,7 @@
         <meta name="author" content="Dylan Paulus">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>{{site.title}} - {{page.title}}</title>
+        <title>{{site.title}}{% if page.title %} - {{ page.title }}{% endif %}</title>
 
         {% capture styles %}
             {% include styles.scss %}
@@ -29,5 +29,6 @@
 
             <nav class="seven columns" style="text-align: right;">
                 <a href="/">Home</a>
+                <a href="/about">About</a>
             </nav>
         </header>

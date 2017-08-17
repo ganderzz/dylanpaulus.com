@@ -2,11 +2,11 @@
     <head>
         <meta charset="UTF-8">
         <meta name="description" content="Ramblings on software engineering and web development">
-        <meta name="keywords" content="software, code, programming, blog, portfolio, ">
+        <meta name="keywords" content="software, code, programming, blog, portfolio, JavaScript">
         <meta name="author" content="Dylan Paulus">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Dylan Paulus</title>
+        <title>Dylan Paulus - Intro to FlightJS</title>
 
         
 
@@ -32,41 +32,120 @@
             </nav>
         </header>
 
-    <section class="row dp__content">
-        	
-            <div class="twelve columns dp__post">
-                <div class="row">
-                    <div class="two columns dp__post-date">
-                        July 26, 2017
-                    </div>
+<section class="dp__post-container">
+    <blockquote>
+  <p><em>This post is part of the archive. These are mainly random posts that were written throughout the years in no coherent order.</em></p>
+</blockquote>
 
-                    <div class="seven columns">
-                        <h5 class="dp__post-header">
-                            <a href="/reactjs/2017/07/26/injecting-react-tag-types/">React: Injecting Dynamic Elements to Components</a>
-                        </h5>
+<h1 id="intro-toflightjs">Intro to FlightJs</h1>
+<h3 id="flightjs">FlightJS</h3>
+<p>FlightJs isn’t the new kid on the block. This little framework has gone unnoticed in Github-land for years. Taken from the FlightJS Github: “Flight is a lightweight, component-based JavaScript framework that maps behavior to DOM nodes.” Reworded, we use reusable components that listen for event calls. These events then in turn perform actions on the DOM or manipulate pieces of our code. Today we will get started with FlightJs, and show how simple it is to use. Though this is an introduction guide, I will assume that we have a fair proficiency with HTML, CSS, and JavaScript.
+Getting Started</p>
 
-                        <span class="dp__post-tag">ReactJs</span>
-                    </div>
-                </div>
-            </div>
-        	
-            <div class="twelve columns dp__post">
-                <div class="row">
-                    <div class="two columns dp__post-date">
-                        November 17, 2015
-                    </div>
+<p>In this Intro to FlightJS guide we will do what many intro framework guides do, make a counter. Let’s get to work.
+Head over to the FlightJS Github, and install FlightJS using your favorite method.
+HTML code:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;h1&gt;FlightJS Counter&lt;/h1&gt;
+&lt;div class=”counter”&gt;
+   &lt;h2 class=”counter-total”&gt;0&lt;/h2&gt;
+   &lt;div class=”counter-function”&gt;
+       &lt;a href=”#subtract” class=”counter-subtract”&gt;-&lt;/a&gt;
+       &lt;a href=”#add” class=”counter-add”&gt;+&lt;/a&gt;
+   &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+</div>
 
-                    <div class="seven columns">
-                        <h5 class="dp__post-header">
-                            <a href="/javascript/2015/11/17/intro-to-flight-js/">Intro to FlightJS</a>
-                        </h5>
+<h3 id="counter">Counter</h3>
+<p>To get started, let us create a FlightJS component. Since we will be creating a counter, we’ll create a Counter component.</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>var Counter = flight.component(function() {
+   this.defaultAttrs({});
+   this.after(“initialize”, function() {
+   });
+});
+</code></pre>
+</div>
+<p>We did a few things in the example above. First, we created a new Flight component called Counter. Next, we defined that we have no default attributes to the Counter component (this will change soon). Attributes provide two big benefits: Component attributes create private variables for a component.</p>
 
-                        <span class="dp__post-tag">JavaScript</span>
-                    </div>
-                </div>
-            </div>
-        
-    </section>
+<p>Secondly, attributes give us a way to assign unique data to each instance of a component. Lastly, we have this weird <code class="highlighter-rouge">this.after(“initialize”)</code> thing going on at the end. This is where a lot of the power comes from. Flight will execute the function we provide, as the second argument, after the initialize function has ran (initialize is an internal flight function) . Basically we’re telling Flight that once it gets itself in order, let us do what we need to.</p>
+
+<p>So what does a counter need? We need a total number that will be counted on. Oh yeah, and some buttons, that when clicked, either add or subtract one from the total. Let’s add this to our JavaScript.</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>var Counter = flight.component(function() {
+   this.defaultAttrs({
+      "subtractSelector": ".counter-subtract",
+      "additionSelector": ".counter-add",
+      "count": 0
+   });
+   this.subtract(function() {});
+   this.add(function() {});
+   this.after(“initialize”, function() {
+     this.on("click", {
+        "subtractSelector": this.subtract,
+        "additionSelector": this.add
+     });
+   });
+});
+</code></pre>
+</div>
+<p>First we added some attributes. These attributes provide us a DOM element for our subtract and add buttons—named subtractSelector and additionSelector respectively—and defines our starting number count. We then created some stubbed functions for once the selector’s event is triggered. Finally, an event handler is created. <code class="highlighter-rouge">this.on(“”)</code> creates an event binding it to whatever we define within the quotes. In this case, we are waiting on a click event to be performed on our DOM selectors subtractSelector and additionSelector. Once a click is recognized, the corresponding function is called. (<code class="highlighter-rouge">this.subtract()</code> or <code class="highlighter-rouge">this.add()</code>)</p>
+
+<p>Continuing, here is our finished code:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>var Counter = flight.component(function() {
+   this.defaultAttrs({
+      "subtractSelector": ".counter-subtract",
+      "additionSelector": ".counter-add",
+      "count": 0
+   });
+   this.subtract = function() {
+      this.attr.count--;
+   }
+ 
+   this.add = function() {
+      this.attr.count++;
+   }
+ 
+   this.uiDisplayCount = function() {
+      this.$node.find(“h2.counter-total”).html( this.attr.count );
+   }
+  
+   this.after("add subtract", function() {
+      this.uiDisplayCount();
+   });
+   this.after(“initialize”, function() {
+     this.uiDisplayCount();
+     this.on("click", {
+        "subtractSelector": this.subtract,
+        "additionSelector": this.add
+     });
+   });
+});
+</code></pre>
+</div>
+<p>Finally we get functionality. The subtract and add function perform a -1 or +1 on the total count depending on which event is triggered. Once we perform these actions on our count, we have no way of displaying the new information. This is where <code class="highlighter-rouge">this.uiDisplayCount</code> plays its role. From any jQuery enthusiast, this function is straight forward. Take our count attribute, and insert it into the html of .counter-total. But, what is <code class="highlighter-rouge">this.$node</code>? This.$node is a property given to us from Flight that grabs a jQuery object of the DOM this component is attached to. Later on we will attach the Counter component to the DOM, and see how this plays out. Going to the next function, we tell our component to execute the uiDisplayCount function after the add or subtract functions are done being executed.</p>
+
+<p>Now there is one thing missing, how do we actually attach this to the DOM?
+<code class="highlighter-rouge">Counter.attachTo(“.counter”, { count: 100 });</code></p>
+
+<p>Going back to before, our <code class="highlighter-rouge">this.$node</code> property would return a jQuery object of our .counter, <code class="highlighter-rouge">$(“.counter”)</code>. As we can see by the second parameter, we can also change what our default attributes are once we attach the component. This helps enforce the modular code Flight preaches. We can change the attributes to fit whatever the situation.</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>Counter.attachTo(“.counter”, { count: 100 });
+Counter.attachTo(“.counter-new”, { 
+                   count: 0, 
+                   subtractSelector: ".new-subtract"
+                });
+Counter.attachTo(".counter-new-new", { 
+                   subtractSelector: ".s",
+                   additionSelector: ".a"
+                });
+</code></pre>
+</div>
+<h3 id="we-didit">We Did It</h3>
+<p>And that is it, we completed our counter! We can see from this little example, Flight gives us some powerful tools in creating modulated code without the need to learn new paradigms. As always, there is much more Flight can do. For additional information on Flight check out their Github.</p>
+
+<h4 id="counter-example">Counter Example</h4>
+<p>Here is our finished product: <a href="http://codepen.io/ganderzz/pen/pjNdNq">http://codepen.io/ganderzz/pen/pjNdNq</a></p>
+
+
+</section>
 
         <footer class="row dp__footer">
             <div class="twelve columns">
