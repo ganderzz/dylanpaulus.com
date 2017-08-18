@@ -1,5 +1,62 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="http://jekyllrb.com" version="3.3.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-08-16T22:30:04-07:00</updated><id>http://localhost:4000/</id><title type="html">Dylan Paulus</title><subtitle>Programmer
-</subtitle><entry><title type="html">React: Injecting Dynamic Elements to Components</title><link href="http://localhost:4000/reactjs/2017/07/26/injecting-react-tag-types/" rel="alternate" type="text/html" title="React: Injecting Dynamic Elements to Components" /><published>2017-07-26T00:00:00-07:00</published><updated>2017-07-26T00:00:00-07:00</updated><id>http://localhost:4000/reactjs/2017/07/26/injecting-react-tag-types</id><content type="html" xml:base="http://localhost:4000/reactjs/2017/07/26/injecting-react-tag-types/">&lt;h1 id=&quot;react-injecting-dynamic-elements-to-components&quot;&gt;React: Injecting Dynamic Elements to Components&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="http://jekyllrb.com" version="3.3.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-08-17T18:56:04-07:00</updated><id>http://localhost:4000/</id><title type="html">Dylan Paulus</title><subtitle>Programmer
+</subtitle><entry><title type="html">React: Introduction to Higher Order Components</title><link href="http://localhost:4000/reactjs/2017/08/17/higher-order-components/" rel="alternate" type="text/html" title="React: Introduction to Higher Order Components" /><published>2017-08-17T00:00:00-07:00</published><updated>2017-08-17T00:00:00-07:00</updated><id>http://localhost:4000/reactjs/2017/08/17/higher-order-components</id><content type="html" xml:base="http://localhost:4000/reactjs/2017/08/17/higher-order-components/">&lt;h1 id=&quot;introduction-to-higher-order-components&quot;&gt;Introduction to Higher Order Components&lt;/h1&gt;
+
+&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;Think of Higher Order Components (HOC) like Pacman. As Pacman consumes his smaller looking dot counterparts, Pacman gains superpower abilities. Like ghost eating! HOC’s work similarly… minus ghosts.
+A HOC consumes a base component, applies some new ability or super power, then spits out a new modified base component. To help show the power of HOC’s, lets create one that does a simple check. If a component doesn’t have children, show an empty component. When children are present, we’ll display them.&lt;/p&gt;
+
+&lt;h3 id=&quot;withemptystate&quot;&gt;withEmptyState()&lt;/h3&gt;
+
+&lt;p&gt;First, lets define our base component.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;function Hello(props) {
+    return (
+        &amp;lt;div&amp;gt;Hello, {props.children}!&amp;lt;/div&amp;gt;
+    );
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Before jumping straight into the HOC, what are we trying to achieve? We want to pass our &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;Hello /&amp;gt;&lt;/code&gt; component into some function, lets call it withEmptyState(), which creates and returns a new component. This new component will either: show &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;Hello /&amp;gt;&lt;/code&gt; if the new component has children, or will return null.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;function withEmptyState(component) {
+    return function(props) {  // Start new stateless functional component
+        if (props.children) {
+            return component(props);
+        }
+
+        return null;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Pretty simple, but extremely powerful! All this function does is take a component, then returns a new stateless functional component. Inside, we check the props. Does this component have children? If yes, return our originally passed in component using our new component’s props (We’ll see how this ties in soon). If no children exist, don’t render anything.&lt;/p&gt;
+
+&lt;p&gt;But how would I use withEmptyState?&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;const HOC = withEmptyState(Hello);
+
+class MyContainer extends React.Component {
+    render() {
+        return (
+          &amp;lt;HOC /&amp;gt;
+
+          &amp;lt;HOC&amp;gt;WORLD!&amp;lt;/HOC&amp;gt;  
+        );
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Our first instance of &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;HOC /&amp;gt;&lt;/code&gt; wouldn’t render anything, as we haven’t gave it children.&lt;/p&gt;
+
+&lt;p&gt;The second &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;HOC&amp;gt;WORLD!&amp;lt;/HOC&amp;gt;&lt;/code&gt; would render our &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;Hello&amp;gt;&lt;/code&gt; component; we would see “Hello, WORLD!”.&lt;/p&gt;
+
+&lt;h3 id=&quot;the-end&quot;&gt;The End&lt;/h3&gt;
+
+&lt;p&gt;Higher Order Components allow us to separate common functionality into their own functions, so we don’t have to add duplication between components. They also allow us to decouple functionality!&lt;/p&gt;</content><author><name></name></author><category term="ReactJs" /><summary type="html">Introduction to Higher Order Components</summary></entry><entry><title type="html">React: Injecting Dynamic Elements to Components</title><link href="http://localhost:4000/reactjs/2017/07/26/injecting-react-tag-types/" rel="alternate" type="text/html" title="React: Injecting Dynamic Elements to Components" /><published>2017-07-26T00:00:00-07:00</published><updated>2017-07-26T00:00:00-07:00</updated><id>http://localhost:4000/reactjs/2017/07/26/injecting-react-tag-types</id><content type="html" xml:base="http://localhost:4000/reactjs/2017/07/26/injecting-react-tag-types/">&lt;h1 id=&quot;react-injecting-dynamic-elements-to-components&quot;&gt;React: Injecting Dynamic Elements to Components&lt;/h1&gt;
 
 &lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
 &lt;p&gt;Let’s say we’re working on an UI component library using React JS. We make a super awesome looking button, maybe even the best button in the world. But suddenly, our computer shuts off without saving our component!

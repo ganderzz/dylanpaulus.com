@@ -2,11 +2,11 @@
     <head>
         <meta charset="UTF-8">
         <meta name="description" content="Ramblings on software engineering and web development">
-        <meta name="keywords" content="software, code, programming, blog, portfolio, ">
+        <meta name="keywords" content="software, code, programming, blog, portfolio, ReactJs">
         <meta name="author" content="Dylan Paulus">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Dylan Paulus</title>
+        <title>Dylan Paulus - React: Introduction to Higher Order Components</title>
 
         
 
@@ -32,57 +32,68 @@
             </nav>
         </header>
 
-    <section class="row dp__content">
-        	
-            <div class="twelve columns dp__post">
-                <div class="row">
-                    <div class="two columns dp__post-date">
-                        August 17, 2017
-                    </div>
+<section class="dp__post-container">
+    <h1 id="introduction-to-higher-order-components">Introduction to Higher Order Components</h1>
 
-                    <div class="seven columns">
-                        <h5 class="dp__post-header">
-                            <a href="/reactjs/2017/08/17/higher-order-components/">React: Introduction to Higher Order Components</a>
-                        </h5>
+<h3 id="introduction">Introduction</h3>
 
-                        <span class="dp__post-tag">ReactJs</span>
-                    </div>
-                </div>
-            </div>
-        	
-            <div class="twelve columns dp__post">
-                <div class="row">
-                    <div class="two columns dp__post-date">
-                        July 26, 2017
-                    </div>
+<p>Think of Higher Order Components (HOC) like Pacman. As Pacman consumes his smaller looking dot counterparts, Pacman gains superpower abilities. Like ghost eating! HOC’s work similarly… minus ghosts.
+A HOC consumes a base component, applies some new ability or super power, then spits out a new modified base component. To help show the power of HOC’s, lets create one that does a simple check. If a component doesn’t have children, show an empty component. When children are present, we’ll display them.</p>
 
-                    <div class="seven columns">
-                        <h5 class="dp__post-header">
-                            <a href="/reactjs/2017/07/26/injecting-react-tag-types/">React: Injecting Dynamic Elements to Components</a>
-                        </h5>
+<h3 id="withemptystate">withEmptyState()</h3>
 
-                        <span class="dp__post-tag">ReactJs</span>
-                    </div>
-                </div>
-            </div>
-        	
-            <div class="twelve columns dp__post">
-                <div class="row">
-                    <div class="two columns dp__post-date">
-                        November 17, 2015
-                    </div>
+<p>First, lets define our base component.</p>
 
-                    <div class="seven columns">
-                        <h5 class="dp__post-header">
-                            <a href="/javascript/2015/11/17/intro-to-flight-js/">Intro to FlightJS</a>
-                        </h5>
+<div class="highlighter-rouge"><pre class="highlight"><code>function Hello(props) {
+    return (
+        &lt;div&gt;Hello, {props.children}!&lt;/div&gt;
+    );
+}
+</code></pre>
+</div>
 
-                        <span class="dp__post-tag">JavaScript</span>
-                    </div>
-                </div>
-            </div>
-        
-    </section>
+<p>Before jumping straight into the HOC, what are we trying to achieve? We want to pass our <code class="highlighter-rouge">&lt;Hello /&gt;</code> component into some function, lets call it withEmptyState(), which creates and returns a new component. This new component will either: show <code class="highlighter-rouge">&lt;Hello /&gt;</code> if the new component has children, or will return null.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>function withEmptyState(component) {
+    return function(props) {  // Start new stateless functional component
+        if (props.children) {
+            return component(props);
+        }
+
+        return null;
+    }
+}
+</code></pre>
+</div>
+
+<p>Pretty simple, but extremely powerful! All this function does is take a component, then returns a new stateless functional component. Inside, we check the props. Does this component have children? If yes, return our originally passed in component using our new component’s props (We’ll see how this ties in soon). If no children exist, don’t render anything.</p>
+
+<p>But how would I use withEmptyState?</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>const HOC = withEmptyState(Hello);
+
+class MyContainer extends React.Component {
+    render() {
+        return (
+          &lt;HOC /&gt;
+
+          &lt;HOC&gt;WORLD!&lt;/HOC&gt;  
+        );
+    }
+}
+</code></pre>
+</div>
+
+<p>Our first instance of <code class="highlighter-rouge">&lt;HOC /&gt;</code> wouldn’t render anything, as we haven’t gave it children.</p>
+
+<p>The second <code class="highlighter-rouge">&lt;HOC&gt;WORLD!&lt;/HOC&gt;</code> would render our <code class="highlighter-rouge">&lt;Hello&gt;</code> component; we would see “Hello, WORLD!”.</p>
+
+<h3 id="the-end">The End</h3>
+
+<p>Higher Order Components allow us to separate common functionality into their own functions, so we don’t have to add duplication between components. They also allow us to decouple functionality!</p>
+
+
+</section>
 
         <footer class="row dp__footer">
             <div class="twelve columns">
