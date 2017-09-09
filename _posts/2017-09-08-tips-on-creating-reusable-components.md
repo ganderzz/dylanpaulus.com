@@ -10,7 +10,9 @@ category: "ReactJs"
 
 A huge selling point of React is its use of composable, reusable components. Everything is built off the idea of `V = F(d)`, or view/UI is created by some function acting on data/state. How do we create more advanced user interface? Well, just add more functions to the party (For example `V = G(F(E(S(d))))`). That's cute, why does this matter? Thinking of our components as functions, even if we use *class*, will help us create more reusable components. It even helps us write super helpful utility functions called [Higher Order Components](http://dylanpaulus.com/reactjs/2017/08/17/higher-order-components/).
 
-To start off our journey of improving the usability of a component. Let's take for example this button that has an icon.
+We'll look at ways to improve our reusability and composition of components by using an example component a long the way. For this article, we'll use a component that adds an Icon to a button. 
+
+For example,
 
 ```
 class IconButton extends React.Component {
@@ -39,7 +41,7 @@ Not bad.. easy to use, and to the point. But, some part of me thinks this could 
 
 Continuing on the topic of thinking of components as functions, keep components simple. Components that do too many things are dangerous. They are easy to break, and a pain to maintain. Instead, split functionality into separate components, then compose those components to make something functional. This makes it really easy to maintain features, and to swap out functionality when requirements change.
 
-From the looks of it, we really don't need an IconButton component. What if tomorrow we need an IconInput button? We not have two separate, but pretty similar components to maintain! We can fix this by using composition. It seems what we really want is something that 'adds an icon' to a component. Let's make a new component called IconAdder.
+Going to the IconButton example, we really don't need an IconButton component. What if tomorrow we need an IconInput button? We not only have two separate, but pretty similar components to maintain! We can fix this by using composition. What we really want is something that 'adds an icon' to a component. Let's make a new component called IconAdder.
 
 ```
 class IconAdder extends React.Component {
@@ -71,7 +73,7 @@ IconAdder allows us to throw any ol' component we want into it, and it'll add an
 
 ### Hello There, Children!
 
-One thing I come across a lot is the overuse of component properties. Components should almost never be used as properties. It ends up making components hard to use, and in the end, we are fighting with React. In our last example of the IconAdder, we broke this rule! In React, every component has a property called children (`props.children`). This says, whatever we pass between this component's tags, we'll insert here. Let's see an example transforming out IconAdder component.
+One thing I come across a lot is the overuse of component properties. Components should almost never be used as properties. It ends up making components hard to use, and in the end, we are fighting with React. In React, every component has a property called children (`props.children`). This says, whatever we pass between this component's tags, we'll insert here. Let's see an example `props.children` in the IconAdder component.
 
 ```
 class IconAdder extends React.Component {
@@ -103,7 +105,7 @@ The `<Button>` component will be inserted in IconAdder's `{this.props.children}`
 
 I wrote an article on this [subject here](http://dylanpaulus.com/reactjs/2017/07/26/injecting-react-tag-types/) already so I'll be brief.
 
-As someone consuming a component, I want as little pollution of my code as possible. Pollution in this case could be anything: event handlers, code size, or even HTML elements. In the case of our IconAdder component, a parent `<div>` wrapper gets added to every component using it. It would be great if we could get rid of the div, and just make it our child component. Well... we're in luck. We can specify a tag property, and then use that property. This let's the end-user be in control of their DOM structure.
+As someone consuming a component, I want as little pollution of my code as possible. Pollution in this case could be anything: event handlers, code size, or even HTML elements. In the case of our IconAdder component, a parent `<div>` wrapper gets added to every component using it. It would be great if we could get rid of the div, and just make it our child component. Well... we're in luck. We can specify a tag property, and then use that property. This lets the end-user be in control of their DOM structure.
 
 ```
 class IconAdder extends React.Component {
@@ -137,7 +139,7 @@ Another benefit of using a 'tag' property, is let's say that we want to support 
 
 ### Allow Extension
 
-Nothing grinds my gears like getting a fresh new component, but realizing I want to make the font bold. So, I add a quick `style={{ fontWeight: 800 }}` to the component, refresh, and nothing changes. (Warning: what is about to be shown requires a transpiler).
+Nothing grinds my gears like getting a fresh new component, but realizing I want to make the font bold. So, I add a quick `style={ { fontWeight: 800 } }` to the component, refresh, and nothing changes. (Warning: what is about to be shown requires a transpiler).
 
 We should allow our components to be reasonably editable, while protecting what we need to. This can be done by the [rest operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Rest_in_Object_Destructuring).
 
