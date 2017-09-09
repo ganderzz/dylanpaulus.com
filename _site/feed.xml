@@ -1,5 +1,178 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="http://jekyllrb.com" version="3.3.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-08-17T20:34:46-07:00</updated><id>http://localhost:4000/</id><title type="html">Dylan Paulus</title><subtitle>Programmer
-</subtitle><entry><title type="html">React: Introduction to Higher Order Components</title><link href="http://localhost:4000/reactjs/2017/08/17/higher-order-components/" rel="alternate" type="text/html" title="React: Introduction to Higher Order Components" /><published>2017-08-17T00:00:00-07:00</published><updated>2017-08-17T00:00:00-07:00</updated><id>http://localhost:4000/reactjs/2017/08/17/higher-order-components</id><content type="html" xml:base="http://localhost:4000/reactjs/2017/08/17/higher-order-components/">&lt;h1 id=&quot;introduction-to-higher-order-components&quot;&gt;Introduction to Higher Order Components&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="http://jekyllrb.com" version="3.3.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-09-08T20:32:37-07:00</updated><id>http://localhost:4000/</id><title type="html">Dylan Paulus</title><subtitle>Programmer
+</subtitle><entry><title type="html">React: Tips on Creating Reusable Components</title><link href="http://localhost:4000/reactjs/2017/09/08/tips-on-creating-reusable-components/" rel="alternate" type="text/html" title="React: Tips on Creating Reusable Components" /><published>2017-09-08T00:00:00-07:00</published><updated>2017-09-08T00:00:00-07:00</updated><id>http://localhost:4000/reactjs/2017/09/08/tips-on-creating-reusable-components</id><content type="html" xml:base="http://localhost:4000/reactjs/2017/09/08/tips-on-creating-reusable-components/">&lt;h1 id=&quot;tips-on-creating-reusable-components&quot;&gt;Tips on Creating Reusable Components&lt;/h1&gt;
+
+&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;A huge selling point of React is its use of composable, reusable components. Everything is built off the idea of &lt;code class=&quot;highlighter-rouge&quot;&gt;V = F(d)&lt;/code&gt;, or view/UI is created by some function acting on data/state. How do we create more advanced user interface? Well, just add more functions to the party (For example &lt;code class=&quot;highlighter-rouge&quot;&gt;V = G(F(E(S(d))))&lt;/code&gt;). That’s cute, why does this matter? Thinking of our components as functions, even if we use &lt;em&gt;class&lt;/em&gt;, will help us create more reusable components. It even helps us write super helpful utility functions called &lt;a href=&quot;http://dylanpaulus.com/reactjs/2017/08/17/higher-order-components/&quot;&gt;Higher Order Components&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;To start off our journey of improving the usability of a component. Let’s take for example this button that has an icon.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class IconButton extends React.Component {
+    render() {
+        &amp;lt;Button onClick={this.props.onClick}&amp;gt;
+            &amp;lt;Icon /&amp;gt;
+            {&quot; &quot;}
+            {this.props.text}
+        &amp;lt;/Button&amp;gt;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;And to consume the button,&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;IconButton
+    text=&quot;Click Me!&quot;
+    onClick={() =&amp;gt; alert(&quot;Click!&quot;)}
+/&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Not bad.. easy to use, and to the point. But, some part of me thinks this could be better. Let’s walk through a few suggestions on making this component more reusable.&lt;/p&gt;
+
+&lt;h3 id=&quot;keep-it-simple-jack&quot;&gt;Keep it Simple, Jack&lt;/h3&gt;
+
+&lt;p&gt;Continuing on the topic of thinking of components as functions, keep components simple. Components that do too many things are dangerous. They are easy to break, and a pain to maintain. Instead, split functionality into separate components, then compose those components to make something functional. This makes it really easy to maintain features, and to swap out functionality when requirements change.&lt;/p&gt;
+
+&lt;p&gt;From the looks of it, we really don’t need an IconButton component. What if tomorrow we need an IconInput button? We not have two separate, but pretty similar components to maintain! We can fix this by using composition. It seems what we really want is something that ‘adds an icon’ to a component. Let’s make a new component called IconAdder.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class IconAdder extends React.Component {
+    render() {
+        return (
+            &amp;lt;div&amp;gt;
+                &amp;lt;Icon /&amp;gt;
+                {&quot; &quot;}
+                {this.props.component}
+            &amp;lt;/div&amp;gt;
+        );
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;to consume it&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;IconAdder
+    component={
+        &amp;lt;Button onClick={() =&amp;gt; alert(&quot;Click!&quot;)}&amp;gt;
+            Click Me!
+        &amp;lt;/Button&amp;gt;
+    }
+/&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;IconAdder allows us to throw any ol’ component we want into it, and it’ll add an Icon to it. Nice.&lt;/p&gt;
+
+&lt;h3 id=&quot;hello-there-children&quot;&gt;Hello There, Children!&lt;/h3&gt;
+
+&lt;p&gt;One thing I come across a lot is the overuse of component properties. Components should almost never be used as properties. It ends up making components hard to use, and in the end, we are fighting with React. In our last example of the IconAdder, we broke this rule! In React, every component has a property called children (&lt;code class=&quot;highlighter-rouge&quot;&gt;props.children&lt;/code&gt;). This says, whatever we pass between this component’s tags, we’ll insert here. Let’s see an example transforming out IconAdder component.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class IconAdder extends React.Component {
+    render() {
+        return (
+            &amp;lt;div&amp;gt;
+                &amp;lt;Icon /&amp;gt;
+                {&quot; &quot;}
+                {this.props.children}
+            &amp;lt;/div&amp;gt;
+        );
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;to consume it&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;IconAdder&amp;gt;
+    &amp;lt;Button onClick={() =&amp;gt; alert(&quot;Click!&quot;)}&amp;gt;
+        Click Me!
+    &amp;lt;/Button&amp;gt;
+&amp;lt;/IconAdder&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;Button&amp;gt;&lt;/code&gt; component will be inserted in IconAdder’s &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;this.props.children&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;! Much better!&lt;/p&gt;
+
+&lt;h3 id=&quot;injecting-html-types&quot;&gt;Injecting HTML Types&lt;/h3&gt;
+
+&lt;p&gt;I wrote an article on this &lt;a href=&quot;http://dylanpaulus.com/reactjs/2017/07/26/injecting-react-tag-types/&quot;&gt;subject here&lt;/a&gt; already so I’ll be brief.&lt;/p&gt;
+
+&lt;p&gt;As someone consuming a component, I want as little pollution of my code as possible. Pollution in this case could be anything: event handlers, code size, or even HTML elements. In the case of our IconAdder component, a parent &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;div&amp;gt;&lt;/code&gt; wrapper gets added to every component using it. It would be great if we could get rid of the div, and just make it our child component. Well… we’re in luck. We can specify a tag property, and then use that property. This let’s the end-user be in control of their DOM structure.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class IconAdder extends React.Component {
+    render() {
+        const { tag, onClick, children } = this.props; 
+        const Tag = tag;
+
+        return (
+            &amp;lt;Tag onClick={onClick}&amp;gt;
+                &amp;lt;Icon /&amp;gt;
+                {&quot; &quot;}
+                {children}
+            &amp;lt;/Tag&amp;gt;
+        );
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;to consume it&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;IconAdder
+    tag={Button}
+    onClick={() =&amp;gt; alert(&quot;Click!&quot;)}
+&amp;gt;
+    Click Me!
+&amp;lt;/IconAdder&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Another benefit of using a ‘tag’ property, is let’s say that we want to support React Router’s &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;Link&amp;gt;&lt;/code&gt; component, but we also need to support the classic HTML &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;a&amp;gt;&lt;/code&gt; tag. We can easily swap these two out by just changing the ‘tag’ prop!&lt;/p&gt;
+
+&lt;h3 id=&quot;allow-extension&quot;&gt;Allow Extension&lt;/h3&gt;
+
+&lt;p&gt;Nothing grinds my gears like getting a fresh new component, but realizing I want to make the font bold. So, I add a quick &lt;code class=&quot;highlighter-rouge&quot;&gt;style=&lt;/code&gt; to the component, refresh, and nothing changes. (Warning: what is about to be shown requires a transpiler).&lt;/p&gt;
+
+&lt;p&gt;We should allow our components to be reasonably editable, while protecting what we need to. This can be done by the &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Rest_in_Object_Destructuring&quot;&gt;rest operator&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Right now, our IconAdder component won’t accept a style, className, or title prop. Oh yeah, and what about in the future if we need to use IconAdder on a &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;a&amp;gt;&lt;/code&gt; tag. We’ll need to support href also. Let’s use the rest operator to support all of these properties!&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class IconAdder extends React.Component {
+    render() {
+        const { tag, onClick, children, ...rest } = this.props; 
+        const Tag = tag;
+
+        return (
+            &amp;lt;Tag onClick={onClick} {...rest}&amp;gt;
+                &amp;lt;Icon /&amp;gt;
+                {&quot; &quot;}
+                {children}
+            &amp;lt;/Tag&amp;gt;
+        );
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;to consume it&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;IconAdder
+    tag={Button}
+    onClick={() =&amp;gt; alert(&quot;Click!&quot;)}
+    style=
+    title=&quot;A button for clicking&quot;
+&amp;gt;
+    Click Me!
+&amp;lt;/IconAdder&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;...rest&lt;/code&gt; will grab whatever properties we haven’t taken off in the destructuring (&lt;code class=&quot;highlighter-rouge&quot;&gt;const { a, b, c} = this.props;&lt;/code&gt;), and assign it, in this case, to a variable called &lt;code class=&quot;highlighter-rouge&quot;&gt;rest&lt;/code&gt;. We then apply all those properties to our &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;Tag&amp;gt;&lt;/code&gt; component by destructuring the &lt;code class=&quot;highlighter-rouge&quot;&gt;rest&lt;/code&gt; object into the individual props. As shown in the consumption of IconAdder, we can now add whatever other properties we want!&lt;/p&gt;
+
+&lt;h3 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h3&gt;
+
+&lt;p&gt;These are a few tips I use when creating components to keep them easier to consume, and extend. In summary, think of every component as a function. It will consume some input, and produce an output. The children property is your friend, use it when it makes sense! Dynamically injecting the component type can turn multiple similar components, into one highly reusable component. Finally, allow components to receive extra props, and have the properties/styles override the base implementation when possible.&lt;/p&gt;</content><author><name></name></author><category term="ReactJs" /><summary type="html">Tips on Creating Reusable Components</summary></entry><entry><title type="html">React: Introduction to Higher Order Components</title><link href="http://localhost:4000/reactjs/2017/08/17/higher-order-components/" rel="alternate" type="text/html" title="React: Introduction to Higher Order Components" /><published>2017-08-17T00:00:00-07:00</published><updated>2017-08-17T00:00:00-07:00</updated><id>http://localhost:4000/reactjs/2017/08/17/higher-order-components</id><content type="html" xml:base="http://localhost:4000/reactjs/2017/08/17/higher-order-components/">&lt;h1 id=&quot;introduction-to-higher-order-components&quot;&gt;Introduction to Higher Order Components&lt;/h1&gt;
 
 &lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
 

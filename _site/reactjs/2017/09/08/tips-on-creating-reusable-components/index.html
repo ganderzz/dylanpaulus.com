@@ -2,11 +2,11 @@
     <head>
         <meta charset="UTF-8">
         <meta name="description" content="Ramblings on software engineering and web development">
-        <meta name="keywords" content="software, code, programming, blog, portfolio, ">
+        <meta name="keywords" content="software, code, programming, blog, portfolio, ReactJs">
         <meta name="author" content="Dylan Paulus">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Dylan Paulus</title>
+        <title>Dylan Paulus - React: Tips on Creating Reusable Components</title>
 
         
 
@@ -32,73 +32,184 @@
             </nav>
         </header>
 
-    <section class="row dp__content">
-        	
-            <div class="twelve columns dp__post">
-                <div class="row">
-                    <div class="two columns dp__post-date">
-                        September  8, 2017
-                    </div>
+<section class="dp__post-container">
+    <h1 id="tips-on-creating-reusable-components">Tips on Creating Reusable Components</h1>
 
-                    <div class="seven columns">
-                        <h5 class="dp__post-header">
-                            <a href="/reactjs/2017/09/08/tips-on-creating-reusable-components/">React: Tips on Creating Reusable Components</a>
-                        </h5>
+<h3 id="introduction">Introduction</h3>
 
-                        <span class="dp__post-tag">ReactJs</span>
-                    </div>
-                </div>
-            </div>
-        	
-            <div class="twelve columns dp__post">
-                <div class="row">
-                    <div class="two columns dp__post-date">
-                        August 17, 2017
-                    </div>
+<p>A huge selling point of React is its use of composable, reusable components. Everything is built off the idea of <code class="highlighter-rouge">V = F(d)</code>, or view/UI is created by some function acting on data/state. How do we create more advanced user interface? Well, just add more functions to the party (For example <code class="highlighter-rouge">V = G(F(E(S(d))))</code>). That’s cute, why does this matter? Thinking of our components as functions, even if we use <em>class</em>, will help us create more reusable components. It even helps us write super helpful utility functions called <a href="http://dylanpaulus.com/reactjs/2017/08/17/higher-order-components/">Higher Order Components</a>.</p>
 
-                    <div class="seven columns">
-                        <h5 class="dp__post-header">
-                            <a href="/reactjs/2017/08/17/higher-order-components/">React: Introduction to Higher Order Components</a>
-                        </h5>
+<p>To start off our journey of improving the usability of a component. Let’s take for example this button that has an icon.</p>
 
-                        <span class="dp__post-tag">ReactJs</span>
-                    </div>
-                </div>
-            </div>
-        	
-            <div class="twelve columns dp__post">
-                <div class="row">
-                    <div class="two columns dp__post-date">
-                        July 26, 2017
-                    </div>
+<div class="highlighter-rouge"><pre class="highlight"><code>class IconButton extends React.Component {
+    render() {
+        &lt;Button onClick={this.props.onClick}&gt;
+            &lt;Icon /&gt;
+            {" "}
+            {this.props.text}
+        &lt;/Button&gt;
+    }
+}
+</code></pre>
+</div>
 
-                    <div class="seven columns">
-                        <h5 class="dp__post-header">
-                            <a href="/reactjs/2017/07/26/injecting-react-tag-types/">React: Injecting Dynamic Elements to Components</a>
-                        </h5>
+<p>And to consume the button,</p>
 
-                        <span class="dp__post-tag">ReactJs</span>
-                    </div>
-                </div>
-            </div>
-        	
-            <div class="twelve columns dp__post">
-                <div class="row">
-                    <div class="two columns dp__post-date">
-                        November 17, 2015
-                    </div>
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;IconButton
+    text="Click Me!"
+    onClick={() =&gt; alert("Click!")}
+/&gt;
+</code></pre>
+</div>
 
-                    <div class="seven columns">
-                        <h5 class="dp__post-header">
-                            <a href="/javascript/2015/11/17/intro-to-flight-js/">Intro to FlightJS</a>
-                        </h5>
+<p>Not bad.. easy to use, and to the point. But, some part of me thinks this could be better. Let’s walk through a few suggestions on making this component more reusable.</p>
 
-                        <span class="dp__post-tag">JavaScript</span>
-                    </div>
-                </div>
-            </div>
-        
-    </section>
+<h3 id="keep-it-simple-jack">Keep it Simple, Jack</h3>
+
+<p>Continuing on the topic of thinking of components as functions, keep components simple. Components that do too many things are dangerous. They are easy to break, and a pain to maintain. Instead, split functionality into separate components, then compose those components to make something functional. This makes it really easy to maintain features, and to swap out functionality when requirements change.</p>
+
+<p>From the looks of it, we really don’t need an IconButton component. What if tomorrow we need an IconInput button? We not have two separate, but pretty similar components to maintain! We can fix this by using composition. It seems what we really want is something that ‘adds an icon’ to a component. Let’s make a new component called IconAdder.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>class IconAdder extends React.Component {
+    render() {
+        return (
+            &lt;div&gt;
+                &lt;Icon /&gt;
+                {" "}
+                {this.props.component}
+            &lt;/div&gt;
+        );
+    }
+}
+</code></pre>
+</div>
+
+<p>to consume it</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;IconAdder
+    component={
+        &lt;Button onClick={() =&gt; alert("Click!")}&gt;
+            Click Me!
+        &lt;/Button&gt;
+    }
+/&gt;
+</code></pre>
+</div>
+
+<p>IconAdder allows us to throw any ol’ component we want into it, and it’ll add an Icon to it. Nice.</p>
+
+<h3 id="hello-there-children">Hello There, Children!</h3>
+
+<p>One thing I come across a lot is the overuse of component properties. Components should almost never be used as properties. It ends up making components hard to use, and in the end, we are fighting with React. In our last example of the IconAdder, we broke this rule! In React, every component has a property called children (<code class="highlighter-rouge">props.children</code>). This says, whatever we pass between this component’s tags, we’ll insert here. Let’s see an example transforming out IconAdder component.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>class IconAdder extends React.Component {
+    render() {
+        return (
+            &lt;div&gt;
+                &lt;Icon /&gt;
+                {" "}
+                {this.props.children}
+            &lt;/div&gt;
+        );
+    }
+}
+</code></pre>
+</div>
+
+<p>to consume it</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;IconAdder&gt;
+    &lt;Button onClick={() =&gt; alert("Click!")}&gt;
+        Click Me!
+    &lt;/Button&gt;
+&lt;/IconAdder&gt;
+</code></pre>
+</div>
+
+<p>The <code class="highlighter-rouge">&lt;Button&gt;</code> component will be inserted in IconAdder’s <code class="highlighter-rouge"><span class="p">{</span><span class="err">this.props.children</span><span class="p">}</span></code>! Much better!</p>
+
+<h3 id="injecting-html-types">Injecting HTML Types</h3>
+
+<p>I wrote an article on this <a href="http://dylanpaulus.com/reactjs/2017/07/26/injecting-react-tag-types/">subject here</a> already so I’ll be brief.</p>
+
+<p>As someone consuming a component, I want as little pollution of my code as possible. Pollution in this case could be anything: event handlers, code size, or even HTML elements. In the case of our IconAdder component, a parent <code class="highlighter-rouge">&lt;div&gt;</code> wrapper gets added to every component using it. It would be great if we could get rid of the div, and just make it our child component. Well… we’re in luck. We can specify a tag property, and then use that property. This let’s the end-user be in control of their DOM structure.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>class IconAdder extends React.Component {
+    render() {
+        const { tag, onClick, children } = this.props; 
+        const Tag = tag;
+
+        return (
+            &lt;Tag onClick={onClick}&gt;
+                &lt;Icon /&gt;
+                {" "}
+                {children}
+            &lt;/Tag&gt;
+        );
+    }
+}
+</code></pre>
+</div>
+
+<p>to consume it</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;IconAdder
+    tag={Button}
+    onClick={() =&gt; alert("Click!")}
+&gt;
+    Click Me!
+&lt;/IconAdder&gt;
+</code></pre>
+</div>
+
+<p>Another benefit of using a ‘tag’ property, is let’s say that we want to support React Router’s <code class="highlighter-rouge">&lt;Link&gt;</code> component, but we also need to support the classic HTML <code class="highlighter-rouge">&lt;a&gt;</code> tag. We can easily swap these two out by just changing the ‘tag’ prop!</p>
+
+<h3 id="allow-extension">Allow Extension</h3>
+
+<p>Nothing grinds my gears like getting a fresh new component, but realizing I want to make the font bold. So, I add a quick <code class="highlighter-rouge">style=</code> to the component, refresh, and nothing changes. (Warning: what is about to be shown requires a transpiler).</p>
+
+<p>We should allow our components to be reasonably editable, while protecting what we need to. This can be done by the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Rest_in_Object_Destructuring">rest operator</a>.</p>
+
+<p>Right now, our IconAdder component won’t accept a style, className, or title prop. Oh yeah, and what about in the future if we need to use IconAdder on a <code class="highlighter-rouge">&lt;a&gt;</code> tag. We’ll need to support href also. Let’s use the rest operator to support all of these properties!</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>class IconAdder extends React.Component {
+    render() {
+        const { tag, onClick, children, ...rest } = this.props; 
+        const Tag = tag;
+
+        return (
+            &lt;Tag onClick={onClick} {...rest}&gt;
+                &lt;Icon /&gt;
+                {" "}
+                {children}
+            &lt;/Tag&gt;
+        );
+    }
+}
+</code></pre>
+</div>
+
+<p>to consume it</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;IconAdder
+    tag={Button}
+    onClick={() =&gt; alert("Click!")}
+    style=
+    title="A button for clicking"
+&gt;
+    Click Me!
+&lt;/IconAdder&gt;
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">...rest</code> will grab whatever properties we haven’t taken off in the destructuring (<code class="highlighter-rouge">const { a, b, c} = this.props;</code>), and assign it, in this case, to a variable called <code class="highlighter-rouge">rest</code>. We then apply all those properties to our <code class="highlighter-rouge">&lt;Tag&gt;</code> component by destructuring the <code class="highlighter-rouge">rest</code> object into the individual props. As shown in the consumption of IconAdder, we can now add whatever other properties we want!</p>
+
+<h3 id="conclusion">Conclusion</h3>
+
+<p>These are a few tips I use when creating components to keep them easier to consume, and extend. In summary, think of every component as a function. It will consume some input, and produce an output. The children property is your friend, use it when it makes sense! Dynamically injecting the component type can turn multiple similar components, into one highly reusable component. Finally, allow components to receive extra props, and have the properties/styles override the base implementation when possible.</p>
+
+
+</section>
 
         <footer class="row dp__footer">
             <div class="twelve columns">
