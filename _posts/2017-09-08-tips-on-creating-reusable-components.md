@@ -168,7 +168,7 @@ to consume it
 <IconAdder
     tag={Button}
     onClick={() => alert("Click!")}
-    style={{ fontWeight: "800" }}
+    style={ { fontWeight: "800" } }
     title="A button for clicking"
 >
     Click Me!
