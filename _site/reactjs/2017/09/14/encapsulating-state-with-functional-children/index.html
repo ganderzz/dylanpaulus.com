@@ -2,11 +2,11 @@
     <head>
         <meta charset="UTF-8">
         <meta name="description" content="Ramblings on software engineering and web development">
-        <meta name="keywords" content="software, code, programming, blog, portfolio, ">
+        <meta name="keywords" content="software, code, programming, blog, portfolio, ReactJs">
         <meta name="author" content="Dylan Paulus">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Dylan Paulus</title>
+        <title>Dylan Paulus - Encapsulating State with Functional Children</title>
 
         
 
@@ -32,89 +32,56 @@
             </nav>
         </header>
 
-    <section class="row dp__content">
-        	
-            <div class="twelve columns dp__post">
-                <div class="row">
-                    <div class="two columns dp__post-date">
-                        September 14, 2017
-                    </div>
+<section class="dp__post-container">
+    <h1 id="encapsulating-state-with-functional-children">Encapsulating State with Functional Children</h1>
 
-                    <div class="ten columns">
-                        <h5 class="dp__post-header">
-                            <a href="/reactjs/2017/09/14/encapsulating-state-with-functional-children/">Encapsulating State with Functional Children</a>
-                        </h5>
+<h3 id="introduction">Introduction</h3>
 
-                        <span class="dp__post-tag">ReactJs</span>
-                    </div>
-                </div>
-            </div>
-        	
-            <div class="twelve columns dp__post">
-                <div class="row">
-                    <div class="two columns dp__post-date">
-                        September  8, 2017
-                    </div>
+<p>There is a technique for creating reusable components that got missed in my last post, <a href="/reactjs/2017/09/08/tips-on-creating-reusable-components.1/">Tips on Creating Reusable Components</a>, that I’d like to talk about. That is, components that have functions as children. This is a great tool that mirrors higher order components, in that it lets us abstract away reusable states. We’ll start out with an example.</p>
 
-                    <div class="ten columns">
-                        <h5 class="dp__post-header">
-                            <a href="/reactjs/2017/09/08/tips-on-creating-reusable-components.1/">Tips on Creating Reusable Components</a>
-                        </h5>
+<div class="highlighter-rouge"><pre class="highlight"><code>import React from "react";
 
-                        <span class="dp__post-tag">ReactJs</span>
-                    </div>
-                </div>
-            </div>
-        	
-            <div class="twelve columns dp__post">
-                <div class="row">
-                    <div class="two columns dp__post-date">
-                        August 17, 2017
-                    </div>
+class Booer extends React.Component {
+    constructor(props) {
+        super(props);
+    
+        this.state = {
+            test: "..."
+        };
+    }
 
-                    <div class="ten columns">
-                        <h5 class="dp__post-header">
-                            <a href="/reactjs/2017/08/17/higher-order-components/">Introduction to Higher Order Components</a>
-                        </h5>
+    componentDidMount() {
+        setTimeout(() =&gt; {
+            this.setState({
+                test: "BOO!"
+            });
+        }, 1000);
+    }
+  
+    render() {
+        return this.props.children(this.state.test);
+    }
+}
 
-                        <span class="dp__post-tag">ReactJs</span>
-                    </div>
-                </div>
-            </div>
-        	
-            <div class="twelve columns dp__post">
-                <div class="row">
-                    <div class="two columns dp__post-date">
-                        July 26, 2017
-                    </div>
+function Timer(props) {
+    return (
+        &lt;Booer&gt;
+        {
+            (test) =&gt; (
+            	&lt;div&gt;
+                    {test}
+                &lt;/div&gt;
+            )
+        }
+        &lt;/Booer&gt;
+    );
+}
 
-                    <div class="ten columns">
-                        <h5 class="dp__post-header">
-                            <a href="/reactjs/2017/07/26/injecting-react-tag-types/">Injecting Dynamic Elements to Components</a>
-                        </h5>
+</code></pre>
+</div>
 
-                        <span class="dp__post-tag">ReactJs</span>
-                    </div>
-                </div>
-            </div>
-        	
-            <div class="twelve columns dp__post">
-                <div class="row">
-                    <div class="two columns dp__post-date">
-                        November 17, 2015
-                    </div>
 
-                    <div class="ten columns">
-                        <h5 class="dp__post-header">
-                            <a href="/javascript/2015/11/17/intro-to-flight-js/">Intro to FlightJS</a>
-                        </h5>
-
-                        <span class="dp__post-tag">JavaScript</span>
-                    </div>
-                </div>
-            </div>
-        
-    </section>
+</section>
 
         <footer class="row dp__footer">
             <div class="twelve columns">
