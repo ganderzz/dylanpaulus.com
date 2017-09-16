@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "React: Tips on Creating Reusable Components"
+title: "Tips on Creating Reusable Components"
 category: "ReactJs"
 ---
 

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "React: Introduction to Higher Order Components"
+title: "Introduction to Higher Order Components"
 category: "ReactJs"
 ---
 

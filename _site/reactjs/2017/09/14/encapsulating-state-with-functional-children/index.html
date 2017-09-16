@@ -2,11 +2,11 @@
     <head>
         <meta charset="UTF-8">
         <meta name="description" content="Ramblings on software engineering and web development">
-        <meta name="keywords" content="software, code, programming, blog, portfolio, ">
+        <meta name="keywords" content="software, code, programming, blog, portfolio, ReactJs">
         <meta name="author" content="Dylan Paulus">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Dylan Paulus</title>
+        <title>Dylan Paulus - Encapsulating State with Functional Children</title>
 
         
 
@@ -32,89 +32,114 @@
             </nav>
         </header>
 
-    <section class="row dp__content">
-        	
-            <div class="twelve columns dp__post">
-                <div class="row">
-                    <div class="two columns dp__post-date">
-                        September 14, 2017
-                    </div>
+<section class="dp__post-container">
+    <h1 id="encapsulating-state-with-functional-children">Encapsulating State with Functional Children</h1>
 
-                    <div class="ten columns">
-                        <h5 class="dp__post-header">
-                            <a href="/reactjs/2017/09/14/encapsulating-state-with-functional-children/">Encapsulating State with Functional Children</a>
-                        </h5>
+<h3 id="introduction">Introduction</h3>
 
-                        <span class="dp__post-tag">ReactJs</span>
-                    </div>
-                </div>
-            </div>
-        	
-            <div class="twelve columns dp__post">
-                <div class="row">
-                    <div class="two columns dp__post-date">
-                        September  8, 2017
-                    </div>
+<p>There is a technique for creating reusable components that got missed in my last post, <a href="/reactjs/2017/09/08/tips-on-creating-reusable-components.1/">Tips on Creating Reusable Components</a>, that I’d like to talk about. That is, components that have functions as children. This is a great tool that mirrors higher order components, in that it lets us abstract away reusable states. We’ll start out with an example.</p>
 
-                    <div class="ten columns">
-                        <h5 class="dp__post-header">
-                            <a href="/reactjs/2017/09/08/tips-on-creating-reusable-components.1/">Tips on Creating Reusable Components</a>
-                        </h5>
+<h3 id="breaking-down-functional-children">Breaking down functional children</h3>
 
-                        <span class="dp__post-tag">ReactJs</span>
-                    </div>
-                </div>
-            </div>
-        	
-            <div class="twelve columns dp__post">
-                <div class="row">
-                    <div class="two columns dp__post-date">
-                        August 17, 2017
-                    </div>
+<div class="highlighter-rouge"><pre class="highlight"><code>import React from "react";
 
-                    <div class="ten columns">
-                        <h5 class="dp__post-header">
-                            <a href="/reactjs/2017/08/17/higher-order-components/">Introduction to Higher Order Components</a>
-                        </h5>
+class Booer extends React.Component {
+    constructor(props) {
+        super(props);
+    
+        this.state = {
+            test: "..."
+        };
+    }
 
-                        <span class="dp__post-tag">ReactJs</span>
-                    </div>
-                </div>
-            </div>
-        	
-            <div class="twelve columns dp__post">
-                <div class="row">
-                    <div class="two columns dp__post-date">
-                        July 26, 2017
-                    </div>
+    componentDidMount() {
+        setTimeout(() =&gt; {
+            this.setState({
+                test: "BOO!"
+            });
+        }, 1000);
+    }
+  
+    render() {
+    	// Using children as a function!
+        return this.props.children(this.state.test);
+    }
+}
 
-                    <div class="ten columns">
-                        <h5 class="dp__post-header">
-                            <a href="/reactjs/2017/07/26/injecting-react-tag-types/">Injecting Dynamic Elements to Components</a>
-                        </h5>
+function Timer(props) {
+    return (
+        &lt;Booer&gt;
+        {
+            (test) =&gt; (
+            	&lt;div&gt;
+                    {test}
+                &lt;/div&gt;
+            )
+        }
+        &lt;/Booer&gt;
+    );
+}
 
-                        <span class="dp__post-tag">ReactJs</span>
-                    </div>
-                </div>
-            </div>
-        	
-            <div class="twelve columns dp__post">
-                <div class="row">
-                    <div class="two columns dp__post-date">
-                        November 17, 2015
-                    </div>
+</code></pre>
+</div>
 
-                    <div class="ten columns">
-                        <h5 class="dp__post-header">
-                            <a href="/javascript/2015/11/17/intro-to-flight-js/">Intro to FlightJS</a>
-                        </h5>
+<p><em>Booer</em> is a component that after 1000ms, updates its state to say “Boo!”. Nothing special. The power in functional children comes in play in the render method. Instead of treating <code class="highlighter-rouge">this.props.children</code> as a variable, we pass a long some state which gets injected into the children prop. Moving to the <em>Timer</em> component, we see something a little odd. The <em>Booer</em> component takes a function with an argument, <code class="highlighter-rouge">test</code>, being that state we passed into <code class="highlighter-rouge">this.props.children</code>. We are then free to return any valid React children in the function. This let’s us reuse state for different visual components! In the case of the <em>Timer</em> component, it will show a <em>div</em> with “…”. Once 1000ms is complete, the contents will be replaced with “Boo!”.</p>
 
-                        <span class="dp__post-tag">JavaScript</span>
-                    </div>
-                </div>
-            </div>
-        
-    </section>
+<h3 id="toggle-component">Toggle Component</h3>
+
+<p>The first example is a nice way to show functional children, but let’s make something a little more practical. Like the title suggestions, how about a component that keeps track of a toggle! This may look something like:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>import React from "react";
+
+class Toggle extends React.Component {
+  constructor(props) {
+    super(props);
+    
+    this.state = {
+      isToggled: false
+    };
+  
+    this.toggle = this.toggle.bind(this);
+  }
+  
+  toggle() {
+    this.setState((prevState) =&gt; ({
+      isToggled: !prevState.isToggled
+    }));
+  }
+  
+  render() {
+    const { isToggled } = this.state;
+    
+    return this.props.children(isToggled, this.toggle);
+  }
+}
+
+function ToggleButton () {
+  return (
+    &lt;Toggle&gt;
+      {
+        (isToggled, toggle) =&gt; (
+          &lt;button onClick={toggle}&gt;
+            {isToggled ? "ON" : "off"}
+          &lt;/button&gt;
+        )
+      }
+    &lt;/Toggle&gt;
+  )
+}
+</code></pre>
+</div>
+
+<p>Looking at it, the <em>Booer</em> component is pretty similar to out new <em>Toggle</em> component. They both handle some state, then pass it to <code class="highlighter-rouge">this.props.children()</code> as function argument. In the case of <em>Toggle</em>, we are now passing two arguments. First, our <em>isToggled</em> state. Second, a class method that will toggle the <em>isToggled</em> state. <code class="highlighter-rouge">this.toggle</code> will be useful for a consumer to control events.
+Looking at the <em>ToggleButton</em> component, it’s pretty simple to wire out a button that has toggle ability, while making its state reusable! What if we want a toggle checkbox? We can just swap out the <code class="highlighter-rouge">&lt;button&gt;</code> JSX tags for <code class="highlighter-rouge">&lt;input type="checkbox"&gt;</code>!</p>
+
+<h3 id="conclusion">Conclusion</h3>
+
+<p>Functional children is yet another technique for creating reusable components. It helps us move presentational components away from stateful logic (ie. Dumb/Smart components or Containers/Components).</p>
+
+
+</section>
 
         <footer class="row dp__footer">
             <div class="twelve columns">

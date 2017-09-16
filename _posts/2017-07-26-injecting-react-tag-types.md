@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "React: Injecting Dynamic Elements to Components"
+title: "Injecting Dynamic Elements to Components"
 category: "ReactJs"
 ---
 
