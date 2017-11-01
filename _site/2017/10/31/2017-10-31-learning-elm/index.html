@@ -1,0 +1,41 @@
+<h1 id="getting-started-learning-elm">Getting Started: Learning Elm</h1>
+
+<h3 id="getting-started">Getting Started</h3>
+
+<p>We’ll create a very basic program. When the mouse moves, print its position.</p>
+
+<p>First, we’ll need to create a directory we’ll be writing out Elm code in (<code class="highlighter-rouge">mkdir elm-mouse &amp;&amp; cd elm-mouse</code>). After creating the directory and navigating inside it, run the following terminal command to scaffold the project: <code class="highlighter-rouge">elm-make</code>. Elm will automatically download the required packages, and set up an <strong>elm-project.json</strong> file for keeping track of dependencies. This is similar to the <strong>package.json</strong> file NPM uses.</p>
+
+<p>For this project, we’ll need an additional package. The Mouse package. Let’s install it by running the command: <code class="highlighter-rouge">elm-package install elm-lang/mouse</code>.</p>
+
+<p>Create a new file called <strong>main.elm</strong>. This is where the entirety of the program will live.</p>
+
+<h3 id="scaffolding">Scaffolding</h3>
+
+<p>In Elm files are put into modules, giving us a way to separate out common code blocks. We’ll start out defining our own module… let’s call it <strong>Main</strong>.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>module Main exposing (..)
+</code></pre>
+</div>
+
+<p>This code looks fine, but what is this <code class="highlighter-rouge">exposing (..)</code> bit? Think of exposing like <code class="highlighter-rouge">export</code> in ES6 JavaScript. <strong>exposing</strong> tells Elm what we want the outside world to have access to. In the case above, we will export <em>everything</em>. Again, think of <code class="highlighter-rouge">(..)</code> as sayings <code class="highlighter-rouge">export *</code> (If we had the ability in JS!).</p>
+
+<p>Next, we’ll import the external modules we’ll be using in our program.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>import Html exposing (program, div, text)
+import Mouse
+</code></pre>
+</div>
+
+<p>This is very similar to JavaScript’s import. We’ll import only <em>program, div, and text</em> from the HTML modules, and then import everything from the Mouse module.</p>
+
+<p>Reflecting back, our code in <strong>main.elm</strong> should look like:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>module Main exposing (..)
+
+import Html exposing (program, div, text)
+import Mouse
+</code></pre>
+</div>
+
+<h3 id="elm-architecture">Elm Architecture</h3>

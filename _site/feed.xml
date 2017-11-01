@@ -1,5 +1,45 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="http://jekyllrb.com" version="3.3.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-09-15T21:18:31-07:00</updated><id>http://localhost:4000/</id><title type="html">Dylan Paulus</title><subtitle>Programmer
-</subtitle><entry><title type="html">Encapsulating State with Functional Children</title><link href="http://localhost:4000/reactjs/2017/09/14/encapsulating-state-with-functional-children/" rel="alternate" type="text/html" title="Encapsulating State with Functional Children" /><published>2017-09-14T00:00:00-07:00</published><updated>2017-09-14T00:00:00-07:00</updated><id>http://localhost:4000/reactjs/2017/09/14/encapsulating-state-with-functional-children</id><content type="html" xml:base="http://localhost:4000/reactjs/2017/09/14/encapsulating-state-with-functional-children/">&lt;h1 id=&quot;encapsulating-state-with-functional-children&quot;&gt;Encapsulating State with Functional Children&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="http://jekyllrb.com" version="3.3.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-10-31T23:00:59-07:00</updated><id>http://localhost:4000/</id><title type="html">Dylan Paulus</title><subtitle>Programmer
+</subtitle><entry><title type="html"></title><link href="http://localhost:4000/2017/10/31/2017-10-31-learning-elm/" rel="alternate" type="text/html" title="" /><published>2017-10-31T23:00:59-07:00</published><updated>2017-10-31T23:00:59-07:00</updated><id>http://localhost:4000/2017/10/31/2017-10-31-learning-elm</id><content type="html" xml:base="http://localhost:4000/2017/10/31/2017-10-31-learning-elm/">&lt;h1 id=&quot;getting-started-learning-elm&quot;&gt;Getting Started: Learning Elm&lt;/h1&gt;
+
+&lt;h3 id=&quot;getting-started&quot;&gt;Getting Started&lt;/h3&gt;
+
+&lt;p&gt;We’ll create a very basic program. When the mouse moves, print its position.&lt;/p&gt;
+
+&lt;p&gt;First, we’ll need to create a directory we’ll be writing out Elm code in (&lt;code class=&quot;highlighter-rouge&quot;&gt;mkdir elm-mouse &amp;amp;&amp;amp; cd elm-mouse&lt;/code&gt;). After creating the directory and navigating inside it, run the following terminal command to scaffold the project: &lt;code class=&quot;highlighter-rouge&quot;&gt;elm-make&lt;/code&gt;. Elm will automatically download the required packages, and set up an &lt;strong&gt;elm-project.json&lt;/strong&gt; file for keeping track of dependencies. This is similar to the &lt;strong&gt;package.json&lt;/strong&gt; file NPM uses.&lt;/p&gt;
+
+&lt;p&gt;For this project, we’ll need an additional package. The Mouse package. Let’s install it by running the command: &lt;code class=&quot;highlighter-rouge&quot;&gt;elm-package install elm-lang/mouse&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Create a new file called &lt;strong&gt;main.elm&lt;/strong&gt;. This is where the entirety of the program will live.&lt;/p&gt;
+
+&lt;h3 id=&quot;scaffolding&quot;&gt;Scaffolding&lt;/h3&gt;
+
+&lt;p&gt;In Elm files are put into modules, giving us a way to separate out common code blocks. We’ll start out defining our own module… let’s call it &lt;strong&gt;Main&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;module Main exposing (..)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This code looks fine, but what is this &lt;code class=&quot;highlighter-rouge&quot;&gt;exposing (..)&lt;/code&gt; bit? Think of exposing like &lt;code class=&quot;highlighter-rouge&quot;&gt;export&lt;/code&gt; in ES6 JavaScript. &lt;strong&gt;exposing&lt;/strong&gt; tells Elm what we want the outside world to have access to. In the case above, we will export &lt;em&gt;everything&lt;/em&gt;. Again, think of &lt;code class=&quot;highlighter-rouge&quot;&gt;(..)&lt;/code&gt; as sayings &lt;code class=&quot;highlighter-rouge&quot;&gt;export *&lt;/code&gt; (If we had the ability in JS!).&lt;/p&gt;
+
+&lt;p&gt;Next, we’ll import the external modules we’ll be using in our program.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import Html exposing (program, div, text)
+import Mouse
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This is very similar to JavaScript’s import. We’ll import only &lt;em&gt;program, div, and text&lt;/em&gt; from the HTML modules, and then import everything from the Mouse module.&lt;/p&gt;
+
+&lt;p&gt;Reflecting back, our code in &lt;strong&gt;main.elm&lt;/strong&gt; should look like:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;module Main exposing (..)
+
+import Html exposing (program, div, text)
+import Mouse
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;elm-architecture&quot;&gt;Elm Architecture&lt;/h3&gt;</content><author><name></name></author></entry><entry><title type="html">Encapsulating State with Functional Children</title><link href="http://localhost:4000/reactjs/2017/09/14/encapsulating-state-with-functional-children.1/" rel="alternate" type="text/html" title="Encapsulating State with Functional Children" /><published>2017-09-14T00:00:00-07:00</published><updated>2017-09-14T00:00:00-07:00</updated><id>http://localhost:4000/reactjs/2017/09/14/encapsulating-state-with-functional-children.1</id><content type="html" xml:base="http://localhost:4000/reactjs/2017/09/14/encapsulating-state-with-functional-children.1/">&lt;h1 id=&quot;encapsulating-state-with-functional-children&quot;&gt;Encapsulating State with Functional Children&lt;/h1&gt;
 
 &lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
 
