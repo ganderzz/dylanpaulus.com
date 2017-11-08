@@ -1,347 +1,57 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="http://jekyllrb.com" version="3.3.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-09-15T21:18:31-07:00</updated><id>http://localhost:4000/</id><title type="html">Dylan Paulus</title><subtitle>Programmer
-</subtitle><entry><title type="html">Encapsulating State with Functional Children</title><link href="http://localhost:4000/reactjs/2017/09/14/encapsulating-state-with-functional-children/" rel="alternate" type="text/html" title="Encapsulating State with Functional Children" /><published>2017-09-14T00:00:00-07:00</published><updated>2017-09-14T00:00:00-07:00</updated><id>http://localhost:4000/reactjs/2017/09/14/encapsulating-state-with-functional-children</id><content type="html" xml:base="http://localhost:4000/reactjs/2017/09/14/encapsulating-state-with-functional-children/">&lt;h1 id=&quot;encapsulating-state-with-functional-children&quot;&gt;Encapsulating State with Functional Children&lt;/h1&gt;
-
-&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
-
-&lt;p&gt;There is a technique for creating reusable components that got missed in my last post, &lt;a href=&quot;/reactjs/2017/09/08/tips-on-creating-reusable-components.1/&quot;&gt;Tips on Creating Reusable Components&lt;/a&gt;, that I’d like to talk about. That is, components that have functions as children. This is a great tool that mirrors higher order components, in that it lets us abstract away reusable states. We’ll start out with an example.&lt;/p&gt;
-
-&lt;h3 id=&quot;breaking-down-functional-children&quot;&gt;Breaking down functional children&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import React from &quot;react&quot;;
-
-class Booer extends React.Component {
-    constructor(props) {
-        super(props);
-    
-        this.state = {
-            test: &quot;...&quot;
-        };
-    }
-
-    componentDidMount() {
-        setTimeout(() =&amp;gt; {
-            this.setState({
-                test: &quot;BOO!&quot;
-            });
-        }, 1000);
-    }
-  
-    render() {
-    	// Using children as a function!
-        return this.props.children(this.state.test);
-    }
-}
-
-function Timer(props) {
-    return (
-        &amp;lt;Booer&amp;gt;
-        {
-            (test) =&amp;gt; (
-            	&amp;lt;div&amp;gt;
-                    {test}
-                &amp;lt;/div&amp;gt;
-            )
-        }
-        &amp;lt;/Booer&amp;gt;
-    );
-}
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;em&gt;Booer&lt;/em&gt; is a component that after 1000ms, updates its state to say “Boo!”. Nothing special. The power in functional children comes in play in the render method. Instead of treating &lt;code class=&quot;highlighter-rouge&quot;&gt;this.props.children&lt;/code&gt; as a variable, we pass a long some state which gets injected into the children prop. Moving to the &lt;em&gt;Timer&lt;/em&gt; component, we see something a little odd. The &lt;em&gt;Booer&lt;/em&gt; component takes a function with an argument, &lt;code class=&quot;highlighter-rouge&quot;&gt;test&lt;/code&gt;, being that state we passed into &lt;code class=&quot;highlighter-rouge&quot;&gt;this.props.children&lt;/code&gt;. We are then free to return any valid React children in the function. This let’s us reuse state for different visual components! In the case of the &lt;em&gt;Timer&lt;/em&gt; component, it will show a &lt;em&gt;div&lt;/em&gt; with “…”. Once 1000ms is complete, the contents will be replaced with “Boo!”.&lt;/p&gt;
-
-&lt;h3 id=&quot;toggle-component&quot;&gt;Toggle Component&lt;/h3&gt;
-
-&lt;p&gt;The first example is a nice way to show functional children, but let’s make something a little more practical. Like the title suggestions, how about a component that keeps track of a toggle! This may look something like:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import React from &quot;react&quot;;
-
-class Toggle extends React.Component {
-  constructor(props) {
-    super(props);
-    
-    this.state = {
-      isToggled: false
-    };
-  
-    this.toggle = this.toggle.bind(this);
-  }
-  
-  toggle() {
-    this.setState((prevState) =&amp;gt; ({
-      isToggled: !prevState.isToggled
-    }));
-  }
-  
-  render() {
-    const { isToggled } = this.state;
-    
-    return this.props.children(isToggled, this.toggle);
-  }
-}
-
-function ToggleButton () {
-  return (
-    &amp;lt;Toggle&amp;gt;
-      {
-        (isToggled, toggle) =&amp;gt; (
-          &amp;lt;button onClick={toggle}&amp;gt;
-            {isToggled ? &quot;ON&quot; : &quot;off&quot;}
-          &amp;lt;/button&amp;gt;
-        )
-      }
-    &amp;lt;/Toggle&amp;gt;
-  )
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Looking at it, the &lt;em&gt;Booer&lt;/em&gt; component is pretty similar to out new &lt;em&gt;Toggle&lt;/em&gt; component. They both handle some state, then pass it to &lt;code class=&quot;highlighter-rouge&quot;&gt;this.props.children()&lt;/code&gt; as function argument. In the case of &lt;em&gt;Toggle&lt;/em&gt;, we are now passing two arguments. First, our &lt;em&gt;isToggled&lt;/em&gt; state. Second, a class method that will toggle the &lt;em&gt;isToggled&lt;/em&gt; state. &lt;code class=&quot;highlighter-rouge&quot;&gt;this.toggle&lt;/code&gt; will be useful for a consumer to control events.
-Looking at the &lt;em&gt;ToggleButton&lt;/em&gt; component, it’s pretty simple to wire out a button that has toggle ability, while making its state reusable! What if we want a toggle checkbox? We can just swap out the &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;button&amp;gt;&lt;/code&gt; JSX tags for &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;input type=&quot;checkbox&quot;&amp;gt;&lt;/code&gt;!&lt;/p&gt;
-
-&lt;h3 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h3&gt;
-
-&lt;p&gt;Functional children is yet another technique for creating reusable components. It helps us move presentational components away from stateful logic (ie. Dumb/Smart components or Containers/Components).&lt;/p&gt;</content><author><name></name></author><category term="ReactJs" /><summary type="html">Encapsulating State with Functional Children</summary></entry><entry><title type="html">Tips on Creating Reusable Components</title><link href="http://localhost:4000/reactjs/2017/09/08/tips-on-creating-reusable-components.1/" rel="alternate" type="text/html" title="Tips on Creating Reusable Components" /><published>2017-09-08T00:00:00-07:00</published><updated>2017-09-08T00:00:00-07:00</updated><id>http://localhost:4000/reactjs/2017/09/08/tips-on-creating-reusable-components.1</id><content type="html" xml:base="http://localhost:4000/reactjs/2017/09/08/tips-on-creating-reusable-components.1/">&lt;h1 id=&quot;tips-on-creating-reusable-components&quot;&gt;Tips on Creating Reusable Components&lt;/h1&gt;
-
-&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
-
-&lt;p&gt;A huge selling point of React is its use of composable, reusable components. Everything is built off the idea of &lt;code class=&quot;highlighter-rouge&quot;&gt;V = F(d)&lt;/code&gt;, or view/UI is created by some function acting on data/state. How do we create more advanced user interface? Well, just add more functions to the party (For example &lt;code class=&quot;highlighter-rouge&quot;&gt;V = G(F(E(S(d))))&lt;/code&gt;). That’s cute, why does this matter? Thinking of our components as functions, even if we use &lt;em&gt;class&lt;/em&gt;, will help us create more reusable components. It even helps us write super helpful utility functions called &lt;a href=&quot;http://dylanpaulus.com/reactjs/2017/08/17/higher-order-components/&quot;&gt;Higher Order Components&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;We’ll look at ways to improve our reusability and composition of components by using an example component a long the way. For this article, we’ll use a component that adds an Icon to a button.&lt;/p&gt;
-
-&lt;p&gt;For example,&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class IconButton extends React.Component {
-    render() {
-        &amp;lt;Button onClick={this.props.onClick}&amp;gt;
-            &amp;lt;Icon /&amp;gt;
-            {&quot; &quot;}
-            {this.props.text}
-        &amp;lt;/Button&amp;gt;
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;And to consume the button,&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;IconButton
-    text=&quot;Click Me!&quot;
-    onClick={() =&amp;gt; alert(&quot;Click!&quot;)}
-/&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Not bad.. easy to use, and to the point. But, some part of me thinks this could be better. Let’s walk through a few suggestions on making this component more reusable.&lt;/p&gt;
-
-&lt;h3 id=&quot;keep-it-simple-jack&quot;&gt;Keep it Simple, Jack&lt;/h3&gt;
-
-&lt;p&gt;Continuing on the topic of thinking of components as functions, keep components simple. Components that do too many things are dangerous. They are easy to break, and a pain to maintain. Instead, split functionality into separate components, then compose those components to make something functional. This makes it really easy to maintain features, and to swap out functionality when requirements change.&lt;/p&gt;
-
-&lt;p&gt;Going to the IconButton example, we really don’t need an IconButton component. What if tomorrow we need an IconInput button? We not only have two separate, but pretty similar components to maintain! We can fix this by using composition. What we really want is something that ‘adds an icon’ to a component. Let’s make a new component called IconAdder.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class IconAdder extends React.Component {
-    render() {
-        return (
-            &amp;lt;div&amp;gt;
-                &amp;lt;Icon /&amp;gt;
-                {&quot; &quot;}
-                {this.props.component}
-            &amp;lt;/div&amp;gt;
-        );
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;to consume it&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;IconAdder
-    component={
-        &amp;lt;Button onClick={() =&amp;gt; alert(&quot;Click!&quot;)}&amp;gt;
-            Click Me!
-        &amp;lt;/Button&amp;gt;
-    }
-/&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;IconAdder allows us to throw any ol’ component we want into it, and it’ll add an Icon to it. Nice.&lt;/p&gt;
-
-&lt;h3 id=&quot;hello-there-children&quot;&gt;Hello There, Children!&lt;/h3&gt;
-
-&lt;p&gt;One thing I come across a lot is the overuse of component properties. Components should almost never be used as properties. It ends up making components hard to use, and in the end, we are fighting with React. In React, every component has a property called children (&lt;code class=&quot;highlighter-rouge&quot;&gt;props.children&lt;/code&gt;). This says, whatever we pass between this component’s tags, we’ll insert here. Let’s see an example &lt;code class=&quot;highlighter-rouge&quot;&gt;props.children&lt;/code&gt; in the IconAdder component.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class IconAdder extends React.Component {
-    render() {
-        return (
-            &amp;lt;div&amp;gt;
-                &amp;lt;Icon /&amp;gt;
-                {&quot; &quot;}
-                {this.props.children}
-            &amp;lt;/div&amp;gt;
-        );
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;to consume it&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;IconAdder&amp;gt;
-    &amp;lt;Button onClick={() =&amp;gt; alert(&quot;Click!&quot;)}&amp;gt;
-        Click Me!
-    &amp;lt;/Button&amp;gt;
-&amp;lt;/IconAdder&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;Button&amp;gt;&lt;/code&gt; component will be inserted in IconAdder’s &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;this.props.children&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;! Much better!&lt;/p&gt;
-
-&lt;h3 id=&quot;injecting-html-types&quot;&gt;Injecting HTML Types&lt;/h3&gt;
-
-&lt;p&gt;I wrote an article on this &lt;a href=&quot;http://dylanpaulus.com/reactjs/2017/07/26/injecting-react-tag-types/&quot;&gt;subject here&lt;/a&gt; already so I’ll be brief.&lt;/p&gt;
-
-&lt;p&gt;As someone consuming a component, I want as little pollution of my code as possible. Pollution in this case could be anything: event handlers, code size, or even HTML elements. In the case of our IconAdder component, a parent &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;div&amp;gt;&lt;/code&gt; wrapper gets added to every component using it. It would be great if we could get rid of the div, and just make it our child component. Well… we’re in luck. We can specify a tag property, and then use that property. This lets the end-user be in control of their DOM structure.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class IconAdder extends React.Component {
-    render() {
-        const { tag, onClick, children } = this.props; 
-        const Tag = tag;
-
-        return (
-            &amp;lt;Tag onClick={onClick}&amp;gt;
-                &amp;lt;Icon /&amp;gt;
-                {&quot; &quot;}
-                {children}
-            &amp;lt;/Tag&amp;gt;
-        );
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;to consume it&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;IconAdder
-    tag={Button}
-    onClick={() =&amp;gt; alert(&quot;Click!&quot;)}
-&amp;gt;
-    Click Me!
-&amp;lt;/IconAdder&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Another benefit of using a ‘tag’ property, is let’s say that we want to support React Router’s &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;Link&amp;gt;&lt;/code&gt; component, but we also need to support the classic HTML &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;a&amp;gt;&lt;/code&gt; tag. We can easily swap these two out by just changing the ‘tag’ prop!&lt;/p&gt;
-
-&lt;h3 id=&quot;allow-extension&quot;&gt;Allow Extension&lt;/h3&gt;
-
-&lt;p&gt;Nothing grinds my gears like getting a fresh new component, but realizing I want to make the font bold. So, I add a quick &lt;code class=&quot;highlighter-rouge&quot;&gt;style={ { fontWeight: 800 } }&lt;/code&gt; to the component, refresh, and nothing changes. (Warning: what is about to be shown requires a transpiler).&lt;/p&gt;
-
-&lt;p&gt;We should allow our components to be reasonably editable, while protecting what we need to. This can be done by the &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Rest_in_Object_Destructuring&quot;&gt;rest operator&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Right now, our IconAdder component won’t accept a style, className, or title prop. Oh yeah, and what about in the future if we need to use IconAdder on a &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;a&amp;gt;&lt;/code&gt; tag. We’ll need to support href also. Let’s use the rest operator to support all of these properties!&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class IconAdder extends React.Component {
-    render() {
-        const { tag, onClick, children, ...rest } = this.props; 
-        const Tag = tag;
-
-        return (
-            &amp;lt;Tag onClick={onClick} {...rest}&amp;gt;
-                &amp;lt;Icon /&amp;gt;
-                {&quot; &quot;}
-                {children}
-            &amp;lt;/Tag&amp;gt;
-        );
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;to consume it&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;IconAdder
-    tag={Button}
-    onClick={() =&amp;gt; alert(&quot;Click!&quot;)}
-    style={ { fontWeight: &quot;800&quot; } }
-    title=&quot;A button for clicking&quot;
-&amp;gt;
-    Click Me!
-&amp;lt;/IconAdder&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;...rest&lt;/code&gt; will grab whatever properties we haven’t taken off in the destructuring (&lt;code class=&quot;highlighter-rouge&quot;&gt;const { a, b, c} = this.props;&lt;/code&gt;), and assign it, in this case, to a variable called &lt;code class=&quot;highlighter-rouge&quot;&gt;rest&lt;/code&gt;. We then apply all those properties to our &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;Tag&amp;gt;&lt;/code&gt; component by destructuring the &lt;code class=&quot;highlighter-rouge&quot;&gt;rest&lt;/code&gt; object into the individual props. As shown in the consumption of IconAdder, we can now add whatever other properties we want!&lt;/p&gt;
-
-&lt;h3 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h3&gt;
-
-&lt;p&gt;These are a few tips I use when creating components to keep them easier to consume, and extend. In summary, think of every component as a function. It will consume some input, and produce an output. The children property is your friend, use it when it makes sense! Dynamically injecting the component type can turn multiple similar components, into one highly reusable component. Finally, allow components to receive extra props, and have the properties/styles override the base implementation when possible.&lt;/p&gt;</content><author><name></name></author><category term="ReactJs" /><summary type="html">Tips on Creating Reusable Components</summary></entry><entry><title type="html">Introduction to Higher Order Components</title><link href="http://localhost:4000/reactjs/2017/08/17/higher-order-components/" rel="alternate" type="text/html" title="Introduction to Higher Order Components" /><published>2017-08-17T00:00:00-07:00</published><updated>2017-08-17T00:00:00-07:00</updated><id>http://localhost:4000/reactjs/2017/08/17/higher-order-components</id><content type="html" xml:base="http://localhost:4000/reactjs/2017/08/17/higher-order-components/">&lt;h1 id=&quot;introduction-to-higher-order-components&quot;&gt;Introduction to Higher Order Components&lt;/h1&gt;
-
-&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
-
-&lt;p&gt;Think of Higher Order Components (HOC) like Pacman. As Pacman consumes his smaller looking dot counterparts, Pacman gains superpower abilities. Like ghost eating! HOC’s work similarly… minus ghosts.
-A HOC consumes a base component, applies some new ability or super power, then spits out a new modified base component. To help show the power of HOC’s, lets create one that does a simple check. If a component doesn’t have children, show an empty component. When children are present, we’ll display them.&lt;/p&gt;
-
-&lt;h3 id=&quot;withemptystate&quot;&gt;withEmptyState()&lt;/h3&gt;
-
-&lt;p&gt;First, lets define our base component.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;function Hello(props) {
-    return (
-        &amp;lt;div&amp;gt;Hello, {props.children}!&amp;lt;/div&amp;gt;
-    );
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Before jumping straight into the HOC, what are we trying to achieve? We want to pass our &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;Hello /&amp;gt;&lt;/code&gt; component into some function, lets call it withEmptyState(), which creates and returns a new component. This new component will either: show &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;Hello /&amp;gt;&lt;/code&gt; if the new component has children, or will return null.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;function withEmptyState(component) {
-    return function(props) {  // Start new stateless functional component
-        if (props.children) {
-            return component(props);
-        }
-
-        return null;
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Pretty simple, but extremely powerful! All this function does is take a component, then returns a new stateless functional component. Inside, we check the props. Does this component have children? If yes, return our originally passed in component using our new component’s props (We’ll see how this ties in soon). If no children exist, don’t render anything.&lt;/p&gt;
-
-&lt;p&gt;But how would I use withEmptyState?&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;const HOC = withEmptyState(Hello);
-
-class MyContainer extends React.Component {
-    render() {
-        return (
-          &amp;lt;div&amp;gt;
-            HOC 1: &amp;lt;HOC /&amp;gt;
-            &amp;lt;hr /&amp;gt;
-            HOC 2: &amp;lt;HOC&amp;gt;WORLD!&amp;lt;/HOC&amp;gt;  
-          &amp;lt;/div&amp;gt;
-        );
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Our first instance of &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;HOC /&amp;gt;&lt;/code&gt; wouldn’t render anything, as we haven’t gave it children.&lt;/p&gt;
-
-&lt;p&gt;The second &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;HOC&amp;gt;WORLD!&amp;lt;/HOC&amp;gt;&lt;/code&gt; would render our &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;Hello&amp;gt;&lt;/code&gt; component; we would see “Hello, WORLD!”.&lt;/p&gt;
-
-&lt;aside class=&quot;dp__content_image&quot;&gt;
-&lt;img src=&quot;data:image/png;base64,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
-&quot; alt=&quot;Image showing off Higher Order Component results&quot; /&gt;
-&lt;/aside&gt;
-
-&lt;h3 id=&quot;the-end&quot;&gt;The End&lt;/h3&gt;
-
-&lt;p&gt;Higher Order Components allow us to separate common functionality into their own functions, so we don’t have to add duplication between components. They also allow us to decouple functionality!&lt;/p&gt;</content><author><name></name></author><category term="ReactJs" /><summary type="html">Introduction to Higher Order Components</summary></entry><entry><title type="html">Injecting Dynamic Elements to Components</title><link href="http://localhost:4000/reactjs/2017/07/26/injecting-react-tag-types/" rel="alternate" type="text/html" title="Injecting Dynamic Elements to Components" /><published>2017-07-26T00:00:00-07:00</published><updated>2017-07-26T00:00:00-07:00</updated><id>http://localhost:4000/reactjs/2017/07/26/injecting-react-tag-types</id><content type="html" xml:base="http://localhost:4000/reactjs/2017/07/26/injecting-react-tag-types/">&lt;h1 id=&quot;react-injecting-dynamic-elements-to-components&quot;&gt;React: Injecting Dynamic Elements to Components&lt;/h1&gt;
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+	<channel>
+		<title></title>
+		<description>Fullstack programmer working on the web
+</description>		
+		<link>http://localhost:4000</link>
+		<atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
+		<lastBuildDate>Thu, 14 Sep 2017 00:00:00 -0700</lastBuildDate>
+		
+			<item>
+				<title>Encapsulating State with Functional Children</title>
+				        
+				
+					<description>&lt;h1 id=&quot;encapsulating-state-with-functional-children&quot;&gt;Encapsulating State with Functional Children&lt;/h1&gt;
+
+</description>
+				
+				<pubDate>Thu, 14 Sep 2017 00:00:00 -0700</pubDate>
+				<link>http://localhost:4000/reactjs/2017/09/14/encapsulating-state-with-functional-children/</link>
+				<guid isPermaLink="true">http://localhost:4000/reactjs/2017/09/14/encapsulating-state-with-functional-children/</guid>
+			</item>
+		
+			<item>
+				<title>Tips on Creating Reusable Components</title>
+				        
+				
+					<description>&lt;h1 id=&quot;tips-on-creating-reusable-components&quot;&gt;Tips on Creating Reusable Components&lt;/h1&gt;
+
+</description>
+				
+				<pubDate>Fri, 08 Sep 2017 00:00:00 -0700</pubDate>
+				<link>http://localhost:4000/reactjs/2017/09/08/tips-on-creating-reusable-components.1/</link>
+				<guid isPermaLink="true">http://localhost:4000/reactjs/2017/09/08/tips-on-creating-reusable-components.1/</guid>
+			</item>
+		
+			<item>
+				<title>Introduction to Higher Order Components</title>
+				        
+				
+					<description>&lt;h1 id=&quot;introduction-to-higher-order-components&quot;&gt;Introduction to Higher Order Components&lt;/h1&gt;
+
+</description>
+				
+				<pubDate>Thu, 17 Aug 2017 00:00:00 -0700</pubDate>
+				<link>http://localhost:4000/reactjs/2017/08/17/higher-order-components/</link>
+				<guid isPermaLink="true">http://localhost:4000/reactjs/2017/08/17/higher-order-components/</guid>
+			</item>
+		
+			<item>
+				<title>Injecting Dynamic Elements to Components</title>
+				        
+				
+					<description>&lt;h1 id=&quot;react-injecting-dynamic-elements-to-components&quot;&gt;React: Injecting Dynamic Elements to Components&lt;/h1&gt;
 
 &lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
 &lt;p&gt;Let’s say we’re working on an UI component library using React JS. We make a super awesome looking button, maybe even the best button in the world. But suddenly, our computer shuts off without saving our component!
@@ -477,7 +187,19 @@ With the help of our good friend Babel, let’s see what different components co
 
 &lt;p&gt;&lt;img src=&quot;data:image/png;base64,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&quot; alt=&quot;AwesomeButton Compiled Code&quot; title=&quot;AwesomeButton Compiled Code&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Woah, our Tag variable just gets put where the element is! This is exactly the same to how components are treated in JSX. They get ploped straight into the first argument of &lt;code class=&quot;highlighter-rouge&quot;&gt;React.createElement&lt;/code&gt;. Now, when the boss asks for a new feature in &lt;code class=&quot;highlighter-rouge&quot;&gt;AwesomeButton&lt;/code&gt;, we only have to change this one implementation of the component. All consumers of the component might use it vastly differently, but we are able to keep our code DRY and highly reusable!&lt;/p&gt;</content><author><name></name></author><category term="ReactJs" /><summary type="html">React: Injecting Dynamic Elements to Components Introduction Let’s say we’re working on an UI component library using React JS. We make a super awesome looking button, maybe even the best button in the world. But suddenly, our computer shuts off without saving our component! Like Tenacious D, we create a tribute to the button which looks like: class AwesomeButton extends Component { render() { const { children, ...other } = this.props; return ( &amp;lt;button {...other}&amp;gt;{children}&amp;lt;/button&amp;gt; ); } } Everything is working great. We create buttons all over the place &amp;lt;AwesomeButton onClick={doStuff}&amp;gt;Click ME&amp;lt;/AwesomeButton&amp;gt;. The next day, the boss comes over, “This button is amazing, let’s make a button link to Google!” Easy enough, we create a new component that instead uses an anchor tag. class AwesomeButtonLink extends Component { render() { const { children, ...other } = this.props; return ( &amp;lt;a {...other}&amp;gt;{children}&amp;lt;/a&amp;gt; ); } } Weeks later, another programmer walks over, “Hey, we’re converting to using React Router. Can we get a button that can use the Link component?” Mumbling under your breath, we create yet another Awesome component. class AwesomeButtonReactRouterLink extends Component { render() { const { children, ...other } = this.props; return ( &amp;lt;Link {...other}&amp;gt;{children}&amp;lt;/Link&amp;gt; ); } } We have ourselves a problem. Everytime there is a new request we have to create new components that are very similar, just using slightly different render elements. What if the company decides to rebrand. Instead of blue, we are a red company now. Little changes to the visuals of these AwesomeButton components need to be updated individually. Think DRY! Is there a better way of doing this? Stay tuned. Dynamically Injecting Elements What if the consumer of a component could define its base element? Let’s look at the example below: class AwesomeButton extends React.Component { render() { const { children, tag = &quot;button&quot;, ...other } = this.props; const Tag = tag; return ( &amp;lt;Tag {...other}&amp;gt;{children}&amp;lt;/Tag&amp;gt; ); } } So we have this new property called tag. Tag will be our way of passing in an element/component into AwesomeButton. If the es6 destructing looks different, let me explain. We will pull out the tag prop from this.props. If no value is defined for tag, we will set its default value to be &quot;button&quot; (A Button HTML element). The next line, const Tag = tag; is so we can fulfill what React’s JSX considers a component. All components must be uppercased, where html elements need to be lowercase. Since we are using then variable tag, JSX will always treat the incoming values as a component. So, we have to uppercase our variable. We now render the prop Tag as our element. Whatever tag equals, that will be our element! A few examples: &amp;lt;AwesomeButton onClick={doSomething}&amp;gt;Click Me!&amp;lt;AwesomeButton&amp;gt; Will render the default button. &amp;lt;button onClick={doSomething}&amp;gt;Click Me!&amp;lt;/button&amp;gt; &amp;lt;AwesomeButton tag=&quot;a&quot; href={`/myPage`}&amp;gt;Click Me!&amp;lt;AwesomeButton&amp;gt; Will render using an anchor tag &amp;lt;a href={'/myPage'}&amp;gt;Click Me!&amp;lt;/a&amp;gt; &amp;lt;AwesomeButton tag={Link} to={`/myPage`}&amp;gt;Click Me!&amp;lt;AwesomeButton&amp;gt; Will render using a React Router Link component &amp;lt;Link to={'/myPage'}&amp;gt;Click Me!&amp;lt;/Link&amp;gt; Neat! But why is this happening? JSX Transformations Our JSX, in the render function, gets transformed into plain JavaScript functions that the browsers can use. With this in mind, our AwesomeButton’s JSX gets transformed into a React.createElement() function with the element name as the first argument. With the help of our good friend Babel, let’s see what different components compile to! First, let’s look at a simple component that just renders a div with the text “test”. class AwesomeButton extends React.Component { render() { return ( &amp;lt;div&amp;gt;test&amp;lt;/div&amp;gt; ); } } Compiled Example - Click Me! If we look in the render method, we can see what our JSX actually compiles to. Well that’s cool. So our div element just gets defined as the first parameter of React.createElement. I wonder what happens if we try this with our element injecting AwesomeButton? class AwesomeButton extends React.Component { render() { const { children, tag = &quot;button&quot;, ...other } = this.props; const Tag = tag; return ( &amp;lt;Tag {...other}&amp;gt;{children}&amp;lt;/Tag&amp;gt; ); } } &amp;lt;AwesomeButton&amp;gt;Click Me!&amp;lt;/AwesomeButton&amp;gt; Looking at the render method in AwesomeButton: Woah, our Tag variable just gets put where the element is! This is exactly the same to how components are treated in JSX. They get ploped straight into the first argument of React.createElement. Now, when the boss asks for a new feature in AwesomeButton, we only have to change this one implementation of the component. All consumers of the component might use it vastly differently, but we are able to keep our code DRY and highly reusable!</summary></entry><entry><title type="html">Intro to FlightJS</title><link href="http://localhost:4000/javascript/2015/11/17/intro-to-flight-js/" rel="alternate" type="text/html" title="Intro to FlightJS" /><published>2015-11-17T00:00:00-08:00</published><updated>2015-11-17T00:00:00-08:00</updated><id>http://localhost:4000/javascript/2015/11/17/intro-to-flight-js</id><content type="html" xml:base="http://localhost:4000/javascript/2015/11/17/intro-to-flight-js/">&lt;blockquote&gt;
+&lt;p&gt;Woah, our Tag variable just gets put where the element is! This is exactly the same to how components are treated in JSX. They get ploped straight into the first argument of &lt;code class=&quot;highlighter-rouge&quot;&gt;React.createElement&lt;/code&gt;. Now, when the boss asks for a new feature in &lt;code class=&quot;highlighter-rouge&quot;&gt;AwesomeButton&lt;/code&gt;, we only have to change this one implementation of the component. All consumers of the component might use it vastly differently, but we are able to keep our code DRY and highly reusable!&lt;/p&gt;
+</description>
+				
+				<pubDate>Wed, 26 Jul 2017 00:00:00 -0700</pubDate>
+				<link>http://localhost:4000/reactjs/2017/07/26/injecting-react-tag-types/</link>
+				<guid isPermaLink="true">http://localhost:4000/reactjs/2017/07/26/injecting-react-tag-types/</guid>
+			</item>
+		
+			<item>
+				<title>Intro to FlightJS</title>
+				        
+				
+					<description>&lt;blockquote&gt;
   &lt;p&gt;&lt;em&gt;This post is part of the archive. These are mainly random posts that were written throughout the years in no coherent order.&lt;/em&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -586,4 +308,13 @@ Counter.attachTo(&quot;.counter-new-new&quot;, {
 &lt;p&gt;And that is it, we completed our counter! We can see from this little example, Flight gives us some powerful tools in creating modulated code without the need to learn new paradigms. As always, there is much more Flight can do. For additional information on Flight check out their Github.&lt;/p&gt;
 
 &lt;h4 id=&quot;counter-example&quot;&gt;Counter Example&lt;/h4&gt;
-&lt;p&gt;Here is our finished product: &lt;a href=&quot;http://codepen.io/ganderzz/pen/pjNdNq&quot;&gt;http://codepen.io/ganderzz/pen/pjNdNq&lt;/a&gt;&lt;/p&gt;</content><author><name></name></author><category term="JavaScript" /><summary type="html">This post is part of the archive. These are mainly random posts that were written throughout the years in no coherent order. Intro to FlightJs FlightJS FlightJs isn’t the new kid on the block. This little framework has gone unnoticed in Github-land for years. Taken from the FlightJS Github: “Flight is a lightweight, component-based JavaScript framework that maps behavior to DOM nodes.” Reworded, we use reusable components that listen for event calls. These events then in turn perform actions on the DOM or manipulate pieces of our code. Today we will get started with FlightJs, and show how simple it is to use. Though this is an introduction guide, I will assume that we have a fair proficiency with HTML, CSS, and JavaScript. Getting Started In this Intro to FlightJS guide we will do what many intro framework guides do, make a counter. Let’s get to work. Head over to the FlightJS Github, and install FlightJS using your favorite method. HTML code: &amp;lt;h1&amp;gt;FlightJS Counter&amp;lt;/h1&amp;gt; &amp;lt;div class=”counter”&amp;gt; &amp;lt;h2 class=”counter-total”&amp;gt;0&amp;lt;/h2&amp;gt; &amp;lt;div class=”counter-function”&amp;gt; &amp;lt;a href=”#subtract” class=”counter-subtract”&amp;gt;-&amp;lt;/a&amp;gt; &amp;lt;a href=”#add” class=”counter-add”&amp;gt;+&amp;lt;/a&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; Counter To get started, let us create a FlightJS component. Since we will be creating a counter, we’ll create a Counter component. var Counter = flight.component(function() { this.defaultAttrs({}); this.after(“initialize”, function() { }); }); We did a few things in the example above. First, we created a new Flight component called Counter. Next, we defined that we have no default attributes to the Counter component (this will change soon). Attributes provide two big benefits: Component attributes create private variables for a component. Secondly, attributes give us a way to assign unique data to each instance of a component. Lastly, we have this weird this.after(“initialize”) thing going on at the end. This is where a lot of the power comes from. Flight will execute the function we provide, as the second argument, after the initialize function has ran (initialize is an internal flight function) . Basically we’re telling Flight that once it gets itself in order, let us do what we need to. So what does a counter need? We need a total number that will be counted on. Oh yeah, and some buttons, that when clicked, either add or subtract one from the total. Let’s add this to our JavaScript. var Counter = flight.component(function() { this.defaultAttrs({ &quot;subtractSelector&quot;: &quot;.counter-subtract&quot;, &quot;additionSelector&quot;: &quot;.counter-add&quot;, &quot;count&quot;: 0 }); this.subtract(function() {}); this.add(function() {}); this.after(“initialize”, function() { this.on(&quot;click&quot;, { &quot;subtractSelector&quot;: this.subtract, &quot;additionSelector&quot;: this.add }); }); }); First we added some attributes. These attributes provide us a DOM element for our subtract and add buttons—named subtractSelector and additionSelector respectively—and defines our starting number count. We then created some stubbed functions for once the selector’s event is triggered. Finally, an event handler is created. this.on(“”) creates an event binding it to whatever we define within the quotes. In this case, we are waiting on a click event to be performed on our DOM selectors subtractSelector and additionSelector. Once a click is recognized, the corresponding function is called. (this.subtract() or this.add()) Continuing, here is our finished code: var Counter = flight.component(function() { this.defaultAttrs({ &quot;subtractSelector&quot;: &quot;.counter-subtract&quot;, &quot;additionSelector&quot;: &quot;.counter-add&quot;, &quot;count&quot;: 0 }); this.subtract = function() { this.attr.count--; } this.add = function() { this.attr.count++; } this.uiDisplayCount = function() { this.$node.find(“h2.counter-total”).html( this.attr.count ); } this.after(&quot;add subtract&quot;, function() { this.uiDisplayCount(); }); this.after(“initialize”, function() { this.uiDisplayCount(); this.on(&quot;click&quot;, { &quot;subtractSelector&quot;: this.subtract, &quot;additionSelector&quot;: this.add }); }); }); Finally we get functionality. The subtract and add function perform a -1 or +1 on the total count depending on which event is triggered. Once we perform these actions on our count, we have no way of displaying the new information. This is where this.uiDisplayCount plays its role. From any jQuery enthusiast, this function is straight forward. Take our count attribute, and insert it into the html of .counter-total. But, what is this.$node? This.$node is a property given to us from Flight that grabs a jQuery object of the DOM this component is attached to. Later on we will attach the Counter component to the DOM, and see how this plays out. Going to the next function, we tell our component to execute the uiDisplayCount function after the add or subtract functions are done being executed. Now there is one thing missing, how do we actually attach this to the DOM? Counter.attachTo(“.counter”, { count: 100 }); Going back to before, our this.$node property would return a jQuery object of our .counter, $(“.counter”). As we can see by the second parameter, we can also change what our default attributes are once we attach the component. This helps enforce the modular code Flight preaches. We can change the attributes to fit whatever the situation. Counter.attachTo(“.counter”, { count: 100 }); Counter.attachTo(“.counter-new”, { count: 0, subtractSelector: &quot;.new-subtract&quot; }); Counter.attachTo(&quot;.counter-new-new&quot;, { subtractSelector: &quot;.s&quot;, additionSelector: &quot;.a&quot; }); We Did It And that is it, we completed our counter! We can see from this little example, Flight gives us some powerful tools in creating modulated code without the need to learn new paradigms. As always, there is much more Flight can do. For additional information on Flight check out their Github. Counter Example Here is our finished product: http://codepen.io/ganderzz/pen/pjNdNq</summary></entry></feed>
+&lt;p&gt;Here is our finished product: &lt;a href=&quot;http://codepen.io/ganderzz/pen/pjNdNq&quot;&gt;http://codepen.io/ganderzz/pen/pjNdNq&lt;/a&gt;&lt;/p&gt;
+</description>
+				
+				<pubDate>Tue, 17 Nov 2015 00:00:00 -0800</pubDate>
+				<link>http://localhost:4000/javascript/2015/11/17/intro-to-flight-js/</link>
+				<guid isPermaLink="true">http://localhost:4000/javascript/2015/11/17/intro-to-flight-js/</guid>
+			</item>
+		
+	</channel>
+</rss>
