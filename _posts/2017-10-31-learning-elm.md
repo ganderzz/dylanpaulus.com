@@ -45,4 +45,18 @@ import Mouse
  ```
 
 
-### Elm Architecture
+### Main
+
+Like many programming languages, Elm looks for a function called **main** that is the entry point of the program. Starting off, we'll tell Elm we want to create a new **program**.
+
+```
+main =
+    program
+    { init = init
+    , update = update  
+    , subscriptions = subscriptions
+    , view = view
+    }
+```
+
+**Program** takes a record with a few fields that describe the program.
