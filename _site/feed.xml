@@ -6,7 +6,20 @@
 </description>		
 		<link>http://localhost:4000</link>
 		<atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-		<lastBuildDate>Thu, 14 Sep 2017 00:00:00 -0700</lastBuildDate>
+		<lastBuildDate>Fri, 08 Dec 2017 00:00:00 -0800</lastBuildDate>
+		
+			<item>
+				<title>Global Component Registration</title>
+				        
+				
+					<description>&lt;h1 id=&quot;global-component-registration&quot;&gt;Global Component Registration&lt;/h1&gt;
+
+</description>
+				
+				<pubDate>Fri, 08 Dec 2017 00:00:00 -0800</pubDate>
+				<link>http://localhost:4000/reactjs/2017/12/08/global-component-registration/</link>
+				<guid isPermaLink="true">http://localhost:4000/reactjs/2017/12/08/global-component-registration/</guid>
+			</item>
 		
 			<item>
 				<title>Encapsulating State with Functional Children</title>
@@ -17,8 +30,8 @@
 </description>
 				
 				<pubDate>Thu, 14 Sep 2017 00:00:00 -0700</pubDate>
-				<link>http://localhost:4000/reactjs/2017/09/14/encapsulating-state-with-functional-children/</link>
-				<guid isPermaLink="true">http://localhost:4000/reactjs/2017/09/14/encapsulating-state-with-functional-children/</guid>
+				<link>http://localhost:4000/reactjs/2017/09/14/encapsulating-state-with-functional-children.1/</link>
+				<guid isPermaLink="true">http://localhost:4000/reactjs/2017/09/14/encapsulating-state-with-functional-children.1/</guid>
 			</item>
 		
 			<item>

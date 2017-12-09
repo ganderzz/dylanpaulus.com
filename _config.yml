@@ -10,6 +10,11 @@ github_username:  ganderzz
 permalink: pretty
 
 markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
 theme: dp
 gems:
   - jekyll-feed
