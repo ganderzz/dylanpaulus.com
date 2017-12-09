@@ -10,7 +10,7 @@ category: "ReactJs"
 Let's say we're working on an UI component library using React JS. We make a super awesome looking button, maybe even the best button in the world. But suddenly, our computer shuts off without saving our component!
 Like Tenacious D, we create a tribute to the button which looks like:
 
-```
+```javascript
 class AwesomeButton extends Component {
     render() {
         const { children, ...other } = this.props;
@@ -27,7 +27,7 @@ Everything is working great. We create buttons all over the place `<AwesomeButto
 The next day, the boss comes over, "This button is amazing, let's make a button link to Google!"
 Easy enough, we create a new component that instead uses an anchor tag.
 
-```
+```javascript
 class AwesomeButtonLink extends Component {
     render() {
         const { children, ...other } = this.props;
@@ -42,7 +42,7 @@ class AwesomeButtonLink extends Component {
 Weeks later, another programmer walks over, "Hey, we're converting to using React Router. Can we get a button that can use the Link component?"
 Mumbling under your breath, we create yet another Awesome component.
 
-```
+```javascript
 class AwesomeButtonReactRouterLink extends Component {
     render() {
         const { children, ...other } = this.props;
@@ -60,7 +60,7 @@ We have ourselves a problem. Everytime there is a new request we have to create 
 
 What if the consumer of a component could define its base element? Let's look at the example below:
 
-```
+```javascript
 class AwesomeButton extends React.Component {
     render() {
         const { children, tag = "button", ...other } = this.props;
@@ -79,18 +79,18 @@ We now render the prop `Tag` as our element. Whatever `tag` equals, that will be
 
 A few examples:
 
-```
+```javascript
 <AwesomeButton onClick={doSomething}>Click Me!<AwesomeButton>
 ```
 Will render the default button. `<button onClick={doSomething}>Click Me!</button>`
 
 
-```
+```javascript
 <AwesomeButton tag="a" href={`/myPage`}>Click Me!<AwesomeButton>
 ```
 Will render using an anchor tag `<a href={'/myPage'}>Click Me!</a>`
 
-```
+```javascript
 <AwesomeButton tag={Link} to={`/myPage`}>Click Me!<AwesomeButton>
 ```
 Will render using a React Router Link component `<Link to={'/myPage'}>Click Me!</Link>`
@@ -105,7 +105,7 @@ With the help of our good friend Babel, let's see what different components comp
 
 First, let's look at a simple component that just renders a div with the text "test".
 
-```
+```javascript
 class AwesomeButton extends React.Component {
     render() {
         return (
@@ -123,7 +123,7 @@ If we look in the render method, we can see what our JSX actually compiles to.
 
 Well that's cool. So our div element just gets defined as the first parameter of `React.createElement`. I wonder what happens if we try this with our element injecting AwesomeButton?
 
-```
+```javascript
 class AwesomeButton extends React.Component {
     render() {
         const { children, tag = "button", ...other } = this.props;

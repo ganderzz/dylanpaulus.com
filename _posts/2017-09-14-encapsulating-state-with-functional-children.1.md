@@ -13,7 +13,7 @@ There is a technique for creating reusable components that got missed in my last
 ### Breaking down functional children
 
 
-```
+```javascript
 import React from "react";
 
 class Booer extends React.Component {
@@ -61,7 +61,7 @@ function Timer(props) {
 
 The first example is a nice way to show functional children, but let's make something a little more practical. Like the title suggestions, how about a component that keeps track of a toggle! This may look something like:
 
-```
+```javascript
 import React from "react";
 
 class Toggle extends React.Component {

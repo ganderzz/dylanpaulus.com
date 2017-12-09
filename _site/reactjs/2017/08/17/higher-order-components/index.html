@@ -44,25 +44,25 @@ A HOC consumes a base component, applies some new ability or super power, then s
 
 <p>First, lets define our base component.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>function Hello(props) {
-    return (
-        &lt;div&gt;Hello, {props.children}!&lt;/div&gt;
-    );
-}
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">Hello</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="nx">Hello</span><span class="p">,</span> <span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">children</span><span class="p">}</span><span class="o">!&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
 <p>Before jumping straight into the HOC, what are we trying to achieve? We want to pass our <code class="highlighter-rouge">&lt;Hello /&gt;</code> component into some function, lets call it withEmptyState(), which creates and returns a new component. This new component will either: show <code class="highlighter-rouge">&lt;Hello /&gt;</code> if the new component has children, or will return null.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>function withEmptyState(component) {
-    return function(props) {  // Start new stateless functional component
-        if (props.children) {
-            return component(props);
-        }
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">withEmptyState</span><span class="p">(</span><span class="nx">component</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>  <span class="c1">// Start new stateless functional component</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">props</span><span class="p">.</span><span class="nx">children</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">component</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+        <span class="p">}</span>
 
-        return null;
-    }
-}
+        <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
@@ -70,19 +70,19 @@ A HOC consumes a base component, applies some new ability or super power, then s
 
 <p>But how would I use withEmptyState?</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>const HOC = withEmptyState(Hello);
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">const</span> <span class="nx">HOC</span> <span class="o">=</span> <span class="nx">withEmptyState</span><span class="p">(</span><span class="nx">Hello</span><span class="p">);</span>
 
-class MyContainer extends React.Component {
-    render() {
-        return (
-          &lt;div&gt;
-            HOC 1: &lt;HOC /&gt;
-            &lt;hr /&gt;
-            HOC 2: &lt;HOC&gt;WORLD!&lt;/HOC&gt;  
-          &lt;/div&gt;
-        );
-    }
-}
+<span class="kr">class</span> <span class="nx">MyContainer</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">(</span>
+          <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+            <span class="nx">HOC</span> <span class="mi">1</span><span class="err">:</span> <span class="o">&lt;</span><span class="nx">HOC</span> <span class="o">/&gt;</span>
+            <span class="o">&lt;</span><span class="nx">hr</span> <span class="o">/&gt;</span>
+            <span class="nx">HOC</span> <span class="mi">2</span><span class="err">:</span> <span class="o">&lt;</span><span class="nx">HOC</span><span class="o">&gt;</span><span class="nx">WORLD</span><span class="o">!&lt;</span><span class="sr">/HOC&gt; </span><span class="err"> 
+</span>          <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>        <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
@@ -106,10 +106,6 @@ class MyContainer extends React.Component {
             <div class="twelve columns">
                 <a href="https://github.com/ganderzz">
                     <i class="fa fa-github" aria-hidden="true"></i>
-                </a>
-
-                <a href="https://codepen.io/ganderzz/">
-                    <i class="fa fa-codepen" aria-hidden="true"></i>
                 </a>
 
                 <a href="https://twitter.com/DylanPaulus">

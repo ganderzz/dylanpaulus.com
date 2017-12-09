@@ -15,7 +15,7 @@ A HOC consumes a base component, applies some new ability or super power, then s
 
 First, lets define our base component.
 
-```
+```javascript
 function Hello(props) {
     return (
         <div>Hello, {props.children}!</div>
@@ -25,7 +25,7 @@ function Hello(props) {
 
 Before jumping straight into the HOC, what are we trying to achieve? We want to pass our `<Hello />` component into some function, lets call it withEmptyState(), which creates and returns a new component. This new component will either: show `<Hello />` if the new component has children, or will return null.
 
-```
+```javascript
 function withEmptyState(component) {
     return function(props) {  // Start new stateless functional component
         if (props.children) {
@@ -41,7 +41,7 @@ Pretty simple, but extremely powerful! All this function does is take a componen
 
 But how would I use withEmptyState?
 
-```
+```javascript
 const HOC = withEmptyState(Hello);
 
 class MyContainer extends React.Component {

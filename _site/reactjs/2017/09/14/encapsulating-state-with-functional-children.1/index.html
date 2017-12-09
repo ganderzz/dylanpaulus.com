@@ -41,44 +41,44 @@
 
 <h3 id="breaking-down-functional-children">Breaking down functional children</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>import React from "react";
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s2">"react"</span><span class="p">;</span>
 
-class Booer extends React.Component {
-    constructor(props) {
-        super(props);
+<span class="kr">class</span> <span class="nx">Booer</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kr">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
     
-        this.state = {
-            test: "..."
-        };
-    }
+        <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="na">test</span><span class="p">:</span> <span class="s2">"..."</span>
+        <span class="p">};</span>
+    <span class="p">}</span>
 
-    componentDidMount() {
-        setTimeout(() =&gt; {
-            this.setState({
-                test: "BOO!"
-            });
-        }, 1000);
-    }
+    <span class="nx">componentDidMount</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">setTimeout</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
+                <span class="na">test</span><span class="p">:</span> <span class="s2">"BOO!"</span>
+            <span class="p">});</span>
+        <span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
+    <span class="p">}</span>
   
-    render() {
-    	// Using children as a function!
-        return this.props.children(this.state.test);
-    }
-}
+    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    	<span class="c1">// Using children as a function!</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">children</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">test</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 
-function Timer(props) {
-    return (
-        &lt;Booer&gt;
-        {
-            (test) =&gt; (
-            	&lt;div&gt;
-                    {test}
-                &lt;/div&gt;
-            )
-        }
-        &lt;/Booer&gt;
-    );
-}
+<span class="kd">function</span> <span class="nx">Timer</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="o">&lt;</span><span class="nx">Booer</span><span class="o">&gt;</span>
+        <span class="p">{</span>
+            <span class="p">(</span><span class="nx">test</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span>
+            	<span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+                    <span class="p">{</span><span class="nx">test</span><span class="p">}</span>
+                <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>            <span class="p">)</span>
+        <span class="p">}</span>
+        <span class="o">&lt;</span><span class="sr">/Booer</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+<span class="p">}</span>
 
 </code></pre>
 </div>
@@ -89,45 +89,45 @@ function Timer(props) {
 
 <p>The first example is a nice way to show functional children, but let’s make something a little more practical. Like the title suggestions, how about a component that keeps track of a toggle! This may look something like:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>import React from "react";
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s2">"react"</span><span class="p">;</span>
 
-class Toggle extends React.Component {
-  constructor(props) {
-    super(props);
+<span class="kr">class</span> <span class="nx">Toggle</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kr">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
     
-    this.state = {
-      isToggled: false
-    };
+    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="na">isToggled</span><span class="p">:</span> <span class="kc">false</span>
+    <span class="p">};</span>
   
-    this.toggle = this.toggle.bind(this);
-  }
+    <span class="k">this</span><span class="p">.</span><span class="nx">toggle</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">toggle</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+  <span class="p">}</span>
   
-  toggle() {
-    this.setState((prevState) =&gt; ({
-      isToggled: !prevState.isToggled
-    }));
-  }
+  <span class="nx">toggle</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">((</span><span class="nx">prevState</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
+      <span class="na">isToggled</span><span class="p">:</span> <span class="o">!</span><span class="nx">prevState</span><span class="p">.</span><span class="nx">isToggled</span>
+    <span class="p">}));</span>
+  <span class="p">}</span>
   
-  render() {
-    const { isToggled } = this.state;
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="p">{</span> <span class="nx">isToggled</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">;</span>
     
-    return this.props.children(isToggled, this.toggle);
-  }
-}
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">children</span><span class="p">(</span><span class="nx">isToggled</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">toggle</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 
-function ToggleButton () {
-  return (
-    &lt;Toggle&gt;
-      {
-        (isToggled, toggle) =&gt; (
-          &lt;button onClick={toggle}&gt;
-            {isToggled ? "ON" : "off"}
-          &lt;/button&gt;
-        )
-      }
-    &lt;/Toggle&gt;
-  )
-}
+<span class="kd">function</span> <span class="nx">ToggleButton</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">Toggle</span><span class="o">&gt;</span>
+      <span class="p">{</span>
+        <span class="p">(</span><span class="nx">isToggled</span><span class="p">,</span> <span class="nx">toggle</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span>
+          <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="nx">toggle</span><span class="p">}</span><span class="o">&gt;</span>
+            <span class="p">{</span><span class="nx">isToggled</span> <span class="p">?</span> <span class="s2">"ON"</span> <span class="p">:</span> <span class="s2">"off"</span><span class="p">}</span>
+          <span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>        <span class="p">)</span>
+      <span class="p">}</span>
+    <span class="o">&lt;</span><span class="sr">/Toggle</span><span class="err">&gt;
+</span>  <span class="p">)</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
@@ -145,10 +145,6 @@ Looking at the <em>ToggleButton</em> component, it’s pretty simple to wire out
             <div class="twelve columns">
                 <a href="https://github.com/ganderzz">
                     <i class="fa fa-github" aria-hidden="true"></i>
-                </a>
-
-                <a href="https://codepen.io/ganderzz/">
-                    <i class="fa fa-codepen" aria-hidden="true"></i>
                 </a>
 
                 <a href="https://twitter.com/DylanPaulus">

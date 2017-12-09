@@ -39,15 +39,15 @@
 <p>Let’s say we’re working on an UI component library using React JS. We make a super awesome looking button, maybe even the best button in the world. But suddenly, our computer shuts off without saving our component!
 Like Tenacious D, we create a tribute to the button which looks like:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>class AwesomeButton extends Component {
-    render() {
-        const { children, ...other } = this.props;
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">class</span> <span class="nx">AwesomeButton</span> <span class="kr">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kr">const</span> <span class="p">{</span> <span class="nx">children</span><span class="p">,</span> <span class="p">...</span><span class="nx">other</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span>
 
-        return (
-           &lt;button {...other}&gt;{children}&lt;/button&gt; 
-        );
-    }
-}
+        <span class="k">return</span> <span class="p">(</span>
+           <span class="o">&lt;</span><span class="nx">button</span> <span class="p">{...</span><span class="nx">other</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">children</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/button&gt;</span><span class="err"> 
+</span>        <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
@@ -56,30 +56,30 @@ Like Tenacious D, we create a tribute to the button which looks like:</p>
 <p>The next day, the boss comes over, “This button is amazing, let’s make a button link to Google!”
 Easy enough, we create a new component that instead uses an anchor tag.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>class AwesomeButtonLink extends Component {
-    render() {
-        const { children, ...other } = this.props;
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">class</span> <span class="nx">AwesomeButtonLink</span> <span class="kr">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kr">const</span> <span class="p">{</span> <span class="nx">children</span><span class="p">,</span> <span class="p">...</span><span class="nx">other</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span>
 
-        return (
-           &lt;a {...other}&gt;{children}&lt;/a&gt; 
-        );
-    }
-}
+        <span class="k">return</span> <span class="p">(</span>
+           <span class="o">&lt;</span><span class="nx">a</span> <span class="p">{...</span><span class="nx">other</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">children</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/a&gt;</span><span class="err"> 
+</span>        <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
 <p>Weeks later, another programmer walks over, “Hey, we’re converting to using React Router. Can we get a button that can use the Link component?”
 Mumbling under your breath, we create yet another Awesome component.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>class AwesomeButtonReactRouterLink extends Component {
-    render() {
-        const { children, ...other } = this.props;
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">class</span> <span class="nx">AwesomeButtonReactRouterLink</span> <span class="kr">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kr">const</span> <span class="p">{</span> <span class="nx">children</span><span class="p">,</span> <span class="p">...</span><span class="nx">other</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span>
 
-        return (
-           &lt;Link {...other}&gt;{children}&lt;/Link&gt; 
-        );
-    }
-}
+        <span class="k">return</span> <span class="p">(</span>
+           <span class="o">&lt;</span><span class="nx">Link</span> <span class="p">{...</span><span class="nx">other</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">children</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/Link&gt;</span><span class="err"> 
+</span>        <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
@@ -89,16 +89,16 @@ Mumbling under your breath, we create yet another Awesome component.</p>
 
 <p>What if the consumer of a component could define its base element? Let’s look at the example below:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>class AwesomeButton extends React.Component {
-    render() {
-        const { children, tag = "button", ...other } = this.props;
-        const Tag = tag;
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">class</span> <span class="nx">AwesomeButton</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kr">const</span> <span class="p">{</span> <span class="nx">children</span><span class="p">,</span> <span class="nx">tag</span> <span class="o">=</span> <span class="s2">"button"</span><span class="p">,</span> <span class="p">...</span><span class="nx">other</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span>
+        <span class="kr">const</span> <span class="nx">Tag</span> <span class="o">=</span> <span class="nx">tag</span><span class="p">;</span>
 
-        return (
-           &lt;Tag {...other}&gt;{children}&lt;/Tag&gt; 
-        );
-    }
-}
+        <span class="k">return</span> <span class="p">(</span>
+           <span class="o">&lt;</span><span class="nx">Tag</span> <span class="p">{...</span><span class="nx">other</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">children</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/Tag&gt;</span><span class="err"> 
+</span>        <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
@@ -108,17 +108,17 @@ We now render the prop <code class="highlighter-rouge">Tag</code> as our element
 
 <p>A few examples:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>&lt;AwesomeButton onClick={doSomething}&gt;Click Me!&lt;AwesomeButton&gt;
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">AwesomeButton</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="nx">doSomething</span><span class="p">}</span><span class="o">&gt;</span><span class="nx">Click</span> <span class="nx">Me</span><span class="o">!&lt;</span><span class="nx">AwesomeButton</span><span class="o">&gt;</span>
 </code></pre>
 </div>
 <p>Will render the default button. <code class="highlighter-rouge">&lt;button onClick={doSomething}&gt;Click Me!&lt;/button&gt;</code></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>&lt;AwesomeButton tag="a" href={`/myPage`}&gt;Click Me!&lt;AwesomeButton&gt;
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">AwesomeButton</span> <span class="nx">tag</span><span class="o">=</span><span class="s2">"a"</span> <span class="nx">href</span><span class="o">=</span><span class="p">{</span><span class="err">`</span><span class="o">/</span><span class="nx">myPage</span><span class="err">`</span><span class="p">}</span><span class="o">&gt;</span><span class="nx">Click</span> <span class="nx">Me</span><span class="o">!&lt;</span><span class="nx">AwesomeButton</span><span class="o">&gt;</span>
 </code></pre>
 </div>
 <p>Will render using an anchor tag <code class="highlighter-rouge">&lt;a href={'/myPage'}&gt;Click Me!&lt;/a&gt;</code></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>&lt;AwesomeButton tag={Link} to={`/myPage`}&gt;Click Me!&lt;AwesomeButton&gt;
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">AwesomeButton</span> <span class="nx">tag</span><span class="o">=</span><span class="p">{</span><span class="nx">Link</span><span class="p">}</span> <span class="nx">to</span><span class="o">=</span><span class="p">{</span><span class="err">`</span><span class="o">/</span><span class="nx">myPage</span><span class="err">`</span><span class="p">}</span><span class="o">&gt;</span><span class="nx">Click</span> <span class="nx">Me</span><span class="o">!&lt;</span><span class="nx">AwesomeButton</span><span class="o">&gt;</span>
 </code></pre>
 </div>
 <p>Will render using a React Router Link component <code class="highlighter-rouge">&lt;Link to={'/myPage'}&gt;Click Me!&lt;/Link&gt;</code></p>
@@ -132,13 +132,13 @@ With the help of our good friend Babel, let’s see what different components co
 
 <p>First, let’s look at a simple component that just renders a div with the text “test”.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>class AwesomeButton extends React.Component {
-    render() {
-        return (
-           &lt;div&gt;test&lt;/div&gt; 
-        );
-    }
-}
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">class</span> <span class="nx">AwesomeButton</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">(</span>
+           <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="nx">test</span><span class="o">&lt;</span><span class="sr">/div&gt;</span><span class="err"> 
+</span>        <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
@@ -150,16 +150,16 @@ With the help of our good friend Babel, let’s see what different components co
 
 <p>Well that’s cool. So our div element just gets defined as the first parameter of <code class="highlighter-rouge">React.createElement</code>. I wonder what happens if we try this with our element injecting AwesomeButton?</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>class AwesomeButton extends React.Component {
-    render() {
-        const { children, tag = "button", ...other } = this.props;
-        const Tag = tag;
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">class</span> <span class="nx">AwesomeButton</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kr">const</span> <span class="p">{</span> <span class="nx">children</span><span class="p">,</span> <span class="nx">tag</span> <span class="o">=</span> <span class="s2">"button"</span><span class="p">,</span> <span class="p">...</span><span class="nx">other</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span>
+        <span class="kr">const</span> <span class="nx">Tag</span> <span class="o">=</span> <span class="nx">tag</span><span class="p">;</span>
 
-        return (
-           &lt;Tag {...other}&gt;{children}&lt;/Tag&gt; 
-        );
-    }
-}
+        <span class="k">return</span> <span class="p">(</span>
+           <span class="o">&lt;</span><span class="nx">Tag</span> <span class="p">{...</span><span class="nx">other</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">children</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/Tag&gt;</span><span class="err"> 
+</span>        <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
@@ -178,10 +178,6 @@ With the help of our good friend Babel, let’s see what different components co
             <div class="twelve columns">
                 <a href="https://github.com/ganderzz">
                     <i class="fa fa-github" aria-hidden="true"></i>
-                </a>
-
-                <a href="https://codepen.io/ganderzz/">
-                    <i class="fa fa-codepen" aria-hidden="true"></i>
                 </a>
 
                 <a href="https://twitter.com/DylanPaulus">

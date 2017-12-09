@@ -14,7 +14,7 @@ We'll look at ways to improve our reusability and composition of components by u
 
 For example,
 
-```
+```javascript
 class IconButton extends React.Component {
     render() {
         <Button onClick={this.props.onClick}>
@@ -28,7 +28,7 @@ class IconButton extends React.Component {
 
 And to consume the button,
 
-```
+```javascript
 <IconButton
     text="Click Me!"
     onClick={() => alert("Click!")}
@@ -43,7 +43,7 @@ Continuing on the topic of thinking of components as functions, keep components 
 
 Going to the IconButton example, we really don't need an IconButton component. What if tomorrow we need an IconInput button? We not only have two separate, but pretty similar components to maintain! We can fix this by using composition. What we really want is something that 'adds an icon' to a component. Let's make a new component called IconAdder.
 
-```
+```javascript
 class IconAdder extends React.Component {
     render() {
         return (
@@ -59,7 +59,7 @@ class IconAdder extends React.Component {
 
 to consume it
 
-```
+```javascript
 <IconAdder
     component={
         <Button onClick={() => alert("Click!")}>
@@ -75,7 +75,7 @@ IconAdder allows us to throw any ol' component we want into it, and it'll add an
 
 One thing I come across a lot is the overuse of component properties. Components should almost never be used as properties. It ends up making components hard to use, and in the end, we are fighting with React. In React, every component has a property called children (`props.children`). This says, whatever we pass between this component's tags, we'll insert here. Let's see an example `props.children` in the IconAdder component.
 
-```
+```javascript
 class IconAdder extends React.Component {
     render() {
         return (
@@ -91,7 +91,7 @@ class IconAdder extends React.Component {
 
 to consume it
 
-```
+```javascript
 <IconAdder>
     <Button onClick={() => alert("Click!")}>
         Click Me!
@@ -107,7 +107,7 @@ I wrote an article on this [subject here](http://dylanpaulus.com/reactjs/2017/07
 
 As someone consuming a component, I want as little pollution of my code as possible. Pollution in this case could be anything: event handlers, code size, or even HTML elements. In the case of our IconAdder component, a parent `<div>` wrapper gets added to every component using it. It would be great if we could get rid of the div, and just make it our child component. Well... we're in luck. We can specify a tag property, and then use that property. This lets the end-user be in control of their DOM structure.
 
-```
+```javascript
 class IconAdder extends React.Component {
     render() {
         const { tag, onClick, children } = this.props; 
@@ -126,7 +126,7 @@ class IconAdder extends React.Component {
 
 to consume it
 
-```
+```javascript
 <IconAdder
     tag={Button}
     onClick={() => alert("Click!")}
@@ -145,7 +145,7 @@ We should allow our components to be reasonably editable, while protecting what 
 
 Right now, our IconAdder component won't accept a style, className, or title prop. Oh yeah, and what about in the future if we need to use IconAdder on a `<a>` tag. We'll need to support href also. Let's use the rest operator to support all of these properties!
 
-```
+```javascript
 class IconAdder extends React.Component {
     render() {
         const { tag, onClick, children, ...rest } = this.props; 
@@ -164,7 +164,7 @@ class IconAdder extends React.Component {
 
 to consume it
 
-```
+```javascript
 <IconAdder
     tag={Button}
     onClick={() => alert("Click!")}
