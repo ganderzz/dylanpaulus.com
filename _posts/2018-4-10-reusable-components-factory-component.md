@@ -10,10 +10,29 @@ Beware the **mega** component. Mega components contain around 50 props--when the
 Our component has a few properties: `<IdentityInput onSuccess={login} onFail={showError} fingerprint={value} humanOnly />` allowing for only human fingerprints, and provides a few callbacks for onSuccess and onFail.
 
 A few months go by and our company, Component Co., finds out there are a lot of humans out there trying to login, but are missing fingerprints! Great, we'll update our component to allow for eyeball scans. 
-`<IdentityInput onSuccess={login} onFail={showError} value={value} isEyeballEnabled isFingerprintEnabled humanOnly />`
+```javascript
+<IdentityInput
+  onSuccess={login}
+  onFail={showError}
+  value={value}
+  isEyeballEnabled
+  isFingerprintEnabled
+  humanOnly
+/>
+```
 
 After many failed attempts to login to our system the boss of Component Co., a cyborg without eyeballs or fingerprints, demands that we provide a password input field. Once again, the IndentityInput component gets updated to have the request.
-`<IdentityInput onSuccess={login} onFail={showError} value={value} isEyeballEnabled isFingerprintEnabled showPasswordField={this.state.isCyborg} humanOnly={!this.state.isCyborg} />`
+```javascript
+<IdentityInput
+  onSuccess={login}
+  onFail={showError}
+  value={value}
+  isEyeballEnabled
+  isFingerprintEnabled
+  showPasswordField={this.state.isCyborg}
+  humanOnly={!this.state.isCyborg}
+/>
+```
 
 
 Just from this contrived example, we can see that allowing for ever-growing mega components can start to be a problem. For one, we lose single-responsibility. Over time our component does multiple things which causes a barrier of entry penalty when new developers start using the component. Second, it provides weird combinations of secret password props in components. "If I have these props, it does this one thing. But, don't set that string prop there or everything breaks!" Third, we'll have to write our class/function in a way to handle all the edge cases and props--probably requiring way too many if-statements.
