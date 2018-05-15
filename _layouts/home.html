@@ -22,17 +22,17 @@
 
     <div class="pagination">
         {% if paginator.next_page %}
-            <a class="next" href="{{ paginator.next_page_path }}">Older</a>
+            <a class="previous" href="{{ paginator.next_page_path }}">Older</a>
         {% else %}
-            <span class="next">Older</span>
+            <span class="previous">Older</span>
         {% endif %}
-        
+
         <span style="margin: 0 5px;">Page: {{ paginator.page }} of {{ paginator.total_pages }}</span>
         
         {% if paginator.previous_page %}
-            <a class="previous" href="{{ paginator.previous_page_path }}">Newer</a>
+            <a class="next" href="{{ paginator.previous_page_path }}">Newer</a>
         {% else %}
-            <span class="previous">Newer</span>
+            <span class="next">Newer</span>
         {% endif %}
     </div>
 
