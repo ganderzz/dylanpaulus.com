@@ -35,6 +35,10 @@ header h3 {
     }
 }
 
+header nav {
+    text-align: right;
+}
+
 header nav a {
     text-decoration: none;
     color: #111;
@@ -99,9 +103,9 @@ header nav a {
 }
 
 .dp__footer {
-    font-size: 1.5rem;
-    margin-top: 100px;
-    margin-bottom: 30px;
+    font-size: 1rem;
+    margin-top: 40px;
+    margin-bottom: 20px;
     text-align: center;
 }
 
@@ -118,4 +122,20 @@ header nav a {
         color: #1EAEDB;
         opacity: 1;
     }
+}
+
+.pagination {
+    font-size: 1.6rem;
+    margin-top: 25px;
+    text-align: center;
+}
+
+.pagination > .next {
+    border-left: 1px solid #DDD;
+    padding-left: 10px;
+}
+
+.pagination > .previous {
+    border-right: 1px solid #DDD;
+    padding-right: 10px;
 }

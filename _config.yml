@@ -4,8 +4,12 @@ description: >
   Fullstack programmer working on the web
 baseurl: ""
 url: "http://dylanpaulus.com"
-twitter_username: dtpaulus
-github_username:  ganderzz
+
+author:
+  twitter: "ganderzz"
+  github: "ganderzz"
+  linkedin: "dylanpaulus"
+  stackoverflow: "7828585/dpaulus"
 
 permalink: pretty
 
@@ -15,9 +19,12 @@ kramdown:
   input: GFM
   syntax_highlighter: rouge
 
+paginate: 5
+
 theme: dp
 gems:
   - jekyll-feed
+  - jekyll-paginate
 exclude:
   - Gemfile
   - Gemfile.lock

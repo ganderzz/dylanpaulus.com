@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Reusable Components: Factory Components"
-category: "ReactJs"
+category: "React"
+tag: ["Javascript", "Frontend", "React"]
 ---
 
 # Reusable Components: Factory Components

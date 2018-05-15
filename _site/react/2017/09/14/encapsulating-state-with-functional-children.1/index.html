@@ -2,11 +2,11 @@
     <head>
         <meta charset="UTF-8">
         <meta name="description" content="Ramblings on software engineering and web development">
-        <meta name="keywords" content="software, code, programming, blog, portfolio, ">
+        <meta name="keywords" content="software, code, programming, blog, portfolio, React">
         <meta name="author" content="Dylan Paulus">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Dylan Paulus - About Me</title>
+        <title>Dylan Paulus - Encapsulating State with Functional Children</title>
 
         
 
@@ -32,24 +32,114 @@
             </nav>
         </header>
 
-    <section class="row dp__content">
-        <div class="five columns">
-            Hi, I'm Dylan. A fullstack developer working primarily in React and C#(.Net). 
-        </div>
+<section class="dp__post-container">
+    <h1 id="encapsulating-state-with-functional-children">Encapsulating State with Functional Children</h1>
 
-        <div class="seven columns">
-            <h4>Currently</h4>
-            Software Engineer @ Schweitzer Engineering Laboratories
+<h3 id="introduction">Introduction</h3>
 
-            <br />
-            <br />
+<p>There is a technique for creating reusable components that got missed in my last post, <a href="/reactjs/2017/09/08/tips-on-creating-reusable-components.1/">Tips on Creating Reusable Components</a>, that I’d like to talk about. That is, components that have functions as children. This is a great tool that mirrors higher order components, in that it lets us abstract away reusable states. We’ll start out with an example.</p>
 
-            <h4>Previously</h4>
-            Web Developer @ Sony Playstation
-            <br />
-            Student Web Developer @ Eastern Washington University
-        </div>
-    </section>
+<h3 id="breaking-down-functional-children">Breaking down functional children</h3>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s2">"react"</span><span class="p">;</span>
+
+<span class="kr">class</span> <span class="nx">Booer</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kr">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+    
+        <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="na">test</span><span class="p">:</span> <span class="s2">"..."</span>
+        <span class="p">};</span>
+    <span class="p">}</span>
+
+    <span class="nx">componentDidMount</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">setTimeout</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
+                <span class="na">test</span><span class="p">:</span> <span class="s2">"BOO!"</span>
+            <span class="p">});</span>
+        <span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
+    <span class="p">}</span>
+  
+    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    	<span class="c1">// Using children as a function!</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">children</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">test</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">Timer</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="o">&lt;</span><span class="nx">Booer</span><span class="o">&gt;</span>
+        <span class="p">{</span>
+            <span class="p">(</span><span class="nx">test</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span>
+            	<span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+                    <span class="p">{</span><span class="nx">test</span><span class="p">}</span>
+                <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>            <span class="p">)</span>
+        <span class="p">}</span>
+        <span class="o">&lt;</span><span class="sr">/Booer</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+<span class="p">}</span>
+
+</code></pre>
+</div>
+
+<p><em>Booer</em> is a component that after 1000ms, updates its state to say “Boo!”. Nothing special. The power in functional children comes in play in the render method. Instead of treating <code class="highlighter-rouge">this.props.children</code> as a variable, we pass a long some state which gets injected into the children prop. Moving to the <em>Timer</em> component, we see something a little odd. The <em>Booer</em> component takes a function with an argument, <code class="highlighter-rouge">test</code>, being that state we passed into <code class="highlighter-rouge">this.props.children</code>. We are then free to return any valid React children in the function. This let’s us reuse state for different visual components! In the case of the <em>Timer</em> component, it will show a <em>div</em> with “…”. Once 1000ms is complete, the contents will be replaced with “Boo!”.</p>
+
+<h3 id="toggle-component">Toggle Component</h3>
+
+<p>The first example is a nice way to show functional children, but let’s make something a little more practical. Like the title suggestions, how about a component that keeps track of a toggle! This may look something like:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s2">"react"</span><span class="p">;</span>
+
+<span class="kr">class</span> <span class="nx">Toggle</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kr">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+    
+    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="na">isToggled</span><span class="p">:</span> <span class="kc">false</span>
+    <span class="p">};</span>
+  
+    <span class="k">this</span><span class="p">.</span><span class="nx">toggle</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">toggle</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+  <span class="p">}</span>
+  
+  <span class="nx">toggle</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">((</span><span class="nx">prevState</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
+      <span class="na">isToggled</span><span class="p">:</span> <span class="o">!</span><span class="nx">prevState</span><span class="p">.</span><span class="nx">isToggled</span>
+    <span class="p">}));</span>
+  <span class="p">}</span>
+  
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="p">{</span> <span class="nx">isToggled</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">;</span>
+    
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">children</span><span class="p">(</span><span class="nx">isToggled</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">toggle</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">ToggleButton</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">Toggle</span><span class="o">&gt;</span>
+      <span class="p">{</span>
+        <span class="p">(</span><span class="nx">isToggled</span><span class="p">,</span> <span class="nx">toggle</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span>
+          <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="nx">toggle</span><span class="p">}</span><span class="o">&gt;</span>
+            <span class="p">{</span><span class="nx">isToggled</span> <span class="p">?</span> <span class="s2">"ON"</span> <span class="p">:</span> <span class="s2">"off"</span><span class="p">}</span>
+          <span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>        <span class="p">)</span>
+      <span class="p">}</span>
+    <span class="o">&lt;</span><span class="sr">/Toggle</span><span class="err">&gt;
+</span>  <span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Looking at it, the <em>Booer</em> component is pretty similar to out new <em>Toggle</em> component. They both handle some state, then pass it to <code class="highlighter-rouge">this.props.children()</code> as function argument. In the case of <em>Toggle</em>, we are now passing two arguments. First, our <em>isToggled</em> state. Second, a class method that will toggle the <em>isToggled</em> state. <code class="highlighter-rouge">this.toggle</code> will be useful for a consumer to control events.
+Looking at the <em>ToggleButton</em> component, it’s pretty simple to wire out a button that has toggle ability, while making its state reusable! What if we want a toggle checkbox? We can just swap out the <code class="highlighter-rouge">&lt;button&gt;</code> JSX tags for <code class="highlighter-rouge">&lt;input type="checkbox"&gt;</code>!</p>
+
+<h3 id="conclusion">Conclusion</h3>
+
+<p>Functional children is yet another technique for creating reusable components. It helps us move presentational components away from stateful logic (ie. Dumb/Smart components or Containers/Components).</p>
+
+
+</section>
 
         <footer class="row dp__footer">
             <div class="twelve columns">

@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Global Component Registration"
-category: "ReactJs"
+category: "React"
+tag: ["Javascript", "Frontend", "React"]
 ---
 
 # Global Component Registration

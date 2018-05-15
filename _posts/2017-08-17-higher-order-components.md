@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Introduction to Higher Order Components"
-category: "ReactJs"
+category: "React"
+tag: ["Javascript", "Frontend", "React"]
 ---
 
 # Introduction to Higher Order Components

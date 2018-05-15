@@ -1,20 +1,28 @@
         <footer class="row dp__footer">
             <div class="twelve columns">
-                <a href="https://github.com/ganderzz">
-                    <i class="fa fa-github" aria-hidden="true"></i>
-                </a>
+                {% if site.author.github %}
+                    <a href="https://github.com/{{ site.author.github }}">
+                        <i class="fa fa-github" aria-hidden="true"></i>
+                    </a>
+                {% endif %}
 
-                <a href="https://twitter.com/DylanPaulus">
-                    <i class="fa fa-twitter" aria-hidden="true"></i>
-                </a>
+                {% if site.author.twitter %}
+                    <a href="https://twitter.com/{{ site.author.twitter }}">
+                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                    </a>
+                {% endif %}
 
-                <a href="https://www.linkedin.com/in/dylanpaulus/">
-                    <i class="fa fa-linkedin" aria-hidden="true"></i>
-                </a>
+                {% if site.author.linkedin %}
+                    <a href="https://www.linkedin.com/in/{{ site.author.linkedin }}">
+                        <i class="fa fa-linkedin" aria-hidden="true"></i>
+                    </a>
+                {% endif %}
 
-                <a href="https://stackoverflow.com/users/7828585/dpaulus">
-                    <i class="fa fa-stack-overflow" aria-hidden="true"></i>
-                </a>
+                {% if site.author.stackoverflow %}
+                    <a href="https://stackoverflow.com/users/{{ site.author.stackoverflow }}">
+                        <i class="fa fa-stack-overflow" aria-hidden="true"></i>
+                    </a>
+                {% endif %}
 
                 <a href="/feed.xml">
                     <i class="fa fa-rss-square" aria-hidden="true"></i>

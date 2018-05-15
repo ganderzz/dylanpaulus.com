@@ -2,11 +2,11 @@
     <head>
         <meta charset="UTF-8">
         <meta name="description" content="Ramblings on software engineering and web development">
-        <meta name="keywords" content="software, code, programming, blog, portfolio, ">
+        <meta name="keywords" content="software, code, programming, blog, portfolio, React">
         <meta name="author" content="Dylan Paulus">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Dylan Paulus - About Me</title>
+        <title>Dylan Paulus - Global Component Registration</title>
 
         
 
@@ -32,24 +32,126 @@
             </nav>
         </header>
 
-    <section class="row dp__content">
-        <div class="five columns">
-            Hi, I'm Dylan. A fullstack developer working primarily in React and C#(.Net). 
-        </div>
+<section class="dp__post-container">
+    <h1 id="global-component-registration">Global Component Registration</h1>
 
-        <div class="seven columns">
-            <h4>Currently</h4>
-            Software Engineer @ Schweitzer Engineering Laboratories
+<h3 id="introduction">Introduction</h3>
 
-            <br />
-            <br />
+<p>Often, I find myself looking through open-source projects to see how they solve issues. Not bugs, but problems in code that cause repetition or excessive boilerplate. <a href="https://ux.stackexchange.com/questions/12045/what-is-a-modal-dialog-window#12046">Modals</a> have given me problems, specifically when having to create a specialized modal for different workflows. They are awkward. Modals, in the DOM, live outside of the scope of the current workflow. And, part of their state usually lives outside of the modal itself (hide/show). I came accross an interesting solution to the modal problem while looking through <a href="https://github.com/getinsomnia/insomnia">Insomnia’s</a> code. This is a different post than what I normally do. I’ll just be posting code as an example, and filling in the explaination through comments. Hopefully this will work as a reference, and starting point to play around with the idea.</p>
 
-            <h4>Previously</h4>
-            Web Developer @ Sony Playstation
-            <br />
-            Student Web Developer @ Eastern Washington University
-        </div>
-    </section>
+<h3 id="code">Code</h3>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">// ModalHandler.js</span>
+<span class="kr">const</span> <span class="nx">modals</span> <span class="o">=</span> <span class="p">{};</span>
+
+<span class="cm">/*
+ * This function takes in a component, and then adds a 
+ * reference to it through a friendly named key-&gt;value.
+ */</span>
+<span class="kr">export</span> <span class="kd">function</span> <span class="nx">registerModal</span><span class="p">(</span><span class="nx">component</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">component</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="nx">modals</span><span class="p">[</span><span class="nx">component</span><span class="p">.</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">component</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/*
+ * show() takes the component we want to show, and some additional
+ * arguments. We'll then call the 'show' function on the component.
+ * This allows us to 'activate' a component anywhere, but invert 
+ * control to the relative component.
+ */</span>
+<span class="kr">export</span> <span class="kd">function</span> <span class="nx">show</span><span class="p">(</span><span class="nx">component</span><span class="p">,</span> <span class="p">...</span><span class="nx">args</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">elem</span> <span class="o">=</span> <span class="nx">modals</span><span class="p">[</span><span class="nx">component</span><span class="p">.</span><span class="nx">name</span><span class="p">];</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">elem</span><span class="p">.</span><span class="nx">show</span> <span class="o">&amp;&amp;</span> <span class="k">typeof</span> <span class="nx">elem</span><span class="p">.</span><span class="nx">show</span> <span class="o">===</span> <span class="s2">"function"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">elem</span><span class="p">.</span><span class="nx">show</span><span class="p">(...</span><span class="nx">args</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">console</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="err">`</span><span class="nx">show</span><span class="p">()</span> <span class="kd">function</span> <span class="nx">is</span> <span class="nx">missing</span> <span class="nx">from</span> <span class="nx">$</span><span class="p">{</span><span class="nx">component</span><span class="p">.</span><span class="nx">name</span><span class="p">}.</span><span class="err">`</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">// App.jsx</span>
+<span class="kr">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">"react"</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">registerModal</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">"./ModalHandler"</span><span class="p">;</span>
+
+<span class="kr">class</span> <span class="nx">Base</span> <span class="kr">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">MyApp</span> <span class="o">/&gt;</span>
+        <span class="p">{</span><span class="cm">/*
+          This component is pretty regular except for this next bit.
+          We'll pass in registerModal() to the component's ref we'll
+          show later on
+        */</span><span class="p">}</span>
+        <span class="o">&lt;</span><span class="nx">Modal</span> <span class="nx">ref</span><span class="o">=</span><span class="p">{</span><span class="nx">registerModal</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">"react"</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">show</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">"./ModalHandler"</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">Modal</span> <span class="nx">from</span> <span class="s2">"./Modal"</span><span class="p">;</span>
+
+<span class="kr">class</span> <span class="nx">MyApp</span> <span class="kr">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">showModal</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// Will call the .show() function</span>
+    <span class="c1">// on the Modal component</span>
+    <span class="nx">show</span><span class="p">(</span><span class="nx">Modal</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">showModal</span><span class="p">}</span><span class="o">&gt;</span>
+        <span class="nx">Show</span> <span class="nx">Modal</span>
+      <span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">// Modal.jsx</span>
+<span class="kr">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">"react"</span><span class="p">;</span>
+
+<span class="kr">class</span> <span class="nx">Modal</span> <span class="kr">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">isOpen</span><span class="p">:</span> <span class="kc">false</span>
+  <span class="p">};</span>
+
+  <span class="c1">// This is the show() function that'll be invoked</span>
+  <span class="c1">// when this component is passed to ModalHandler.js' show() function</span>
+  <span class="nx">show</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="na">isOpen</span><span class="p">:</span> <span class="kc">true</span> <span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">isOpen</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+        <span class="nx">Modal</span><span class="o">!</span>
+
+        <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="na">isOpen</span><span class="p">:</span> <span class="kc">false</span> <span class="p">})}</span><span class="o">&gt;</span>
+          <span class="nx">Close</span>
+        <span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+
+</section>
 
         <footer class="row dp__footer">
             <div class="twelve columns">

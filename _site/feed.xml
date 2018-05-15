@@ -6,7 +6,20 @@
 </description>		
 		<link>http://localhost:4000</link>
 		<atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-		<lastBuildDate>Fri, 08 Dec 2017 00:00:00 -0800</lastBuildDate>
+		<lastBuildDate>Tue, 10 Apr 2018 00:00:00 -0700</lastBuildDate>
+		
+			<item>
+				<title>Reusable Components: Factory Components</title>
+				        
+				
+					<description>&lt;h1 id=&quot;reusable-components-factory-components&quot;&gt;Reusable Components: Factory Components&lt;/h1&gt;
+
+</description>
+				
+				<pubDate>Tue, 10 Apr 2018 00:00:00 -0700</pubDate>
+				<link>http://localhost:4000/react/2018/04/10/reusable-components-factory-component/</link>
+				<guid isPermaLink="true">http://localhost:4000/react/2018/04/10/reusable-components-factory-component/</guid>
+			</item>
 		
 			<item>
 				<title>Global Component Registration</title>
@@ -17,8 +30,8 @@
 </description>
 				
 				<pubDate>Fri, 08 Dec 2017 00:00:00 -0800</pubDate>
-				<link>http://localhost:4000/reactjs/2017/12/08/global-component-registration/</link>
-				<guid isPermaLink="true">http://localhost:4000/reactjs/2017/12/08/global-component-registration/</guid>
+				<link>http://localhost:4000/react/2017/12/08/global-component-registration/</link>
+				<guid isPermaLink="true">http://localhost:4000/react/2017/12/08/global-component-registration/</guid>
 			</item>
 		
 			<item>
@@ -30,8 +43,8 @@
 </description>
 				
 				<pubDate>Thu, 14 Sep 2017 00:00:00 -0700</pubDate>
-				<link>http://localhost:4000/reactjs/2017/09/14/encapsulating-state-with-functional-children.1/</link>
-				<guid isPermaLink="true">http://localhost:4000/reactjs/2017/09/14/encapsulating-state-with-functional-children.1/</guid>
+				<link>http://localhost:4000/react/2017/09/14/encapsulating-state-with-functional-children.1/</link>
+				<guid isPermaLink="true">http://localhost:4000/react/2017/09/14/encapsulating-state-with-functional-children.1/</guid>
 			</item>
 		
 			<item>
@@ -43,8 +56,8 @@
 </description>
 				
 				<pubDate>Fri, 08 Sep 2017 00:00:00 -0700</pubDate>
-				<link>http://localhost:4000/reactjs/2017/09/08/tips-on-creating-reusable-components.1/</link>
-				<guid isPermaLink="true">http://localhost:4000/reactjs/2017/09/08/tips-on-creating-reusable-components.1/</guid>
+				<link>http://localhost:4000/react/2017/09/08/tips-on-creating-reusable-components.1/</link>
+				<guid isPermaLink="true">http://localhost:4000/react/2017/09/08/tips-on-creating-reusable-components.1/</guid>
 			</item>
 		
 			<item>
@@ -56,8 +69,8 @@
 </description>
 				
 				<pubDate>Thu, 17 Aug 2017 00:00:00 -0700</pubDate>
-				<link>http://localhost:4000/reactjs/2017/08/17/higher-order-components/</link>
-				<guid isPermaLink="true">http://localhost:4000/reactjs/2017/08/17/higher-order-components/</guid>
+				<link>http://localhost:4000/react/2017/08/17/higher-order-components/</link>
+				<guid isPermaLink="true">http://localhost:4000/react/2017/08/17/higher-order-components/</guid>
 			</item>
 		
 			<item>
@@ -204,8 +217,8 @@ With the help of our good friend Babel, let’s see what different components co
 </description>
 				
 				<pubDate>Wed, 26 Jul 2017 00:00:00 -0700</pubDate>
-				<link>http://localhost:4000/reactjs/2017/07/26/injecting-react-tag-types/</link>
-				<guid isPermaLink="true">http://localhost:4000/reactjs/2017/07/26/injecting-react-tag-types/</guid>
+				<link>http://localhost:4000/react/2017/07/26/injecting-react-tag-types/</link>
+				<guid isPermaLink="true">http://localhost:4000/react/2017/07/26/injecting-react-tag-types/</guid>
 			</item>
 		
 			<item>

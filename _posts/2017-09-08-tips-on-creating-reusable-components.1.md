@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Tips on Creating Reusable Components"
-category: "ReactJs"
+category: "React"
+tag: ["Javascript", "Frontend", "React"]
 ---
 
 # Tips on Creating Reusable Components

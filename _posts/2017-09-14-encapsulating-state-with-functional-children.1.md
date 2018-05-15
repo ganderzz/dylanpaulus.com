@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Encapsulating State with Functional Children"
-category: "ReactJs"
+category: "React"
+tag: ["Javascript", "Frontend", "React"]
 ---
 
 # Encapsulating State with Functional Children

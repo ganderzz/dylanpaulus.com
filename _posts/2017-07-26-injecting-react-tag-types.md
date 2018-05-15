@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Injecting Dynamic Elements to Components"
-category: "ReactJs"
+category: "React"
+tag: ["Javascript", "Frontend", "React"]
 ---
 
 # React: Injecting Dynamic Elements to Components
