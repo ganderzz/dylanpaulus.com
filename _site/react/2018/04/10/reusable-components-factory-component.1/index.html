@@ -2,11 +2,11 @@
     <head>
         <meta charset="UTF-8">
         <meta name="description" content="Ramblings on software engineering and web development">
-        <meta name="keywords" content="software, code, programming, blog, portfolio, ">
+        <meta name="keywords" content="software, code, programming, blog, portfolio, React">
         <meta name="author" content="Dylan Paulus">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Dylan Paulus - About Me</title>
+        <title>Dylan Paulus - Reusable Components: Factory Components</title>
 
         
 
@@ -32,24 +32,101 @@
             </nav>
         </header>
 
-    <section class="row dp__content">
-        <div class="five columns">
-            Hi, I'm Dylan. A fullstack developer working primarily in React and C#(.Net). 
-        </div>
+<section class="dp__post-container">
+    <h1 id="reusable-components-factory-components">Reusable Components: Factory Components</h1>
 
-        <div class="seven columns">
-            <h4>Currently</h4>
-            Software Engineer @ Schweitzer Engineering Laboratories
+<p>Beware the <strong>mega</strong> component. Mega components contain around 50 props–when the stars align, only certain values produce specialized output. For example, let’s assume we have a <code class="highlighter-rouge">&lt;IdentityInput /&gt;</code> component which provides user login using only a fingerprint. Nifty, eh?
+Our component has a few properties: <code class="highlighter-rouge">&lt;IdentityInput onSuccess={login} onFail={showError} fingerprint={value} humanOnly /&gt;</code> allowing for only human fingerprints, and provides a few callbacks for onSuccess and onFail.</p>
 
-            <br />
-            <br />
+<p>A few months go by and our company, Component Co., finds out there are a lot of humans out there trying to login, but are missing fingerprints! Great, we’ll update our component to allow for eyeball scans.</p>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">IdentityInput</span>
+  <span class="nx">onSuccess</span><span class="o">=</span><span class="p">{</span><span class="nx">login</span><span class="p">}</span>
+  <span class="nx">onFail</span><span class="o">=</span><span class="p">{</span><span class="nx">showError</span><span class="p">}</span>
+  <span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="nx">value</span><span class="p">}</span>
+  <span class="nx">isEyeballEnabled</span>
+  <span class="nx">isFingerprintEnabled</span>
+  <span class="nx">humanOnly</span>
+<span class="sr">/</span><span class="err">&gt;
+</span></code></pre>
+</div>
 
-            <h4>Previously</h4>
-            Web Developer @ Sony Playstation
-            <br />
-            Student Web Developer @ Eastern Washington University
-        </div>
-    </section>
+<p>After many failed attempts to login to our system the boss of Component Co., a cyborg without eyeballs or fingerprints, demands that we provide a password input field. Once again, the IndentityInput component gets updated to have the request.</p>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">IdentityInput</span>
+  <span class="nx">onSuccess</span><span class="o">=</span><span class="p">{</span><span class="nx">login</span><span class="p">}</span>
+  <span class="nx">onFail</span><span class="o">=</span><span class="p">{</span><span class="nx">showError</span><span class="p">}</span>
+  <span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="nx">value</span><span class="p">}</span>
+  <span class="nx">isEyeballEnabled</span>
+  <span class="nx">isFingerprintEnabled</span>
+  <span class="nx">showPasswordField</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">isCyborg</span><span class="p">}</span>
+  <span class="nx">humanOnly</span><span class="o">=</span><span class="p">{</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">isCyborg</span><span class="p">}</span>
+<span class="sr">/</span><span class="err">&gt;
+</span></code></pre>
+</div>
+
+<p>Just from this contrived example, we can see that allowing for ever-growing mega components can start to be a problem. For one, we lose single-responsibility. Over time our component does multiple things which causes a barrier of entry penalty when new developers start using the component. Second, it provides weird combinations of secret password props in components. “If I have these props, it does this one thing. But, don’t set that string prop there or everything breaks!” Third, we’ll have to write our class/function in a way to handle all the edge cases and props–probably requiring way too many if-statements.</p>
+
+<p>One solution to this problem is to have a factory component, very much like the factory design pattern. We’ll keep individual components small, performing a single function, but then create a parent component that then decides what component we should render.</p>
+
+<p>For example:</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">FingerPrint</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">div</span> <span class="p">{...</span><span class="nx">props</span><span class="p">}</span><span class="o">&gt;</span><span class="nx">Super</span> <span class="nx">Awesome</span> <span class="nx">Fingerprint</span> <span class="nx">Scanner</span><span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">EyeballScanner</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">div</span> <span class="p">{...</span><span class="nx">props</span><span class="p">}</span><span class="o">&gt;</span><span class="nx">Super</span> <span class="nx">Ok</span> <span class="nx">Eyeball</span> <span class="nx">Scanner</span><span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">PasswordInput</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">div</span> <span class="p">{...</span><span class="nx">props</span><span class="p">}</span><span class="o">&gt;</span><span class="nx">Super</span> <span class="nx">Lame</span> <span class="nx">Password</span> <span class="nx">Input</span><span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+ * Factory Component
+ */</span>
+<span class="kd">function</span> <span class="nx">IdentityFactory</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="p">{</span> <span class="nx">type</span><span class="p">,</span> <span class="p">...</span><span class="nx">rest</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">props</span><span class="p">;</span>
+
+  <span class="k">switch</span> <span class="p">(</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="s2">"finger"</span><span class="err">:</span>
+      <span class="k">return</span> <span class="o">&lt;</span><span class="nx">FingerPrint</span> <span class="p">{...</span><span class="nx">rest</span><span class="p">}</span> <span class="sr">/&gt;</span><span class="err">;
+</span>    
+    <span class="k">case</span> <span class="s2">"eyeball"</span><span class="err">:</span>
+      <span class="k">return</span> <span class="o">&lt;</span><span class="nx">EyeballScanner</span> <span class="p">{...</span><span class="nx">rest</span><span class="p">}</span> <span class="sr">/&gt;</span><span class="err">;
+</span>
+    <span class="k">case</span> <span class="s2">"password"</span><span class="err">:</span>
+      <span class="k">return</span> <span class="o">&lt;</span><span class="nx">PasswordInput</span> <span class="p">{...</span><span class="nx">rest</span><span class="p">}</span> <span class="sr">/&gt;</span><span class="err">;
+</span>
+    <span class="nl">default</span><span class="p">:</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="err">`</span><span class="nx">Invalid</span> <span class="nx">Indentity</span> <span class="nx">type</span> <span class="s2">"${type}"</span><span class="p">.</span> <span class="nx">Abort</span><span class="o">!</span><span class="err">`</span><span class="p">);</span>
+      <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Now, when we want to use the IdentityFactory component we can switch between the different input types, but also provide props relevant to just that component. It’ll allow us to modify single-responsibility components with ease.</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">IdentityFactory</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"finger"</span> <span class="nx">humanOnly</span> <span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="nx">IdentityFactory</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"eyeball"</span> <span class="nx">humanOnly</span> <span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="nx">IdentityFactory</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"password"</span> <span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+
+</section>
 
         <footer class="row dp__footer">
             <div class="twelve columns">

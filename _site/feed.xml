@@ -6,7 +6,20 @@
 </description>		
 		<link>http://localhost:4000</link>
 		<atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-		<lastBuildDate>Tue, 10 Apr 2018 00:00:00 -0700</lastBuildDate>
+		<lastBuildDate>Tue, 15 May 2018 00:00:00 -0700</lastBuildDate>
+		
+			<item>
+				<title>Part One: Using Typescript with React</title>
+				        
+				
+					<description>&lt;h1 id=&quot;part-one-using-typescript-with-react&quot;&gt;Part One: Using Typescript with React&lt;/h1&gt;
+
+</description>
+				
+				<pubDate>Tue, 15 May 2018 00:00:00 -0700</pubDate>
+				<link>http://localhost:4000/react/typescript/2018/05/15/using-react-with-typescript-part-one/</link>
+				<guid isPermaLink="true">http://localhost:4000/react/typescript/2018/05/15/using-react-with-typescript-part-one/</guid>
+			</item>
 		
 			<item>
 				<title>Reusable Components: Factory Components</title>
@@ -17,8 +30,8 @@
 </description>
 				
 				<pubDate>Tue, 10 Apr 2018 00:00:00 -0700</pubDate>
-				<link>http://localhost:4000/react/2018/04/10/reusable-components-factory-component/</link>
-				<guid isPermaLink="true">http://localhost:4000/react/2018/04/10/reusable-components-factory-component/</guid>
+				<link>http://localhost:4000/react/2018/04/10/reusable-components-factory-component.1/</link>
+				<guid isPermaLink="true">http://localhost:4000/react/2018/04/10/reusable-components-factory-component.1/</guid>
 			</item>
 		
 			<item>
