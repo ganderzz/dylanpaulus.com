@@ -63,6 +63,8 @@ class App extends React.Component<{}, IState> {
 
 A lot is happening here, so we'll break it down line-by-line.
 
+##### Interface
+
 ```js
 interface IState {
   count: number;
@@ -77,6 +79,7 @@ Another practice I've adopted: define Typescript types in PascalCase, and Javasc
 
 Moving on, we define our component's state as having one field, count. In Typescript, there is no difference between a float `0.0001` and an int `10`. To say something is 'number-like', we give it the type `number`.
 
+##### Class Definition
 
 ```js
 class App extends React.Component<{}, IState> {
@@ -89,3 +92,14 @@ To break it apart:
 - Define a component with just props: `React.Component<IProps>`
 - Define both state and props: `React.Component<IProps, IState>`
 
+##### Defining State
+
+```js
+public readonly state = {
+  count: 0
+};
+```
+
+Finally, we define the state for the component. Remember, so far we've only told Typescript what the *shape* of our state is. This is where we define its value for React. Because it's *defined by React*, we define the state as `public`. Also, since we don't want anyone mutating the state directly, we then add `readonly`. This will throw a Typescript error whenever we try to reassign state directly (eg. `this.state.count = this.state.count + 1; // Error!`). Next, we define our public readonly variable to have the name *state*, and assign it an object that matches the shape we defined in **IState**. Since we defined `React.Component` with **IState** as our state shape, Typescript knows that the state should have a **count** field with a number value.
+
+### Adding Events

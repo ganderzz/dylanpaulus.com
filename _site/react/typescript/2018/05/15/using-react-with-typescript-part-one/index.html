@@ -91,6 +91,8 @@
 
 <p>A lot is happening here, so we’ll break it down line-by-line.</p>
 
+<h5 id="interface">Interface</h5>
+
 <div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">IState</span> <span class="p">{</span>
   <span class="nl">count</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
 <span class="p">}</span>
@@ -105,6 +107,8 @@
 
 <p>Moving on, we define our component’s state as having one field, count. In Typescript, there is no difference between a float <code class="highlighter-rouge">0.0001</code> and an int <code class="highlighter-rouge">10</code>. To say something is ‘number-like’, we give it the type <code class="highlighter-rouge">number</code>.</p>
 
+<h5 id="class-definition">Class Definition</h5>
+
 <div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kr">class</span> <span class="nx">App</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span><span class="o">&lt;</span><span class="p">{},</span> <span class="nx">IState</span><span class="o">&gt;</span> <span class="p">{</span>
 </code></pre>
 </div>
@@ -118,6 +122,17 @@
   <li>Define both state and props: <code class="highlighter-rouge">React.Component&lt;IProps, IState&gt;</code></li>
 </ul>
 
+<h5 id="defining-state">Defining State</h5>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kr">public</span> <span class="nx">readonly</span> <span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">count</span><span class="p">:</span> <span class="mi">0</span>
+<span class="p">};</span>
+</code></pre>
+</div>
+
+<p>Finally, we define the state for the component. Remember, so far we’ve only told Typescript what the <em>shape</em> of our state is. This is where we define its value for React. Because it’s <em>defined by React</em>, we define the state as <code class="highlighter-rouge">public</code>. Also, since we don’t want anyone mutating the state directly, we then add <code class="highlighter-rouge">readonly</code>. This will throw a Typescript error whenever we try to reassign state directly (eg. <code class="highlighter-rouge">this.state.count = this.state.count + 1; // Error!</code>). Next, we define our public readonly variable to have the name <em>state</em>, and assign it an object that matches the shape we defined in <strong>IState</strong>. Since we defined <code class="highlighter-rouge">React.Component</code> with <strong>IState</strong> as our state shape, Typescript knows that the state should have a <strong>count</strong> field with a number value.</p>
+
+<h3 id="adding-events">Adding Events</h3>
 
 
 </section>
