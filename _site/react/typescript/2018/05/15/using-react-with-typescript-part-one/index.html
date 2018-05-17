@@ -33,11 +33,13 @@
         </header>
 
 <section class="dp__post-container">
-    <h1 id="part-one-using-typescript-with-react">Part One: Using Typescript with React</h1>
+    <p>Finished Example: <a href="https://codesandbox.io/s/n3138x65p0?hidenavigation=1">Click Here</a></p>
 
-<p>Learning Typescript with React can be challenging, and in my case, cursing Microsoft and throwing <code class="highlighter-rouge">any</code> on every variable. The goal of this series is to document what I’ve learned while developing applications in React, trying hard to shove in Typescript. Like many things, the initial learning curve may be staggering, but adding a type-checker repays dividends once the gears start turning. <em>One thing to note:</em> this isn’t a post about setting up Typescript. We’ll assume a <strong>tsconfig.json</strong> exists, and compiles our code to valid JavaScript.</p>
+<h1 id="part-one-using-typescript-with-react">Part One: Using Typescript with React</h1>
 
-<p>We’ll start out simple–making a counter.</p>
+<p>Learning Typescript with React can be challenging, and in my case, cursing Microsoft and throwing <code class="highlighter-rouge">any</code> on every variable. The goal of this series is to document what I’ve learned while developing applications in React, and trying hard to shove in Typescript. Like many things, the initial learning curve may be staggering, but adding a type-checker repays dividends once the gears start turning. <em>One thing to note:</em> this isn’t a post about setting up Typescript. We’ll assume a <strong>tsconfig.json</strong> exists, and compiles our code to valid JavaScript.</p>
+
+<p>We’ll go through part one by creating a counter, and adding types where needed.</p>
 
 <h3 id="app">App</h3>
 
@@ -59,11 +61,11 @@
 </code></pre>
 </div>
 
-<p>Looks like a valid React class component, but a few Typescript differences stand out right away. First, because React lib doesn’t have a default export, Typescript requires us to import the whole package (<code class="highlighter-rouge">import * as React from "react";</code>). Second, all React methods are defined as <code class="highlighter-rouge">public</code> (<em>private or protected</em> will not work), as seen in the <strong>render</strong> method. We can remove the <strong>public</strong> keyboard, and the component will work the same. I like to keep it around for consistency, and to differentiate between React and my methods. Generally, I define my methods as <code class="highlighter-rouge">private</code> unless otherwise needed. This enforces scope to just the component, and prevents unwanted side-effects.</p>
+<p>Looks like a valid React class component, but a few Typescript differences stand out right away. First, because React lib doesn’t have a default export, Typescript requires us to import the whole package (<code class="highlighter-rouge">import * as React from "react";</code>). Second, all React methods are defined as <code class="highlighter-rouge">public</code> (<em>private or protected</em> will not work), as seen in the <strong>render</strong> method. <em>We can remove the <strong>public</strong> keyboard, and the component will work the same.</em> I like to explicitly define scope of my methods to help differentiate between my methods and React’s. Generally, I define my methods as <code class="highlighter-rouge">private</code> unless otherwise needed. This enforces the scope of the method to just the component, and prevents unwanted side-effects.</p>
 
 <h3 id="state">State</h3>
 
-<p>We’ll need a way of storing the state of the counter. Let’s also implement this in our App component.</p>
+<p>We’ll need a way of storing the state of the counter. Let’s implement this.</p>
 
 <div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="c1">// Note, Typescript requires the whole React package to be imported.</span>
 <span class="c1">// More information can be found: https://stackoverflow.com/a/37491916</span>
@@ -89,7 +91,7 @@
 </code></pre>
 </div>
 
-<p>A lot is happening here, so we’ll break it down line-by-line.</p>
+<p>A lot is happening here, so we’ll break it down change-by-change.</p>
 
 <h5 id="interface">Interface</h5>
 
@@ -133,6 +135,56 @@
 <p>Finally, we define the state for the component. Remember, so far we’ve only told Typescript what the <em>shape</em> of our state is. This is where we define its value for React. Because it’s <em>defined by React</em>, we define the state as <code class="highlighter-rouge">public</code>. Also, since we don’t want anyone mutating the state directly, we then add <code class="highlighter-rouge">readonly</code>. This will throw a Typescript error whenever we try to reassign state directly (eg. <code class="highlighter-rouge">this.state.count = this.state.count + 1; // Error!</code>). Next, we define our public readonly variable to have the name <em>state</em>, and assign it an object that matches the shape we defined in <strong>IState</strong>. Since we defined <code class="highlighter-rouge">React.Component</code> with <strong>IState</strong> as our state shape, Typescript knows that the state should have a <strong>count</strong> field with a number value.</p>
 
 <h3 id="adding-events">Adding Events</h3>
+
+<p>Let’s finish our counter by adding some buttons, and a click event that either decrements or increments the count.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="c1">// Note, Typescript requires the whole React package to be imported.</span>
+<span class="c1">// More information can be found: https://stackoverflow.com/a/37491916</span>
+<span class="kr">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s2">"react"</span><span class="p">;</span>
+
+<span class="kr">interface</span> <span class="nx">IState</span> <span class="p">{</span>
+  <span class="nl">count</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kr">class</span> <span class="nx">App</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span><span class="o">&lt;</span><span class="p">{},</span> <span class="nx">IState</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="kr">public</span> <span class="nx">readonly</span> <span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">count</span><span class="p">:</span> <span class="mi">0</span>
+  <span class="p">};</span>
+
+  <span class="kr">private</span> <span class="nx">handleClick</span> <span class="o">=</span> <span class="p">(</span><span class="na">event</span><span class="p">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">MouseEvent</span><span class="o">&lt;</span><span class="nx">HTMLButtonElement</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="na">type</span><span class="p">:</span> <span class="nx">string</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">currentTarget</span><span class="p">.</span><span class="nx">title</span><span class="p">;</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">(({</span> <span class="nx">count</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">({</span>
+      <span class="na">count</span><span class="p">:</span> <span class="nx">type</span> <span class="o">===</span> <span class="s2">"decrement"</span> <span class="p">?</span> <span class="nx">count</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">:</span> <span class="nx">count</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="p">}));</span>
+  <span class="p">};</span>
+
+  <span class="kr">public</span> <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">title</span><span class="o">=</span><span class="s2">"decrement"</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleClick</span><span class="p">}</span><span class="o">&gt;</span>
+          <span class="o">-</span>
+        <span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>        <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">count</span><span class="p">}</span>
+        <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">title</span><span class="o">=</span><span class="s2">"increment"</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleClick</span><span class="p">}</span><span class="o">&gt;</span>
+          <span class="o">+</span>
+        <span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>The big change is the addition of a new method.</p>
+
+<p><code class="highlighter-rouge">private handleClick = (event: React.MouseEvent&lt;HTMLButtonElement&gt;) =&gt; {</code></p>
+
+<p>We create a new private method called <code class="highlighter-rouge">handleClick</code> that will take care of our button click events. Notice that since React uses synthetic events, we have to use one of React’s types. The event was triggered by a click of the mouse, so we’ll use <code class="highlighter-rouge">React.MouseEvent</code>. <strong>React.MouseEvent</strong> is a generic type that takes the type of element the event is happening on. In our case, it’s the default HTML button element. We finish off by incrementing or decrementing the count based on the title of the button.</p>
+
+<p>Our counter is now complete with TypeScript types!</p>
+
+<p>To be continued in part two…</p>
 
 
 </section>
