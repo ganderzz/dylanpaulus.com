@@ -1,10 +1,18 @@
 <!DOCTYPE html>
     <head>
         <meta charset="UTF-8">
-        <meta name="description" content="Ramblings on software engineering and web development">
-        <meta name="keywords" content="software, code, programming, blog, portfolio, ReactTypescript">
+        <meta name="description" content="Ramblings on software engineering">
+        <meta name="keywords" content="software, code, programming, blog, portfolio, react, typescript, javascript, washington, spokane, ReactTypescript">
         <meta name="author" content="Dylan Paulus">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@DylanPaulus" />
+        <meta name="twitter:creator" content="@DylanPaulus" />
+        <meta property="og:url" content="http://localhost:4000/react/typescript/2018/05/16/using-typescript-with-react-part-one/" />
+        <meta property="og:title" content="Part One: Using Typescript with React" />
+        <meta property="og:description" content="" />
+        <meta property="og:image" content="" />
 
         <title>Dylan Paulus - Part One: Using Typescript with React</title>
 
@@ -103,11 +111,11 @@
 
 <p>First, we create a new <a href="https://www.typescriptlang.org/docs/handbook/interfaces.html">interface</a> that defines the <em>shape</em> of our component’s state.</p>
 
-<p>Notice that as a practice we start the interface name with an uppercase <strong>“I”</strong>. This is borrowed from OOP languages, like C#, to allow us to better identify what is a variable <em>vs</em> type <em>vs</em> interface.</p>
+<p>Notice that as a practice we start the interface name with an uppercase <strong>“I”</strong>. This is borrowed from OOP languages, like C#, to allow us to better identify a variable <em>vs</em> type <em>vs</em> interface.</p>
 
 <p>Another practice I’ve adopted: define Typescript types in PascalCase, and Javascript variables in camelCase. Yet another helpful naming scheme to prevent trying use a type definition as executable code!</p>
 
-<p>Moving on, we define our component’s state as having one field, count. In Typescript, there is no difference between a float <code class="highlighter-rouge">0.0001</code> and an int <code class="highlighter-rouge">10</code>. To say something is ‘number-like’, we give it the type <code class="highlighter-rouge">number</code>.</p>
+<p>Moving on, we define our component’s state as having one field, count. In Typescript there is no difference between a float <code class="highlighter-rouge">0.0001</code> and an int <code class="highlighter-rouge">10</code>. To say something is ‘number-like’, we give it the type <code class="highlighter-rouge">number</code>.</p>
 
 <h5 id="class-definition">Class Definition</h5>
 
@@ -115,7 +123,7 @@
 </code></pre>
 </div>
 
-<p><code class="highlighter-rouge">React.Component</code> (also <code class="highlighter-rouge">React.PureComponent</code>) are generic types allowing us to provide the <em>shape</em> of the component’s props and state. Component comes with a couple predefined properties, <code class="highlighter-rouge">children</code> and <code class="highlighter-rouge">ref</code> to name a few. Because App doesn’t have any props, we’ll use an empty object. The React Typescript definition combines the type we pass in with the default Component type, so with an empty object, the base component props will still be available (eg. children and ref)). For our component’s state, we’ll tell Typescript we want to use our state shape defined in IState.</p>
+<p><code class="highlighter-rouge">React.Component</code> (also <code class="highlighter-rouge">React.PureComponent</code>) are generic types allowing us to provide the <em>shape</em> of the component’s props and state. Component comes with a couple predefined properties (<code class="highlighter-rouge">children</code> and <code class="highlighter-rouge">ref</code> to name a few). Because App doesn’t have any props, we’ll use an empty object. The React Typescript definition combines the type we pass in with the default Component type, so even with an empty object, the inherited component props will still be available (eg. children and ref). For our component’s state, we’ll tell Typescript we want to use our state shape defined in IState.</p>
 
 <p>To break it apart:</p>
 <ul>
@@ -132,7 +140,7 @@
 </code></pre>
 </div>
 
-<p>Finally, we define the state for the component. Remember, so far we’ve only told Typescript what the <em>shape</em> of our state is. This is where we define its value for React. Because it’s <em>defined by React</em>, we define the state as <code class="highlighter-rouge">public</code>. Also, since we don’t want anyone mutating the state directly, we then add <code class="highlighter-rouge">readonly</code>. This will throw a Typescript error whenever we try to reassign state directly (eg. <code class="highlighter-rouge">this.state.count = this.state.count + 1; // Error!</code>). Next, we define our public readonly variable to have the name <em>state</em>, and assign it an object that matches the shape we defined in <strong>IState</strong>. Since we defined <code class="highlighter-rouge">React.Component</code> with <strong>IState</strong> as our state shape, Typescript knows that the state should have a <strong>count</strong> field with a number value.</p>
+<p>Finally, we define the state for the component. Remember, so far we’ve only told Typescript what the <em>shape</em> of our state is. This is where we define its actual value in React. Because state is needed by React, we define it as <code class="highlighter-rouge">public</code>. Also, since we don’t want anyone mutating the state directly, we then add <code class="highlighter-rouge">readonly</code>. This will throw a Typescript error whenever we try to reassign state directly to a value (eg. <code class="highlighter-rouge">this.state.count = this.state.count + 1; // Error!</code>). Next, we define our public readonly variable to have the name <em>state</em>, and assign it an object that matches the shape we defined in <strong>IState</strong>. Since we defined <code class="highlighter-rouge">React.Component</code> with <strong>IState</strong> as our state shape, Typescript knows that the state should have a <strong>count</strong> field with a number value.</p>
 
 <h3 id="adding-events">Adding Events</h3>
 
@@ -180,7 +188,7 @@
 
 <p><code class="highlighter-rouge">private handleClick = (event: React.MouseEvent&lt;HTMLButtonElement&gt;) =&gt; {</code></p>
 
-<p>We create a new private method called <code class="highlighter-rouge">handleClick</code> that will take care of our button click events. Notice that since React uses synthetic events, we have to use one of React’s types. The event was triggered by a click of the mouse, so we’ll use <code class="highlighter-rouge">React.MouseEvent</code>. <strong>React.MouseEvent</strong> is a generic type that takes the type of element the event is happening on. In our case, it’s the default HTML button element. We finish off by incrementing or decrementing the count based on the title of the button.</p>
+<p>We create a new private method called <code class="highlighter-rouge">handleClick</code> that will take care of our button click events. Notice that since React uses synthetic events–we have to use one of React’s types. The event was triggered by a click of the mouse, so we’ll use <code class="highlighter-rouge">React.MouseEvent</code>. <strong>React.MouseEvent</strong> is a generic type that takes the type of element the event is triggered from. In our case, it’s the default HTML button element (defined as <code class="highlighter-rouge">HTMLButtonElement</code>). We finish off by incrementing or decrementing the count based on the title of the button.</p>
 
 <p>Our counter is now complete with TypeScript types!</p>
 

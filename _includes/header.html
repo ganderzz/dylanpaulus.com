@@ -1,10 +1,18 @@
 <!DOCTYPE html>
     <head>
         <meta charset="UTF-8">
-        <meta name="description" content="Ramblings on software engineering and web development">
-        <meta name="keywords" content="software, code, programming, blog, portfolio, {{page.category}}">
+        <meta name="description" content="Ramblings on software engineering">
+        <meta name="keywords" content="software, code, programming, blog, portfolio, react, typescript, javascript, washington, spokane, {{page.category}}">
         <meta name="author" content="Dylan Paulus">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@{{ site.author.twitter }}" />
+        <meta name="twitter:creator" content="@{{ site.author.twitter }}" />
+        <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
+        <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}" />
+        <meta property="og:description" content="" />
+        <meta property="og:image" content="" />
 
         <title>{{site.title}}{% if page.title %} - {{ page.title }}{% endif %}</title>
 
