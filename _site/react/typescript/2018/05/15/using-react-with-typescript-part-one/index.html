@@ -2,11 +2,11 @@
     <head>
         <meta charset="UTF-8">
         <meta name="description" content="Ramblings on software engineering and web development">
-        <meta name="keywords" content="software, code, programming, blog, portfolio, React">
+        <meta name="keywords" content="software, code, programming, blog, portfolio, ReactTypescript">
         <meta name="author" content="Dylan Paulus">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Dylan Paulus - Global Component Registration</title>
+        <title>Dylan Paulus - Part One: Using Typescript with React</title>
 
         
 
@@ -33,115 +33,141 @@
         </header>
 
 <section class="dp__post-container">
-    <h1 id="global-component-registration">Global Component Registration</h1>
+    <p>Finished Example: <a href="https://codesandbox.io/s/n3138x65p0?hidenavigation=1">Click Here</a></p>
 
-<h3 id="introduction">Introduction</h3>
+<h1 id="part-one-using-typescript-with-react">Part One: Using Typescript with React</h1>
 
-<p>Often, I find myself looking through open-source projects to see how they solve issues. Not bugs, but problems in code that cause repetition or excessive boilerplate. <a href="https://ux.stackexchange.com/questions/12045/what-is-a-modal-dialog-window#12046">Modals</a> have given me problems, specifically when having to create a specialized modal for different workflows. They are awkward. Modals, in the DOM, live outside of the scope of the current workflow. And, part of their state usually lives outside of the modal itself (hide/show). I came accross an interesting solution to the modal problem while looking through <a href="https://github.com/getinsomnia/insomnia">Insomnia’s</a> code. This is a different post than what I normally do. I’ll just be posting code as an example, and filling in the explaination through comments. Hopefully this will work as a reference, and starting point to play around with the idea.</p>
+<p>Learning Typescript with React can be challenging, and in my case, cursing Microsoft and throwing <code class="highlighter-rouge">any</code> on every variable. The goal of this series is to document what I’ve learned while developing applications in React, and trying hard to shove in Typescript. Like many things, the initial learning curve may be staggering, but adding a type-checker repays dividends once the gears start turning. <em>One thing to note:</em> this isn’t a post about setting up Typescript. We’ll assume a <strong>tsconfig.json</strong> exists, and compiles our code to valid JavaScript.</p>
 
-<h3 id="code">Code</h3>
+<p>We’ll go through part one by creating a counter, and adding types where needed.</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">// ModalHandler.js</span>
-<span class="kr">const</span> <span class="nx">modals</span> <span class="o">=</span> <span class="p">{};</span>
+<h3 id="app">App</h3>
 
-<span class="cm">/*
- * This function takes in a component, and then adds a 
- * reference to it through a friendly named key-&gt;value.
- */</span>
-<span class="kr">export</span> <span class="kd">function</span> <span class="nx">registerModal</span><span class="p">(</span><span class="nx">component</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">component</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span><span class="p">;</span>
-  <span class="p">}</span>
+<p>Starting out, we have a scaffolding of our application.</p>
 
-  <span class="nx">modals</span><span class="p">[</span><span class="nx">component</span><span class="p">.</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">component</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="c1">// Note, Typescript requires the whole React package to be imported.</span>
+<span class="c1">// More information can be found: https://stackoverflow.com/a/37491916</span>
+<span class="kr">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s2">"react"</span><span class="p">;</span>
 
-<span class="cm">/*
- * show() takes the component we want to show, and some additional
- * arguments. We'll then call the 'show' function on the component.
- * This allows us to 'activate' a component anywhere, but invert 
- * control to the relative component.
- */</span>
-<span class="kr">export</span> <span class="kd">function</span> <span class="nx">show</span><span class="p">(</span><span class="nx">component</span><span class="p">,</span> <span class="p">...</span><span class="nx">args</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kr">const</span> <span class="nx">elem</span> <span class="o">=</span> <span class="nx">modals</span><span class="p">[</span><span class="nx">component</span><span class="p">.</span><span class="nx">name</span><span class="p">];</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">elem</span><span class="p">.</span><span class="nx">show</span> <span class="o">&amp;&amp;</span> <span class="k">typeof</span> <span class="nx">elem</span><span class="p">.</span><span class="nx">show</span> <span class="o">===</span> <span class="s2">"function"</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">elem</span><span class="p">.</span><span class="nx">show</span><span class="p">(...</span><span class="nx">args</span><span class="p">);</span>
-  <span class="p">}</span>
-
-  <span class="nx">console</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="err">`</span><span class="nx">show</span><span class="p">()</span> <span class="kd">function</span> <span class="nx">is</span> <span class="nx">missing</span> <span class="nx">from</span> <span class="nx">$</span><span class="p">{</span><span class="nx">component</span><span class="p">.</span><span class="nx">name</span><span class="p">}.</span><span class="err">`</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre>
-</div>
-
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">// App.jsx</span>
-<span class="kr">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">"react"</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">registerModal</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">"./ModalHandler"</span><span class="p">;</span>
-
-<span class="kr">class</span> <span class="nx">Base</span> <span class="kr">extends</span> <span class="nx">Component</span> <span class="p">{</span>
-  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+<span class="kr">class</span> <span class="nx">App</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="kr">public</span> <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">return</span> <span class="p">(</span>
       <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
-        <span class="o">&lt;</span><span class="nx">MyApp</span> <span class="o">/&gt;</span>
-        <span class="p">{</span><span class="cm">/*
-          This component is pretty regular except for this next bit.
-          We'll pass in registerModal() to the component's ref we'll
-          show later on
-        */</span><span class="p">}</span>
-        <span class="o">&lt;</span><span class="nx">Modal</span> <span class="nx">ref</span><span class="o">=</span><span class="p">{</span><span class="nx">registerModal</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
-</span>      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+        <span class="nx">test</span>
+      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
 </span>    <span class="p">);</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
 </div>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">"react"</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">show</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">"./ModalHandler"</span><span class="p">;</span>
-<span class="kr">import</span> <span class="nx">Modal</span> <span class="nx">from</span> <span class="s2">"./Modal"</span><span class="p">;</span>
+<p>Looks like a valid React class component, but a few Typescript differences stand out right away. First, because React lib doesn’t have a default export, Typescript requires us to import the whole package (<code class="highlighter-rouge">import * as React from "react";</code>). Second, all React methods are defined as <code class="highlighter-rouge">public</code> (<em>private or protected</em> will not work), as seen in the <strong>render</strong> method. <em>We can remove the <strong>public</strong> keyboard, and the component will work the same.</em> I like to explicitly define scope of my methods to help differentiate between my methods and React’s. Generally, I define my methods as <code class="highlighter-rouge">private</code> unless otherwise needed. This enforces the scope of the method to just the component, and prevents unwanted side-effects.</p>
 
-<span class="kr">class</span> <span class="nx">MyApp</span> <span class="kr">extends</span> <span class="nx">Component</span> <span class="p">{</span>
-  <span class="nx">showModal</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="c1">// Will call the .show() function</span>
-    <span class="c1">// on the Modal component</span>
-    <span class="nx">show</span><span class="p">(</span><span class="nx">Modal</span><span class="p">);</span>
-  <span class="p">}</span>
+<h3 id="state">State</h3>
 
-  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="p">(</span>
-      <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">showModal</span><span class="p">}</span><span class="o">&gt;</span>
-        <span class="nx">Show</span> <span class="nx">Modal</span>
-      <span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
-</span>    <span class="p">);</span>
-  <span class="p">}</span>
+<p>We’ll need a way of storing the state of the counter. Let’s implement this.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="c1">// Note, Typescript requires the whole React package to be imported.</span>
+<span class="c1">// More information can be found: https://stackoverflow.com/a/37491916</span>
+<span class="kr">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s2">"react"</span><span class="p">;</span>
+
+<span class="kr">interface</span> <span class="nx">IState</span> <span class="p">{</span>
+  <span class="nl">count</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre>
-</div>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">// Modal.jsx</span>
-<span class="kr">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">"react"</span><span class="p">;</span>
-
-<span class="kr">class</span> <span class="nx">Modal</span> <span class="kr">extends</span> <span class="nx">Component</span> <span class="p">{</span>
-  <span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="na">isOpen</span><span class="p">:</span> <span class="kc">false</span>
+<span class="kr">class</span> <span class="nx">App</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span><span class="o">&lt;</span><span class="p">{},</span> <span class="nx">IState</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="kr">public</span> <span class="nx">readonly</span> <span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">count</span><span class="p">:</span> <span class="mi">0</span>
   <span class="p">};</span>
 
-  <span class="c1">// This is the show() function that'll be invoked</span>
-  <span class="c1">// when this component is passed to ModalHandler.js' show() function</span>
-  <span class="nx">show</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="na">isOpen</span><span class="p">:</span> <span class="kc">true</span> <span class="p">});</span>
-  <span class="p">}</span>
-
-  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">isOpen</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
-    <span class="p">}</span>
-
+  <span class="kr">public</span> <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">return</span> <span class="p">(</span>
       <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
-        <span class="nx">Modal</span><span class="o">!</span>
+        <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">count</span><span class="p">}</span>
+      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
 
-        <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="na">isOpen</span><span class="p">:</span> <span class="kc">false</span> <span class="p">})}</span><span class="o">&gt;</span>
-          <span class="nx">Close</span>
+<p>A lot is happening here, so we’ll break it down change-by-change.</p>
+
+<h5 id="interface">Interface</h5>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">IState</span> <span class="p">{</span>
+  <span class="nl">count</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>First, we create a new <a href="https://www.typescriptlang.org/docs/handbook/interfaces.html">interface</a> that defines the <em>shape</em> of our component’s state.</p>
+
+<p>Notice that as a practice we start the interface name with an uppercase <strong>“I”</strong>. This is borrowed from OOP languages, like C#, to allow us to better identify what is a variable <em>vs</em> type <em>vs</em> interface.</p>
+
+<p>Another practice I’ve adopted: define Typescript types in PascalCase, and Javascript variables in camelCase. Yet another helpful naming scheme to prevent trying use a type definition as executable code!</p>
+
+<p>Moving on, we define our component’s state as having one field, count. In Typescript, there is no difference between a float <code class="highlighter-rouge">0.0001</code> and an int <code class="highlighter-rouge">10</code>. To say something is ‘number-like’, we give it the type <code class="highlighter-rouge">number</code>.</p>
+
+<h5 id="class-definition">Class Definition</h5>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kr">class</span> <span class="nx">App</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span><span class="o">&lt;</span><span class="p">{},</span> <span class="nx">IState</span><span class="o">&gt;</span> <span class="p">{</span>
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">React.Component</code> (also <code class="highlighter-rouge">React.PureComponent</code>) are generic types allowing us to provide the <em>shape</em> of the component’s props and state. Component comes with a couple predefined properties, <code class="highlighter-rouge">children</code> and <code class="highlighter-rouge">ref</code> to name a few. Because App doesn’t have any props, we’ll use an empty object. The React Typescript definition combines the type we pass in with the default Component type, so with an empty object, the base component props will still be available (eg. children and ref)). For our component’s state, we’ll tell Typescript we want to use our state shape defined in IState.</p>
+
+<p>To break it apart:</p>
+<ul>
+  <li>Define a component with just state: <code class="highlighter-rouge">React.Component&lt;{}, IState&gt;</code></li>
+  <li>Define a component with just props: <code class="highlighter-rouge">React.Component&lt;IProps&gt;</code></li>
+  <li>Define both state and props: <code class="highlighter-rouge">React.Component&lt;IProps, IState&gt;</code></li>
+</ul>
+
+<h5 id="defining-state">Defining State</h5>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kr">public</span> <span class="nx">readonly</span> <span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">count</span><span class="p">:</span> <span class="mi">0</span>
+<span class="p">};</span>
+</code></pre>
+</div>
+
+<p>Finally, we define the state for the component. Remember, so far we’ve only told Typescript what the <em>shape</em> of our state is. This is where we define its value for React. Because it’s <em>defined by React</em>, we define the state as <code class="highlighter-rouge">public</code>. Also, since we don’t want anyone mutating the state directly, we then add <code class="highlighter-rouge">readonly</code>. This will throw a Typescript error whenever we try to reassign state directly (eg. <code class="highlighter-rouge">this.state.count = this.state.count + 1; // Error!</code>). Next, we define our public readonly variable to have the name <em>state</em>, and assign it an object that matches the shape we defined in <strong>IState</strong>. Since we defined <code class="highlighter-rouge">React.Component</code> with <strong>IState</strong> as our state shape, Typescript knows that the state should have a <strong>count</strong> field with a number value.</p>
+
+<h3 id="adding-events">Adding Events</h3>
+
+<p>Let’s finish our counter by adding some buttons, and a click event that either decrements or increments the count.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="c1">// Note, Typescript requires the whole React package to be imported.</span>
+<span class="c1">// More information can be found: https://stackoverflow.com/a/37491916</span>
+<span class="kr">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s2">"react"</span><span class="p">;</span>
+
+<span class="kr">interface</span> <span class="nx">IState</span> <span class="p">{</span>
+  <span class="nl">count</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kr">class</span> <span class="nx">App</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span><span class="o">&lt;</span><span class="p">{},</span> <span class="nx">IState</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="kr">public</span> <span class="nx">readonly</span> <span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">count</span><span class="p">:</span> <span class="mi">0</span>
+  <span class="p">};</span>
+
+  <span class="kr">private</span> <span class="nx">handleClick</span> <span class="o">=</span> <span class="p">(</span><span class="na">event</span><span class="p">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">MouseEvent</span><span class="o">&lt;</span><span class="nx">HTMLButtonElement</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="na">type</span><span class="p">:</span> <span class="nx">string</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">currentTarget</span><span class="p">.</span><span class="nx">title</span><span class="p">;</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">(({</span> <span class="nx">count</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">({</span>
+      <span class="na">count</span><span class="p">:</span> <span class="nx">type</span> <span class="o">===</span> <span class="s2">"decrement"</span> <span class="p">?</span> <span class="nx">count</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">:</span> <span class="nx">count</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="p">}));</span>
+  <span class="p">};</span>
+
+  <span class="kr">public</span> <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">title</span><span class="o">=</span><span class="s2">"decrement"</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleClick</span><span class="p">}</span><span class="o">&gt;</span>
+          <span class="o">-</span>
+        <span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>        <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">count</span><span class="p">}</span>
+        <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">title</span><span class="o">=</span><span class="s2">"increment"</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleClick</span><span class="p">}</span><span class="o">&gt;</span>
+          <span class="o">+</span>
         <span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
 </span>      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
 </span>    <span class="p">);</span>
@@ -149,6 +175,16 @@
 <span class="p">}</span>
 </code></pre>
 </div>
+
+<p>The big change is the addition of a new method.</p>
+
+<p><code class="highlighter-rouge">private handleClick = (event: React.MouseEvent&lt;HTMLButtonElement&gt;) =&gt; {</code></p>
+
+<p>We create a new private method called <code class="highlighter-rouge">handleClick</code> that will take care of our button click events. Notice that since React uses synthetic events, we have to use one of React’s types. The event was triggered by a click of the mouse, so we’ll use <code class="highlighter-rouge">React.MouseEvent</code>. <strong>React.MouseEvent</strong> is a generic type that takes the type of element the event is happening on. In our case, it’s the default HTML button element. We finish off by incrementing or decrementing the count based on the title of the button.</p>
+
+<p>Our counter is now complete with TypeScript types!</p>
+
+<p>To be continued in part two…</p>
 
 
 </section>
