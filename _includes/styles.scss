@@ -9,6 +9,8 @@ body {
     font-family: 'Lato', sans-serif;
 }
 
+a { color: #0C576E; }
+
 h4 {
     margin-top: 1rem;
     margin-bottom: 0.5rem;
@@ -39,6 +41,24 @@ header nav {
     text-align: right;
 }
 
+@media (max-width: 550px) {
+    header nav,
+    header div {
+        width: 50% !important;
+    }
+}
+
+@media (max-width: 305px) {
+    header nav,
+    header div {
+        width: 100% !important;
+    }
+
+    header nav {
+        text-align: left;
+    }
+}
+
 header nav a {
     text-decoration: none;
     color: #111;
@@ -49,18 +69,19 @@ header nav a {
 }
 
 .dp__post-container {
-    line-height: 3rem;
-    
+    line-height: 3rem; 
     
     code { line-height: 2.3rem; }
 }
 
-.dp__content { margin-top: 30px; }
-.dp__post {
-    margin-top: 30px;
+.dp__content { margin-top: 20px; }
+.dp__post:not(:first-child) {
+    margin-top: 40px;
 }
 .dp__post-date { 
-    color: #999;
+    color: #555;
+    position: relative;
+    top: 5px;
 }
 
 .dp__post-header {
@@ -71,7 +92,7 @@ header nav a {
 }
 
 .dp__post-header a { 
-    color: #111;
+    color: #0C576E;
     text-decoration: none;
 
     transition: all 0.12s; 
@@ -82,7 +103,7 @@ header nav a {
 }
 
 .dp__post-tag { 
-    color: #999;
+    color: #555;
 }
 
 .dp__about_links {
@@ -103,17 +124,24 @@ header nav a {
 }
 
 .dp__footer {
-    font-size: 1rem;
     margin-top: 40px;
     margin-bottom: 20px;
     text-align: center;
+}
+
+.dp__footer div .wrapper {
+    display: inline-block;
+    width: 60%;
+    padding-top: 10px;
+    margin: 0 auto;
+    border-top: 1px solid #DDD;
 }
 
 .dp__footer a {
     color: #111;
     text-decoration: none;
     opacity: 0.6;
-    font-size: 4rem;
+    font-size: 2.8rem;
     margin-right: 10px;
 
     transition: all 0.12s;
@@ -126,7 +154,7 @@ header nav a {
 
 .pagination {
     font-size: 1.6rem;
-    margin-top: 25px;
+    margin-top: 30px;
     text-align: center;
 }
 

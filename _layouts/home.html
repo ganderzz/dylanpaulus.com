@@ -1,43 +1,41 @@
 {% include header.html %}
 
-    <section class="row dp__content">
-        {% for post in paginator.posts %}	
-            <div class="twelve columns dp__post">
-                <div class="row">
-                    <div class="two columns dp__post-date">
-                        {{ post.date | date: "%B %e, %Y" }}
-                    </div>
-
-                    <div class="ten columns">
-                        <h5 class="dp__post-header">
-                            <a href="{{ post.url }}">{{ post.title }}</a>
-                        </h5>
-
-                        <span class="dp__post-tag">
-                            {% if post.categories %}
-                                {{ post.categories | array_to_sentence_string }}
-                            {% endif %}
-                        </span>
-                    </div>
-                </div>
+<section class="row dp__content">
+    {% for post in paginator.posts %}
+    <div class="twelve columns dp__post">
+        <div class="row">
+            <div class="two columns dp__post-date">
+                {{ post.date | date: "%B %e, %Y" }}
             </div>
-        {% endfor %}
-    </section>
 
-    <div class="pagination">
-        {% if paginator.next_page %}
-            <a class="previous" href="{{ paginator.next_page_path }}">Older</a>
-        {% else %}
-            <span class="previous">Older</span>
-        {% endif %}
+            <div class="ten columns">
+                <h5 class="dp__post-header">
+                    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                </h5>
 
-        <span style="margin: 0 5px;">Page: {{ paginator.page }} of {{ paginator.total_pages }}</span>
-        
-        {% if paginator.previous_page %}
-            <a class="next" href="{{ paginator.previous_page_path }}">Newer</a>
-        {% else %}
-            <span class="next">Newer</span>
-        {% endif %}
+                <span class="dp__post-tag">
+                    {% if post.categories %} {{ post.categories | array_to_sentence_string }} {% endif %}
+                </span>
+            </div>
+        </div>
     </div>
+    {% endfor %}
+</section>
+
+<div class="pagination">
+    {% if paginator.next_page %}
+    <a class="previous" title="Older" href="{{ paginator.next_page_path }}">Older</a>
+    {% else %}
+    <span class="previous">Older</span>
+    {% endif %}
+
+    <span style="margin: 0 5px;">Page: {{ paginator.page }} of {{ paginator.total_pages }}</span>
+
+    {% if paginator.previous_page %}
+    <a class="next" title="Newer" href="{{ paginator.previous_page_path }}">Newer</a>
+    {% else %}
+    <span class="next">Newer</span>
+    {% endif %}
+</div>
 
 {% include footer.html %}

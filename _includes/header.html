@@ -1,39 +1,37 @@
-<!DOCTYPE html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="description" content="Ramblings on software engineering">
-        <meta name="keywords" content="software, code, programming, blog, portfolio, react, typescript, javascript, washington, spokane, {{page.category}}">
-        <meta name="author" content="Dylan Paulus">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en">
 
-        <meta name="twitter:card" content="summary" />
-        <meta name="twitter:site" content="@{{ site.author.twitter }}" />
-        <meta name="twitter:creator" content="@{{ site.author.twitter }}" />
-        <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
-        <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}" />
-        <meta property="og:description" content="" />
-        <meta property="og:image" content="" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ramblings on software engineering">
+    <meta name="keywords" content="software, code, programming, blog, portfolio, react, typescript, javascript, washington, spokane, {{page.category}}">
+    <meta name="author" content="Dylan Paulus">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>{{site.title}}{% if page.title %} - {{ page.title }}{% endif %}</title>
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@{{ site.author.twitter }}" />
+    <meta name="twitter:creator" content="@{{ site.author.twitter }}" />
+    <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
+    <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}" />
+    <meta property="og:description" content="" />
+    <meta property="og:image" content="" />
 
-        {% capture styles %}
-            {% include styles.scss %}
-            {% include code-format.scss %}
-        {% endcapture %}
+    <title>{{site.title}}{% if page.title %} - {{ page.title }}{% endif %}</title>
 
-        <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
-        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" rel="stylesheet" />
+    {% capture styles %} {% include styles.scss %} {% include code-format.scss %} {% endcapture %}
 
-        <style>
-            {{ styles | scssify }}
-        </style>
-    </head>
-    <body>
+    <style>
+        {{ styles | scssify }}
+    </style>
+</head>
+
+<body>
 
     <main class="container">
         <header class="row">
             <div class="five columns">
-                <h3><a href="/">Dylan Paulus</a></h3>
+                <h3>
+                    <a href="/">Dylan Paulus</a>
+                </h3>
             </div>
 
             <nav class="seven columns">
