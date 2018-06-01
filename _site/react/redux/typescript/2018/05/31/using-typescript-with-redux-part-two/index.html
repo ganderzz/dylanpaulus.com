@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="Ramblings on software engineering">
-    <meta name="keywords" content="software, code, programming, blog, portfolio, react, typescript, javascript, washington, spokane, ">
+    <meta name="keywords" content="software, code, programming, blog, portfolio, react, typescript, javascript, washington, spokane, ReactReduxTypescript">
     <meta name="author" content="Dylan Paulus">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@DylanPaulus" />
     <meta name="twitter:creator" content="@DylanPaulus" />
-    <meta property="og:url" content="http://localhost:4000/page2/" />
-    <meta property="og:title" content="Dylan Paulus" />
+    <meta property="og:url" content="http://localhost:4000/react/redux/typescript/2018/05/31/using-typescript-with-redux-part-two/" />
+    <meta property="og:title" content="Part Two: Using Typescript with Redux" />
     <meta property="og:description" content="" />
     <meta property="og:image" content="" />
 
-    <title>Dylan Paulus</title>
+    <title>Dylan Paulus - Part Two: Using Typescript with Redux</title>
 
     
 
@@ -41,93 +41,20 @@
             </nav>
         </header>
 
-<section class="row dp__content">
-    
-    <div class="twelve columns dp__post">
-        <div class="row">
-            <div class="two columns dp__post-date">
-                September  8, 2017
-            </div>
+<section class="dp__post-container">
+    <p>Finished Example: <a href="https://codesandbox.io/s/n3138x65p0?hidenavigation=1">Click Here</a></p>
 
-            <div class="ten columns">
-                <h5 class="dp__post-header">
-                    <a href="/react/2017/09/08/tips-on-creating-reusable-components.1/" title="Tips on Creating Reusable Components">Tips on Creating Reusable Components</a>
-                </h5>
+<h1 id="part-two-using-typescript-with-react-redux">Part Two: Using Typescript with <del>React</del> Redux</h1>
 
-                <span class="dp__post-tag">
-                     React 
-                </span>
-            </div>
-        </div>
-    </div>
-    
-    <div class="twelve columns dp__post">
-        <div class="row">
-            <div class="two columns dp__post-date">
-                August 17, 2017
-            </div>
+<p>Last time we went through using Typescript with React, and setup a small counter application. A lot of applications out there use Redux. A common pain-point for me was how to setup Typescript with Redux–it’s a common hurdle with my team also. Though Redux is a totally different library, it holds a big share of the state management market in React applications. In part two we’ll take a detour from base React, and look at converting our counter to using Redux!</p>
 
-            <div class="ten columns">
-                <h5 class="dp__post-header">
-                    <a href="/react/2017/08/17/higher-order-components/" title="Introduction to Higher Order Components">Introduction to Higher Order Components</a>
-                </h5>
+<p><em>Note: Same with part one, I’m going to assume Typescript, and now Redux, is setup and compiles. This is a writeup on integrating types, and less on how to setup a project.</em></p>
 
-                <span class="dp__post-tag">
-                     React 
-                </span>
-            </div>
-        </div>
-    </div>
-    
-    <div class="twelve columns dp__post">
-        <div class="row">
-            <div class="two columns dp__post-date">
-                July 26, 2017
-            </div>
+<h3 id="actions">Actions</h3>
 
-            <div class="ten columns">
-                <h5 class="dp__post-header">
-                    <a href="/react/2017/07/26/injecting-react-tag-types/" title="Injecting Dynamic Elements to Components">Injecting Dynamic Elements to Components</a>
-                </h5>
 
-                <span class="dp__post-tag">
-                     React 
-                </span>
-            </div>
-        </div>
-    </div>
-    
-    <div class="twelve columns dp__post">
-        <div class="row">
-            <div class="two columns dp__post-date">
-                November 17, 2015
-            </div>
 
-            <div class="ten columns">
-                <h5 class="dp__post-header">
-                    <a href="/javascript/2015/11/17/intro-to-flight-js/" title="Intro to FlightJS">Intro to FlightJS</a>
-                </h5>
-
-                <span class="dp__post-tag">
-                     JavaScript 
-                </span>
-            </div>
-        </div>
-    </div>
-    
 </section>
-
-<div class="pagination">
-    
-    <span class="previous">Older</span>
-    
-
-    <span style="margin: 0 5px;">Page: 2 of 2</span>
-
-    
-    <a class="next" title="Newer" href="/">Newer</a>
-    
-</div>
 
 <footer class="row dp__footer">
     <div class="twelve columns">
