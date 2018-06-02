@@ -52,6 +52,40 @@
 
 <h3 id="actions">Actions</h3>
 
+<pre><code class="language-jsx">// Action Types
+const INCREMENT = "INCREMENT";
+const DECREMENT = "DECREMENT";
+
+type ActionTypes = typeof INCREMENT | typeof DECREMENT;
+
+interface IAction&lt;T extends ActionTypes, K extends object&gt; {
+  type: T;
+  payload: K;
+}
+
+interface IPayload {
+  amount: number;
+}
+
+// Actions Creators
+function increment(amount: number): IAction&lt;typeof INCREMENT, IPayload&gt; {
+  return {
+    type: INCREMENT,
+    payload: {
+      amount
+    }
+  };
+}
+
+function decrement(amount: number): IAction&lt;typeof DECREMENT, IPayload&gt; {
+  return {
+    type: DECREMENT,
+    payload: {
+      amount
+    }
+  };
+}
+</code></pre>
 
 
 </section>

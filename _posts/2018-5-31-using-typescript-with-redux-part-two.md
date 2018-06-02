@@ -15,3 +15,38 @@ Last time we went through using Typescript with React, and setup a small counter
 
 ### Actions
 
+```jsx
+// Action Types
+const INCREMENT = "INCREMENT";
+const DECREMENT = "DECREMENT";
+
+type ActionTypes = typeof INCREMENT | typeof DECREMENT;
+
+interface IAction<T extends ActionTypes, K extends object> {
+  type: T;
+  payload: K;
+}
+
+interface IPayload {
+  amount: number;
+}
+
+// Actions Creators
+function increment(amount: number): IAction<typeof INCREMENT, IPayload> {
+  return {
+    type: INCREMENT,
+    payload: {
+      amount
+    }
+  };
+}
+
+function decrement(amount: number): IAction<typeof DECREMENT, IPayload> {
+  return {
+    type: DECREMENT,
+    payload: {
+      amount
+    }
+  };
+}
+```
