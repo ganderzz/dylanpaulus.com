@@ -6,7 +6,20 @@
 </description>		
 		<link>http://localhost:4000</link>
 		<atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-		<lastBuildDate>Wed, 16 May 2018 00:00:00 -0700</lastBuildDate>
+		<lastBuildDate>Sat, 02 Jun 2018 00:00:00 -0700</lastBuildDate>
+		
+			<item>
+				<title>Generic Type Arguments in JSX Elements</title>
+				        
+				
+					<description>&lt;h1 id=&quot;generic-type-arguments-in-jsx-elements&quot;&gt;Generic Type Arguments in JSX Elements&lt;/h1&gt;
+
+</description>
+				
+				<pubDate>Sat, 02 Jun 2018 00:00:00 -0700</pubDate>
+				<link>http://localhost:4000/react/typescript/2018/06/02/generic-jsx-type-argument/</link>
+				<guid isPermaLink="true">http://localhost:4000/react/typescript/2018/06/02/generic-jsx-type-argument/</guid>
+			</item>
 		
 			<item>
 				<title>Part One: Using Typescript with React</title>
