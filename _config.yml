@@ -13,6 +13,12 @@ author:
 
 permalink: pretty
 
+defaults:
+  - scope:
+      path: "images"
+    values:
+      image: true
+
 markdown: kramdown
 highlighter: rouge
 kramdown:
