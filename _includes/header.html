@@ -13,7 +13,7 @@
     <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
     <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}" />
     <meta property="og:description" content="" />
-    <meta property="og:image" content="" />
+    <meta property="og:image" content="{{ site.url }}/images/favicon-32x32.png" />
 
     <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
@@ -33,17 +33,21 @@
 </head>
 
 <body>
+    <header style="width: 100%; background: #333;">
+        <div class="header__title">
+            <a href="/">Dylan Paulus</a>
+        </div>
+
+        <div class="header__search">
+            <i class="fa fa-search search__icon" aria-hidden="true"></i>
+            <input type="text" id="search-input" placeholder="Search..." />
+            <ul id="results-container"></ul>
+        </div>
+
+        <nav class="header__links">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+        </nav>
+    </header>
 
     <main class="container">
-        <header class="row">
-            <div class="five columns">
-                <h3>
-                    <a href="/">Dylan Paulus</a>
-                </h3>
-            </div>
-
-            <nav class="seven columns">
-                <a href="/">Home</a>
-                <a href="/about">About</a>
-            </nav>
-        </header>
