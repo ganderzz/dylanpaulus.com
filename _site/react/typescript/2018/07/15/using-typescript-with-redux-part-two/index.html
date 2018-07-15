@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="Ramblings on software engineering">
-    <meta name="keywords" content="software, code, programming, blog, portfolio, react, typescript, javascript, washington, spokane, ">
+    <meta name="keywords" content="software, code, programming, blog, portfolio, react, typescript, javascript, washington, spokane, ReactTypescript">
     <meta name="author" content="Dylan Paulus">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@DylanPaulus" />
     <meta name="twitter:creator" content="@DylanPaulus" />
-    <meta property="og:url" content="http://localhost:4000/" />
-    <meta property="og:title" content="Dylan Paulus" />
+    <meta property="og:url" content="http://localhost:4000/react/typescript/2018/07/15/using-typescript-with-redux-part-two/" />
+    <meta property="og:title" content="Part Two: Using Typescript with Redux" />
     <meta property="og:description" content="" />
     <meta property="og:image" content="http://localhost:4000/images/favicon-32x32.png" />
 
@@ -23,7 +23,7 @@
     <meta name="msapplication-TileColor" content="#00aba9">
     <meta name="theme-color" content="#ffffff">
 
-    <title>Dylan Paulus</title>
+    <title>Dylan Paulus - Part Two: Using Typescript with Redux</title>
 
     
 
@@ -57,96 +57,155 @@
 
     <main class="container">
 
-<section class="row dp__content">
-    
-    <div class="twelve columns dp__post">
-        <div class="row">
-            <div class="twelve columns">
-                <h5 class="dp__post-header">
-                    <a href="/react/typescript/2018/07/15/using-typescript-with-redux-part-two/" title="Part Two: Using Typescript with Redux">Part Two: Using Typescript with Redux</a>
-                </h5>
+<section class="dp__post-container">
+    <p><a href="https://codesandbox.io/s/5w70j1916l"><img src="https://codesandbox.io/static/img/play-codesandbox.svg" alt="Click Here" /></a></p>
 
-                <span class="dp__post-tag">
-                    July 15, 2018 - 
-                     React and Typescript 
-                </span>
-            </div>
-        </div>
-    </div>
-    
-    <div class="twelve columns dp__post">
-        <div class="row">
-            <div class="twelve columns">
-                <h5 class="dp__post-header">
-                    <a href="/react/typescript/2018/06/02/generic-jsx-type-argument/" title="Generic Type Arguments in JSX Elements">Generic Type Arguments in JSX Elements</a>
-                </h5>
+<h1 id="part-two-using-typescript-with-react-redux">Part Two: Using Typescript with <del>React</del> Redux</h1>
 
-                <span class="dp__post-tag">
-                    June  2, 2018 - 
-                     React and Typescript 
-                </span>
-            </div>
-        </div>
-    </div>
-    
-    <div class="twelve columns dp__post">
-        <div class="row">
-            <div class="twelve columns">
-                <h5 class="dp__post-header">
-                    <a href="/react/typescript/2018/05/16/using-typescript-with-react-part-one.1/" title="Part One: Using Typescript with React">Part One: Using Typescript with React</a>
-                </h5>
+<p>Last time we went through using Typescript with React, and setup a small counter application. A lot of applications out there use Redux. A common pain-point for me was how to setup Typescript with Redux–it’s a common hurdle with my team also. Though Redux is a totally different library, it holds a big share of the state management market in React applications. In part two we’ll take a detour from base React, and look at converting our counter to using Redux!</p>
 
-                <span class="dp__post-tag">
-                    May 16, 2018 - 
-                     React and Typescript 
-                </span>
-            </div>
-        </div>
-    </div>
-    
-    <div class="twelve columns dp__post">
-        <div class="row">
-            <div class="twelve columns">
-                <h5 class="dp__post-header">
-                    <a href="/react/2018/04/10/reusable-components-factory-component.1/" title="Reusable Components: Factory Components">Reusable Components: Factory Components</a>
-                </h5>
+<p><em>Note: Same with part one, I’m going to assume Typescript, and now Redux, is setup and compiles. This is a write-up on integrating types, and less on how to setup a project.</em></p>
 
-                <span class="dp__post-tag">
-                    April 10, 2018 - 
-                     React 
-                </span>
-            </div>
-        </div>
-    </div>
-    
-    <div class="twelve columns dp__post">
-        <div class="row">
-            <div class="twelve columns">
-                <h5 class="dp__post-header">
-                    <a href="/react/2017/12/08/global-component-registration/" title="Global Component Registration">Global Component Registration</a>
-                </h5>
+<h3 id="actions">Actions</h3>
 
-                <span class="dp__post-tag">
-                    December  8, 2017 - 
-                     React 
-                </span>
-            </div>
-        </div>
-    </div>
-    
-</section>
+<p>We’ll start out creating a few actions for our counter.</p>
 
-<div class="pagination">
-    
-    <a class="previous" title="Older" href="/page2">Older</a>
-    
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="c1">// Action Types</span>
+<span class="kr">export</span> <span class="kr">const</span> <span class="nx">INCREMENT</span> <span class="o">=</span> <span class="s2">"INCREMENT"</span><span class="p">;</span>
+<span class="kr">export</span> <span class="kr">const</span> <span class="nx">DECREMENT</span> <span class="o">=</span> <span class="s2">"DECREMENT"</span><span class="p">;</span>
 
-    <span style="margin: 0 5px;">Page: 1 of 2</span>
+<span class="kr">export</span> <span class="nx">type</span> <span class="nx">ActionTypes</span> <span class="o">=</span> <span class="k">typeof</span> <span class="nx">INCREMENT</span> <span class="o">|</span> <span class="k">typeof</span> <span class="nx">DECREMENT</span><span class="p">;</span>
 
-    
-    <span class="next">Newer</span>
-    
+<span class="kr">export</span> <span class="kr">interface</span> <span class="nx">IAction</span> <span class="p">{</span>
+  <span class="nl">type</span><span class="p">:</span> <span class="nx">ActionTypes</span><span class="p">;</span>
+  <span class="nl">payload</span><span class="p">:</span> <span class="nx">IPayload</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kr">export</span> <span class="kr">interface</span> <span class="nx">IPayload</span> <span class="p">{</span>
+  <span class="nl">amount</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Action Creators</span>
+<span class="kr">export</span> <span class="kd">function</span> <span class="nx">increment</span><span class="p">(</span><span class="nx">amount</span><span class="err">:</span> <span class="nx">number</span><span class="p">)</span><span class="err">:</span> <span class="nx">IAction</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="na">type</span><span class="p">:</span> <span class="nx">INCREMENT</span><span class="p">,</span>
+    <span class="na">payload</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nx">amount</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="kr">export</span> <span class="kd">function</span> <span class="nx">decrement</span><span class="p">(</span><span class="na">amount</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="nx">IAction</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="na">type</span><span class="p">:</span> <span class="nx">DECREMENT</span><span class="p">,</span>
+    <span class="na">payload</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nx">amount</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+
+</code></pre>
 </div>
+
+<p>Going from top to bottom. We start out creating a few action types: <em>INCREMENT</em> and <em>DECREMENT</em>. This will allow us to reuse these strings as types, and get rid of any ‘magic strings’. Creating action types improves our code so we only have one place to update this value if our type should change. Additionally, reduces bugs that can occur due to human error (eg. we accidently put ‘inCREMENT’ or ‘increment’ instead of ‘INCREMENT’).</p>
+
+<p>Moving on, we hit a Typescript type and a few interfaces. In <em>ActionTypes</em> we use a union type to say, “we can use any of these types”. This will come in handy later. Next, we define a general interface for our action creators. We provide the required Redux <em>type</em> property that reuses <em>ActionTypes</em>. To keep different actions similar, we’ll use payload to deliver a ‘value’ we want our reducer to work on. For the counter, we’ll use <strong>IPayload</strong> which has one property <em>amount</em> which is a number. We’ll use this to set the amount we’ll either increment or decrement the count.</p>
+
+<p>Finally, we’ll create an action creator for both increment and decrementing our counter. These functions are pretty straightforward. They are both functions that take a number, <em>amount</em>, and returns an <em>IAction</em>.</p>
+
+<h3 id="reducer">Reducer</h3>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kr">export</span> <span class="kr">const</span> <span class="nx">defaultState</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">count</span><span class="p">:</span> <span class="mi">0</span>
+<span class="p">};</span>
+
+<span class="kr">export</span> <span class="kd">function</span> <span class="nx">rootReducer</span><span class="p">(</span><span class="nx">state</span> <span class="o">=</span> <span class="nx">defaultState</span><span class="p">,</span> <span class="nx">action</span><span class="err">:</span> <span class="nx">IAction</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">switch</span> <span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="nx">INCREMENT</span><span class="err">:</span>
+      <span class="k">return</span> <span class="p">{</span>
+        <span class="na">count</span><span class="p">:</span> <span class="nx">state</span><span class="p">.</span><span class="nx">count</span> <span class="o">+</span> <span class="nx">action</span><span class="p">.</span><span class="nx">payload</span><span class="p">.</span><span class="nx">amount</span>
+      <span class="p">};</span>
+
+    <span class="k">case</span> <span class="nx">DECREMENT</span><span class="err">:</span>
+      <span class="k">return</span> <span class="p">{</span>
+        <span class="na">count</span><span class="p">:</span> <span class="nx">state</span><span class="p">.</span><span class="nx">count</span> <span class="o">-</span> <span class="nx">action</span><span class="p">.</span><span class="nx">payload</span><span class="p">.</span><span class="nx">amount</span>
+      <span class="p">};</span>
+
+    <span class="nl">default</span><span class="p">:</span>
+      <span class="k">return</span> <span class="nx">state</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>I won’t spend too much time on the reducer as Typescript doesn’t play much role here (in this example). We’ll export our <em>defaultState</em> to use later!</p>
+
+<h3 id="component">Component</h3>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">IStateToProps</span> <span class="p">{</span>
+  <span class="nl">count</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kr">interface</span> <span class="nx">IDispatchToProps</span> <span class="p">{</span>
+  <span class="nl">increment</span><span class="p">:</span> <span class="k">typeof</span> <span class="nx">increment</span><span class="p">;</span>
+  <span class="nl">decrement</span><span class="p">:</span> <span class="k">typeof</span> <span class="nx">decrement</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">type</span> <span class="nx">AllProps</span> <span class="o">=</span> <span class="nx">IStateToProps</span> <span class="o">&amp;</span> <span class="nx">IDispatchToProps</span><span class="p">;</span>
+
+<span class="kr">class</span> <span class="nx">App</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span><span class="o">&lt;</span><span class="nx">AllProps</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="kr">private</span> <span class="nx">handleClick</span> <span class="o">=</span> <span class="p">(</span><span class="na">event</span><span class="p">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">MouseEvent</span><span class="o">&lt;</span><span class="nx">HTMLButtonElement</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="na">type</span><span class="p">:</span> <span class="nx">string</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">currentTarget</span><span class="p">.</span><span class="nx">title</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">type</span> <span class="o">===</span> <span class="s2">"decrement"</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">decrement</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">increment</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+
+  <span class="kr">public</span> <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">title</span><span class="o">=</span><span class="s2">"decrement"</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleClick</span><span class="p">}</span><span class="o">&gt;</span>
+          <span class="o">-</span>
+        <span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>        <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">count</span><span class="p">}</span>
+        <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">title</span><span class="o">=</span><span class="s2">"increment"</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleClick</span><span class="p">}</span><span class="o">&gt;</span>
+          <span class="o">+</span>
+        <span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kr">export</span> <span class="kr">const</span> <span class="nx">ConnectedApp</span> <span class="o">=</span> <span class="nx">connect</span><span class="o">&lt;</span><span class="nx">IStateToProps</span><span class="p">,</span> <span class="nx">IDispatchToProps</span><span class="o">&gt;</span><span class="p">(</span>
+  <span class="p">(</span><span class="na">state</span><span class="p">:</span> <span class="k">typeof</span> <span class="nx">defaultState</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
+    <span class="na">count</span><span class="p">:</span> <span class="nx">state</span><span class="p">.</span><span class="nx">count</span>
+  <span class="p">}),</span>
+  <span class="p">{</span>
+    <span class="nx">increment</span><span class="p">,</span>
+    <span class="nx">decrement</span>
+  <span class="p">}</span>
+<span class="p">)(</span><span class="nx">App</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<p>In this example we’re using a library <em>react-redux</em>–making it easier to connect React components to Redux. Starting out, we create two interfaces that we’ll use both as <strong>App</strong>’s props and in the <code class="highlighter-rouge">connect()</code> function at the bottom of the code.</p>
+
+<p><strong>IStateToProps</strong> we tell Typescript what the mapped state will be named. In our case we’ll keep the name <em>count</em>.
+<strong>IDispatchToProps</strong> we define what actions our component will get. Using <code class="highlighter-rouge">typeof</code> we can easily tell Typescript to reuse the implied type definition of <em>increment</em> and <em>decrement</em> (our actions).</p>
+
+<p>Next, we create a new type that combines both <em>IStateToProps</em> and <em>IDispatchToProps</em>. This is more for convenience as we see in <strong>App</strong>’s prop definition. We could of also used <code class="highlighter-rouge">class App extends React.Component&lt;IStateToProps &amp; IDispatchToProps&gt;</code> and avoided the need for <em>AllProps</em>. Combining all the props to a type becomes valuable when using multiple lifecycle hooks (<code class="highlighter-rouge">shouldComponentUpdate(nextProps: AllProps)</code>), or multiple functions that work off the props!</p>
+
+<p>The <strong>App</strong> component is pretty similar to our part one example, so we’ll skip this and look at the <code class="highlighter-rouge">connect()</code> function.</p>
+
+<p><code class="highlighter-rouge">connect()</code> is a generic type that can take three types <code class="highlighter-rouge">connect&lt;IStateToProps, IDispatchToProps, IProps&gt;()</code>. Going from left to right–first is the type definition for stateToProps. This is the connecting component’s props we’re mapping the Redux <strong>state</strong> to. Second, the type definition for dispatchToProps. This is the connecting component’s props we’re mapping Redux <strong>actions</strong> to. Lastly, we’re not using it in this example, but we can provide the props of our component we’re connecting.</p>
+
+<p>We’ve successfully converted our counter to Redux, and provided useful types also!</p>
+
+
+</section>
 
 <footer class="row dp__footer">
     <div class="twelve columns">

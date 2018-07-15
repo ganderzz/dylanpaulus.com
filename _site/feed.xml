@@ -6,7 +6,20 @@
 </description>		
 		<link>http://localhost:4000</link>
 		<atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-		<lastBuildDate>Sat, 02 Jun 2018 00:00:00 -0700</lastBuildDate>
+		<lastBuildDate>Sun, 15 Jul 2018 00:00:00 -0700</lastBuildDate>
+		
+			<item>
+				<title>Part Two: Using Typescript with Redux</title>
+				        
+				
+					<description>&lt;h1 id=&quot;part-two-using-typescript-with-react-redux&quot;&gt;Part Two: Using Typescript with &lt;del&gt;React&lt;/del&gt; Redux&lt;/h1&gt;
+
+</description>
+				
+				<pubDate>Sun, 15 Jul 2018 00:00:00 -0700</pubDate>
+				<link>http://localhost:4000/react/typescript/2018/07/15/using-typescript-with-redux-part-two/</link>
+				<guid isPermaLink="true">http://localhost:4000/react/typescript/2018/07/15/using-typescript-with-redux-part-two/</guid>
+			</item>
 		
 			<item>
 				<title>Generic Type Arguments in JSX Elements</title>
@@ -30,8 +43,8 @@
 </description>
 				
 				<pubDate>Wed, 16 May 2018 00:00:00 -0700</pubDate>
-				<link>http://localhost:4000/react/typescript/2018/05/16/using-typescript-with-react-part-one/</link>
-				<guid isPermaLink="true">http://localhost:4000/react/typescript/2018/05/16/using-typescript-with-react-part-one/</guid>
+				<link>http://localhost:4000/react/typescript/2018/05/16/using-typescript-with-react-part-one.1/</link>
+				<guid isPermaLink="true">http://localhost:4000/react/typescript/2018/05/16/using-typescript-with-react-part-one.1/</guid>
 			</item>
 		
 			<item>
