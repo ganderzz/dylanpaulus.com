@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "Part Two: Using Typescript with Redux",
+      "category" : "ReactTypescript",
+      "tags"     : "Javascript, Frontend, React, Redux, Typescript",
+      "url"      : "/react/typescript/2018/07/15/using-typescript-with-redux-part-two/",
+      "date"     : "2018-07-15 00:00:00 -0700"
+    } ,
+  
+    {
       "title"    : "Generic Type Arguments in JSX Elements",
       "category" : "ReactTypescript",
       "tags"     : "Javascript, Frontend, React, Typescript",
@@ -12,7 +20,7 @@
       "title"    : "Part One: Using Typescript with React",
       "category" : "ReactTypescript",
       "tags"     : "Javascript, Frontend, React, Typescript",
-      "url"      : "/react/typescript/2018/05/16/using-typescript-with-react-part-one/",
+      "url"      : "/react/typescript/2018/05/16/using-typescript-with-react-part-one.1/",
       "date"     : "2018-05-16 00:00:00 -0700"
     } ,
   

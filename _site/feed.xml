@@ -6,19 +6,32 @@
 </description>		
 		<link>http://localhost:4000</link>
 		<atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-		<lastBuildDate>Thu, 31 May 2018 00:00:00 -0700</lastBuildDate>
+		<lastBuildDate>Sun, 15 Jul 2018 00:00:00 -0700</lastBuildDate>
 		
 			<item>
 				<title>Part Two: Using Typescript with Redux</title>
 				        
 				
-					<description>&lt;p&gt;Finished Example: &lt;a href=&quot;https://codesandbox.io/s/n3138x65p0?hidenavigation=1&quot;&gt;Click Here&lt;/a&gt;&lt;/p&gt;
+					<description>&lt;h1 id=&quot;part-two-using-typescript-with-react-redux&quot;&gt;Part Two: Using Typescript with &lt;del&gt;React&lt;/del&gt; Redux&lt;/h1&gt;
 
 </description>
 				
-				<pubDate>Thu, 31 May 2018 00:00:00 -0700</pubDate>
-				<link>http://localhost:4000/react/redux/typescript/2018/05/31/using-typescript-with-redux-part-two/</link>
-				<guid isPermaLink="true">http://localhost:4000/react/redux/typescript/2018/05/31/using-typescript-with-redux-part-two/</guid>
+				<pubDate>Sun, 15 Jul 2018 00:00:00 -0700</pubDate>
+				<link>http://localhost:4000/react/typescript/2018/07/15/using-typescript-with-redux-part-two/</link>
+				<guid isPermaLink="true">http://localhost:4000/react/typescript/2018/07/15/using-typescript-with-redux-part-two/</guid>
+			</item>
+		
+			<item>
+				<title>Generic Type Arguments in JSX Elements</title>
+				        
+				
+					<description>&lt;h1 id=&quot;generic-type-arguments-in-jsx-elements&quot;&gt;Generic Type Arguments in JSX Elements&lt;/h1&gt;
+
+</description>
+				
+				<pubDate>Sat, 02 Jun 2018 00:00:00 -0700</pubDate>
+				<link>http://localhost:4000/react/typescript/2018/06/02/generic-jsx-type-argument/</link>
+				<guid isPermaLink="true">http://localhost:4000/react/typescript/2018/06/02/generic-jsx-type-argument/</guid>
 			</item>
 		
 			<item>
