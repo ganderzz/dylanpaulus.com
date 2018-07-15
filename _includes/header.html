@@ -33,21 +33,25 @@
 </head>
 
 <body>
-    <header style="width: 100%; background: #333;">
-        <div class="header__title">
-            <a href="/">Dylan Paulus</a>
-        </div>
+    <header class="header">
+        <div class="header__body container">
+            <div class="header__title">
+                <a href="/" title="Go to homepage">Dylan Paulus</a>
+            </div>
+    
+            <nav class="header__links">
+                <a href="/" title="Go to homepage">Home</a>
+                <a href="/about" title="Go to about page">About</a>
+            </nav>
 
-        <div class="header__search">
-            <i class="fa fa-search search__icon" aria-hidden="true"></i>
-            <input type="text" id="search-input" placeholder="Search..." />
-            <ul id="results-container"></ul>
+            <div class="header__search">
+                <div class="search__icon" title="Click to toggle search">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </div>
+                <input type="text" id="search-input" placeholder="Search..." />
+                <ul id="results-container"></ul>
+            </div>
         </div>
-
-        <nav class="header__links">
-            <a href="/">Home</a>
-            <a href="/about">About</a>
-        </nav>
     </header>
 
     <main class="container">
