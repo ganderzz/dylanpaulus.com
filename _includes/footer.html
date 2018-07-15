@@ -28,6 +28,18 @@
 </main>
 
 <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>
+<script src="https://cdn.rawgit.com/christian-fei/Simple-Jekyll-Search/master/dest/simple-jekyll-search.min.js"></script>
+
+<script>
+    window.onload = function() {
+        var sjs = SimpleJekyllSearch({
+            searchInput: document.getElementById("search-input"),
+            resultsContainer: document.getElementById("results-container"),
+            searchResultTemplate: "<li><a href=\"{url}\" title=\"{date}\">{title}</a></li>",
+            json: "/search.json"
+        });
+    }
+</script>
 
 <script>
     (function (i, s, o, g, r, a, m) {
