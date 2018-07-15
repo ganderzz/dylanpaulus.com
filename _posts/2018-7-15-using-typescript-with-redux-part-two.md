@@ -11,7 +11,7 @@ tag: ["Javascript", "Frontend", "React", "Redux", "Typescript"]
 
 Last time we went through using Typescript with React, and setup a small counter application. A lot of applications out there use Redux. A common pain-point for me was how to setup Typescript with Redux--it's a common hurdle with my team also. Though Redux is a totally different library, it holds a big share of the state management market in React applications. In part two we'll take a detour from base React, and look at converting our counter to using Redux!
 
-*Note: Same with part one, I'm going to assume Typescript, and now Redux, is setup and compiles. This is a writeup on integrating types, and less on how to setup a project.*
+*Note: Same with part one, I'm going to assume Typescript, and now Redux, is setup and compiles. This is a write-up on integrating types, and less on how to setup a project.*
 
 ### Actions
 
@@ -54,29 +54,29 @@ export function decrement(amount: number): IAction {
 
 ```
 
-Going from top to bottom. We start out creating a few action types: *INCREMENT* and *DECREMENT*. This will allow us to reuse these strings as types, and get rid of any 'magic strings'. Creating action types improves our code so we only have one place to update this value if our type should change. Additionally, reduces bugs that can occur due to human error (eg. we accidently put 'rEDUCE' or 'reduce' instead of 'REDUCE').
+Going from top to bottom. We start out creating a few action types: *INCREMENT* and *DECREMENT*. This will allow us to reuse these strings as types, and get rid of any 'magic strings'. Creating action types improves our code so we only have one place to update this value if our type should change. Additionally, reduces bugs that can occur due to human error (eg. we accidently put 'inCREMENT' or 'increment' instead of 'INCREMENT').
 
-Moving on, we hit a Typescript type and a few interfaces. Our *ActionTypes* type will allow us to say, "we want to use any of these types". This will come in handy later. Next, we define an interface for our counter action creators. It has the required Redux *type* property that can be either of our action type values. To keep actions similar, we'll use payload to deliver whatever 'value' we want our reducer to work on. For the counter, we'll use **IPayload** which has one property *amount* which is a number. We'll use this to set the amount we'll either increment or decrement.
+Moving on, we hit a Typescript type and a few interfaces. In *ActionTypes* we use a union type to say, "we can use any of these types". This will come in handy later. Next, we define a general interface for our action creators. We provide the required Redux *type* property that reuses *ActionTypes*. To keep different actions similar, we'll use payload to deliver a 'value' we want our reducer to work on. For the counter, we'll use **IPayload** which has one property *amount* which is a number. We'll use this to set the amount we'll either increment or decrement the count.
 
 Finally, we'll create an action creator for both increment and decrementing our counter. These functions are pretty straightforward. They are both functions that take a number, *amount*, and returns an *IAction*.
 
 ### Reducer
 
 ```js
-const defaultState = {
-  value: 0
+export const defaultState = {
+  count: 0
 };
 
 export function rootReducer(state = defaultState, action: IAction) {
   switch (action.type) {
     case INCREMENT:
       return {
-        value: state.value + action.payload.amount
+        count: state.count + action.payload.amount
       };
 
     case DECREMENT:
       return {
-        value: state.value - action.payload.amount
+        count: state.count - action.payload.amount
       };
 
     default:
@@ -85,7 +85,7 @@ export function rootReducer(state = defaultState, action: IAction) {
 }
 ```
 
-I won't spend too much time on the reducer as Typescript doesn't play much role here (in this example). Notice how we use our *IAction* interface we created in actions to enforce our counter actions!
+I won't spend too much time on the reducer as Typescript doesn't play much role here (in this example). We'll export our *defaultState* to use later!
 
 ### Component
 
@@ -127,22 +127,26 @@ class App extends React.Component<AllProps> {
   }
 }
 
-const ConnectedApp = connect<IStateToProps, IDispatchToProps>(
-  (state: { value: number }) => ({
-    count: state.value
+export const ConnectedApp = connect<IStateToProps, IDispatchToProps>(
+  (state: typeof defaultState) => ({
+    count: state.count
   }),
   {
     increment,
     decrement
   }
 )(App);
-
-const store = createStore(rootReducer);
-
-render(
-  <Provider store={store}>
-    <ConnectedApp />
-  </Provider>,
-  document.getElementById("root")
-);
 ```
+
+In this example we're using a library *react-redux*--making it easier to connect React components to Redux. Starting out, we create two interfaces that we'll use both as **App**'s props and in the `connect()` function at the bottom of the code.
+
+**IStateToProps** we tell Typescript what the mapped state will be named. In our case we'll keep the name *count*.
+**IDispatchToProps** we define what actions our component will get. Using `typeof` we can easily tell Typescript to reuse the implied type definition of *increment* and *decrement* (our actions).
+
+Next, we create a new type that combines both *IStateToProps* and *IDispatchToProps*. This is more for convenience as we see in **App**'s prop definition. We could of also used `class App extends React.Component<IStateToProps & IDispatchToProps>` and avoided the need for *AllProps*. Combining all the props to a type becomes valuable when using multiple lifecycle hooks (`shouldComponentUpdate(nextProps: AllProps)`), or multiple functions that work off the props!
+
+The **App** component is pretty similar to our part one example, so we'll skip this and look at the `connect()` function.
+
+`connect()` is a generic type that can take three types `connect<IStateToProps, IDispatchToProps, IProps>()`. Going from left to right--first is the type definition for stateToProps. This is the connecting component's props we're mapping the Redux **state** to. Second, the type definition for dispatchToProps. This is the connecting component's props we're mapping Redux **actions** to. Lastly, we're not using it in this example, but we can provide the props of our component we're connecting.
+
+We've successfully converted our counter to Redux, and provided useful types also!
