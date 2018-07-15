@@ -2,24 +2,24 @@
     <div class="twelve columns">
         <div class="wrapper">
             {% if site.author.github %}
-            <a href="https://github.com/{{ site.author.github }}" aria-hidden="true">
+            <a href="https://github.com/{{ site.author.github }}" aria-hidden="true" title="Github">
                 <i class="fab fa-github" aria-hidden="true"></i>
             </a>
             {% endif %} {% if site.author.twitter %}
-            <a href="https://twitter.com/{{ site.author.twitter }}" aria-hidden="true">
+            <a href="https://twitter.com/{{ site.author.twitter }}" aria-hidden="true" title="Twitter">
                 <i class="fab fa-twitter" aria-hidden="true"></i>
             </a>
             {% endif %} {% if site.author.linkedin %}
-            <a href="https://www.linkedin.com/in/{{ site.author.linkedin }}" aria-hidden="true">
+            <a href="https://www.linkedin.com/in/{{ site.author.linkedin }}" aria-hidden="true" title="LinkedIn">
                 <i class="fab fa-linkedin" aria-hidden="true"></i>
             </a>
             {% endif %} {% if site.author.stackoverflow %}
-            <a href="https://stackoverflow.com/users/{{ site.author.stackoverflow }}" aria-hidden="true">
+            <a href="https://stackoverflow.com/users/{{ site.author.stackoverflow }}" aria-hidden="true" title="Stack Overflow">
                 <i class="fab fa-stack-overflow" aria-hidden="true"></i>
             </a>
             {% endif %}
 
-            <a href="/feed.xml" aria-hidden="true">
+            <a href="/feed.xml" aria-hidden="true" title="RSS">
                 <i class="fa fa-rss-square" aria-hidden="true"></i>
             </a>
         </div>
@@ -32,11 +32,25 @@
 
 <script>
     window.onload = function() {
+        var searchInput = document.getElementById("search-input");
+        var resultsContainer = document.getElementById("results-container");
+        var searchWrapper = document.querySelector(".header__search");
+        var searchIcon = document.querySelector(".search__icon");
+
         var sjs = SimpleJekyllSearch({
-            searchInput: document.getElementById("search-input"),
-            resultsContainer: document.getElementById("results-container"),
-            searchResultTemplate: "<li><a href=\"{url}\" title=\"{date}\">{title}</a></li>",
-            json: "/search.json"
+            searchInput: searchInput,
+            resultsContainer: resultsContainer,
+            searchResultTemplate: "<li><a href=\"{url}\" title=\"{title}\">{title}</a></li>",
+            json: "/search.json",
+            limit: 5
+        });
+
+        searchIcon.addEventListener("click", function() {
+            var isClassAdded = searchWrapper.classList.toggle("is--active");
+            
+            if (isClassAdded) {
+                searchWrapper.querySelector("input").focus();
+            }
         });
     }
 </script>

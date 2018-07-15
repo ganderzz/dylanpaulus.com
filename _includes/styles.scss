@@ -1,6 +1,8 @@
 @import "normalize";
 @import "skeleton";
 
+$highlight-brown: #9d6742;
+
 * {
   box-sizing: border-box;
 }
@@ -14,7 +16,7 @@ body {
 }
 
 a {
-  color: #9d6742;
+  color: $highlight-brown;
 }
 
 h4 {
@@ -55,6 +57,7 @@ h4 {
 
     a {
       text-decoration: none;
+      text-shadow: 1px 1px rgba(0, 0, 0, 0.3);
       cursor: pointer;
 
       transition: all 0.12s;
@@ -77,38 +80,64 @@ h4 {
     display: block;
     text-decoration: none;
     margin-left: 12px;
-    padding: 5px;
+    padding: 5px 8px;
     font-weight: 600;
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.3);
     cursor: pointer;
 
     transition: all 0.12s;
 
     &:hover {
-      background: #1eaedb;
+      background: $highlight-brown;
     }
   }
 
   .header__search {
+    flex: 0;
     position: relative;
-  }
-  .search__icon {
-    position: absolute;
-    left: 8px;
-    top: 15px;
-    bottom: 0;
-    color: rgb(167, 167, 167);
-  }
-  .header__search > input {
-    width: 100%;
-    margin: 0;
-    color: #999;
-    background: transparent;
-    padding-left: 30px;
-    border-top: 0;
-    border-left: 0;
-    border-right: 0;
-    border-bottom: 2px solid rgb(167, 167, 167);
-    border-radius: 0;
+    transition: flex 0.2s;
+
+    #results-container,
+    #search-input {
+      opacity: 0;
+      width: 1px;
+      overflow: hidden;
+
+      transition: all 0.2s;
+    }
+
+    &.is--active {
+      flex: 1;
+
+      #results-container,
+      #search-input {
+        width: 100%;
+        opacity: 1;
+      }
+    }
+
+    .search__icon {
+      position: absolute;
+      left: 0px;
+      top: 25px;
+      bottom: 0;
+      color: rgb(167, 167, 167);
+      z-index: 5;
+      cursor: pointer;
+    }
+    & > input {
+      width: 100%;
+      margin: 0;
+      color: #999;
+      background: transparent;
+      padding-left: 30px;
+      border-top: 0;
+      border-left: 0;
+      border-right: 0;
+      border-bottom: 2px solid rgb(167, 167, 167);
+      border-radius: 0;
+      z-index: 2;
+    }
   }
 }
 
@@ -118,23 +147,26 @@ h4 {
   left: 0;
   right: 0;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-  background: #222;
+  background: $highlight-brown;
   color: #fff;
   z-index: 500;
 
   & > li {
     list-style-type: none;
+    margin: 0;
+    border-top: 1px solid darken($highlight-brown, 10%);
 
     a {
       display: block;
       width: 100%;
-      padding: 15px;
+      padding: 10px 15px;
       text-decoration: none;
+      font-weight: 600;
       transition: background 0.2s;
     }
 
     a:hover {
-      background: #666;
+      background: darken($highlight-brown, 15%);
     }
   }
 }
@@ -144,13 +176,17 @@ h4 {
     display: none !important;
   }
 
-  header .header__links,
-  header div {
-    width: 50% !important;
+  .container {
+    width: 100% !important;
+    max-width: 100% !important;
   }
 }
 
 @media (max-width: 305px) {
+  .header__body {
+    padding: 0 !important;
+  }
+
   header > nav,
   header > div {
     width: 100% !important;
@@ -162,7 +198,7 @@ h4 {
 }
 
 main.container {
-  margin-top: -120px;
+  margin-top: -130px;
   background: #FFF;
   padding: 20px;
   box-shadow: 1px 3px 10px rgba(0, 0, 0, 0.1);
@@ -180,7 +216,9 @@ main.container {
   margin-top: 20px;
 }
 .dp__post:not(:first-child) {
-  margin-top: 40px;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #DDD;
 }
 .dp__post-date {
   color: #555;
@@ -253,7 +291,7 @@ main.container {
   transition: all 0.12s;
 
   &:hover {
-    color: #1eaedb;
+    color: darken($highlight-brown, 15%);
     opacity: 1;
   }
 }
