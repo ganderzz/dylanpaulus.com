@@ -4,16 +4,13 @@
     {% for post in paginator.posts %}
     <div class="twelve columns dp__post">
         <div class="row">
-            <div class="two columns dp__post-date">
-                {{ post.date | date: "%B %e, %Y" }}
-            </div>
-
-            <div class="ten columns">
+            <div class="twelve columns">
                 <h5 class="dp__post-header">
                     <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                 </h5>
 
                 <span class="dp__post-tag">
+                    {{ post.date | date: "%B %e, %Y" }} - 
                     {% if post.categories %} {{ post.categories | array_to_sentence_string }} {% endif %}
                 </span>
             </div>
