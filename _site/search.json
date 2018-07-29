@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "Write Software that Evolves",
+      "category" : "Software Engineering",
+      "tags"     : "Software Engineering, Project, Planning",
+      "url"      : "/software%20engineering/2018/07/29/write-software-that-evolves/",
+      "date"     : "2018-07-29 00:00:00 -0700"
+    } ,
+  
+    {
       "title"    : "Part Two: Using Typescript with Redux",
       "category" : "ReactTypescript",
       "tags"     : "Javascript, Frontend, React, Redux, Typescript",

@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="Ramblings on software engineering">
-    <meta name="keywords" content="software, code, programming, blog, portfolio, react, typescript, javascript, washington, spokane, ">
+    <meta name="keywords" content="software, code, programming, blog, portfolio, react, typescript, javascript, washington, spokane, Software Engineering">
     <meta name="author" content="Dylan Paulus">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@DylanPaulus" />
     <meta name="twitter:creator" content="@DylanPaulus" />
-    <meta property="og:url" content="http://localhost:4000/page2/" />
-    <meta property="og:title" content="Dylan Paulus" />
+    <meta property="og:url" content="http://localhost:4000/software%20engineering/2018/07/29/write-software-that-evolves/" />
+    <meta property="og:title" content="Write Software that Evolves" />
     <meta property="og:description" content="" />
     <meta property="og:image" content="http://localhost:4000/images/favicon-32x32.png" />
 
@@ -23,7 +23,7 @@
     <meta name="msapplication-TileColor" content="#00aba9">
     <meta name="theme-color" content="#ffffff">
 
-    <title>Dylan Paulus</title>
+    <title>Dylan Paulus - Write Software that Evolves</title>
 
     
 
@@ -57,96 +57,31 @@
 
     <main class="container">
 
-<section class="row dp__content">
-    
-    <div class="twelve columns dp__post">
-        <div class="row">
-            <div class="twelve columns">
-                <h5 class="dp__post-header">
-                    <a href="/react/2017/12/08/global-component-registration/" title="Global Component Registration">Global Component Registration</a>
-                </h5>
+<section class="dp__post-container">
+    <h1 id="write-software-that-evolves">Write Software that Evolves</h1>
 
-                <span class="dp__post-tag">
-                    December  8, 2017 - 
-                     React 
-                </span>
-            </div>
-        </div>
-    </div>
-    
-    <div class="twelve columns dp__post">
-        <div class="row">
-            <div class="twelve columns">
-                <h5 class="dp__post-header">
-                    <a href="/react/2017/09/14/encapsulating-state-with-functional-children.1/" title="Encapsulating State with Functional Children">Encapsulating State with Functional Children</a>
-                </h5>
+<p>In software development we can easily get trapped in <a href="https://en.wikipedia.org/wiki/Analysis_paralysis">analysis paralysis</a>. Having the foresight to make all the correct decisions is hard. We make hundreds, if not thousands of decisions during the lifetime of our software. You’ll likely get something wrong. Instead of trying to get every minutia correct before starting a project, we should aim to write software that can evolve.</p>
 
-                <span class="dp__post-tag">
-                    September 14, 2017 - 
-                     React 
-                </span>
-            </div>
-        </div>
-    </div>
-    
-    <div class="twelve columns dp__post">
-        <div class="row">
-            <div class="twelve columns">
-                <h5 class="dp__post-header">
-                    <a href="/react/2017/09/08/tips-on-creating-reusable-components.1/" title="Tips on Creating Reusable Components">Tips on Creating Reusable Components</a>
-                </h5>
+<h3 id="continuous-minimum-viable-product-development">Continuous Minimum Viable Product Development</h3>
 
-                <span class="dp__post-tag">
-                    September  8, 2017 - 
-                     React 
-                </span>
-            </div>
-        </div>
-    </div>
-    
-    <div class="twelve columns dp__post">
-        <div class="row">
-            <div class="twelve columns">
-                <h5 class="dp__post-header">
-                    <a href="/react/2017/08/17/higher-order-components/" title="Introduction to Higher Order Components">Introduction to Higher Order Components</a>
-                </h5>
+<p>One approach in combatting the constant changing of requirements is to strive for a continual minimum viable product (MVP). An MVP is the most basic version of a feature or application that satisfies a need. For example, let’s say our client wants the ability to view some information. We may only design a page with a table that holds the data (We <em>wouldn’t</em> add additional features like filtering or graphs). Notice how I said <em>continuous</em>. This process shouldn’t end after the application/feature is released. Keeping improvements incremental and small allows us to be flexible in our requirements. Do no more or less than what’s being asked.</p>
 
-                <span class="dp__post-tag">
-                    August 17, 2017 - 
-                     React 
-                </span>
-            </div>
-        </div>
-    </div>
-    
-    <div class="twelve columns dp__post">
-        <div class="row">
-            <div class="twelve columns">
-                <h5 class="dp__post-header">
-                    <a href="/react/2017/07/26/injecting-react-tag-types/" title="Injecting Dynamic Elements to Components">Injecting Dynamic Elements to Components</a>
-                </h5>
+<h3 id="lazy-evaluation">Lazy Evaluation</h3>
 
-                <span class="dp__post-tag">
-                    July 26, 2017 - 
-                     React 
-                </span>
-            </div>
-        </div>
-    </div>
-    
+<blockquote>
+  <p>“I’m sure the user would need this feature. It’s easy, I’ll just add it”</p>
+</blockquote>
+
+<p>This kind of thinking is killer to flexible software. First, every line of code has a cost. Not only are there time, money, and energy in initially writing the code, but also the maintenance and surface area for bugs creates its own cost. Second, the feature added could never be used by the user or just wrong! Best scenario this doubles the amount of work adding the feature.</p>
+
+<p>Instead of eagerly evaluating requirements, flexible software works best through lazy evaluation. Wait for the client/stake-holder/user to ask for a feature before implementing it (even on improvements you know they’ll ask for). Lazy evaluation has a few benefits. It reduces adding features the user won’t use–they asked for it. It also allows us to really understand what the user is really asking for. Instead of creating something then asking, “is this what you want?” we’re able to get up-front the ideal process.</p>
+
+<h3 id="summary">Summary</h3>
+
+<p>Instead of picking a target a firing–hoping we hit something. Combining continuous MVP and lazy evaluation keeps us agile. It allows firing in a direction and incrementally changing course as the target moves. Of course, do your homework and gather requirements beforehand, but aim for software that can evolve over time instead of trying to get it right from the start.</p>
+
+
 </section>
-
-<div class="pagination">
-    
-    <a class="previous" title="Older" href="/page3">Older</a>
-    
-
-    <span style="margin: 0 5px;">Page: 2 of 3</span>
-
-    
-    <a class="next" title="Newer" href="/">Newer</a>
-    
-</div>
 
 <footer class="row dp__footer">
     <div class="twelve columns">
