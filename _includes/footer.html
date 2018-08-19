@@ -27,11 +27,12 @@
 </footer>
 </main>
 
-<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>
-<script src="https://cdn.rawgit.com/christian-fei/Simple-Jekyll-Search/master/dest/simple-jekyll-search.min.js"></script>
+<script async src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>
+<script async src="https://cdn.rawgit.com/christian-fei/Simple-Jekyll-Search/master/dest/simple-jekyll-search.min.js"></script>
 
 <script>
     window.onload = function() {
+        /* --- Search Functionality --- */
         var searchInput = document.getElementById("search-input");
         var resultsContainer = document.getElementById("results-container");
         var searchWrapper = document.querySelector(".header__search");
@@ -52,6 +53,13 @@
                 searchWrapper.querySelector("input").focus();
             }
         });
+
+        /* --- Service Worker --- */
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker
+                    .register('./service-worker.js')
+                    .then(function() { console.log('Service Worker Registered'); });
+        }
     }
 </script>
 
@@ -67,5 +75,4 @@
     ga('send', 'pageview');
 </script>
 </body>
-
 </html>

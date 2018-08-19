@@ -2,9 +2,11 @@
 
 <head>
     <meta charset="UTF-8">
+    <link rel="manifest" href="manifest.json">
     <meta name="description" content="Ramblings on software engineering">
     <meta name="keywords" content="software, code, programming, blog, portfolio, react, typescript, javascript, washington, spokane, {{page.category}}">
     <meta name="author" content="Dylan Paulus">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta name="twitter:card" content="summary" />
@@ -28,7 +30,7 @@
     {% capture styles %} {% include styles.scss %} {% include code-format.scss %} {% endcapture %}
 
     <style>
-        {{ styles | scssify }}
+        {{styles | scssify}}
     </style>
 </head>
 
@@ -38,7 +40,7 @@
             <div class="header__title">
                 <a href="/" title="Go to homepage">Dylan Paulus</a>
             </div>
-    
+
             <nav class="header__links">
                 <a href="/" title="Go to homepage">Home</a>
                 <a href="/about" title="Go to about page">About</a>
