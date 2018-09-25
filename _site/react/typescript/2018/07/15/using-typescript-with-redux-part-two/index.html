@@ -72,23 +72,23 @@
 
 <p>We’ll start out creating a few actions for our counter.</p>
 
-<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="c1">// Action Types</span>
-<span class="kr">export</span> <span class="kr">const</span> <span class="nx">INCREMENT</span> <span class="o">=</span> <span class="s2">"INCREMENT"</span><span class="p">;</span>
-<span class="kr">export</span> <span class="kr">const</span> <span class="nx">DECREMENT</span> <span class="o">=</span> <span class="s2">"DECREMENT"</span><span class="p">;</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Action Types</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">INCREMENT</span> <span class="o">=</span> <span class="s2">"INCREMENT"</span><span class="p">;</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">DECREMENT</span> <span class="o">=</span> <span class="s2">"DECREMENT"</span><span class="p">;</span>
 
-<span class="kr">export</span> <span class="nx">type</span> <span class="nx">ActionTypes</span> <span class="o">=</span> <span class="k">typeof</span> <span class="nx">INCREMENT</span> <span class="o">|</span> <span class="k">typeof</span> <span class="nx">DECREMENT</span><span class="p">;</span>
+<span class="k">export</span> <span class="nx">type</span> <span class="nx">ActionTypes</span> <span class="o">=</span> <span class="k">typeof</span> <span class="nx">INCREMENT</span> <span class="o">|</span> <span class="k">typeof</span> <span class="nx">DECREMENT</span><span class="p">;</span>
 
-<span class="kr">export</span> <span class="kr">interface</span> <span class="nx">IAction</span> <span class="p">{</span>
+<span class="k">export</span> <span class="kr">interface</span> <span class="nx">IAction</span> <span class="p">{</span>
   <span class="nl">type</span><span class="p">:</span> <span class="nx">ActionTypes</span><span class="p">;</span>
   <span class="nl">payload</span><span class="p">:</span> <span class="nx">IPayload</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="kr">export</span> <span class="kr">interface</span> <span class="nx">IPayload</span> <span class="p">{</span>
+<span class="k">export</span> <span class="kr">interface</span> <span class="nx">IPayload</span> <span class="p">{</span>
   <span class="nl">amount</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="c1">// Action Creators</span>
-<span class="kr">export</span> <span class="kd">function</span> <span class="nx">increment</span><span class="p">(</span><span class="nx">amount</span><span class="err">:</span> <span class="nx">number</span><span class="p">)</span><span class="err">:</span> <span class="nx">IAction</span> <span class="p">{</span>
+<span class="k">export</span> <span class="kd">function</span> <span class="nx">increment</span><span class="p">(</span><span class="nx">amount</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="nx">IAction</span> <span class="p">{</span>
   <span class="k">return</span> <span class="p">{</span>
     <span class="na">type</span><span class="p">:</span> <span class="nx">INCREMENT</span><span class="p">,</span>
     <span class="na">payload</span><span class="p">:</span> <span class="p">{</span>
@@ -97,7 +97,7 @@
   <span class="p">};</span>
 <span class="p">}</span>
 
-<span class="kr">export</span> <span class="kd">function</span> <span class="nx">decrement</span><span class="p">(</span><span class="na">amount</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="nx">IAction</span> <span class="p">{</span>
+<span class="k">export</span> <span class="kd">function</span> <span class="nx">decrement</span><span class="p">(</span><span class="na">amount</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="nx">IAction</span> <span class="p">{</span>
   <span class="k">return</span> <span class="p">{</span>
     <span class="na">type</span><span class="p">:</span> <span class="nx">DECREMENT</span><span class="p">,</span>
     <span class="na">payload</span><span class="p">:</span> <span class="p">{</span>
@@ -106,8 +106,7 @@
   <span class="p">};</span>
 <span class="p">}</span>
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Going from top to bottom. We start out creating a few action types: <em>INCREMENT</em> and <em>DECREMENT</em>. This will allow us to reuse these strings as types, and get rid of any ‘magic strings’. Creating action types improves our code so we only have one place to update this value if our type should change. Additionally, reduces bugs that can occur due to human error (eg. we accidently put ‘inCREMENT’ or ‘increment’ instead of ‘INCREMENT’).</p>
 
@@ -117,18 +116,18 @@
 
 <h3 id="reducer">Reducer</h3>
 
-<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kr">export</span> <span class="kr">const</span> <span class="nx">defaultState</span> <span class="o">=</span> <span class="p">{</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="kd">const</span> <span class="nx">defaultState</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">count</span><span class="p">:</span> <span class="mi">0</span>
 <span class="p">};</span>
 
-<span class="kr">export</span> <span class="kd">function</span> <span class="nx">rootReducer</span><span class="p">(</span><span class="nx">state</span> <span class="o">=</span> <span class="nx">defaultState</span><span class="p">,</span> <span class="nx">action</span><span class="err">:</span> <span class="nx">IAction</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">export</span> <span class="kd">function</span> <span class="nx">rootReducer</span><span class="p">(</span><span class="nx">state</span> <span class="o">=</span> <span class="nx">defaultState</span><span class="p">,</span> <span class="nx">action</span><span class="p">:</span> <span class="nx">IAction</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">switch</span> <span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">case</span> <span class="nx">INCREMENT</span><span class="err">:</span>
+    <span class="k">case</span> <span class="nx">INCREMENT</span><span class="p">:</span>
       <span class="k">return</span> <span class="p">{</span>
         <span class="na">count</span><span class="p">:</span> <span class="nx">state</span><span class="p">.</span><span class="nx">count</span> <span class="o">+</span> <span class="nx">action</span><span class="p">.</span><span class="nx">payload</span><span class="p">.</span><span class="nx">amount</span>
       <span class="p">};</span>
 
-    <span class="k">case</span> <span class="nx">DECREMENT</span><span class="err">:</span>
+    <span class="k">case</span> <span class="nx">DECREMENT</span><span class="p">:</span>
       <span class="k">return</span> <span class="p">{</span>
         <span class="na">count</span><span class="p">:</span> <span class="nx">state</span><span class="p">.</span><span class="nx">count</span> <span class="o">-</span> <span class="nx">action</span><span class="p">.</span><span class="nx">payload</span><span class="p">.</span><span class="nx">amount</span>
       <span class="p">};</span>
@@ -137,14 +136,13 @@
       <span class="k">return</span> <span class="nx">state</span><span class="p">;</span>
   <span class="p">}</span>
 <span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>I won’t spend too much time on the reducer as Typescript doesn’t play much role here (in this example). We’ll export our <em>defaultState</em> to use later!</p>
 
 <h3 id="component">Component</h3>
 
-<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">IStateToProps</span> <span class="p">{</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">IStateToProps</span> <span class="p">{</span>
   <span class="nl">count</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
 <span class="p">}</span>
 
@@ -155,9 +153,9 @@
 
 <span class="nx">type</span> <span class="nx">AllProps</span> <span class="o">=</span> <span class="nx">IStateToProps</span> <span class="o">&amp;</span> <span class="nx">IDispatchToProps</span><span class="p">;</span>
 
-<span class="kr">class</span> <span class="nx">App</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span><span class="o">&lt;</span><span class="nx">AllProps</span><span class="o">&gt;</span> <span class="p">{</span>
+<span class="kd">class</span> <span class="nx">App</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span><span class="o">&lt;</span><span class="nx">AllProps</span><span class="o">&gt;</span> <span class="p">{</span>
   <span class="kr">private</span> <span class="nx">handleClick</span> <span class="o">=</span> <span class="p">(</span><span class="na">event</span><span class="p">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">MouseEvent</span><span class="o">&lt;</span><span class="nx">HTMLButtonElement</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="kr">const</span> <span class="na">type</span><span class="p">:</span> <span class="nx">string</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">currentTarget</span><span class="p">.</span><span class="nx">title</span><span class="p">;</span>
+    <span class="kd">const</span> <span class="na">type</span><span class="p">:</span> <span class="nx">string</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">currentTarget</span><span class="p">.</span><span class="nx">title</span><span class="p">;</span>
 
     <span class="k">if</span> <span class="p">(</span><span class="nx">type</span> <span class="o">===</span> <span class="s2">"decrement"</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">decrement</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
@@ -181,7 +179,7 @@
   <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="kr">export</span> <span class="kr">const</span> <span class="nx">ConnectedApp</span> <span class="o">=</span> <span class="nx">connect</span><span class="o">&lt;</span><span class="nx">IStateToProps</span><span class="p">,</span> <span class="nx">IDispatchToProps</span><span class="o">&gt;</span><span class="p">(</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">ConnectedApp</span> <span class="o">=</span> <span class="nx">connect</span><span class="o">&lt;</span><span class="nx">IStateToProps</span><span class="p">,</span> <span class="nx">IDispatchToProps</span><span class="o">&gt;</span><span class="p">(</span>
   <span class="p">(</span><span class="na">state</span><span class="p">:</span> <span class="k">typeof</span> <span class="nx">defaultState</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
     <span class="na">count</span><span class="p">:</span> <span class="nx">state</span><span class="p">.</span><span class="nx">count</span>
   <span class="p">}),</span>
@@ -190,8 +188,7 @@
     <span class="nx">decrement</span>
   <span class="p">}</span>
 <span class="p">)(</span><span class="nx">App</span><span class="p">);</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>In this example we’re using a library <em>react-redux</em>–making it easier to connect React components to Redux. Starting out, we create two interfaces that we’ll use both as <strong>App</strong>’s props and in the <code class="highlighter-rouge">connect()</code> function at the bottom of the code.</p>
 
@@ -267,9 +264,7 @@
 
         /* --- Service Worker --- */
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker
-                    .register('./service-worker.js')
-                    .then(function() { console.log('Service Worker Registered'); });
+            navigator.serviceWorker.register("./service-worker.js");
         }
     }
 </script>

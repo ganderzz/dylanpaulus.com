@@ -70,7 +70,7 @@
 
 <p>For example,</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">class</span> <span class="nx">IconButton</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">IconButton</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
     <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
         <span class="o">&lt;</span><span class="nx">Button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">onClick</span><span class="p">}</span><span class="o">&gt;</span>
             <span class="o">&lt;</span><span class="nx">Icon</span> <span class="o">/&gt;</span>
@@ -79,17 +79,15 @@
         <span class="o">&lt;</span><span class="sr">/Button</span><span class="err">&gt;
 </span>    <span class="p">}</span>
 <span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>And to consume the button,</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">IconButton</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">IconButton</span>
     <span class="nx">text</span><span class="o">=</span><span class="s2">"Click Me!"</span>
     <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">"Click!"</span><span class="p">)}</span>
 <span class="sr">/</span><span class="err">&gt;
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
 <p>Not bad.. easy to use, and to the point. But, some part of me thinks this could be better. Let’s walk through a few suggestions on making this component more reusable.</p>
 
@@ -99,7 +97,7 @@
 
 <p>Going to the IconButton example, we really don’t need an IconButton component. What if tomorrow we need an IconInput button? We not only have two separate, but pretty similar components to maintain! We can fix this by using composition. What we really want is something that ‘adds an icon’ to a component. Let’s make a new component called IconAdder.</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">class</span> <span class="nx">IconAdder</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">IconAdder</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
     <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
         <span class="k">return</span> <span class="p">(</span>
             <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
@@ -110,20 +108,18 @@
 </span>        <span class="p">);</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>to consume it</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">IconAdder</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">IconAdder</span>
     <span class="nx">component</span><span class="o">=</span><span class="p">{</span>
         <span class="o">&lt;</span><span class="nx">Button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">"Click!"</span><span class="p">)}</span><span class="o">&gt;</span>
             <span class="nx">Click</span> <span class="nx">Me</span><span class="o">!</span>
         <span class="o">&lt;</span><span class="sr">/Button</span><span class="err">&gt;
 </span>    <span class="p">}</span>
 <span class="sr">/</span><span class="err">&gt;
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
 <p>IconAdder allows us to throw any ol’ component we want into it, and it’ll add an Icon to it. Nice.</p>
 
@@ -131,7 +127,7 @@
 
 <p>One thing I come across a lot is the overuse of component properties. Components should almost never be used as properties. It ends up making components hard to use, and in the end, we are fighting with React. In React, every component has a property called children (<code class="highlighter-rouge">props.children</code>). This says, whatever we pass between this component’s tags, we’ll insert here. Let’s see an example <code class="highlighter-rouge">props.children</code> in the IconAdder component.</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">class</span> <span class="nx">IconAdder</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">IconAdder</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
     <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
         <span class="k">return</span> <span class="p">(</span>
             <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
@@ -142,20 +138,18 @@
 </span>        <span class="p">);</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>to consume it</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">IconAdder</span><span class="o">&gt;</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">IconAdder</span><span class="o">&gt;</span>
     <span class="o">&lt;</span><span class="nx">Button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">"Click!"</span><span class="p">)}</span><span class="o">&gt;</span>
         <span class="nx">Click</span> <span class="nx">Me</span><span class="o">!</span>
     <span class="o">&lt;</span><span class="sr">/Button</span><span class="err">&gt;
 </span><span class="o">&lt;</span><span class="sr">/IconAdder</span><span class="err">&gt;
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
-<p>The <code class="highlighter-rouge">&lt;Button&gt;</code> component will be inserted in IconAdder’s <code class="highlighter-rouge"><span class="p">{</span><span class="err">this.props.children</span><span class="p">}</span></code>! Much better!</p>
+<p>The <code class="highlighter-rouge">&lt;Button&gt;</code> component will be inserted in IconAdder’s <code class="highlighter-rouge">{this.props.children}</code>! Much better!</p>
 
 <h3 id="injecting-html-types">Injecting HTML Types</h3>
 
@@ -163,10 +157,10 @@
 
 <p>As someone consuming a component, I want as little pollution of my code as possible. Pollution in this case could be anything: event handlers, code size, or even HTML elements. In the case of our IconAdder component, a parent <code class="highlighter-rouge">&lt;div&gt;</code> wrapper gets added to every component using it. It would be great if we could get rid of the div, and just make it our child component. Well… we’re in luck. We can specify a tag property, and then use that property. This lets the end-user be in control of their DOM structure.</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">class</span> <span class="nx">IconAdder</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">IconAdder</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
     <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
-        <span class="kr">const</span> <span class="p">{</span> <span class="nx">tag</span><span class="p">,</span> <span class="nx">onClick</span><span class="p">,</span> <span class="nx">children</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span> 
-        <span class="kr">const</span> <span class="nx">Tag</span> <span class="o">=</span> <span class="nx">tag</span><span class="p">;</span>
+        <span class="kd">const</span> <span class="p">{</span> <span class="nx">tag</span><span class="p">,</span> <span class="nx">onClick</span><span class="p">,</span> <span class="nx">children</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span> 
+        <span class="kd">const</span> <span class="nx">Tag</span> <span class="o">=</span> <span class="nx">tag</span><span class="p">;</span>
 
         <span class="k">return</span> <span class="p">(</span>
             <span class="o">&lt;</span><span class="nx">Tag</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="nx">onClick</span><span class="p">}</span><span class="o">&gt;</span>
@@ -177,19 +171,17 @@
 </span>        <span class="p">);</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>to consume it</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">IconAdder</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">IconAdder</span>
     <span class="nx">tag</span><span class="o">=</span><span class="p">{</span><span class="nx">Button</span><span class="p">}</span>
     <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">"Click!"</span><span class="p">)}</span>
 <span class="o">&gt;</span>
     <span class="nx">Click</span> <span class="nx">Me</span><span class="o">!</span>
 <span class="o">&lt;</span><span class="sr">/IconAdder</span><span class="err">&gt;
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
 <p>Another benefit of using a ‘tag’ property, is let’s say that we want to support React Router’s <code class="highlighter-rouge">&lt;Link&gt;</code> component, but we also need to support the classic HTML <code class="highlighter-rouge">&lt;a&gt;</code> tag. We can easily swap these two out by just changing the ‘tag’ prop!</p>
 
@@ -201,10 +193,10 @@
 
 <p>Right now, our IconAdder component won’t accept a style, className, or title prop. Oh yeah, and what about in the future if we need to use IconAdder on a <code class="highlighter-rouge">&lt;a&gt;</code> tag. We’ll need to support href also. Let’s use the rest operator to support all of these properties!</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kr">class</span> <span class="nx">IconAdder</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">IconAdder</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
     <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
-        <span class="kr">const</span> <span class="p">{</span> <span class="nx">tag</span><span class="p">,</span> <span class="nx">onClick</span><span class="p">,</span> <span class="nx">children</span><span class="p">,</span> <span class="p">...</span><span class="nx">rest</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span> 
-        <span class="kr">const</span> <span class="nx">Tag</span> <span class="o">=</span> <span class="nx">tag</span><span class="p">;</span>
+        <span class="kd">const</span> <span class="p">{</span> <span class="nx">tag</span><span class="p">,</span> <span class="nx">onClick</span><span class="p">,</span> <span class="nx">children</span><span class="p">,</span> <span class="p">...</span><span class="nx">rest</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span> 
+        <span class="kd">const</span> <span class="nx">Tag</span> <span class="o">=</span> <span class="nx">tag</span><span class="p">;</span>
 
         <span class="k">return</span> <span class="p">(</span>
             <span class="o">&lt;</span><span class="nx">Tag</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="nx">onClick</span><span class="p">}</span> <span class="p">{...</span><span class="nx">rest</span><span class="p">}</span><span class="o">&gt;</span>
@@ -215,12 +207,11 @@
 </span>        <span class="p">);</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>to consume it</p>
 
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">IconAdder</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">IconAdder</span>
     <span class="nx">tag</span><span class="o">=</span><span class="p">{</span><span class="nx">Button</span><span class="p">}</span>
     <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">"Click!"</span><span class="p">)}</span>
     <span class="nx">style</span><span class="o">=</span><span class="p">{</span> <span class="p">{</span> <span class="na">fontWeight</span><span class="p">:</span> <span class="s2">"800"</span> <span class="p">}</span> <span class="p">}</span>
@@ -228,8 +219,7 @@
 <span class="o">&gt;</span>
     <span class="nx">Click</span> <span class="nx">Me</span><span class="o">!</span>
 <span class="o">&lt;</span><span class="sr">/IconAdder</span><span class="err">&gt;
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
 <p><code class="highlighter-rouge">...rest</code> will grab whatever properties we haven’t taken off in the destructuring (<code class="highlighter-rouge">const { a, b, c} = this.props;</code>), and assign it, in this case, to a variable called <code class="highlighter-rouge">rest</code>. We then apply all those properties to our <code class="highlighter-rouge">&lt;Tag&gt;</code> component by destructuring the <code class="highlighter-rouge">rest</code> object into the individual props. As shown in the consumption of IconAdder, we can now add whatever other properties we want!</p>
 
@@ -298,9 +288,7 @@
 
         /* --- Service Worker --- */
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker
-                    .register('./service-worker.js')
-                    .then(function() { console.log('Service Worker Registered'); });
+            navigator.serviceWorker.register("./service-worker.js");
         }
     }
 </script>

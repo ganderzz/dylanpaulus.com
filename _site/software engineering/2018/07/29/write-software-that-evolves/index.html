@@ -13,7 +13,7 @@
     <meta name="twitter:site" content="@DylanPaulus" />
     <meta name="twitter:creator" content="@DylanPaulus" />
     <meta property="og:url" content="http://localhost:4000/software%20engineering/2018/07/29/write-software-that-evolves/" />
-    <meta property="og:title" content="Write Software that Evolvess" />
+    <meta property="og:title" content="Write Software that Evolves" />
     <meta property="og:description" content="" />
     <meta property="og:image" content="http://localhost:4000/images/favicon-32x32.png" />
 
@@ -25,7 +25,7 @@
     <meta name="msapplication-TileColor" content="#00aba9">
     <meta name="theme-color" content="#ffffff">
 
-    <title>Dylan Paulus - Write Software that Evolvess</title>
+    <title>Dylan Paulus - Write Software that Evolves</title>
 
     
 
@@ -143,9 +143,7 @@
 
         /* --- Service Worker --- */
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker
-                    .register('./service-worker.js')
-                    .then(function() { console.log('Service Worker Registered'); });
+            navigator.serviceWorker.register("./service-worker.js");
         }
     }
 </script>

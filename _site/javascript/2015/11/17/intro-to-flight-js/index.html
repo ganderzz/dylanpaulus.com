@@ -72,7 +72,7 @@ Getting Started</p>
 <p>In this Intro to FlightJS guide we will do what many intro framework guides do, make a counter. Let’s get to work.
 Head over to the FlightJS Github, and install FlightJS using your favorite method.
 HTML code:</p>
-<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;h1&gt;</span>FlightJS Counter<span class="nt">&lt;/h1&gt;</span>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;h1&gt;</span>FlightJS Counter<span class="nt">&lt;/h1&gt;</span>
 <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">”counter”</span><span class="nt">&gt;</span>
    <span class="nt">&lt;h2</span> <span class="na">class=</span><span class="s">”counter-total”</span><span class="nt">&gt;</span>0<span class="nt">&lt;/h2&gt;</span>
    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">”counter-function”</span><span class="nt">&gt;</span>
@@ -80,24 +80,22 @@ HTML code:</p>
        <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">”#add”</span> <span class="na">class=</span><span class="s">”counter-add”</span><span class="nt">&gt;</span>+<span class="nt">&lt;/a&gt;</span>
    <span class="nt">&lt;/div&gt;</span>
 <span class="nt">&lt;/div&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="counter">Counter</h3>
 <p>To get started, let us create a FlightJS component. Since we will be creating a counter, we’ll create a Counter component.</p>
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">Counter</span> <span class="o">=</span> <span class="nx">flight</span><span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">Counter</span> <span class="o">=</span> <span class="nx">flight</span><span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">defaultAttrs</span><span class="p">({});</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">after</span><span class="p">(</span><span class="err">“</span><span class="nx">initialize</span><span class="err">”</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
    <span class="p">});</span>
 <span class="p">});</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>We did a few things in the example above. First, we created a new Flight component called Counter. Next, we defined that we have no default attributes to the Counter component (this will change soon). Attributes provide two big benefits: Component attributes create private variables for a component.</p>
 
 <p>Secondly, attributes give us a way to assign unique data to each instance of a component. Lastly, we have this weird <code class="highlighter-rouge">this.after(“initialize”)</code> thing going on at the end. This is where a lot of the power comes from. Flight will execute the function we provide, as the second argument, after the initialize function has ran (initialize is an internal flight function) . Basically we’re telling Flight that once it gets itself in order, let us do what we need to.</p>
 
 <p>So what does a counter need? We need a total number that will be counted on. Oh yeah, and some buttons, that when clicked, either add or subtract one from the total. Let’s add this to our JavaScript.</p>
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">Counter</span> <span class="o">=</span> <span class="nx">flight</span><span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">Counter</span> <span class="o">=</span> <span class="nx">flight</span><span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">defaultAttrs</span><span class="p">({</span>
       <span class="s2">"subtractSelector"</span><span class="p">:</span> <span class="s2">".counter-subtract"</span><span class="p">,</span>
       <span class="s2">"additionSelector"</span><span class="p">:</span> <span class="s2">".counter-add"</span><span class="p">,</span>
@@ -112,12 +110,11 @@ HTML code:</p>
      <span class="p">});</span>
    <span class="p">});</span>
 <span class="p">});</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>First we added some attributes. These attributes provide us a DOM element for our subtract and add buttons—named subtractSelector and additionSelector respectively—and defines our starting number count. We then created some stubbed functions for once the selector’s event is triggered. Finally, an event handler is created. <code class="highlighter-rouge">this.on(“”)</code> creates an event binding it to whatever we define within the quotes. In this case, we are waiting on a click event to be performed on our DOM selectors subtractSelector and additionSelector. Once a click is recognized, the corresponding function is called. (<code class="highlighter-rouge">this.subtract()</code> or <code class="highlighter-rouge">this.add()</code>)</p>
 
 <p>Continuing, here is our finished code:</p>
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">Counter</span> <span class="o">=</span> <span class="nx">flight</span><span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">Counter</span> <span class="o">=</span> <span class="nx">flight</span><span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
    <span class="k">this</span><span class="p">.</span><span class="nx">defaultAttrs</span><span class="p">({</span>
       <span class="s2">"subtractSelector"</span><span class="p">:</span> <span class="s2">".counter-subtract"</span><span class="p">,</span>
       <span class="s2">"additionSelector"</span><span class="p">:</span> <span class="s2">".counter-add"</span><span class="p">,</span>
@@ -146,15 +143,14 @@ HTML code:</p>
      <span class="p">});</span>
    <span class="p">});</span>
 <span class="p">});</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>Finally we get functionality. The subtract and add function perform a -1 or +1 on the total count depending on which event is triggered. Once we perform these actions on our count, we have no way of displaying the new information. This is where <code class="highlighter-rouge">this.uiDisplayCount</code> plays its role. From any jQuery enthusiast, this function is straight forward. Take our count attribute, and insert it into the html of .counter-total. But, what is <code class="highlighter-rouge">this.$node</code>? This.$node is a property given to us from Flight that grabs a jQuery object of the DOM this component is attached to. Later on we will attach the Counter component to the DOM, and see how this plays out. Going to the next function, we tell our component to execute the uiDisplayCount function after the add or subtract functions are done being executed.</p>
 
 <p>Now there is one thing missing, how do we actually attach this to the DOM?
 <code class="highlighter-rouge">Counter.attachTo(“.counter”, { count: 100 });</code></p>
 
 <p>Going back to before, our <code class="highlighter-rouge">this.$node</code> property would return a jQuery object of our .counter, <code class="highlighter-rouge">$(“.counter”)</code>. As we can see by the second parameter, we can also change what our default attributes are once we attach the component. This helps enforce the modular code Flight preaches. We can change the attributes to fit whatever the situation.</p>
-<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">Counter</span><span class="p">.</span><span class="nx">attachTo</span><span class="p">(</span><span class="err">“</span><span class="p">.</span><span class="nx">counter</span><span class="err">”</span><span class="p">,</span> <span class="p">{</span> <span class="na">count</span><span class="p">:</span> <span class="mi">100</span> <span class="p">});</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Counter</span><span class="p">.</span><span class="nx">attachTo</span><span class="p">(</span><span class="err">“</span><span class="p">.</span><span class="nx">counter</span><span class="err">”</span><span class="p">,</span> <span class="p">{</span> <span class="na">count</span><span class="p">:</span> <span class="mi">100</span> <span class="p">});</span>
 <span class="nx">Counter</span><span class="p">.</span><span class="nx">attachTo</span><span class="p">(</span><span class="err">“</span><span class="p">.</span><span class="nx">counter</span><span class="o">-</span><span class="k">new</span><span class="err">”</span><span class="p">,</span> <span class="p">{</span> 
                    <span class="na">count</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> 
                    <span class="na">subtractSelector</span><span class="p">:</span> <span class="s2">".new-subtract"</span>
@@ -163,8 +159,7 @@ HTML code:</p>
                    <span class="na">subtractSelector</span><span class="p">:</span> <span class="s2">".s"</span><span class="p">,</span>
                    <span class="na">additionSelector</span><span class="p">:</span> <span class="s2">".a"</span>
                 <span class="p">});</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 <h3 id="we-didit">We Did It</h3>
 <p>And that is it, we completed our counter! We can see from this little example, Flight gives us some powerful tools in creating modulated code without the need to learn new paradigms. As always, there is much more Flight can do. For additional information on Flight check out their Github.</p>
 
@@ -232,9 +227,7 @@ HTML code:</p>
 
         /* --- Service Worker --- */
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker
-                    .register('./service-worker.js')
-                    .then(function() { console.log('Service Worker Registered'); });
+            navigator.serviceWorker.register("./service-worker.js");
         }
     }
 </script>
