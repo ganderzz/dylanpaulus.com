@@ -5,6 +5,8 @@ category: ["React"]
 tag: ["React", "Frontend", "JavaScript"]
 ---
 
+# React: Not Everything is State
+
 When working with React we get introduced to state as a way if storing component's data. There is another way that generally gets overlooked: class properties.
 
 #### Example
