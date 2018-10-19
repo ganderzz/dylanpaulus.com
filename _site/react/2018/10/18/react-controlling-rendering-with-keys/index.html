@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <link rel="manifest" href="manifest.json">
     <meta name="description" content="Ramblings on software engineering">
-    <meta name="keywords" content="software, code, programming, blog, portfolio, react, typescript, javascript, washington, spokane, ">
+    <meta name="keywords" content="software, code, programming, blog, portfolio, react, typescript, javascript, washington, spokane, React">
     <meta name="author" content="Dylan Paulus">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,8 +12,8 @@
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@DylanPaulus" />
     <meta name="twitter:creator" content="@DylanPaulus" />
-    <meta property="og:url" content="http://localhost:4000/" />
-    <meta property="og:title" content="Dylan Paulus" />
+    <meta property="og:url" content="http://localhost:4000/react/2018/10/18/react-controlling-rendering-with-keys/" />
+    <meta property="og:title" content="React: Controlling Rendering with Keys" />
     <meta property="og:description" content="" />
     <meta property="og:image" content="http://localhost:4000/images/favicon-32x32.png" />
 
@@ -27,7 +27,7 @@
 
     <link href="https://fonts.googleapis.com/css?family=Merriweather:400,700,900" rel="stylesheet">
 
-    <title>Dylan Paulus</title>
+    <title>Dylan Paulus - React: Controlling Rendering with Keys</title>
 
     
 
@@ -61,141 +61,62 @@
 
     <main class="container">
 
-<section class="row dp__content">
-    
-    <div class="twelve columns dp__post">
-        <div class="row">
-            <div class="twelve columns">
-                <span class="dp__post-tag">
-                    October 18, 2018 -
-                     React 
-                </span>
+<section class="dp__post-container">
+    <h1 id="react-controlling-rendering-with-keys">React: Controlling Rendering with keys</h1>
 
-                <h5 class="dp__post-header">
-                    <a href="/react/2018/10/18/react-controlling-rendering-with-keys/" title="React: Controlling Rendering with Keys">React: Controlling Rendering with Keys</a>
-                </h5>
-            </div>
-        </div>
-    </div>
-    
-    <div class="twelve columns dp__post">
-        <div class="row">
-            <div class="twelve columns">
-                <span class="dp__post-tag">
-                    October 11, 2018 -
-                     JavaScript 
-                </span>
+<p><code class="highlighter-rouge">key</code>, the property we throw some value into to suppress warnings. This property is used by React to determine when a component is deleted, updated, or created. We generally don’t interact much with the <code class="highlighter-rouge">key</code> prop–except in loops.</p>
 
-                <h5 class="dp__post-header">
-                    <a href="/javascript/2018/10/11/tips-on-improving-fabricjs-speed/" title="Tips on Improving FabricJS Speed">Tips on Improving FabricJS Speed</a>
-                </h5>
-            </div>
-        </div>
-    </div>
-    
-    <div class="twelve columns dp__post">
-        <div class="row">
-            <div class="twelve columns">
-                <span class="dp__post-tag">
-                    October  5, 2018 -
-                     React 
-                </span>
+<p>My team recently ran into an issue lately–how do we rerender all child components when a state has changed? The simplest approach… you guessed it, <code class="highlighter-rouge">key</code>!</p>
 
-                <h5 class="dp__post-header">
-                    <a href="/react/2018/10/05/not-everything-is-state/" title="React: Not Everything is State">React: Not Everything is State</a>
-                </h5>
-            </div>
-        </div>
-    </div>
-    
-    <div class="twelve columns dp__post">
-        <div class="row">
-            <div class="twelve columns">
-                <span class="dp__post-tag">
-                    July 29, 2018 -
-                     Software Engineering 
-                </span>
+<p>Let’s take a look.</p>
 
-                <h5 class="dp__post-header">
-                    <a href="/software%20engineering/2018/07/29/write-software-that-evolves/" title="Write Software that Evolves">Write Software that Evolves</a>
-                </h5>
-            </div>
-        </div>
-    </div>
-    
-    <div class="twelve columns dp__post">
-        <div class="row">
-            <div class="twelve columns">
-                <span class="dp__post-tag">
-                    July 15, 2018 -
-                     React and Typescript 
-                </span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Parent</span> <span class="kd">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">key</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="na">count</span><span class="p">:</span> <span class="mi">0</span>
+  <span class="p">};</span>
 
-                <h5 class="dp__post-header">
-                    <a href="/react/typescript/2018/07/15/using-typescript-with-redux-part-two/" title="Part Two: Using Typescript with Redux">Part Two: Using Typescript with Redux</a>
-                </h5>
-            </div>
-        </div>
-    </div>
-    
-    <div class="twelve columns dp__post">
-        <div class="row">
-            <div class="twelve columns">
-                <span class="dp__post-tag">
-                    June  2, 2018 -
-                     React and Typescript 
-                </span>
+  <span class="nx">handleChildUnmount</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">(</span><span class="nx">prevProps</span> <span class="o">=&gt;</span> <span class="p">({</span> <span class="na">count</span><span class="p">:</span> <span class="nx">prevProps</span><span class="p">.</span><span class="nx">count</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">}));</span>
+  <span class="p">};</span>
 
-                <h5 class="dp__post-header">
-                    <a href="/react/typescript/2018/06/02/generic-jsx-type-argument/" title="Generic Type Arguments in JSX Elements">Generic Type Arguments in JSX Elements</a>
-                </h5>
-            </div>
-        </div>
-    </div>
-    
-    <div class="twelve columns dp__post">
-        <div class="row">
-            <div class="twelve columns">
-                <span class="dp__post-tag">
-                    May 16, 2018 -
-                     React and Typescript 
-                </span>
+  <span class="nx">toggleKey</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">(</span><span class="nx">prevProps</span> <span class="o">=&gt;</span> <span class="p">({</span> <span class="na">key</span><span class="p">:</span> <span class="o">!</span><span class="nx">prevProps</span><span class="p">.</span><span class="nx">key</span> <span class="p">}));</span>
+  <span class="p">};</span>
 
-                <h5 class="dp__post-header">
-                    <a href="/react/typescript/2018/05/16/using-typescript-with-react-part-one.1/" title="Part One: Using Typescript with React">Part One: Using Typescript with React</a>
-                </h5>
-            </div>
-        </div>
-    </div>
-    
-    <div class="twelve columns dp__post">
-        <div class="row">
-            <div class="twelve columns">
-                <span class="dp__post-tag">
-                    April 10, 2018 -
-                     React 
-                </span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="p">{</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">count</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">;</span>
 
-                <h5 class="dp__post-header">
-                    <a href="/react/2018/04/10/reusable-components-factory-component.1/" title="Reusable Components: Factory Components">Reusable Components: Factory Components</a>
-                </h5>
-            </div>
-        </div>
-    </div>
-    
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">toggleKey</span><span class="p">}</span><span class="o">&gt;</span><span class="nx">Toggle</span> <span class="nx">Child</span> <span class="nx">Key</span><span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="nx">Child</span> <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">key</span><span class="p">}</span> <span class="nx">count</span><span class="o">=</span><span class="p">{</span><span class="nx">count</span><span class="p">}</span> <span class="nx">onUnmount</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleChildUnmount</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nx">Child</span> <span class="kd">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">componentWillUnmount</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">onUnmount</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="nx">Total</span> <span class="na">Renders</span><span class="p">:</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">count</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/div&gt;</span><span class="err">;
+</span>  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><a href="https://codesandbox.io/s/48zl4zoyv0"><img src="https://codesandbox.io/static/img/play-codesandbox.svg" alt="Edit react-scroll-to" /></a></p>
+
+<p>In this example we are toggling the <code class="highlighter-rouge">key</code> prop of our Child component between <em>true</em> and <em>false</em>. We then keep track every time the Child unmounts through a callback to increment the Parent’s state. When we toggle the <code class="highlighter-rouge">key</code> prop, we will see the counter increment each time. This is, because React uses the key to determine if a component has changed. Since we are changing the key each time React will see our component has updates, and rerender the Child component.</p>
+
+<p>This is the easiest way to cause a rerender of a child component (and all children of the child), and shows the power of understanding the<code class="highlighter-rouge">key</code> prop!</p>
+
+<p><em>Note:</em> Even if a child component returns <em>false</em> in a <code class="highlighter-rouge">shouldComponentUpdate</code>, changing the key prop will cause it to rerender anyway (Try it in the CodeSandbox above!).</p>
+
+
 </section>
-
-<div class="pagination">
-    
-    <a class="previous" title="Older" href="/page2">Older</a>
-    
-
-    <span style="margin: 0 5px;">Page: 1 of 2</span>
-
-    
-    <span class="next">Newer</span>
-    
-</div>
 
 <footer class="row dp__footer">
     <div class="twelve columns">

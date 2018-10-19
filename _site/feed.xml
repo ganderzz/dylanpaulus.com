@@ -6,7 +6,46 @@
 </description>		
 		<link>http://localhost:4000</link>
 		<atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-		<lastBuildDate>Sun, 29 Jul 2018 00:00:00 -0700</lastBuildDate>
+		<lastBuildDate>Thu, 18 Oct 2018 00:00:00 -0700</lastBuildDate>
+		
+			<item>
+				<title>React: Controlling Rendering with Keys</title>
+				        
+				
+					<description>&lt;h1 id=&quot;react-controlling-rendering-with-keys&quot;&gt;React: Controlling Rendering with keys&lt;/h1&gt;
+
+</description>
+				
+				<pubDate>Thu, 18 Oct 2018 00:00:00 -0700</pubDate>
+				<link>http://localhost:4000/react/2018/10/18/react-controlling-rendering-with-keys/</link>
+				<guid isPermaLink="true">http://localhost:4000/react/2018/10/18/react-controlling-rendering-with-keys/</guid>
+			</item>
+		
+			<item>
+				<title>Tips on Improving FabricJS Speed</title>
+				        
+				
+					<description>&lt;h1 id=&quot;tips-on-improving-fabricjs-speed&quot;&gt;Tips on Improving FabricJS Speed&lt;/h1&gt;
+
+</description>
+				
+				<pubDate>Thu, 11 Oct 2018 00:00:00 -0700</pubDate>
+				<link>http://localhost:4000/javascript/2018/10/11/tips-on-improving-fabricjs-speed/</link>
+				<guid isPermaLink="true">http://localhost:4000/javascript/2018/10/11/tips-on-improving-fabricjs-speed/</guid>
+			</item>
+		
+			<item>
+				<title>React: Not Everything is State</title>
+				        
+				
+					<description>&lt;h1 id=&quot;react-not-everything-is-state&quot;&gt;React: Not Everything is State&lt;/h1&gt;
+
+</description>
+				
+				<pubDate>Fri, 05 Oct 2018 00:00:00 -0700</pubDate>
+				<link>http://localhost:4000/react/2018/10/05/not-everything-is-state/</link>
+				<guid isPermaLink="true">http://localhost:4000/react/2018/10/05/not-everything-is-state/</guid>
+			</item>
 		
 			<item>
 				<title>Write Software that Evolves</title>
@@ -97,45 +136,6 @@
 				<pubDate>Thu, 14 Sep 2017 00:00:00 -0700</pubDate>
 				<link>http://localhost:4000/react/2017/09/14/encapsulating-state-with-functional-children.1/</link>
 				<guid isPermaLink="true">http://localhost:4000/react/2017/09/14/encapsulating-state-with-functional-children.1/</guid>
-			</item>
-		
-			<item>
-				<title>Tips on Creating Reusable Components</title>
-				        
-				
-					<description>&lt;h1 id=&quot;tips-on-creating-reusable-components&quot;&gt;Tips on Creating Reusable Components&lt;/h1&gt;
-
-</description>
-				
-				<pubDate>Fri, 08 Sep 2017 00:00:00 -0700</pubDate>
-				<link>http://localhost:4000/react/2017/09/08/tips-on-creating-reusable-components.1/</link>
-				<guid isPermaLink="true">http://localhost:4000/react/2017/09/08/tips-on-creating-reusable-components.1/</guid>
-			</item>
-		
-			<item>
-				<title>Introduction to Higher Order Components</title>
-				        
-				
-					<description>&lt;h1 id=&quot;introduction-to-higher-order-components&quot;&gt;Introduction to Higher Order Components&lt;/h1&gt;
-
-</description>
-				
-				<pubDate>Thu, 17 Aug 2017 00:00:00 -0700</pubDate>
-				<link>http://localhost:4000/react/2017/08/17/higher-order-components/</link>
-				<guid isPermaLink="true">http://localhost:4000/react/2017/08/17/higher-order-components/</guid>
-			</item>
-		
-			<item>
-				<title>Injecting Dynamic Elements to Components</title>
-				        
-				
-					<description>&lt;h1 id=&quot;react-injecting-dynamic-elements-to-components&quot;&gt;React: Injecting Dynamic Elements to Components&lt;/h1&gt;
-
-</description>
-				
-				<pubDate>Wed, 26 Jul 2017 00:00:00 -0700</pubDate>
-				<link>http://localhost:4000/react/2017/07/26/injecting-react-tag-types/</link>
-				<guid isPermaLink="true">http://localhost:4000/react/2017/07/26/injecting-react-tag-types/</guid>
 			</item>
 		
 	</channel>

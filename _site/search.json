@@ -1,6 +1,30 @@
 [
   
     {
+      "title"    : "React: Controlling Rendering with Keys",
+      "category" : "React",
+      "tags"     : "React, Frontend, JavaScript",
+      "url"      : "/react/2018/10/18/react-controlling-rendering-with-keys/",
+      "date"     : "2018-10-18 00:00:00 -0700"
+    } ,
+  
+    {
+      "title"    : "Tips on Improving FabricJS Speed",
+      "category" : "JavaScript",
+      "tags"     : "FabricJS, Canvas, Frontend, JavaScript",
+      "url"      : "/javascript/2018/10/11/tips-on-improving-fabricjs-speed/",
+      "date"     : "2018-10-11 00:00:00 -0700"
+    } ,
+  
+    {
+      "title"    : "React: Not Everything is State",
+      "category" : "React",
+      "tags"     : "React, Frontend, JavaScript",
+      "url"      : "/react/2018/10/05/not-everything-is-state/",
+      "date"     : "2018-10-05 00:00:00 -0700"
+    } ,
+  
+    {
       "title"    : "Write Software that Evolves",
       "category" : "Software Engineering",
       "tags"     : "Software Engineering, Project, Planning",

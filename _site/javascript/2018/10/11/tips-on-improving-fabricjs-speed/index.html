@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <link rel="manifest" href="manifest.json">
     <meta name="description" content="Ramblings on software engineering">
-    <meta name="keywords" content="software, code, programming, blog, portfolio, react, typescript, javascript, washington, spokane, ">
+    <meta name="keywords" content="software, code, programming, blog, portfolio, react, typescript, javascript, washington, spokane, JavaScript">
     <meta name="author" content="Dylan Paulus">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,8 +12,8 @@
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@DylanPaulus" />
     <meta name="twitter:creator" content="@DylanPaulus" />
-    <meta property="og:url" content="http://localhost:4000/" />
-    <meta property="og:title" content="Dylan Paulus" />
+    <meta property="og:url" content="http://localhost:4000/javascript/2018/10/11/tips-on-improving-fabricjs-speed/" />
+    <meta property="og:title" content="Tips on Improving FabricJS Speed" />
     <meta property="og:description" content="" />
     <meta property="og:image" content="http://localhost:4000/images/favicon-32x32.png" />
 
@@ -27,7 +27,7 @@
 
     <link href="https://fonts.googleapis.com/css?family=Merriweather:400,700,900" rel="stylesheet">
 
-    <title>Dylan Paulus</title>
+    <title>Dylan Paulus - Tips on Improving FabricJS Speed</title>
 
     
 
@@ -61,141 +61,44 @@
 
     <main class="container">
 
-<section class="row dp__content">
-    
-    <div class="twelve columns dp__post">
-        <div class="row">
-            <div class="twelve columns">
-                <span class="dp__post-tag">
-                    October 18, 2018 -
-                     React 
-                </span>
+<section class="dp__post-container">
+    <h1 id="tips-on-improving-fabricjs-speed">Tips on Improving FabricJS Speed</h1>
 
-                <h5 class="dp__post-header">
-                    <a href="/react/2018/10/18/react-controlling-rendering-with-keys/" title="React: Controlling Rendering with Keys">React: Controlling Rendering with Keys</a>
-                </h5>
-            </div>
-        </div>
-    </div>
-    
-    <div class="twelve columns dp__post">
-        <div class="row">
-            <div class="twelve columns">
-                <span class="dp__post-tag">
-                    October 11, 2018 -
-                     JavaScript 
-                </span>
+<p><a href="http://fabricjs.com/">FabricJS</a> is an awesome library that handles <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API">Canvas</a> interactions and rendering. Inherently it is a pretty performant library, but recently we ran into an issue where we needed to render ~8mbof json data (10k objects). Given any framework, it is no easy task to render this much data. The biggest culprit when rendering this many objects is renders (or rerenders). When the canvas has to show any change, it renders the <em>entire</em> canvas. This includes clearing the canvas, looping through each object, and drawing it. In this post I’ll go through some of the techniques we used to improve interaction and rendering speed.</p>
 
-                <h5 class="dp__post-header">
-                    <a href="/javascript/2018/10/11/tips-on-improving-fabricjs-speed/" title="Tips on Improving FabricJS Speed">Tips on Improving FabricJS Speed</a>
-                </h5>
-            </div>
-        </div>
-    </div>
-    
-    <div class="twelve columns dp__post">
-        <div class="row">
-            <div class="twelve columns">
-                <span class="dp__post-tag">
-                    October  5, 2018 -
-                     React 
-                </span>
+<h4 id="cut-out-the-basics">Cut out the basics</h4>
 
-                <h5 class="dp__post-header">
-                    <a href="/react/2018/10/05/not-everything-is-state/" title="React: Not Everything is State">React: Not Everything is State</a>
-                </h5>
-            </div>
-        </div>
-    </div>
-    
-    <div class="twelve columns dp__post">
-        <div class="row">
-            <div class="twelve columns">
-                <span class="dp__post-tag">
-                    July 29, 2018 -
-                     Software Engineering 
-                </span>
+<p>FabricJS has a <a href="https://github.com/fabricjs/fabric.js/wiki/Optimizing-performance">small post about optimizing performance</a>. All great tips, but the one to look at is setting <code class="highlighter-rouge">renderOnAddRemove</code> to false. Adding this property to the canvas will prevent Fabric from rerendering if a shape is added or deleted. This gives huge speed improvements on initial loads while adding a lot of shapes to the canvas.</p>
 
-                <h5 class="dp__post-header">
-                    <a href="/software%20engineering/2018/07/29/write-software-that-evolves/" title="Write Software that Evolves">Write Software that Evolves</a>
-                </h5>
-            </div>
-        </div>
-    </div>
-    
-    <div class="twelve columns dp__post">
-        <div class="row">
-            <div class="twelve columns">
-                <span class="dp__post-tag">
-                    July 15, 2018 -
-                     React and Typescript 
-                </span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">canvas</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">fabric</span><span class="p">.</span><span class="nx">Canvas</span><span class="p">(</span><span class="s2">"myId"</span><span class="p">,</span> <span class="p">{</span> <span class="na">renderOnAddRemove</span><span class="p">:</span> <span class="kc">false</span> <span class="p">});</span>
+</code></pre></div></div>
 
-                <h5 class="dp__post-header">
-                    <a href="/react/typescript/2018/07/15/using-typescript-with-redux-part-two/" title="Part Two: Using Typescript with Redux">Part Two: Using Typescript with Redux</a>
-                </h5>
-            </div>
-        </div>
-    </div>
-    
-    <div class="twelve columns dp__post">
-        <div class="row">
-            <div class="twelve columns">
-                <span class="dp__post-tag">
-                    June  2, 2018 -
-                     React and Typescript 
-                </span>
+<p><em>Caution:</em> <code class="highlighter-rouge">canvas.renderAll();</code> will have to be called whenever we want a change to show on the canvas</p>
 
-                <h5 class="dp__post-header">
-                    <a href="/react/typescript/2018/06/02/generic-jsx-type-argument/" title="Generic Type Arguments in JSX Elements">Generic Type Arguments in JSX Elements</a>
-                </h5>
-            </div>
-        </div>
-    </div>
-    
-    <div class="twelve columns dp__post">
-        <div class="row">
-            <div class="twelve columns">
-                <span class="dp__post-tag">
-                    May 16, 2018 -
-                     React and Typescript 
-                </span>
+<h4 id="enliven-over-loadfromjson">Enliven over loadFromJSON</h4>
 
-                <h5 class="dp__post-header">
-                    <a href="/react/typescript/2018/05/16/using-typescript-with-react-part-one.1/" title="Part One: Using Typescript with React">Part One: Using Typescript with React</a>
-                </h5>
-            </div>
-        </div>
-    </div>
-    
-    <div class="twelve columns dp__post">
-        <div class="row">
-            <div class="twelve columns">
-                <span class="dp__post-tag">
-                    April 10, 2018 -
-                     React 
-                </span>
+<p><code class="highlighter-rouge">loadFromJSON</code> is a really helpful function when we want to deserialize JSON to the canvas, but it comes with some draw-backs. First, <code class="highlighter-rouge">loadFromJSON</code> will clear the canvas before it loads the JSON objects. This can be bad if we added shapes to the canvas before loading then JSON. Second, it will call <code class="highlighter-rouge">renderAll</code> once the JSON is finished. This is bad when we have additional operations to perform after our JSON object is loaded (ie. adding more shapes or selecting then).</p>
 
-                <h5 class="dp__post-header">
-                    <a href="/react/2018/04/10/reusable-components-factory-component.1/" title="Reusable Components: Factory Components">Reusable Components: Factory Components</a>
-                </h5>
-            </div>
-        </div>
-    </div>
-    
+<p>Alternatively we can use a function called <code class="highlighter-rouge">enlivenObjects</code>.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">canvas</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">fabric</span><span class="p">.</span><span class="nx">Canvas</span><span class="p">(</span><span class="s2">"myId"</span><span class="p">,</span> <span class="p">{</span> <span class="na">renderOnAddRemove</span><span class="p">:</span> <span class="kc">false</span> <span class="p">}););</span>
+<span class="c1">// enlivenObjects([array of json objects], [callback])</span>
+<span class="nx">fabric</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">enlivenObjects</span><span class="p">([{},</span> <span class="p">{},</span> <span class="p">{}],</span> <span class="p">(</span><span class="nx">objs</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">objs</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">item</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">canvas</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">item</span><span class="p">);</span>
+    <span class="p">});</span>
+    <span class="nx">canvas</span><span class="p">.</span><span class="nx">renderAll</span><span class="p">();</span> <span class="c1">// Make sure to call once we're ready!</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">enlivenObjects</code> takes in an array of the serialized FabricJS JSON (found in: [json].objects), and returns the Fabric object representation of it. We use a callback to get the parsed objects. This is similar to how <code class="highlighter-rouge">loadFromJSON</code> handles <a href="https://github.com/fabricjs/fabric.js/blob/464708aafccc0d5a4e3a7b6604db2d00ad3bc475/src/mixins/canvas_serialization.mixin.js#L55">loading behind the scenes</a>! The bonus here is there are no unneeded renders and canvas clearing. We can control when the canvas gets rendered!</p>
+
+<h4 id="dont-canvas-everything">Don’t Canvas Everything</h4>
+
+<p>The more shapes on the canvas, the more work Fabric has to do on a render. One way around this is to take out any shapes that don’t need to be manipulated or animated. We achieve this by converting those un-interactive layers to an image <code class="highlighter-rouge">canvas.toDataURL("png");</code> and rendering it as an HTML <code class="highlighter-rouge">&lt;img /&gt;</code> tag. Then, overlay the canvas on top of the image; only using the canvas for the interactive bits while showing everything.</p>
+
+
 </section>
-
-<div class="pagination">
-    
-    <a class="previous" title="Older" href="/page2">Older</a>
-    
-
-    <span style="margin: 0 5px;">Page: 1 of 2</span>
-
-    
-    <span class="next">Newer</span>
-    
-</div>
 
 <footer class="row dp__footer">
     <div class="twelve columns">

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <link rel="manifest" href="manifest.json">
     <meta name="description" content="Ramblings on software engineering">
-    <meta name="keywords" content="software, code, programming, blog, portfolio, react, typescript, javascript, washington, spokane, ">
+    <meta name="keywords" content="software, code, programming, blog, portfolio, react, typescript, javascript, washington, spokane, React">
     <meta name="author" content="Dylan Paulus">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,8 +12,8 @@
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@DylanPaulus" />
     <meta name="twitter:creator" content="@DylanPaulus" />
-    <meta property="og:url" content="http://localhost:4000/" />
-    <meta property="og:title" content="Dylan Paulus" />
+    <meta property="og:url" content="http://localhost:4000/react/2018/10/05/not-everything-is-state/" />
+    <meta property="og:title" content="React: Not Everything is State" />
     <meta property="og:description" content="" />
     <meta property="og:image" content="http://localhost:4000/images/favicon-32x32.png" />
 
@@ -27,7 +27,7 @@
 
     <link href="https://fonts.googleapis.com/css?family=Merriweather:400,700,900" rel="stylesheet">
 
-    <title>Dylan Paulus</title>
+    <title>Dylan Paulus - React: Not Everything is State</title>
 
     
 
@@ -61,141 +61,48 @@
 
     <main class="container">
 
-<section class="row dp__content">
-    
-    <div class="twelve columns dp__post">
-        <div class="row">
-            <div class="twelve columns">
-                <span class="dp__post-tag">
-                    October 18, 2018 -
-                     React 
-                </span>
+<section class="dp__post-container">
+    <h1 id="react-not-everything-is-state">React: Not Everything is State</h1>
 
-                <h5 class="dp__post-header">
-                    <a href="/react/2018/10/18/react-controlling-rendering-with-keys/" title="React: Controlling Rendering with Keys">React: Controlling Rendering with Keys</a>
-                </h5>
-            </div>
-        </div>
-    </div>
-    
-    <div class="twelve columns dp__post">
-        <div class="row">
-            <div class="twelve columns">
-                <span class="dp__post-tag">
-                    October 11, 2018 -
-                     JavaScript 
-                </span>
+<p>When working with React we get introduced to state as a way if storing component’s data. There is another way that generally gets overlooked: class properties.</p>
 
-                <h5 class="dp__post-header">
-                    <a href="/javascript/2018/10/11/tips-on-improving-fabricjs-speed/" title="Tips on Improving FabricJS Speed">Tips on Improving FabricJS Speed</a>
-                </h5>
-            </div>
-        </div>
-    </div>
-    
-    <div class="twelve columns dp__post">
-        <div class="row">
-            <div class="twelve columns">
-                <span class="dp__post-tag">
-                    October  5, 2018 -
-                     React 
-                </span>
+<h4 id="example">Example</h4>
 
-                <h5 class="dp__post-header">
-                    <a href="/react/2018/10/05/not-everything-is-state/" title="React: Not Everything is State">React: Not Everything is State</a>
-                </h5>
-            </div>
-        </div>
-    </div>
-    
-    <div class="twelve columns dp__post">
-        <div class="row">
-            <div class="twelve columns">
-                <span class="dp__post-tag">
-                    July 29, 2018 -
-                     Software Engineering 
-                </span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">AnnoyingButton</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+    <span class="nx">intervalId</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span> <span class="c1">// Here!</span>
+    <span class="nx">id</span> <span class="o">=</span> <span class="nx">generateUniqueId</span><span class="p">();</span> <span class="c1">// Here!</span>
 
-                <h5 class="dp__post-header">
-                    <a href="/software%20engineering/2018/07/29/write-software-that-evolves/" title="Write Software that Evolves">Write Software that Evolves</a>
-                </h5>
-            </div>
-        </div>
-    </div>
-    
-    <div class="twelve columns dp__post">
-        <div class="row">
-            <div class="twelve columns">
-                <span class="dp__post-tag">
-                    July 15, 2018 -
-                     React and Typescript 
-                </span>
+    <span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="na">isDisabled</span><span class="p">:</span> <span class="kc">false</span>
+    <span class="p">};</span>
 
-                <h5 class="dp__post-header">
-                    <a href="/react/typescript/2018/07/15/using-typescript-with-redux-part-two/" title="Part Two: Using Typescript with Redux">Part Two: Using Typescript with Redux</a>
-                </h5>
-            </div>
-        </div>
-    </div>
-    
-    <div class="twelve columns dp__post">
-        <div class="row">
-            <div class="twelve columns">
-                <span class="dp__post-tag">
-                    June  2, 2018 -
-                     React and Typescript 
-                </span>
+    <span class="nx">componentDidMount</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">intervalId</span> <span class="o">=</span> <span class="nx">setInterval</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">(({</span> <span class="nx">isDisabled</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">({</span>
+                <span class="na">isDisabled</span><span class="p">:</span> <span class="o">!</span><span class="nx">isDisabled</span>
+            <span class="p">}));</span>
+        <span class="p">},</span> <span class="mi">100</span><span class="p">);</span>
+    <span class="p">}</span>
 
-                <h5 class="dp__post-header">
-                    <a href="/react/typescript/2018/06/02/generic-jsx-type-argument/" title="Generic Type Arguments in JSX Elements">Generic Type Arguments in JSX Elements</a>
-                </h5>
-            </div>
-        </div>
-    </div>
-    
-    <div class="twelve columns dp__post">
-        <div class="row">
-            <div class="twelve columns">
-                <span class="dp__post-tag">
-                    May 16, 2018 -
-                     React and Typescript 
-                </span>
+    <span class="nx">componentWillUnmount</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`Unmounting ID: </span><span class="p">${</span><span class="k">this</span><span class="p">.</span><span class="nx">id</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
+        <span class="nx">clearInterval</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">intervalId</span><span class="p">);</span>
+    <span class="p">}</span>
 
-                <h5 class="dp__post-header">
-                    <a href="/react/typescript/2018/05/16/using-typescript-with-react-part-one.1/" title="Part One: Using Typescript with React">Part One: Using Typescript with React</a>
-                </h5>
-            </div>
-        </div>
-    </div>
-    
-    <div class="twelve columns dp__post">
-        <div class="row">
-            <div class="twelve columns">
-                <span class="dp__post-tag">
-                    April 10, 2018 -
-                     React 
-                </span>
+    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">disabled</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">isDisabled</span><span class="p">}</span> <span class="sr">/&gt;</span><span class="err">;
+</span>    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
-                <h5 class="dp__post-header">
-                    <a href="/react/2018/04/10/reusable-components-factory-component.1/" title="Reusable Components: Factory Components">Reusable Components: Factory Components</a>
-                </h5>
-            </div>
-        </div>
-    </div>
-    
+<p>Nothing special about the component; the interesting bits are the <code class="highlighter-rouge">id</code> and <code class="highlighter-rouge">intervalId</code> variables. We need some way of preventing memory leaks when the component unmounts. In componentDidMount we save the interval’s ID to a class property. Then, use the property to clear the interval and <code class="highlighter-rouge">console.log</code> the component’s unique ID.</p>
+
+<p>You might be thinking, “Why chouldn’t we just store this information in the component’s state?” React re-renders the component, and any child components, when the state changes. If the render method never uses a piece of the state it could be causing unwanted renders–making your application slower!</p>
+
+<p><strong>When to use class properties:</strong> If state needs to be stored, but is never used as a part of the view/render of a component.</p>
+
+
 </section>
-
-<div class="pagination">
-    
-    <a class="previous" title="Older" href="/page2">Older</a>
-    
-
-    <span style="margin: 0 5px;">Page: 1 of 2</span>
-
-    
-    <span class="next">Newer</span>
-    
-</div>
 
 <footer class="row dp__footer">
     <div class="twelve columns">
