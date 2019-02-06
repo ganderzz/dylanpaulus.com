@@ -6,13 +6,26 @@
 </description>		
 		<link>http://localhost:4000</link>
 		<atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-		<lastBuildDate>Thu, 18 Oct 2018 00:00:00 -0700</lastBuildDate>
+		<lastBuildDate>Sat, 03 Nov 2018 00:00:00 -0700</lastBuildDate>
+		
+			<item>
+				<title>Introducing React-Scroll-To v2</title>
+				        
+				
+					<description>&lt;p&gt;The latest version of a React component I maintain just released, v2 of react-scroll-to. First, it started out as a component I needed, but over time a few people started using it. Because it was initially created for my specific use-case it started to show its warts when new features were ask for. The goals for v2 were two-part: introduce a more flexible API and implement some highly asked for features (scroll by a ref and smooth scrolling).&lt;/p&gt;
+
+</description>
+				
+				<pubDate>Sat, 03 Nov 2018 00:00:00 -0700</pubDate>
+				<link>http://localhost:4000/react/2018/11/03/introducing-react-scroll-to-v2/</link>
+				<guid isPermaLink="true">http://localhost:4000/react/2018/11/03/introducing-react-scroll-to-v2/</guid>
+			</item>
 		
 			<item>
 				<title>React: Controlling Rendering with Keys</title>
 				        
 				
-					<description>&lt;h1 id=&quot;react-controlling-rendering-with-keys&quot;&gt;React: Controlling Rendering with keys&lt;/h1&gt;
+					<description>&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;key&lt;/code&gt;, the property we throw some value into to suppress warnings. This property is used by React to determine when a component is deleted, updated, or created. We generally don’t interact much with the &lt;code class=&quot;highlighter-rouge&quot;&gt;key&lt;/code&gt; prop–except in loops.&lt;/p&gt;
 
 </description>
 				
@@ -25,7 +38,7 @@
 				<title>Tips on Improving FabricJS Speed</title>
 				        
 				
-					<description>&lt;h1 id=&quot;tips-on-improving-fabricjs-speed&quot;&gt;Tips on Improving FabricJS Speed&lt;/h1&gt;
+					<description>&lt;p&gt;&lt;a href=&quot;http://fabricjs.com/&quot;&gt;FabricJS&lt;/a&gt; is an awesome library that handles &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API&quot;&gt;Canvas&lt;/a&gt; interactions and rendering. Inherently it is a pretty performant library, but recently we ran into an issue where we needed to render ~8mbof json data (10k objects). Given any framework, it is no easy task to render this much data. The biggest culprit when rendering this many objects is renders (or rerenders). When the canvas has to show any change, it renders the &lt;em&gt;entire&lt;/em&gt; canvas. This includes clearing the canvas, looping through each object, and drawing it. In this post I’ll go through some of the techniques we used to improve interaction and rendering speed.&lt;/p&gt;
 
 </description>
 				
@@ -38,7 +51,7 @@
 				<title>React: Not Everything is State</title>
 				        
 				
-					<description>&lt;h1 id=&quot;react-not-everything-is-state&quot;&gt;React: Not Everything is State&lt;/h1&gt;
+					<description>&lt;p&gt;When working with React we get introduced to state as a way if storing component’s data. There is another way that generally gets overlooked: class properties.&lt;/p&gt;
 
 </description>
 				
@@ -51,7 +64,7 @@
 				<title>Write Software that Evolves</title>
 				        
 				
-					<description>&lt;h1 id=&quot;write-software-that-evolves&quot;&gt;Write Software that Evolves&lt;/h1&gt;
+					<description>&lt;p&gt;In software development we can easily get trapped in &lt;a href=&quot;https://en.wikipedia.org/wiki/Analysis_paralysis&quot;&gt;analysis paralysis&lt;/a&gt;. Having the foresight to make all the correct decisions is hard. We make hundreds, if not thousands of decisions during the lifetime of our software. You’ll likely get something wrong. Instead of trying to get every minutia correct before starting a project, we should aim to write software that can evolve.&lt;/p&gt;
 
 </description>
 				
@@ -77,7 +90,7 @@
 				<title>Generic Type Arguments in JSX Elements</title>
 				        
 				
-					<description>&lt;h1 id=&quot;generic-type-arguments-in-jsx-elements&quot;&gt;Generic Type Arguments in JSX Elements&lt;/h1&gt;
+					<description>&lt;p&gt;Typescript recently released generic type arguments for JSX in their 2.9 release. It’s a mouthfull, but what does that mean for us? A common use-case I’m excited for is allowing consumers of libraries to extend a component’s props. Using &lt;a href=&quot;/react/2017/07/26/injecting-react-tag-types/&quot;&gt;dynamic components&lt;/a&gt; we’ll look at allowing our components to be extended even more.&lt;/p&gt;
 
 </description>
 				
@@ -103,7 +116,8 @@
 				<title>Reusable Components: Factory Components</title>
 				        
 				
-					<description>&lt;h1 id=&quot;reusable-components-factory-components&quot;&gt;Reusable Components: Factory Components&lt;/h1&gt;
+					<description>&lt;p&gt;Beware the &lt;strong&gt;mega&lt;/strong&gt; component. Mega components contain around 50 props–when the stars align, only certain values produce specialized output. For example, let’s assume we have a &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;IdentityInput /&amp;gt;&lt;/code&gt; component which provides user login using only a fingerprint. Nifty, eh?
+Our component has a few properties: &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;IdentityInput onSuccess={login} onFail={showError} fingerprint={value} humanOnly /&amp;gt;&lt;/code&gt; allowing for only human fingerprints, and provides a few callbacks for onSuccess and onFail.&lt;/p&gt;
 
 </description>
 				
@@ -116,26 +130,13 @@
 				<title>Global Component Registration</title>
 				        
 				
-					<description>&lt;h1 id=&quot;global-component-registration&quot;&gt;Global Component Registration&lt;/h1&gt;
+					<description>&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
 
 </description>
 				
 				<pubDate>Fri, 08 Dec 2017 00:00:00 -0800</pubDate>
 				<link>http://localhost:4000/react/2017/12/08/global-component-registration/</link>
 				<guid isPermaLink="true">http://localhost:4000/react/2017/12/08/global-component-registration/</guid>
-			</item>
-		
-			<item>
-				<title>Encapsulating State with Functional Children</title>
-				        
-				
-					<description>&lt;h1 id=&quot;encapsulating-state-with-functional-children&quot;&gt;Encapsulating State with Functional Children&lt;/h1&gt;
-
-</description>
-				
-				<pubDate>Thu, 14 Sep 2017 00:00:00 -0700</pubDate>
-				<link>http://localhost:4000/react/2017/09/14/encapsulating-state-with-functional-children.1/</link>
-				<guid isPermaLink="true">http://localhost:4000/react/2017/09/14/encapsulating-state-with-functional-children.1/</guid>
 			</item>
 		
 	</channel>

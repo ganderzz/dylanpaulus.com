@@ -5,13 +5,12 @@ category: ["React"]
 tag: ["React", "Frontend", "JavaScript"]
 ---
 
-# Introducing React-Scroll-To v2
 The latest version of a React component I maintain just released, v2 of react-scroll-to. First, it started out as a component I needed, but over time a few people started using it. Because it was initially created for my specific use-case it started to show its warts when new features were ask for. The goals for v2 were two-part: introduce a more flexible API and implement some highly asked for features (scroll by a ref and smooth scrolling).
 
 So what is react-scroll-to? React-scroll-to is a pretty simple component. It allows the control of scrolling either the brower's window, or a component (overflow) to a specific point.
 
 We'll look at a few examples to show off what react-scroll-to can do.
-*(As a note, in this post I'll only be showing render props, but react-scroll-to also supports higher order components. Examples can be found at: https://github.com/ganderzz/react-scroll-to)*
+_(As a note, in this post I'll only be showing render props, but react-scroll-to also supports higher order components. Examples can be found at: https://github.com/ganderzz/react-scroll-to)_
 
 ### Basics
 
@@ -35,10 +34,11 @@ export default class MyComponent extends Component {
 In the component above we're importing the `ScrollTo` component from react-scroll-to. This is a render prop, so we'll pass a function as its children. `ScrollTo`'s children has an object as its parameter--this is so the consumer of this component can choose, exactly, what properties they care about. Generally we'll only need `scrollTo`.
 
 `scrollTo()` is a function, when called, will either:
-- Scroll the brower's window based on the given parameters (in this case, scroll 500px from the top of the page) 
+
+- Scroll the brower's window based on the given parameters (in this case, scroll 500px from the top of the page)
 - Scroll all `<ScrollArea>` components, inside `<ScrollTo />`, to the given parameters (We'll see this later)
 
-*Note: react-scroll-to uses absolute positions--the ability to use relative positioning is coming soon!*
+_Note: react-scroll-to uses absolute positions--the ability to use relative positioning is coming soon!_
 
 When a user clicks on the link, in the example, we'll see the window scroll down 500px!
 
@@ -57,10 +57,8 @@ export default class MyComponent extends Component {
         {({ scrollTo }) => (
           <>
             <a onClick={() => scrollTo({ y: 500 })}>Scroll to Bottom</a>
-          
-            <ScrollArea>
-               My long content...
-            </ScrollArea>
+
+            <ScrollArea>My long content...</ScrollArea>
           </>
         )}
       </ScrollTo>
@@ -84,14 +82,10 @@ export default class MyComponent extends Component {
         {({ scrollTo }) => (
           <>
             <a onClick={() => scrollTo({ y: 500 })}>Scroll to Bottom</a>
-          
-            <ScrollArea>
-               My long content...
-            </ScrollArea>
 
-            <ScrollArea>
-               My long content 2...
-            </ScrollArea>
+            <ScrollArea>My long content...</ScrollArea>
+
+            <ScrollArea>My long content 2...</ScrollArea>
           </>
         )}
       </ScrollTo>
@@ -114,15 +108,13 @@ export default class MyComponent extends Component {
       <ScrollTo>
         {({ scrollTo }) => (
           <>
-            <a onClick={() => scrollTo({ id: "content-two", y: 500 })}>Scroll to Bottom</a>
-          
-            <ScrollArea>
-               My long content...
-            </ScrollArea>
+            <a onClick={() => scrollTo({ id: "content-two", y: 500 })}>
+              Scroll to Bottom
+            </a>
 
-            <ScrollArea id="content-two">
-               My long content 2...
-            </ScrollArea>
+            <ScrollArea>My long content...</ScrollArea>
+
+            <ScrollArea id="content-two">My long content 2...</ScrollArea>
           </>
         )}
       </ScrollTo>
@@ -151,8 +143,8 @@ export default class MyComponent extends Component {
       <ScrollTo>
         {({ scrollTo }) => (
           <a onClick={() => scrollTo({ x: 200, smooth: true })}>
-             {/* Oh yeah, we can scroll by x also! */}
-             Scroll to Bottom
+            {/* Oh yeah, we can scroll by x also! */}
+            Scroll to Bottom
           </a>
         )}
       </ScrollTo>

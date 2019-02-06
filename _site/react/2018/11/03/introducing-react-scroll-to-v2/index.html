@@ -12,8 +12,8 @@
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@DylanPaulus" />
     <meta name="twitter:creator" content="@DylanPaulus" />
-    <meta property="og:url" content="http://localhost:4000/react/2017/09/08/tips-on-creating-reusable-components.1/" />
-    <meta property="og:title" content="Tips on Creating Reusable Components" />
+    <meta property="og:url" content="http://localhost:4000/react/2018/11/03/introducing-react-scroll-to-v2/" />
+    <meta property="og:title" content="Introducing React-Scroll-To v2" />
     <meta property="og:description" content="" />
     <meta property="og:image" content="http://localhost:4000/images/favicon-32x32.png" />
 
@@ -27,7 +27,7 @@
 
     <link href="https://fonts.googleapis.com/css?family=Merriweather:400,700,900" rel="stylesheet">
 
-    <title>Dylan Paulus - Tips on Creating Reusable Components</title>
+    <title>Dylan Paulus - Introducing React-Scroll-To v2</title>
 
     
 
@@ -62,158 +62,195 @@
     <main class="container">
 
 <section class="dp__post-container">
-    September  8, 2017 - <span class="reading-time" title="Estimated read time">
+    November  3, 2018 - <span class="reading-time" title="Estimated read time">
   Read Time: 
   7 mins 
 </span>
 
 
 <h1>
-  Tips on Creating Reusable Components
+  Introducing React-Scroll-To v2
 </h1>
 
-<h3 id="introduction">Introduction</h3>
+<p>The latest version of a React component I maintain just released, v2 of react-scroll-to. First, it started out as a component I needed, but over time a few people started using it. Because it was initially created for my specific use-case it started to show its warts when new features were ask for. The goals for v2 were two-part: introduce a more flexible API and implement some highly asked for features (scroll by a ref and smooth scrolling).</p>
 
-<p>A huge selling point of React is its use of composable, reusable components. Everything is built off the idea of <code class="highlighter-rouge">V = F(d)</code>, or view/UI is created by some function acting on data/state. How do we create more advanced user interface? Well, just add more functions to the party (For example <code class="highlighter-rouge">V = G(F(E(S(d))))</code>). That’s cute, why does this matter? Thinking of our components as functions, even if we use <em>class</em>, will help us create more reusable components. It even helps us write super helpful utility functions called <a href="http://dylanpaulus.com/reactjs/2017/08/17/higher-order-components/">Higher Order Components</a>.</p>
+<p>So what is react-scroll-to? React-scroll-to is a pretty simple component. It allows the control of scrolling either the brower’s window, or a component (overflow) to a specific point.</p>
 
-<p>We’ll look at ways to improve our reusability and composition of components by using an example component a long the way. For this article, we’ll use a component that adds an Icon to a button.</p>
+<p>We’ll look at a few examples to show off what react-scroll-to can do.
+<em>(As a note, in this post I’ll only be showing render props, but react-scroll-to also supports higher order components. Examples can be found at: https://github.com/ganderzz/react-scroll-to)</em></p>
 
-<p>For example,</p>
+<h3 id="basics">Basics</h3>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">IconButton</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
-  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
-    <span class="o">&lt;</span><span class="nx">Button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">onClick</span><span class="p">}</span><span class="o">&gt;</span>
-      <span class="o">&lt;</span><span class="nx">Icon</span> <span class="o">/&gt;</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">text</span><span class="p">}</span>
-    <span class="o">&lt;</span><span class="sr">/Button&gt;</span><span class="err">;
-</span>  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="k">from</span> <span class="s2">"react"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">ScrollTo</span> <span class="p">}</span> <span class="k">from</span> <span class="s2">"react-scroll-to"</span><span class="p">;</span>
 
-<p>And to consume the button,</p>
-
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">IconButton</span> <span class="nx">text</span><span class="o">=</span><span class="s2">"Click Me!"</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">"Click!"</span><span class="p">)}</span> <span class="sr">/</span><span class="err">&gt;
-</span></code></pre></div></div>
-
-<p>Not bad.. easy to use, and to the point. But, some part of me thinks this could be better. Let’s walk through a few suggestions on making this component more reusable.</p>
-
-<h3 id="keep-it-simple-jack">Keep it Simple, Jack</h3>
-
-<p>Continuing on the topic of thinking of components as functions, keep components simple. Components that do too many things are dangerous. They are easy to break, and a pain to maintain. Instead, split functionality into separate components, then compose those components to make something functional. This makes it really easy to maintain features, and to swap out functionality when requirements change.</p>
-
-<p>Going to the IconButton example, we really don’t need an IconButton component. What if tomorrow we need an IconInput button? We not only have two separate, but pretty similar components to maintain! We can fix this by using composition. What we really want is something that ‘adds an icon’ to a component. Let’s make a new component called IconAdder.</p>
-
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">IconAdder</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+<span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nx">MyComponent</span> <span class="kd">extends</span> <span class="nx">Component</span> <span class="p">{</span>
   <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">return</span> <span class="p">(</span>
-      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
-        <span class="o">&lt;</span><span class="nx">Icon</span> <span class="o">/&gt;</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">component</span><span class="p">}</span>
-      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+      <span class="o">&lt;</span><span class="nx">ScrollTo</span><span class="o">&gt;</span>
+        <span class="p">{({</span> <span class="nx">scrollTo</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">(</span>
+          <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">scrollTo</span><span class="p">({</span> <span class="na">y</span><span class="p">:</span> <span class="mi">500</span> <span class="p">})}</span><span class="o">&gt;</span><span class="nx">Scroll</span> <span class="nx">to</span> <span class="nx">Bottom</span><span class="o">&lt;</span><span class="sr">/a</span><span class="err">&gt;
+</span>        <span class="p">)}</span>
+      <span class="o">&lt;</span><span class="sr">/ScrollTo</span><span class="err">&gt;
 </span>    <span class="p">);</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p>to consume it</p>
+<p>In the component above we’re importing the <code class="highlighter-rouge">ScrollTo</code> component from react-scroll-to. This is a render prop, so we’ll pass a function as its children. <code class="highlighter-rouge">ScrollTo</code>’s children has an object as its parameter–this is so the consumer of this component can choose, exactly, what properties they care about. Generally we’ll only need <code class="highlighter-rouge">scrollTo</code>.</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">IconAdder</span>
-  <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="o">&lt;</span><span class="nx">Button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">"Click!"</span><span class="p">)}</span><span class="o">&gt;</span><span class="nx">Click</span> <span class="nx">Me</span><span class="o">!&lt;</span><span class="sr">/Button&gt;</span><span class="err">}
-</span><span class="o">/&gt;</span>
-</code></pre></div></div>
+<p><code class="highlighter-rouge">scrollTo()</code> is a function, when called, will either:</p>
 
-<p>IconAdder allows us to throw any ol’ component we want into it, and it’ll add an Icon to it. Nice.</p>
+<ul>
+  <li>Scroll the brower’s window based on the given parameters (in this case, scroll 500px from the top of the page)</li>
+  <li>Scroll all <code class="highlighter-rouge">&lt;ScrollArea&gt;</code> components, inside <code class="highlighter-rouge">&lt;ScrollTo /&gt;</code>, to the given parameters (We’ll see this later)</li>
+</ul>
 
-<h3 id="hello-there-children">Hello There, Children!</h3>
+<p><em>Note: react-scroll-to uses absolute positions–the ability to use relative positioning is coming soon!</em></p>
 
-<p>One thing I come across a lot is the overuse of component properties. Components should almost never be used as properties. It ends up making components hard to use, and in the end, we are fighting with React. In React, every component has a property called children (<code class="highlighter-rouge">props.children</code>). This says, whatever we pass between this component’s tags, we’ll insert here. Let’s see an example <code class="highlighter-rouge">props.children</code> in the IconAdder component.</p>
+<p>When a user clicks on the link, in the example, we’ll see the window scroll down 500px!</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">IconAdder</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+<h3 id="scroll-area">Scroll Area</h3>
+
+<p>The <code class="highlighter-rouge">&lt;ScrollArea&gt;</code> component gives <code class="highlighter-rouge">scrollTo</code> the ability to scroll components, instead of the window.</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="k">from</span> <span class="s2">"react"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">ScrollTo</span><span class="p">,</span> <span class="nx">ScrollArea</span> <span class="p">}</span> <span class="k">from</span> <span class="s2">"react-scroll-to"</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nx">MyComponent</span> <span class="kd">extends</span> <span class="nx">Component</span> <span class="p">{</span>
   <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">return</span> <span class="p">(</span>
-      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
-        <span class="o">&lt;</span><span class="nx">Icon</span> <span class="o">/&gt;</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">children</span><span class="p">}</span>
-      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
-</span>    <span class="p">);</span>
+      <span class="p">&lt;</span><span class="nc">ScrollTo</span><span class="p">&gt;</span>
+        <span class="si">{</span><span class="p">({</span> <span class="nx">scrollTo</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">(</span>
+          <span class="p">&lt;&gt;</span>
+            <span class="p">&lt;</span><span class="nt">a</span> <span class="na">onClick=</span><span class="si">{</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">scrollTo</span><span class="p">({</span> <span class="na">y</span><span class="p">:</span> <span class="mi">500</span> <span class="p">})</span><span class="si">}</span><span class="p">&gt;</span>Scroll to Bottom<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+
+            <span class="p">&lt;</span><span class="nc">ScrollArea</span><span class="p">&gt;</span>My long content...<span class="p">&lt;/</span><span class="nc">ScrollArea</span><span class="p">&gt;</span>
+          <span class="p">&lt;/&gt;</span>
+        <span class="p">)</span><span class="si">}</span>
+      <span class="p">&lt;/</span><span class="nc">ScrollTo</span><span class="p">&gt;</span>
+    <span class="p">);</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p>to consume it</p>
+<p>Since a <code class="highlighter-rouge">&lt;ScrollArea/&gt;</code> component lives as a child component of <code class="highlighter-rouge">&lt;ScrollTo /&gt;</code>, whenever we call <code class="highlighter-rouge">scrollTo()</code>, it’ll scroll all of the <code class="highlighter-rouge">&lt;ScrollArea /&gt;</code> components. So in this example when the link is clicked only the “My long content…” area will scroll.</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">IconAdder</span><span class="o">&gt;</span>
-  <span class="o">&lt;</span><span class="nx">Button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">"Click!"</span><span class="p">)}</span><span class="o">&gt;</span><span class="nx">Click</span> <span class="nx">Me</span><span class="o">!&lt;</span><span class="sr">/Button</span><span class="err">&gt;
-</span><span class="o">&lt;</span><span class="sr">/IconAdder</span><span class="err">&gt;
-</span></code></pre></div></div>
+<p>But what if we have multiple <code class="highlighter-rouge">&lt;ScrollArea /&gt;</code> components?</p>
 
-<p>The <code class="highlighter-rouge">&lt;Button&gt;</code> component will be inserted in IconAdder’s <code class="highlighter-rouge">{this.props.children}</code>! Much better!</p>
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="k">from</span> <span class="s2">"react"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">ScrollTo</span><span class="p">,</span> <span class="nx">ScrollArea</span> <span class="p">}</span> <span class="k">from</span> <span class="s2">"react-scroll-to"</span><span class="p">;</span>
 
-<h3 id="injecting-html-types">Injecting HTML Types</h3>
-
-<p>I wrote an article on this <a href="http://dylanpaulus.com/reactjs/2017/07/26/injecting-react-tag-types/">subject here</a> already so I’ll be brief.</p>
-
-<p>As someone consuming a component, I want as little pollution of my code as possible. Pollution in this case could be anything: event handlers, code size, or even HTML elements. In the case of our IconAdder component, a parent <code class="highlighter-rouge">&lt;div&gt;</code> wrapper gets added to every component using it. It would be great if we could get rid of the div, and just make it our child component. Well… we’re in luck. We can specify a tag property, and then use that property. This lets the end-user be in control of their DOM structure.</p>
-
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">IconAdder</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+<span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nx">MyComponent</span> <span class="kd">extends</span> <span class="nx">Component</span> <span class="p">{</span>
   <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kd">const</span> <span class="p">{</span> <span class="nx">tag</span><span class="p">,</span> <span class="nx">onClick</span><span class="p">,</span> <span class="nx">children</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span>
-    <span class="kd">const</span> <span class="nx">Tag</span> <span class="o">=</span> <span class="nx">tag</span><span class="p">;</span>
-
     <span class="k">return</span> <span class="p">(</span>
-      <span class="o">&lt;</span><span class="nx">Tag</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="nx">onClick</span><span class="p">}</span><span class="o">&gt;</span>
-        <span class="o">&lt;</span><span class="nx">Icon</span> <span class="o">/&gt;</span> <span class="p">{</span><span class="nx">children</span><span class="p">}</span>
-      <span class="o">&lt;</span><span class="sr">/Tag</span><span class="err">&gt;
-</span>    <span class="p">);</span>
+      <span class="p">&lt;</span><span class="nc">ScrollTo</span><span class="p">&gt;</span>
+        <span class="si">{</span><span class="p">({</span> <span class="nx">scrollTo</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">(</span>
+          <span class="p">&lt;&gt;</span>
+            <span class="p">&lt;</span><span class="nt">a</span> <span class="na">onClick=</span><span class="si">{</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">scrollTo</span><span class="p">({</span> <span class="na">y</span><span class="p">:</span> <span class="mi">500</span> <span class="p">})</span><span class="si">}</span><span class="p">&gt;</span>Scroll to Bottom<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+
+            <span class="p">&lt;</span><span class="nc">ScrollArea</span><span class="p">&gt;</span>My long content...<span class="p">&lt;/</span><span class="nc">ScrollArea</span><span class="p">&gt;</span>
+
+            <span class="p">&lt;</span><span class="nc">ScrollArea</span><span class="p">&gt;</span>My long content 2...<span class="p">&lt;/</span><span class="nc">ScrollArea</span><span class="p">&gt;</span>
+          <span class="p">&lt;/&gt;</span>
+        <span class="p">)</span><span class="si">}</span>
+      <span class="p">&lt;/</span><span class="nc">ScrollTo</span><span class="p">&gt;</span>
+    <span class="p">);</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p>to consume it</p>
+<p>In the case where more than one <code class="highlighter-rouge">&lt;ScrollArea /&gt;</code> components exist in a <code class="highlighter-rouge">&lt;ScrollTo /&gt;</code>, both components will scroll.</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">IconAdder</span> <span class="nx">tag</span><span class="o">=</span><span class="p">{</span><span class="nx">Button</span><span class="p">}</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">"Click!"</span><span class="p">)}</span><span class="o">&gt;</span>
-  <span class="nx">Click</span> <span class="nx">Me</span><span class="o">!</span>
-<span class="o">&lt;</span><span class="sr">/IconAdder</span><span class="err">&gt;
-</span></code></pre></div></div>
+<p>What if we only want to scroll one of the <code class="highlighter-rouge">&lt;ScrollArea /&gt;</code> components?</p>
 
-<p>Another benefit of using a ‘tag’ property, is let’s say that we want to support React Router’s <code class="highlighter-rouge">&lt;Link&gt;</code> component, but we also need to support the classic HTML <code class="highlighter-rouge">&lt;a&gt;</code> tag. We can easily swap these two out by just changing the ‘tag’ prop!</p>
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="k">from</span> <span class="s2">"react"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">ScrollTo</span><span class="p">,</span> <span class="nx">ScrollArea</span> <span class="p">}</span> <span class="k">from</span> <span class="s2">"react-scroll-to"</span><span class="p">;</span>
 
-<h3 id="allow-extension">Allow Extension</h3>
-
-<p>Nothing grinds my gears like getting a fresh new component, but realizing I want to make the font bold. So, I add a quick <code class="highlighter-rouge">style={ { fontWeight: 800 } }</code> to the component, refresh, and nothing changes. (Warning: what is about to be shown requires a transpiler).</p>
-
-<p>We should allow our components to be reasonably editable, while protecting what we need to. This can be done by the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Rest_in_Object_Destructuring">rest operator</a>.</p>
-
-<p>Right now, our IconAdder component won’t accept a style, className, or title prop. Oh yeah, and what about in the future if we need to use IconAdder on a <code class="highlighter-rouge">&lt;a&gt;</code> tag. We’ll need to support href also. Let’s use the rest operator to support all of these properties!</p>
-
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">IconAdder</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+<span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nx">MyComponent</span> <span class="kd">extends</span> <span class="nx">Component</span> <span class="p">{</span>
   <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kd">const</span> <span class="p">{</span> <span class="nx">tag</span><span class="p">,</span> <span class="nx">onClick</span><span class="p">,</span> <span class="nx">children</span><span class="p">,</span> <span class="p">...</span><span class="nx">rest</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span>
-    <span class="kd">const</span> <span class="nx">Tag</span> <span class="o">=</span> <span class="nx">tag</span><span class="p">;</span>
-
     <span class="k">return</span> <span class="p">(</span>
-      <span class="o">&lt;</span><span class="nx">Tag</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="nx">onClick</span><span class="p">}</span> <span class="p">{...</span><span class="nx">rest</span><span class="p">}</span><span class="o">&gt;</span>
-        <span class="o">&lt;</span><span class="nx">Icon</span> <span class="o">/&gt;</span> <span class="p">{</span><span class="nx">children</span><span class="p">}</span>
-      <span class="o">&lt;</span><span class="sr">/Tag</span><span class="err">&gt;
-</span>    <span class="p">);</span>
+      <span class="p">&lt;</span><span class="nc">ScrollTo</span><span class="p">&gt;</span>
+        <span class="si">{</span><span class="p">({</span> <span class="nx">scrollTo</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">(</span>
+          <span class="p">&lt;&gt;</span>
+            <span class="p">&lt;</span><span class="nt">a</span> <span class="na">onClick=</span><span class="si">{</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">scrollTo</span><span class="p">({</span> <span class="na">id</span><span class="p">:</span> <span class="s2">"content-two"</span><span class="p">,</span> <span class="na">y</span><span class="p">:</span> <span class="mi">500</span> <span class="p">})</span><span class="si">}</span><span class="p">&gt;</span>
+              Scroll to Bottom
+            <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+
+            <span class="p">&lt;</span><span class="nc">ScrollArea</span><span class="p">&gt;</span>My long content...<span class="p">&lt;/</span><span class="nc">ScrollArea</span><span class="p">&gt;</span>
+
+            <span class="p">&lt;</span><span class="nc">ScrollArea</span> <span class="na">id=</span><span class="s2">"content-two"</span><span class="p">&gt;</span>My long content 2...<span class="p">&lt;/</span><span class="nc">ScrollArea</span><span class="p">&gt;</span>
+          <span class="p">&lt;/&gt;</span>
+        <span class="p">)</span><span class="si">}</span>
+      <span class="p">&lt;/</span><span class="nc">ScrollTo</span><span class="p">&gt;</span>
+    <span class="p">);</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p>to consume it</p>
+<p>By adding an <code class="highlighter-rouge">id</code> property to a <code class="highlighter-rouge">&lt;ScrollArea /&gt;</code> we are able to reference that component in our <code class="highlighter-rouge">scrollTo()</code> function. <code class="highlighter-rouge">scrollTo()</code> then takes another field, ‘id’, that’ll scroll any <code class="highlighter-rouge">&lt;ScrollArea /&gt;</code> component that matches that id (id’s must be unique).</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">IconAdder</span>
-  <span class="nx">tag</span><span class="o">=</span><span class="p">{</span><span class="nx">Button</span><span class="p">}</span>
-  <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">"Click!"</span><span class="p">)}</span>
-  <span class="nx">style</span><span class="o">=</span>
-  <span class="nx">title</span><span class="o">=</span><span class="s2">"A button for clicking"</span>
-<span class="o">&gt;</span>
-  <span class="nx">Click</span> <span class="nx">Me</span><span class="o">!</span>
-<span class="o">&lt;</span><span class="sr">/IconAdder</span><span class="err">&gt;
-</span></code></pre></div></div>
+<h3 id="v2-features">V2 Features</h3>
 
-<p><code class="highlighter-rouge">...rest</code> will grab whatever properties we haven’t taken off in the destructuring (<code class="highlighter-rouge">const { a, b, c} = this.props;</code>), and assign it, in this case, to a variable called <code class="highlighter-rouge">rest</code>. We then apply all those properties to our <code class="highlighter-rouge">&lt;Tag&gt;</code> component by destructuring the <code class="highlighter-rouge">rest</code> object into the individual props. As shown in the consumption of IconAdder, we can now add whatever other properties we want!</p>
+<p>scrollTo and ScrollArea have both existed in v1; let’s look at branch new features.</p>
+
+<h5 id="smooth-scrolling">Smooth Scrolling</h5>
+
+<p>Smooth scrolling couldn’t be simpler. By adding a <code class="highlighter-rouge">smooth: true</code> property to the <code class="highlighter-rouge">scrollTo()</code> object, react-scroll-to will automatically apply smooth scrolling.</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="k">from</span> <span class="s2">"react"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">ScrollTo</span> <span class="p">}</span> <span class="k">from</span> <span class="s2">"react-scroll-to"</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nx">MyComponent</span> <span class="kd">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nc">ScrollTo</span><span class="p">&gt;</span>
+        <span class="si">{</span><span class="p">({</span> <span class="nx">scrollTo</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">(</span>
+          <span class="p">&lt;</span><span class="nt">a</span> <span class="na">onClick=</span><span class="si">{</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">scrollTo</span><span class="p">({</span> <span class="na">x</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="na">smooth</span><span class="p">:</span> <span class="kc">true</span> <span class="p">})</span><span class="si">}</span><span class="p">&gt;</span>
+            <span class="si">{</span><span class="cm">/* Oh yeah, we can scroll by x also! */</span><span class="si">}</span>
+            Scroll to Bottom
+          <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+        <span class="p">)</span><span class="si">}</span>
+      <span class="p">&lt;/</span><span class="nc">ScrollTo</span><span class="p">&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h5 id="scroll-by-ref">Scroll by Ref</h5>
+
+<p>Maybe instead of using a <code class="highlighter-rouge">&lt;ScrollArea /&gt;</code> component, we have a ref to a component we want to scroll. Or maybe instead we want to scroll a component outside <code class="highlighter-rouge">&lt;ScrollTo /&gt;</code>’s children. Now we have the ability by providing the ref through the <code class="highlighter-rouge">scrollTo()</code> argument object!</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="k">from</span> <span class="s2">"react"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">ScrollTo</span> <span class="p">}</span> <span class="k">from</span> <span class="s2">"react-scroll-to"</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nx">MyComponent</span> <span class="kd">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">myRef</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createRef</span><span class="p">();</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nc">ScrollTo</span><span class="p">&gt;</span>
+        <span class="si">{</span><span class="p">({</span> <span class="nx">scrollTo</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">(</span>
+          <span class="p">&lt;</span><span class="nt">a</span> <span class="na">onClick=</span><span class="si">{</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">scrollTo</span><span class="p">({</span> <span class="na">ref</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">myRef</span><span class="p">,</span> <span class="na">y</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="na">smooth</span><span class="p">:</span> <span class="kc">true</span> <span class="p">})</span><span class="si">}</span><span class="p">&gt;</span>
+             Scroll to Bottom
+          <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+        <span class="p">)</span><span class="si">}</span>
+      <span class="p">&lt;/</span><span class="nc">ScrollTo</span><span class="p">&gt;</span>
+
+      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">ref=</span><span class="si">{</span><span class="k">this</span><span class="p">.</span><span class="nx">myRef</span><span class="si">}</span><span class="p">&gt;</span>
+        I'm outside ScrollTo!
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
 <h3 id="conclusion">Conclusion</h3>
 
-<p>These are a few tips I use when creating components to keep them easier to consume, and extend. In summary, think of every component as a function. It will consume some input, and produce an output. The children property is your friend, use it when it makes sense! Dynamically injecting the component type can turn multiple similar components, into one highly reusable component. Finally, allow components to receive extra props, and have the properties/styles override the base implementation when possible.</p>
+<p>V2 of react-scroll-to provides a lot of behind-the-scenes structural changes that’ll allow for a better developer experience while implementing new features. We also added many new features that have been in demand. As things solidify, we hope to expose hooks in react-scroll-to to allow even more flexibility.</p>
+
+<p>Check it out: <a href="https://github.com/ganderzz/react-scroll-to">react-scroll-to</a>
+Examples: <a href="https://ganderzz.github.io/react-scroll-to/">Click Here</a></p>
 
 
 </section>

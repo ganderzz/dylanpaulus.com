@@ -5,8 +5,6 @@ category: ["React", "Typescript"]
 tag: ["Javascript", "Frontend", "React", "Typescript"]
 ---
 
-# Generic Type Arguments in JSX Elements
-
 Typescript recently released generic type arguments for JSX in their 2.9 release. It's a mouthfull, but what does that mean for us? A common use-case I'm excited for is allowing consumers of libraries to extend a component's props. Using [dynamic components]({% post_url 2017-07-26-injecting-react-tag-types %}) we'll look at allowing our components to be extended even more.
 
 ### What Are Generic Type Arguments?
@@ -14,22 +12,24 @@ Typescript recently released generic type arguments for JSX in their 2.9 release
 As shown in the [Typescript release notes](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-9.html#generic-type-arguments-in-jsx-elements), generic type arguments are a way to create components using Typescript's generics syntax. Below is a side-by-side comparison of the old way vs. using generic type arguments.
 
 #### **The Old Way:**
+
 ```js
 // Notice color isn't defined as a prop, and will error out normally
 function Div(props: { value: string }) {
-    const { value, ...rest } = this.props;
+  const { value, ...rest } = this.props;
 
-    return <div {...rest} />
+  return <div {...rest} />;
 }
 
 // Using spread, we can trick Typescript into ignoring that color will be a prop
 // on Div
 function App() {
-    return <Div {...{ color: "red" }} />
+  return <Div {...{ color: "red" }} />;
 }
 ```
 
 #### **Generic Type Arguments:**
+
 ```js
 // Notice our new generic on the component
 function Div<T extends object>(props: { value: string } & T) {
@@ -50,6 +50,7 @@ function App() {
 ```
 
 And the same can be used with class components:
+
 ```js
 // Notice our new generic on the component
 class Div<T extends object> extends React.Component<{ value: string } & T> {
@@ -72,26 +73,22 @@ function App() {
 
 ### Dynamic Elements
 
-Let's say we have a **MenuItem** component that could be overloaded with either a Router link component, or a html *a* tag. One way we might write this...
+Let's say we have a **MenuItem** component that could be overloaded with either a Router link component, or a html _a_ tag. One way we might write this...
 
 ```js
 interface IProps {
-    tag: React.ReactNode;
-    children: React.ReactNode;
+  tag: React.ReactNode;
+  children: React.ReactNode;
 }
 
 function MenuItem({ tag, children, ...rest }: IProps) {
-    const Tag: React.ReactType = tag || "a";
+  const Tag: React.ReactType = tag || "a";
 
-    return (
-        <Tag {...rest}>
-            {children}
-        </Tag>
-    );
+  return <Tag {...rest}>{children}</Tag>;
 }
 ```
 
-**MenuItem** works perfect fine as a component, but when it's time to add additional properties,  Typescript will yell. For example, the *a* tag needs a *href* prop. We don't want to hardcode *href*, because we can inject any type of element through the *tag* prop (React Router, button, etc).
+**MenuItem** works perfect fine as a component, but when it's time to add additional properties, Typescript will yell. For example, the _a_ tag needs a _href_ prop. We don't want to hardcode _href_, because we can inject any type of element through the _tag_ prop (React Router, button, etc).
 
 ```js
 <MenuItem tag="a" href="http://google.com">Click Me!</MenuItem> // Error because href isn't defined in IProps!

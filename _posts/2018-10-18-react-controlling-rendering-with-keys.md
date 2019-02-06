@@ -5,8 +5,6 @@ category: ["React"]
 tag: ["React", "Frontend", "JavaScript"]
 ---
 
-# React: Controlling Rendering with keys
-
 `key`, the property we throw some value into to suppress warnings. This property is used by React to determine when a component is deleted, updated, or created. We generally don't interact much with the `key` prop--except in loops.
 
 My team recently ran into an issue lately--how do we rerender all child components when a state has changed? The simplest approach... you guessed it, `key`!

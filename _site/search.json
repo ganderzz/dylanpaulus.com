@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "Introducing React-Scroll-To v2",
+      "category" : "React",
+      "tags"     : "React, Frontend, JavaScript",
+      "url"      : "/react/2018/11/03/introducing-react-scroll-to-v2/",
+      "date"     : "2018-11-03 00:00:00 -0700"
+    } ,
+  
+    {
       "title"    : "React: Controlling Rendering with Keys",
       "category" : "React",
       "tags"     : "React, Frontend, JavaScript",

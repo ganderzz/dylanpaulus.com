@@ -7,8 +7,6 @@ tag: ["Javascript", "Frontend", "React", "Typescript"]
 
 Finished Example: [Click Here](https://codesandbox.io/s/n3138x65p0?hidenavigation=1)
 
-# Part One: Using Typescript with React
-
 Learning Typescript with React can be challenging, and in my case, cursing Microsoft and throwing `any` on every variable. The goal of this series is to document what I've learned while developing applications in React, and trying hard to shove in Typescript. Like many things, the initial learning curve may be staggering, but adding a type-checker repays dividends once the gears start turning. _One thing to note:_ this isn't a post about setting up Typescript. We'll assume a **tsconfig.json** exists, and compiles our code to valid JavaScript.
 
 We'll go through part one by creating a counter, and adding types where needed.

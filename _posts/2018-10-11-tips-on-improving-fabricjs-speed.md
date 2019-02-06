@@ -5,8 +5,6 @@ category: ["JavaScript"]
 tag: ["FabricJS", "Canvas", "Frontend", "JavaScript"]
 ---
 
-# Tips on Improving FabricJS Speed
-
 [FabricJS](http://fabricjs.com/) is an awesome library that handles [Canvas](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API) interactions and rendering. Inherently it is a pretty performant library, but recently we ran into an issue where we needed to render ~8mbof json data (10k objects). Given any framework, it is no easy task to render this much data. The biggest culprit when rendering this many objects is renders (or rerenders). When the canvas has to show any change, it renders the _entire_ canvas. This includes clearing the canvas, looping through each object, and drawing it. In this post I'll go through some of the techniques we used to improve interaction and rendering speed.
 
 #### Cut out the basics

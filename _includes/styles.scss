@@ -13,6 +13,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
   font-family: "Lato", sans-serif;
+  background: #f1f1f1;
 }
 
 a {
@@ -36,7 +37,7 @@ h6 {
 
 .container {
   max-width: 1200px;
-  width: 85%;
+  width: 90%;
 }
 
 .header {
@@ -298,7 +299,7 @@ main.container {
 }
 
 .dp__footer {
-  margin-top: 40px;
+  margin-top: 60px;
   margin-bottom: 20px;
   text-align: center;
 }

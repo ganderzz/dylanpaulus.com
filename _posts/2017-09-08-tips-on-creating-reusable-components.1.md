@@ -5,35 +5,28 @@ category: "React"
 tag: ["Javascript", "Frontend", "React"]
 ---
 
-# Tips on Creating Reusable Components
-
 ### Introduction
 
-A huge selling point of React is its use of composable, reusable components. Everything is built off the idea of `V = F(d)`, or view/UI is created by some function acting on data/state. How do we create more advanced user interface? Well, just add more functions to the party (For example `V = G(F(E(S(d))))`). That's cute, why does this matter? Thinking of our components as functions, even if we use *class*, will help us create more reusable components. It even helps us write super helpful utility functions called [Higher Order Components](http://dylanpaulus.com/reactjs/2017/08/17/higher-order-components/).
+A huge selling point of React is its use of composable, reusable components. Everything is built off the idea of `V = F(d)`, or view/UI is created by some function acting on data/state. How do we create more advanced user interface? Well, just add more functions to the party (For example `V = G(F(E(S(d))))`). That's cute, why does this matter? Thinking of our components as functions, even if we use _class_, will help us create more reusable components. It even helps us write super helpful utility functions called [Higher Order Components](http://dylanpaulus.com/reactjs/2017/08/17/higher-order-components/).
 
-We'll look at ways to improve our reusability and composition of components by using an example component a long the way. For this article, we'll use a component that adds an Icon to a button. 
+We'll look at ways to improve our reusability and composition of components by using an example component a long the way. For this article, we'll use a component that adds an Icon to a button.
 
 For example,
 
 ```javascript
 class IconButton extends React.Component {
-    render() {
-        <Button onClick={this.props.onClick}>
-            <Icon />
-            {" "}
-            {this.props.text}
-        </Button>
-    }
+  render() {
+    <Button onClick={this.props.onClick}>
+      <Icon /> {this.props.text}
+    </Button>;
+  }
 }
 ```
 
 And to consume the button,
 
 ```javascript
-<IconButton
-    text="Click Me!"
-    onClick={() => alert("Click!")}
-/>
+<IconButton text="Click Me!" onClick={() => alert("Click!")} />
 ```
 
 Not bad.. easy to use, and to the point. But, some part of me thinks this could be better. Let's walk through a few suggestions on making this component more reusable.
@@ -46,15 +39,13 @@ Going to the IconButton example, we really don't need an IconButton component. W
 
 ```javascript
 class IconAdder extends React.Component {
-    render() {
-        return (
-            <div>
-                <Icon />
-                {" "}
-                {this.props.component}
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        <Icon /> {this.props.component}
+      </div>
+    );
+  }
 }
 ```
 
@@ -62,11 +53,7 @@ to consume it
 
 ```javascript
 <IconAdder
-    component={
-        <Button onClick={() => alert("Click!")}>
-            Click Me!
-        </Button>
-    }
+  component={<Button onClick={() => alert("Click!")}>Click Me!</Button>}
 />
 ```
 
@@ -78,15 +65,13 @@ One thing I come across a lot is the overuse of component properties. Components
 
 ```javascript
 class IconAdder extends React.Component {
-    render() {
-        return (
-            <div>
-                <Icon />
-                {" "}
-                {this.props.children}
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        <Icon /> {this.props.children}
+      </div>
+    );
+  }
 }
 ```
 
@@ -94,9 +79,7 @@ to consume it
 
 ```javascript
 <IconAdder>
-    <Button onClick={() => alert("Click!")}>
-        Click Me!
-    </Button>
+  <Button onClick={() => alert("Click!")}>Click Me!</Button>
 </IconAdder>
 ```
 
@@ -110,29 +93,24 @@ As someone consuming a component, I want as little pollution of my code as possi
 
 ```javascript
 class IconAdder extends React.Component {
-    render() {
-        const { tag, onClick, children } = this.props; 
-        const Tag = tag;
+  render() {
+    const { tag, onClick, children } = this.props;
+    const Tag = tag;
 
-        return (
-            <Tag onClick={onClick}>
-                <Icon />
-                {" "}
-                {children}
-            </Tag>
-        );
-    }
+    return (
+      <Tag onClick={onClick}>
+        <Icon /> {children}
+      </Tag>
+    );
+  }
 }
 ```
 
 to consume it
 
 ```javascript
-<IconAdder
-    tag={Button}
-    onClick={() => alert("Click!")}
->
-    Click Me!
+<IconAdder tag={Button} onClick={() => alert("Click!")}>
+  Click Me!
 </IconAdder>
 ```
 
@@ -148,18 +126,16 @@ Right now, our IconAdder component won't accept a style, className, or title pro
 
 ```javascript
 class IconAdder extends React.Component {
-    render() {
-        const { tag, onClick, children, ...rest } = this.props; 
-        const Tag = tag;
+  render() {
+    const { tag, onClick, children, ...rest } = this.props;
+    const Tag = tag;
 
-        return (
-            <Tag onClick={onClick} {...rest}>
-                <Icon />
-                {" "}
-                {children}
-            </Tag>
-        );
-    }
+    return (
+      <Tag onClick={onClick} {...rest}>
+        <Icon /> {children}
+      </Tag>
+    );
+  }
 }
 ```
 
@@ -167,12 +143,12 @@ to consume it
 
 ```javascript
 <IconAdder
-    tag={Button}
-    onClick={() => alert("Click!")}
-    style={ { fontWeight: "800" } }
-    title="A button for clicking"
+  tag={Button}
+  onClick={() => alert("Click!")}
+  style={{ fontWeight: "800" }}
+  title="A button for clicking"
 >
-    Click Me!
+  Click Me!
 </IconAdder>
 ```
 

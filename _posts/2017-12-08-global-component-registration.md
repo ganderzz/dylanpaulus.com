@@ -5,12 +5,9 @@ category: "React"
 tag: ["Javascript", "Frontend", "React"]
 ---
 
-# Global Component Registration
-
 ### Introduction
 
 Often, I find myself looking through open-source projects to see how they solve issues. Not bugs, but problems in code that cause repetition or excessive boilerplate. [Modals](https://ux.stackexchange.com/questions/12045/what-is-a-modal-dialog-window#12046) have given me problems, specifically when having to create a specialized modal for different workflows. They are awkward. Modals, in the DOM, live outside of the scope of the current workflow. And, part of their state usually lives outside of the modal itself (hide/show). I came accross an interesting solution to the modal problem while looking through [Insomnia's](https://github.com/getinsomnia/insomnia) code. This is a different post than what I normally do. I'll just be posting code as an example, and filling in the explaination through comments. Hopefully this will work as a reference, and starting point to play around with the idea.
-
 
 ### Code
 
@@ -19,7 +16,7 @@ Often, I find myself looking through open-source projects to see how they solve 
 const modals = {};
 
 /*
- * This function takes in a component, and then adds a 
+ * This function takes in a component, and then adds a
  * reference to it through a friendly named key->value.
  */
 export function registerModal(component) {
@@ -33,7 +30,7 @@ export function registerModal(component) {
 /*
  * show() takes the component we want to show, and some additional
  * arguments. We'll then call the 'show' function on the component.
- * This allows us to 'activate' a component anywhere, but invert 
+ * This allows us to 'activate' a component anywhere, but invert
  * control to the relative component.
  */
 export function show(component, ...args) {
@@ -78,14 +75,10 @@ class MyApp extends Component {
     // Will call the .show() function
     // on the Modal component
     show(Modal);
-  }
+  };
 
   render() {
-    return (
-      <button onClick={this.showModal}>
-        Show Modal
-      </button>
-    );
+    return <button onClick={this.showModal}>Show Modal</button>;
   }
 }
 ```
@@ -103,7 +96,7 @@ class Modal extends Component {
   // when this component is passed to ModalHandler.js' show() function
   show = () => {
     this.setState({ isOpen: true });
-  }
+  };
 
   render() {
     if (!this.state.isOpen) {
@@ -113,10 +106,7 @@ class Modal extends Component {
     return (
       <div>
         Modal!
-
-        <button onClick={() => this.setState({ isOpen: false })}>
-          Close
-        </button>
+        <button onClick={() => this.setState({ isOpen: false })}>Close</button>
       </div>
     );
   }

@@ -5,8 +5,6 @@ category: "React"
 tag: ["Javascript", "Frontend", "React"]
 ---
 
-# Introduction to Higher Order Components
-
 ### Introduction
 
 Think of Higher Order Components (HOC) like Pacman. As Pacman consumes his smaller looking dot counterparts, Pacman gains superpower abilities. Like ghost eating! HOC's work similarly... minus ghosts.
@@ -18,9 +16,7 @@ First, lets define our base component.
 
 ```javascript
 function Hello(props) {
-    return (
-        <div>Hello, {props.children}!</div>
-    );
+  return <div>Hello, {props.children}!</div>;
 }
 ```
 
@@ -28,13 +24,14 @@ Before jumping straight into the HOC, what are we trying to achieve? We want to 
 
 ```javascript
 function withEmptyState(component) {
-    return function(props) {  // Start new stateless functional component
-        if (props.children) {
-            return component(props);
-        }
-
-        return null;
+  return function(props) {
+    // Start new stateless functional component
+    if (props.children) {
+      return component(props);
     }
+
+    return null;
+  };
 }
 ```
 
@@ -46,15 +43,15 @@ But how would I use withEmptyState?
 const HOC = withEmptyState(Hello);
 
 class MyContainer extends React.Component {
-    render() {
-        return (
-          <div>
-            HOC 1: <HOC />
-            <hr />
-            HOC 2: <HOC>WORLD!</HOC>  
-          </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        HOC 1: <HOC />
+        <hr />
+        HOC 2: <HOC>WORLD!</HOC>
+      </div>
+    );
+  }
 }
 ```
 

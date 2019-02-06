@@ -5,21 +5,18 @@ category: "React"
 tag: ["Javascript", "Frontend", "React"]
 ---
 
-# React: Injecting Dynamic Elements to Components
-
 ### Introduction
+
 Let's say we're working on an UI component library using React JS. We make a super awesome looking button, maybe even the best button in the world. But suddenly, our computer shuts off without saving our component!
 Like Tenacious D, we create a tribute to the button which looks like:
 
 ```javascript
 class AwesomeButton extends Component {
-    render() {
-        const { children, ...other } = this.props;
+  render() {
+    const { children, ...other } = this.props;
 
-        return (
-           <button {...other}>{children}</button> 
-        );
-    }
+    return <button {...other}>{children}</button>;
+  }
 }
 ```
 
@@ -30,13 +27,11 @@ Easy enough, we create a new component that instead uses an anchor tag.
 
 ```javascript
 class AwesomeButtonLink extends Component {
-    render() {
-        const { children, ...other } = this.props;
+  render() {
+    const { children, ...other } = this.props;
 
-        return (
-           <a {...other}>{children}</a> 
-        );
-    }
+    return <a {...other}>{children}</a>;
+  }
 }
 ```
 
@@ -45,13 +40,11 @@ Mumbling under your breath, we create yet another Awesome component.
 
 ```javascript
 class AwesomeButtonReactRouterLink extends Component {
-    render() {
-        const { children, ...other } = this.props;
+  render() {
+    const { children, ...other } = this.props;
 
-        return (
-           <Link {...other}>{children}</Link> 
-        );
-    }
+    return <Link {...other}>{children}</Link>;
+  }
 }
 ```
 
@@ -63,14 +56,12 @@ What if the consumer of a component could define its base element? Let's look at
 
 ```javascript
 class AwesomeButton extends React.Component {
-    render() {
-        const { children, tag = "button", ...other } = this.props;
-        const Tag = tag;
+  render() {
+    const { children, tag = "button", ...other } = this.props;
+    const Tag = tag;
 
-        return (
-           <Tag {...other}>{children}</Tag> 
-        );
-    }
+    return <Tag {...other}>{children}</Tag>;
+  }
 }
 ```
 
@@ -83,19 +74,20 @@ A few examples:
 ```javascript
 <AwesomeButton onClick={doSomething}>Click Me!<AwesomeButton>
 ```
-Will render the default button. `<button onClick={doSomething}>Click Me!</button>`
 
+Will render the default button. `<button onClick={doSomething}>Click Me!</button>`
 
 ```javascript
 <AwesomeButton tag="a" href={`/myPage`}>Click Me!<AwesomeButton>
 ```
+
 Will render using an anchor tag `<a href={'/myPage'}>Click Me!</a>`
 
 ```javascript
 <AwesomeButton tag={Link} to={`/myPage`}>Click Me!<AwesomeButton>
 ```
-Will render using a React Router Link component `<Link to={'/myPage'}>Click Me!</Link>`
 
+Will render using a React Router Link component `<Link to={'/myPage'}>Click Me!</Link>`
 
 Neat! But why is this happening?
 
@@ -108,11 +100,9 @@ First, let's look at a simple component that just renders a div with the text "t
 
 ```javascript
 class AwesomeButton extends React.Component {
-    render() {
-        return (
-           <div>test</div> 
-        );
-    }
+  render() {
+    return <div>test</div>;
+  }
 }
 ```
 
@@ -126,17 +116,14 @@ Well that's cool. So our div element just gets defined as the first parameter of
 
 ```javascript
 class AwesomeButton extends React.Component {
-    render() {
-        const { children, tag = "button", ...other } = this.props;
-        const Tag = tag;
+  render() {
+    const { children, tag = "button", ...other } = this.props;
+    const Tag = tag;
 
-        return (
-           <Tag {...other}>{children}</Tag> 
-        );
-    }
+    return <Tag {...other}>{children}</Tag>;
+  }
 }
 ```
-
 
 [\<AwesomeButton\>Click Me!</AwesomeButton>](https://babeljs.io/repl/#?babili=false&evaluate=true&lineWrap=false&presets=es2015%2Creact%2Cstage-2&targets=&browsers=&builtIns=false&debug=false&code_lz=MYGwhgzhAECCDuBTCB7AtogQgVwC65QDtpEAPXRQgExgCVExhcA6AYXQAcjLdoBvALAAoaKOgAnSlUTiAFAEp-wsSujAiEXnzUALAJYgqkwgBpouMAHNoAXmgAiAEZ4Che2eaeUuHTOgBfW3N9CGYOcRQOCABuZVVRdUJNaAAVKyCLS1ihOPjJXGxxYllc-NEAHjTrPk9mb19xfwA-PmB9Q2N_coB6KqboUpV5bJV_YX8gA)
 

@@ -5,37 +5,35 @@ category: ["React"]
 tag: ["React", "Frontend", "JavaScript"]
 ---
 
-# React: Not Everything is State
-
 When working with React we get introduced to state as a way if storing component's data. There is another way that generally gets overlooked: class properties.
 
 #### Example
 
 ```js
 class AnnoyingButton extends React.Component {
-    intervalId = null; // Here!
-    id = generateUniqueId(); // Here!
+  intervalId = null; // Here!
+  id = generateUniqueId(); // Here!
 
-    state = {
-        isDisabled: false
-    };
+  state = {
+    isDisabled: false
+  };
 
-    componentDidMount() {
-        this.intervalId = setInterval(() => {
-            this.setState(({ isDisabled }) => ({
-                isDisabled: !isDisabled
-            }));
-        }, 100);
-    }
+  componentDidMount() {
+    this.intervalId = setInterval(() => {
+      this.setState(({ isDisabled }) => ({
+        isDisabled: !isDisabled
+      }));
+    }, 100);
+  }
 
-    componentWillUnmount() {
-        console.log(`Unmounting ID: ${this.id}`);
-        clearInterval(this.intervalId);
-    }
+  componentWillUnmount() {
+    console.log(`Unmounting ID: ${this.id}`);
+    clearInterval(this.intervalId);
+  }
 
-    render() {
-        return <button disabled={this.state.isDisabled} />;
-    }
+  render() {
+    return <button disabled={this.state.isDisabled} />;
+  }
 }
 ```
 
