@@ -1,2 +1,0 @@
-# dylanpaulus.com
-Personal Website

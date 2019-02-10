@@ -1,2 +1,1 @@
-# dylanpaulus.com
-Personal Website
+[Personal Website](https://dylanpaulus.com)
