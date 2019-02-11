@@ -1,6 +1,6 @@
 ---
 title: "Introduction to Higher Order Components"
-category: ["Javascript", "Frontend", "React"]
+tags: ["Javascript", "Frontend", "React"]
 path: "/blog/intro-higher-order-components"
 date: "2017-08-17"
 ---
@@ -14,7 +14,7 @@ A HOC consumes a base component, applies some new ability or super power, then s
 
 First, lets define our base component.
 
-```javascript
+```jsx
 function Hello(props) {
   return <div>Hello, {props.children}!</div>;
 }
@@ -39,7 +39,7 @@ Pretty simple, but extremely powerful! All this function does is take a componen
 
 But how would I use withEmptyState?
 
-```javascript
+```jsx
 const HOC = withEmptyState(Hello);
 
 class MyContainer extends React.Component {

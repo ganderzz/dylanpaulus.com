@@ -1,6 +1,6 @@
 ---
 title: "Introducing React-Scroll-To v2"
-category: ["React"]
+tags: ["React", "Javascript"]
 path: "/blog/introducing-react-scroll-to-v2"
 date: "2018-11-03"
 ---
@@ -14,7 +14,7 @@ _(As a note, in this post I'll only be showing render props, but react-scroll-to
 
 ### Basics
 
-```js
+```jsx
 import React, { Component } from "react";
 import { ScrollTo } from "react-scroll-to";
 

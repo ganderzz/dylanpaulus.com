@@ -1,6 +1,6 @@
 ---
 title: "Generic Type Arguments in JSX Elements"
-category: ["React", "Typescript"]
+tags: ["React", "Typescript", "Javascript"]
 path: "/blog/generic-type-arguments-jsx"
 date: "2018-06-02"
 ---
@@ -13,7 +13,7 @@ As shown in the [Typescript release notes](https://www.typescriptlang.org/docs/h
 
 #### **The Old Way:**
 
-```js
+```jsx
 // Notice color isn't defined as a prop, and will error out normally
 function Div(props: { value: string }) {
   const { value, ...rest } = this.props;
@@ -30,7 +30,7 @@ function App() {
 
 #### **Generic Type Arguments:**
 
-```js
+```jsx
 // Notice our new generic on the component
 function Div<T extends object>(props: { value: string } & T) {
     const { value, ...rest } = props as any; // spreading on generics not yet supported
@@ -51,7 +51,7 @@ function App() {
 
 And the same can be used with class components:
 
-```js
+```jsx
 // Notice our new generic on the component
 class Div<T extends object> extends React.Component<{ value: string } & T> {
     public render() {
@@ -75,7 +75,7 @@ function App() {
 
 Let's say we have a **MenuItem** component that could be overloaded with either a Router link component, or a html _a_ tag. One way we might write this...
 
-```js
+```jsx
 interface IProps {
   tag: React.ReactNode;
   children: React.ReactNode;
@@ -90,14 +90,14 @@ function MenuItem({ tag, children, ...rest }: IProps) {
 
 **MenuItem** works perfect fine as a component, but when it's time to add additional properties, Typescript will yell. For example, the _a_ tag needs a _href_ prop. We don't want to hardcode _href_, because we can inject any type of element through the _tag_ prop (React Router, button, etc).
 
-```js
+```jsx
 <MenuItem tag="a" href="http://google.com">Click Me!</MenuItem> // Error because href isn't defined in IProps!
 <MenuItem tag={Link} to="/home">Home</MenuItem> // Error because to isn't defined in IProps!
 ```
 
 We can fix our errors using generic type arguments.
 
-```js
+```jsx
 interface IProps {
   tag: React.ReactNode;
   children: React.ReactNode;
@@ -117,7 +117,7 @@ function MenuItem<T extends object>(props: IProps & T) {
 
 Now the consumer of our **MenuItem** component can tell us what additional properties are needed!
 
-```js
+```jsx
 <MenuItem<{ href: string }> tag="a" href="http://google.com">Click Me!</MenuItem> // Success!
 <MenuItem<{ to: string }> tag={Link} to="/home">Home</MenuItem> // Success!
 ```

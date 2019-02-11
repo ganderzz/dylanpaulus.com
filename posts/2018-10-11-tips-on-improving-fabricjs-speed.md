@@ -1,6 +1,6 @@
 ---
 title: "Tips on Improving FabricJS Speed"
-category: ["JavaScript"]
+tags: ["Javascript", "FabricJS"]
 path: "/blog/tips-on-improving-fabric-js"
 date: "2018-10-11"
 ---
@@ -11,7 +11,7 @@ date: "2018-10-11"
 
 FabricJS has a [small post about optimizing performance](https://github.com/fabricjs/fabric.js/wiki/Optimizing-performance). All great tips, but the one to look at is setting `renderOnAddRemove` to false. Adding this property to the canvas will prevent Fabric from rerendering if a shape is added or deleted. This gives huge speed improvements on initial loads while adding a lot of shapes to the canvas.
 
-```js
+```javascript
 const canvas = new fabric.Canvas("myId", { renderOnAddRemove: false });
 ```
 
@@ -23,7 +23,7 @@ _Caution:_ `canvas.renderAll();` will have to be called whenever we want a chang
 
 Alternatively we can use a function called `enlivenObjects`.
 
-```js
+```javascript
 const canvas = new fabric.Canvas("myId", { renderOnAddRemove: false }););
 // enlivenObjects([array of json objects], [callback])
 fabric.util.enlivenObjects([{}, {}, {}], (objs) => {

@@ -1,7 +1,7 @@
 ---
 title: "Intro to FlightJS"
 path: "/blog/intro-to-flight-js"
-category: ["JavaScript"]
+tags: ["Javascript", "FlightJS"]
 date: "2015-11-17"
 ---
 

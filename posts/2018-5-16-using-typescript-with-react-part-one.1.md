@@ -1,6 +1,6 @@
 ---
 title: "Part One: Using Typescript with React"
-category: ["React", "Typescript"]
+tags: ["React", "Typescript", "Javascript"]
 path: "/blog/pt-1-typescript-with-react"
 date: "2018-05-16"
 ---
@@ -15,7 +15,7 @@ We'll go through part one by creating a counter, and adding types where needed.
 
 Starting out, we have a scaffolding of our application.
 
-```js
+```jsx
 // Note, Typescript requires the whole React package to be imported.
 // More information can be found: https://stackoverflow.com/a/37491916
 import * as React from "react";
@@ -37,7 +37,7 @@ Looks like a valid React class component, but a few Typescript differences stand
 
 We'll need a way of storing the state of the counter. Let's implement this.
 
-```js
+```jsx
 // Note, Typescript requires the whole React package to be imported.
 // More information can be found: https://stackoverflow.com/a/37491916
 import * as React from "react";
@@ -65,7 +65,7 @@ A lot is happening here, so we'll break it down change-by-change.
 
 ##### Interface
 
-```js
+```jsx
 interface IState {
   count: number;
 }
@@ -81,7 +81,7 @@ Moving on, we define our component's state as having one field, count. In Typesc
 
 ##### Class Definition
 
-```js
+```jsx
 class App extends React.Component<{}, IState> {
 ```
 
@@ -95,7 +95,7 @@ To break it apart:
 
 ##### Defining State
 
-```js
+```jsx
 public readonly state = {
   count: 0
 };
@@ -107,7 +107,7 @@ Finally, we define the state for the component. Remember, so far we've only told
 
 Let's finish our counter by adding some buttons, and a click event that either decrements or increments the count.
 
-```js
+```jsx
 // Note, Typescript requires the whole React package to be imported.
 // More information can be found: https://stackoverflow.com/a/37491916
 import * as React from "react";

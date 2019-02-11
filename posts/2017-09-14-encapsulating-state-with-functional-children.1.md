@@ -1,6 +1,6 @@
 ---
 title: "Encapsulating State with Functional Children"
-category: ["React"]
+tags: ["React", "Javascript"]
 path: "/blog/encapsulating-state-functional-children"
 date: "2017-09-14"
 ---
@@ -11,7 +11,7 @@ There is a technique for creating reusable components that got missed in my last
 
 ### Breaking down functional children
 
-```javascript
+```jsx
 import React from "react";
 
 class Booer extends React.Component {
@@ -48,7 +48,7 @@ _Booer_ is a component that after 1000ms, updates its state to say "Boo!". Nothi
 
 The first example is a nice way to show functional children, but let's make something a little more practical. Like the title suggestions, how about a component that keeps track of a toggle! This may look something like:
 
-```javascript
+```jsx
 import React from "react";
 
 class Toggle extends React.Component {
