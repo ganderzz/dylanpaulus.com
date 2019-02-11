@@ -1,6 +1,6 @@
 ---
 title: "React: Controlling Rendering with Keys"
-category: ["React"]
+tags: ["React", "Javascript"]
 path: "/blog/controlling-rendering-with-keys"
 date: "2018-10-18"
 ---
@@ -11,7 +11,7 @@ My team recently ran into an issue lately--how do we rerender all child componen
 
 Let's take a look.
 
-```js
+```jsx
 class Parent extends Component {
   state = {
     key: true,

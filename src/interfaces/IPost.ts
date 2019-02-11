@@ -4,7 +4,7 @@ export interface IPost {
   frontmatter: {
     title: string;
     date: string;
-    category?: string[];
+    tags?: string[];
   };
   fields: {
     slug: string;

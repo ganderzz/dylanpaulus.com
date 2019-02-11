@@ -56,18 +56,12 @@ a:hover {
 }
 
 pre {
-  background: #f1f1f1;
   border-radius: 4px;
-  margin: 0 0.2rem;
-  font-size: 90%;
-  line-height: 2.3rem;
-  padding: 20px;
 }
 
-code {
-  background: #f1f1f1;
-  border-radius: 4px;
-  padding: 5px;
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+  background: #333;
 }
 
 h3 {

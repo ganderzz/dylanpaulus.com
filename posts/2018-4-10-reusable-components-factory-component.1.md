@@ -1,6 +1,6 @@
 ---
 title: "Reusable Components: Factory Components"
-category: ["React"]
+tags: ["React", "Javascript"]
 path: "/blog/factory-components"
 date: "2018-04-10"
 ---
@@ -10,7 +10,7 @@ Our component has a few properties: `<IdentityInput onSuccess={login} onFail={sh
 
 A few months go by and our company, Component Co., finds out there are a lot of humans out there trying to login, but are missing fingerprints! Great, we'll update our component to allow for eyeball scans.
 
-```javascript
+```jsx
 <IdentityInput
   onSuccess={login}
   onFail={showError}
@@ -23,7 +23,7 @@ A few months go by and our company, Component Co., finds out there are a lot of 
 
 After many failed attempts to login to our system the boss of Component Co., a cyborg without eyeballs or fingerprints, demands that we provide a password input field. Once again, the IndentityInput component gets updated to have the request.
 
-```javascript
+```jsx
 <IdentityInput
   onSuccess={login}
   onFail={showError}
@@ -41,7 +41,7 @@ One solution to this problem is to have a factory component, very much like the 
 
 For example:
 
-```javascript
+```jsx
 function FingerPrint(props) {
   return <div {...props}>Super Awesome Fingerprint Scanner</div>;
 }
@@ -79,7 +79,7 @@ function IdentityFactory(props) {
 
 Now, when we want to use the IdentityFactory component we can switch between the different input types, but also provide props relevant to just that component. It'll allow us to modify single-responsibility components with ease.
 
-```javascript
+```jsx
 render() {
   return (
     <div>

@@ -63,6 +63,7 @@ export function Footer() {
         if (item.title === "Twitch") {
           return (
             <a
+              key={item.title}
               style={{ display: "inline-grid", textDecoration: "none" }}
               className="social__icon"
               href={item.url}
@@ -86,7 +87,12 @@ export function Footer() {
         }
 
         return (
-          <a className="social__icon" href={item.url} title={item.title}>
+          <a
+            key={item.title}
+            className="social__icon"
+            href={item.url}
+            title={item.title}
+          >
             <i className={`fab fa-${item.icon}`} />
           </a>
         );

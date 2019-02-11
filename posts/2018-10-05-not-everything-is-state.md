@@ -1,6 +1,6 @@
 ---
 title: "React: Not Everything is State"
-category: ["React"]
+tags: ["React", "Javascript"]
 path: "/blog/not-everything-is-state"
 date: "2018-10-05"
 ---
@@ -9,7 +9,7 @@ When working with React we get introduced to state as a way if storing component
 
 #### Example
 
-```js
+```jsx
 class AnnoyingButton extends React.Component {
   intervalId = null; // Here!
   id = generateUniqueId(); // Here!

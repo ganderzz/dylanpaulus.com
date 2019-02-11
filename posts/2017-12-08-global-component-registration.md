@@ -1,6 +1,6 @@
 ---
 title: "Global Component Registration"
-category: ["React"]
+tags: ["React", "Javascript"]
 path: "/blog/global-component-registration"
 date: "2017-12-08"
 ---
@@ -11,7 +11,7 @@ Often, I find myself looking through open-source projects to see how they solve 
 
 ### Code
 
-```javascript
+```jsx
 // ModalHandler.js
 const modals = {};
 
@@ -43,7 +43,7 @@ export function show(component, ...args) {
 }
 ```
 
-```javascript
+```jsx
 // App.jsx
 import React, { Component } from "react";
 import { registerModal } from "./ModalHandler";
@@ -65,7 +65,7 @@ class Base extends Component {
 }
 ```
 
-```javascript
+```jsx
 import React, { Component } from "react";
 import { show } from "./ModalHandler";
 import Modal from "./Modal";
@@ -83,7 +83,7 @@ class MyApp extends Component {
 }
 ```
 
-```javascript
+```jsx
 // Modal.jsx
 import React, { Component } from "react";
 

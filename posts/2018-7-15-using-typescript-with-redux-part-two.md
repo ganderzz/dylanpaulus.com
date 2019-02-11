@@ -1,6 +1,6 @@
 ---
 title: "Part Two: Using Typescript with Redux"
-category: ["React", "Typescript"]
+tags: ["React", "Typescript", "Javascript"]
 path: "/blog/pt-2-typescript-with-redux"
 date: "2018-07-15"
 ---
@@ -15,7 +15,7 @@ _Note: Same with part one, I'm going to assume Typescript, and now Redux, is set
 
 We'll start out creating a few actions for our counter.
 
-```js
+```jsx
 // Action Types
 export const INCREMENT = "INCREMENT";
 export const DECREMENT = "DECREMENT";
@@ -59,7 +59,7 @@ Finally, we'll create an action creator for both increment and decrementing our 
 
 ### Reducer
 
-```js
+```jsx
 export const defaultState = {
   count: 0
 };
@@ -86,7 +86,7 @@ I won't spend too much time on the reducer as Typescript doesn't play much role 
 
 ### Component
 
-```js
+```jsx
 interface IStateToProps {
   count: number;
 }

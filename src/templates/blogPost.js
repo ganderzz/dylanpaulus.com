@@ -1,6 +1,7 @@
 import React from "react";
 import { graphql } from "gatsby";
 import Layout from "../components/layout";
+import { TagsList } from "../components/tagsList";
 import SEO from "../components/seo";
 
 export default function BlogPost({ data }) {
@@ -12,7 +13,9 @@ export default function BlogPost({ data }) {
       <SEO description="" title={frontmatter.title} keywords={[`react`]} />
 
       <div className="blog-post">
-        <span>{frontmatter.date}</span>
+        <span>
+          {frontmatter.date} <TagsList tags={frontmatter.tags} />
+        </span>
         <h1
           style={{ fontSize: "5.0rem", marginBottom: "2.8rem", marginTop: 0 }}
         >
@@ -39,6 +42,7 @@ export const pageQuery = graphql`
       frontmatter {
         date(formatString: "MMMM DD, YYYY")
         title
+        tags
       }
     }
   }

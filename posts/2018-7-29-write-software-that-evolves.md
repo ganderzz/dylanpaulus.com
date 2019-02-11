@@ -1,6 +1,6 @@
 ---
 title: "Write Software that Evolves"
-category: ["Software Engineering"]
+tags: ["Software Engineering"]
 path: "/blog/write-software-that-evolves"
 date: "2018-07-29"
 ---
