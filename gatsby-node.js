@@ -18,6 +18,9 @@ exports.createPages = ({ graphql, actions }) => {
                   fields {
                     slug
                   }
+                  frontmatter {
+                    tags
+                  }
                 }
               }
             }
@@ -34,7 +37,37 @@ exports.createPages = ({ graphql, actions }) => {
 
         const listComponent = path.resolve("./src/templates/blogList.js");
         const postComponent = path.resolve(`./src/templates/blogPost.js`);
+        const postsForTag = path.resolve(`./src/templates/postsForTag.js`);
+        const siteMap = path.resolve(`./src/templates/sitemap.js`);
 
+        // Sitemap
+        createPage({
+          path: `/sitemap`,
+          component: siteMap
+        });
+
+        const tags = posts.reduce((accu, post) => {
+          const tags = post.node.frontmatter.tags;
+
+          if (tags) {
+            return [...accu, ...tags];
+          }
+
+          return accu;
+        }, []);
+
+        // Posts for Tag
+        tags.forEach(tag => {
+          createPage({
+            path: `/tags/${tag}`,
+            component: postsForTag,
+            context: {
+              tag
+            }
+          });
+        });
+
+        // Blog Post Lists
         Array.from({ length: numPages }).forEach((_, i) => {
           createPage({
             path: i === 0 ? `/` : `/${i + 1}`,
@@ -48,6 +81,7 @@ exports.createPages = ({ graphql, actions }) => {
           });
         });
 
+        // Post Pages
         result.data.allMarkdownRemark.edges.forEach(({ node }) => {
           createPage({
             path: node.fields.slug,

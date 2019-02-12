@@ -10,11 +10,16 @@ export default function BlogPost({ data }) {
 
   return (
     <Layout>
-      <SEO description="" title={frontmatter.title} keywords={[`react`]} />
+      <SEO
+        description=""
+        title={frontmatter.title}
+        keywords={frontmatter.tags}
+      />
 
       <div className="blog-post">
         <span>
-          {frontmatter.date} <TagsList tags={frontmatter.tags} />
+          {frontmatter.date}{" "}
+          <TagsList style={{ marginLeft: 5 }} tags={frontmatter.tags} />
         </span>
         <h1
           style={{ fontSize: "5.0rem", marginBottom: "2.8rem", marginTop: 0 }}
