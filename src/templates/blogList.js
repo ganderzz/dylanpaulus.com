@@ -27,7 +27,7 @@ export default function BlogList({ data, pageContext }) {
       />
 
       {posts.map(post => (
-        <PostListItem key={post.node.id} data={post} className="post__item" />
+        <PostListItem key={post.node.id} data={post} />
       ))}
 
       <div style={{ textAlign: "center", paddingTop: 15 }}>

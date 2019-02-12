@@ -1,6 +1,7 @@
 @import url("https://rsms.me/inter/inter.css");
 @import url("https://use.fontawesome.com/releases/v5.7.1/css/fontawesome.css");
 @import url("https://use.fontawesome.com/releases/v5.7.1/css/brands.css");
+@import url("https://use.fontawesome.com/releases/v5.7.1/css/solid.css");
 
 * {
   box-sizing: border-box;
@@ -89,4 +90,27 @@ h3 {
 .post__item:not(:first-child) {
   border-top: 1px solid #f1f1f1;
   padding-top: 30px;
+}
+
+.tag-list__item {
+  background: #444;
+  color: #fff;
+  padding: 2px 4px;
+  border-radius: 4px;
+  margin-right: 3px;
+  text-decoration: none;
+  font-weight: 600;
+  opacity: 0.7;
+
+  transition: opacity 0.2s, color 0.2s;
+}
+
+.tag-list__item:hover {
+  color: #fff;
+  opacity: 1;
+}
+
+.tag-list__item:focus {
+  outline: 2px solid #4d3221;
+  opacity: 1;
 }

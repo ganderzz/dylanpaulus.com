@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "gatsby";
 
 interface IProps {
   tags: string[];
@@ -9,19 +10,9 @@ export function TagsList({ tags = [], style = {}, ...rest }: IProps) {
   return (
     <span style={style} {...rest}>
       {tags.map(tag => (
-        <span
-          key={tag}
-          style={{
-            fontSize: "1rem",
-            background: "#666",
-            color: "#FFF",
-            padding: "2px 4px",
-            borderRadius: 4,
-            marginRight: 3
-          }}
-        >
+        <Link key={tag} to={`/tags/${tag}`} className="tag-list__item">
           {tag}
-        </span>
+        </Link>
       ))}
     </span>
   );

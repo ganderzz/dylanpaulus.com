@@ -12,7 +12,7 @@ interface IProps {
 
 export function PostListItem({ data, style = {}, ...rest }: IProps) {
   return (
-    <div style={style} {...rest}>
+    <div style={style} className="post__item" {...rest}>
       <span style={{ display: "block", color: "#50545c", fontWeight: 600 }}>
         {data.node.frontmatter.date}
       </span>

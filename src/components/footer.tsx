@@ -1,26 +1,37 @@
 import React from "react";
+import { Link } from "gatsby";
 
 interface ISocialProps {
   title: string;
   icon: string;
   url: string;
+  isExternal: boolean;
 }
 
 const socialMedia: ISocialProps[] = [
   {
     title: "Github",
     icon: "github",
-    url: "https://github.com/ganderzz"
+    url: "https://github.com/ganderzz",
+    isExternal: true
   },
   {
     title: "Twitter",
     icon: "twitter",
-    url: "https://twitter.com/DylanPaulus"
+    url: "https://twitter.com/DylanPaulus",
+    isExternal: true
   },
   {
     title: "Twitch",
     icon: "twitch",
-    url: "https://www.twitch.tv/ganderzz"
+    url: "https://www.twitch.tv/ganderzz",
+    isExternal: true
+  },
+  {
+    title: "Sitemap",
+    icon: "sitemap",
+    url: "/sitemap",
+    isExternal: false
   }
 ];
 
@@ -86,15 +97,28 @@ export function Footer() {
           );
         }
 
+        if (item.isExternal) {
+          return (
+            <a
+              key={item.title}
+              className="social__icon"
+              href={item.url}
+              title={item.title}
+            >
+              <i className={`fab fa-${item.icon}`} />
+            </a>
+          );
+        }
+
         return (
-          <a
+          <Link
             key={item.title}
-            className="social__icon"
-            href={item.url}
             title={item.title}
+            className="social__icon"
+            to={item.url}
           >
-            <i className={`fab fa-${item.icon}`} />
-          </a>
+            <i className={`fas fa-${item.icon}`} />
+          </Link>
         );
       })}
     </footer>
