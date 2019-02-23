@@ -41,7 +41,7 @@ const IndexPage = () => (
         <h4 style={{ fontSize: "2rem", margin: 0 }}>Previous</h4>
 
         <ul>
-          <li>Web Developer @ Sony Playstation </li>
+          <li><a href="https://www.mobygames.com/developer/sheet/view/developerId,783203/">Web Developer @ Sony Playstation</a></li>
           <li>Student Web Developer @ Eastern Washington University</li>
         </ul>
       </div>
