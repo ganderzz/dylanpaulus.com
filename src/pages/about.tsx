@@ -29,6 +29,17 @@ const IndexPage = () => (
       <div style={{ padding: 20 }}>
         Hi, I'm Dylan. A fullstack developer working primarily in React and
         C#(.Net).
+        <h4 style={{ fontSize: "2rem", margin: "35px 0 0 0" }}>Talks</h4>
+        <ul>
+          <li>
+            <a
+              target="_blank"
+              href="https://introduction-functional-programming-boise.netlify.com/#/"
+            >
+              Functional Programming Light (Boise Code Camp 2019)
+            </a>
+          </li>
+        </ul>
       </div>
 
       <div style={{ padding: 20 }}>
@@ -41,7 +52,11 @@ const IndexPage = () => (
         <h4 style={{ fontSize: "2rem", margin: 0 }}>Previous</h4>
 
         <ul>
-          <li><a href="https://www.mobygames.com/developer/sheet/view/developerId,783203/">Web Developer @ Sony Playstation</a></li>
+          <li>
+            <a href="https://www.mobygames.com/developer/sheet/view/developerId,783203/">
+              Web Developer @ Sony Playstation
+            </a>
+          </li>
           <li>Student Web Developer @ Eastern Washington University</li>
         </ul>
       </div>
