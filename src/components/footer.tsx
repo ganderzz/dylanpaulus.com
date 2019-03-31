@@ -22,12 +22,6 @@ const socialMedia: ISocialProps[] = [
     isExternal: true
   },
   {
-    title: "Twitch",
-    icon: "twitch",
-    url: "https://www.twitch.tv/ganderzz",
-    isExternal: true
-  },
-  {
     title: "Sitemap",
     icon: "sitemap",
     url: "/sitemap",
@@ -35,31 +29,7 @@ const socialMedia: ISocialProps[] = [
   }
 ];
 
-function useIsTwitchStreaming() {
-  const [isOnline, setOnlineStatus] = React.useState(false);
-
-  React.useEffect(() => {
-    fetch(
-      "https://api.twitch.tv/kraken/streams/ganderzz?client_id=lgeux1h60dw3jx2z09cr8puhtw9038"
-    )
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-      })
-      .then(data => {
-        if (data && data.stream) {
-          setOnlineStatus(true);
-        }
-      });
-  }, []);
-
-  return isOnline;
-}
-
 export function Footer() {
-  const isTwitchStreaming = useIsTwitchStreaming();
-
   return (
     <footer
       style={{
@@ -71,32 +41,6 @@ export function Footer() {
       }}
     >
       {socialMedia.map(item => {
-        if (item.title === "Twitch") {
-          return (
-            <a
-              key={item.title}
-              style={{ display: "inline-grid", textDecoration: "none" }}
-              className="social__icon"
-              href={item.url}
-              title={item.title}
-            >
-              <i className={`fab fa-${item.icon}`} />
-              <sub
-                style={{
-                  color: "hsl(0, 0, 30%)",
-                  fontSize: "1.2rem"
-                }}
-              >
-                {isTwitchStreaming ? (
-                  <strong style={{ color: "hsl(90, 50%, 40%)" }}>Online</strong>
-                ) : (
-                  <em>Offline</em>
-                )}
-              </sub>
-            </a>
-          );
-        }
-
         if (item.isExternal) {
           return (
             <a
