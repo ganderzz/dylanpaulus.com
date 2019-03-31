@@ -41,7 +41,7 @@ newObj === obj; // false
 
 ### Pure Functions
 
-Pure functions are side effect free. What does that mean? Well, a function that calculates an output based soley on it's input can be considered a pure function. If our function takes an input, performs a database update, then returns a value, then we contain a side effect in our code--updating the database. Calling the function multiple times might not always return the same result (out of memory, database is locked, etc). Having pure functions is crucial in helping us write bug-free, easily testable code.
+Pure functions are side effect free. What does that mean? Well, a function that calculates an output based solely on it's input can be considered a pure function. If our function takes an input, performs a database update, then returns a value, then we contain a side effect in our code--updating the database. Calling the function multiple times might not always return the same result (out of memory, database is locked, etc). Having pure functions is crucial in helping us write bug-free, easily testable code.
 
 ##### Example
 
@@ -97,7 +97,7 @@ To make this code functional, let's break down how a summation is calculated.
 
 First, we start at some value, which in our case is `0` (see the line `let sum = 0;`)! Next, we pull out the first item in the array `1` and add it to our sum. Now we have `0 + 1 = 1`. We then repeat this step pulling out `2` and adding it to the sum `1 + 2 = 3`. This continues on until we have traversed the length of the array.
 
-To visuallize this in a different way:
+To visualize this in a different way:
 
 ```
 0 + [1,2,3,4]
