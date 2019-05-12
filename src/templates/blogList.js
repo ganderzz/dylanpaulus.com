@@ -30,7 +30,7 @@ export default function BlogList({ data, pageContext }) {
         <PostListItem key={post.node.id} data={post} />
       ))}
 
-      <div style={{ textAlign: "center", paddingTop: 15 }}>
+      <div className="text-center pt-10">
         <Pagination currentPage={currentPage} totalPages={numPages} />
       </div>
     </Layout>

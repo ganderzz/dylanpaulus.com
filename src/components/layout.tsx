@@ -1,9 +1,9 @@
 import React from "react";
 import { StaticQuery, graphql, Link } from "gatsby";
 import Header from "./header";
-
-import "./layout.css";
 import { Footer } from "./footer";
+
+import "../styles/main.css";
 
 const Layout = ({ children }) => (
   <StaticQuery
@@ -19,19 +19,11 @@ const Layout = ({ children }) => (
     render={data => (
       <>
         <Header siteTitle={data.site.siteMetadata.title} />
-        <div
-          style={{
-            margin: "-130px auto auto auto",
-            maxWidth: 1200,
-            width: "90%",
-            background: "#FFF",
-            padding: `40px 60px`
-          }}
-        >
-          <main>{children}</main>
-          
+        <main className="container mx-auto bg-white -mt-32 sm:p-16 p-6 pt-10 text-2xl border-t-4 border-header-blue-light">
+          <section>{children}</section>
+
           <Footer />
-        </div>
+        </main>
       </>
     )}
   />

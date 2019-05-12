@@ -1,7 +1,6 @@
 import React from "react";
 import { IPost } from "../interfaces/IPost";
 import { Link } from "gatsby";
-import { TagsList } from "./tagsList";
 
 interface IProps {
   data: {
@@ -12,12 +11,13 @@ interface IProps {
 
 export function PostListItem({ data, style = {}, ...rest }: IProps) {
   return (
-    <div style={style} className="post__item" {...rest}>
-      <span style={{ display: "block", color: "#50545c", fontWeight: 600 }}>
+    <div style={style} className="border-b pb-12 mb-12" {...rest}>
+      <span className="block font-medium sm:text-3xl text-xl text-grey-darkest">
         {data.node.frontmatter.date}
       </span>
+
       <Link
-        style={{ fontSize: "3.2rem", fontWeight: 700 }}
+        className="font-bold sm:text-5xl text-4xl no-underline"
         to={data.node.fields.slug}
         title={data.node.excerpt}
       >

@@ -23,6 +23,7 @@ module.exports = {
         name: "posts"
       }
     },
+    `gatsby-plugin-postcss`,
     {
       resolve: `gatsby-transformer-remark`,
       options: {

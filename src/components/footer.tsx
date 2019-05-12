@@ -29,23 +29,18 @@ const socialMedia: ISocialProps[] = [
   }
 ];
 
+const socialIconClass =
+  "hover:opacity-100 text-black mr-12 opacity-75 text-5xl";
+
 export function Footer() {
   return (
-    <footer
-      style={{
-        borderTop: "1px solid #ddd",
-        margin: "40px auto",
-        paddingTop: 20,
-        width: "60%",
-        textAlign: "center"
-      }}
-    >
+    <footer className="border-t border-darker-white w-3/5 pt-10 text-center mx-auto mt-16">
       {socialMedia.map(item => {
         if (item.isExternal) {
           return (
             <a
               key={item.title}
-              className="social__icon"
+              className={socialIconClass}
               href={item.url}
               title={item.title}
             >
@@ -58,7 +53,7 @@ export function Footer() {
           <Link
             key={item.title}
             title={item.title}
-            className="social__icon"
+            className={socialIconClass}
             to={item.url}
           >
             <i className={`fas fa-${item.icon}`} />

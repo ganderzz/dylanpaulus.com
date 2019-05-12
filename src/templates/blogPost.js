@@ -16,26 +16,19 @@ export default function BlogPost({ data }) {
         keywords={frontmatter.tags}
       />
 
-      <div className="blog-post">
-        <span>
-          {frontmatter.date}{" "}
-          <TagsList style={{ marginLeft: 5 }} tags={frontmatter.tags} />
-        </span>
-        <h1
-          style={{ fontSize: "5.0rem", marginBottom: "2.8rem", marginTop: 0 }}
-        >
-          {frontmatter.title}
-        </h1>
-
-        <div
-          className="blog-post-content"
-          style={{
-            fontSize: "1.7rem",
-            lineHeight: "3.1rem"
-          }}
-          dangerouslySetInnerHTML={{ __html: html }}
+      <span>
+        {frontmatter.date}{" "}
+        <TagsList
+          className="sm:ml-4 sm:inline block mt-2"
+          tags={frontmatter.tags}
         />
-      </div>
+      </span>
+      <h1 className="mt-4 font-bold">{frontmatter.title}</h1>
+
+      <div
+        className="leading-loose"
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
     </Layout>
   );
 }

@@ -12,7 +12,7 @@ export function Pagination({ currentPage, totalPages }: IProps) {
       {currentPage > 1 && (
         <Link
           to={`/${currentPage === 2 ? "" : currentPage - 1}`}
-          style={{ padding: 5 }}
+          className="p-1 mr-2 no-underline font-medium"
         >
           Previous Page
         </Link>
@@ -24,21 +24,24 @@ export function Pagination({ currentPage, totalPages }: IProps) {
 
         if (index === currentPage) {
           return (
-            <strong key={i} style={{ padding: 5 }}>
+            <strong key={i} className="p-1 no-underline">
               {index}
             </strong>
           );
         }
 
         return (
-          <Link key={i} to={`/${pageLink}`} style={{ padding: 5 }}>
+          <Link key={i} to={`/${pageLink}`} className="p-1 no-underline">
             {index}
           </Link>
         );
       })}
 
       {currentPage < totalPages && (
-        <Link to={`/${currentPage + 1}`} style={{ padding: 5 }}>
+        <Link
+          to={`/${currentPage + 1}`}
+          className="p-1 ml-2 no-underline font-medium"
+        >
           Next Page
         </Link>
       )}

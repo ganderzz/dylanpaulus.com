@@ -1,0 +1,76 @@
+@tailwind preflight;
+
+@tailwind components;
+
+@tailwind utilities;
+
+@import url("https://rsms.me/inter/inter.css");
+@import url("https://use.fontawesome.com/releases/v5.7.1/css/fontawesome.css");
+@import url("https://use.fontawesome.com/releases/v5.7.1/css/brands.css");
+@import url("https://use.fontawesome.com/releases/v5.7.1/css/solid.css");
+
+@font-face {
+  font-family: "Inter", sans-serif;
+  font-display: swap;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+
+  font-size: 12px;
+}
+
+@supports (font-variation-settings: normal) {
+  html {
+    font-family: "Inter var", sans-serif;
+  }
+}
+
+html,
+body {
+  @apply m-0 p-0;
+}
+
+body {
+  @apply bg-off-white;
+}
+
+a {
+  color: #9d6742;
+  transition: 0.15s color;
+}
+
+a:hover {
+  color: #4d3221;
+}
+
+pre {
+  @apply rounded;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+  background: #333;
+  @apply mb-10 mt-10;
+}
+
+h4 {
+  @apply font-semibold mt-12 mb-6 text-3xl;
+}
+
+h3 {
+  @apply font-semibold mt-12 mb-6 text-4xl;
+}
+
+h2 {
+  @apply font-semibold mt-12 mb-6 text-4xl;
+}
+
+h1 {
+  @apply font-semibold mt-12 mb-6 text-5xl;
+}

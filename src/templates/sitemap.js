@@ -27,10 +27,14 @@ export default function SiteMap({ data }) {
     <Layout>
       <SEO description="" title="Sitemap" keywords={[]} />
 
-      <h3 style={{ marginTop: 0 }}>Sitemap</h3>
+      <h3 className="mt-0 mb-16 bg-dark-brown text-white p-6">Sitemap</h3>
 
       {Object.keys(tagsList).map(key => (
-        <Link key={key} to={`/tags/${key}`} className="tag-list__item">
+        <Link
+          key={key}
+          to={`/tags/${key}`}
+          className="focus:border-2 focus:border-grey-dark hover:opacity-100 hover:bg-grey-darker hover:text-white text-base rounded bg-grey-darkest p-2 text-white no-underline font-semibold mr-2 opacity-75"
+        >
           {key} ({tagsList[key] || 0})
         </Link>
       ))}
