@@ -75,7 +75,18 @@ function SEO({
                   : []
               )
               .concat(meta)}
-          />
+          >
+            <script
+              async
+              src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+            />
+            <script>
+              {`(adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-9398756921280011",
+              enable_page_level_ads: true
+            });`}
+            </script>
+          </Helmet>
         );
       }}
     />
