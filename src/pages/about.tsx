@@ -29,12 +29,16 @@ const IndexPage = () => (
         <h4 className="mt-0">Current</h4>
 
         <ul>
-          <li>Software Engineer @ Schweitzer Engineering Laboratories</li>
+          <li>Lead Software Engineer @ Schweitzer Engineering Laboratories</li>
         </ul>
 
         <h4 className="mt-4">Previous</h4>
 
         <ul>
+          <li>Software Engineer @ Schweitzer Engineering Laboratories</li>
+          <li>
+            Associate Software Engineer @ Schweitzer Engineering Laboratories
+          </li>
           <li>
             <a href="https://www.mobygames.com/developer/sheet/view/developerId,783203/">
               Web Developer @ Sony Playstation
