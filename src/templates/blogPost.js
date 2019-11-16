@@ -11,7 +11,7 @@ export default function BlogPost({ data }) {
   return (
     <Layout>
       <SEO
-        description=""
+        description={frontmatter.title}
         title={frontmatter.title}
         keywords={frontmatter.tags}
       />
