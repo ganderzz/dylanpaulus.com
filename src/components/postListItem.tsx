@@ -17,7 +17,7 @@ export function PostListItem({ data, style = {}, ...rest }: IProps) {
       </span>
 
       <Link
-        className="font-bold sm:text-5xl text-4xl no-underline"
+        className="font-bold sm:text-5xl text-4xl no-underline hover:text-gray-700"
         to={data.node.fields.slug}
         title={data.node.excerpt}
       >

@@ -18,7 +18,7 @@ export default function PostsForTag({ data, pageContext }) {
         keywords={[pageContext.tag]}
       />
 
-      <h3 className="mt-0 mb-16 bg-dark-brown text-white p-6">
+      <h3 className="mt-0 mb-16 bg-gray-800 text-white p-6">
         {pageContext.tag} ({tagCount})
       </h3>
 

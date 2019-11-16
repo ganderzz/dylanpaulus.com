@@ -21,7 +21,7 @@ const IndexPage = () => (
 
     <div className="md:flex sm:block leading-loose text-xl">
       <div className="p-6 md:w-1/2 sm:w-full">
-        Hi, I'm Dylan <em>(yeah, the url doesn't already give it away!)</em>. A
+        Hi, I'm Dylan. A
         fullstack developer working primarily in React and C#(.Net).
       </div>
 

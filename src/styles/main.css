@@ -1,7 +1,5 @@
-@tailwind preflight;
-
+@tailwind base;
 @tailwind components;
-
 @tailwind utilities;
 
 @import url("https://rsms.me/inter/inter.css");
@@ -37,7 +35,7 @@ body {
 }
 
 body {
-  @apply bg-off-white;
+  @apply bg-gray-200;
 }
 
 a {
@@ -73,4 +71,9 @@ h2 {
 
 h1 {
   @apply font-semibold mt-12 mb-6 text-5xl;
+}
+
+.header-link {
+  position: relative;
+  top: 20px;
 }
