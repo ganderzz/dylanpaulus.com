@@ -98,7 +98,7 @@ exports.createPages = ({ graphql, actions }) => {
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
-  
+
   if (node.internal.type === `MarkdownRemark`) {
     const value = createFilePath({ node, getNode });
 
@@ -110,12 +110,12 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   }
 };
 
-exports.onCreateWebpackConfig = ({ stage, actions, plugins }) => {
+exports.onCreateWebpackConfig = ({ actions, plugins }) => {
   actions.setWebpackConfig({
     plugins: [
       plugins.define({
-        'global.GENTLY': false
+        "global.GENTLY": false
       })
     ]
-  })
+  });
 };
