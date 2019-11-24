@@ -5,7 +5,26 @@ module.exports = {
     author: `@ganderzz`
   },
   plugins: [
+    `gatsby-plugin-typescript`,
     `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-sharp`,
+    `gatsby-transformer-sharp`,
+    `gatsby-transformer-remark`,
+    {
+      resolve: `gatsby-plugin-mdx`,
+      options: {
+        gatsbyRemarkPlugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 1000,
+              withWebp: true,
+              showCaptions: true
+            }
+          }
+        ]
+      }
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -13,9 +32,6 @@ module.exports = {
         path: `${__dirname}/src/images`
       }
     },
-    `gatsby-plugin-typescript`,
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -32,7 +48,7 @@ module.exports = {
             resolve: `gatsby-remark-autolink-headers`,
             options: {
               className: "header-link",
-              maintainCase: true,
+              maintainCase: true
             }
           },
           {

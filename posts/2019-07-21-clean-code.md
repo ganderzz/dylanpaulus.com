@@ -2,7 +2,7 @@
 title: "On Writing Clean Code"
 tags: ["programming", "software-engineering", "beginner"]
 path: "/blog/clean-code"
-date: "2019-08-03"
+date: "2019-07-21"
 ---
 
 *Warning: what you see below might be subjective*
