@@ -23,7 +23,7 @@ const IndexPage = () => (
       <div className="pr-6 md:w-1/2 sm:w-full">
         <h4 className="mt-0 pt-0">About</h4>
         Hi, I'm Dylan. <br />A fullstack developer working primarily in React
-        and C#. This is a place where I can ramble about anything.
+        and C#. This is a place where I ramble about anything.
         <br />
         <br />
         <strong>Hobbies:</strong> Programming, Brazilian Jiu-Jitsu, Drumming &

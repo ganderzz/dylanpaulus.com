@@ -39,6 +39,13 @@ module.exports = {
         name: "posts"
       }
     },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/books`,
+        name: "books"
+      }
+    },
     `gatsby-plugin-postcss`,
     {
       resolve: `gatsby-transformer-remark`,
