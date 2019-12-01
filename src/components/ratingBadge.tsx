@@ -12,6 +12,25 @@ export function RatingBadge({ children }: { children: BookRating }) {
     return 110;
   }, [ref.current]);
 
+  // Close popover when clicking away from element
+  React.useEffect(() => {
+    function handleDocumentClick(e) {
+      if (
+        e.target.nodeName.toLowerCase() !== "button" &&
+        !Boolean(e.target.closest(".popover")) &&
+        isShowingPopover
+      ) {
+        setShowingPopover(false);
+      }
+    }
+
+    document.addEventListener("click", handleDocumentClick);
+
+    return () => {
+      document.removeEventListener("click", handleDocumentClick);
+    };
+  }, [isShowingPopover]);
+
   return (
     <span style={{ position: "relative" }}>
       <button
@@ -24,7 +43,7 @@ export function RatingBadge({ children }: { children: BookRating }) {
 
       {isShowingPopover && (
         <div
-          className="text-xl shadow-lg animated fadeIn has-arrow"
+          className="popover text-xl shadow-lg animated fadeIn has-arrow"
           style={{
             position: "absolute",
             top: -5,

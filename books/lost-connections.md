@@ -2,14 +2,14 @@
 title: "Lost Connections: Why You’re Depressed and How to Find Hope"
 author: "Johann Hari"
 tags: ["Mental Health", "Depression", "Anxiety"]
-date: "2019-11-24"
+date: "2019-12-01"
 cover: lost-connections-cover.jpg
-rating: "Read It"
+rating: "Commit to Memory"
 ---
 
 > You need your nausea. It is a message. It will tell us what is wrong with you.
 
-Lost Connections is a challenge to the classic story any of us with depression and anxiety have heard. Go to a doctor. Get anti-depression pills. Become _normal_. Johann doesn't completely remove that fact that medical anti-depressants work, they do; just for a smaller subset of humans than is currently being prescribed. We live in the loneliest age. The internet has made us shelter away from society. During a study participants were asked, "In a crisis, how many close friends could you call?" Years ago the most common answer was five. Today it is **none**. In Lost Connections, Johann travels across the world to talk to leading psychologists and researchers to figure out the leading causes for depression and anxiety. He came across nine symptoms that suggest many of our ailments are societal, not biological.
+Lost Connections is a challenge to the classic story any of us with depression and anxiety have heard. Go to a doctor. Get anti-depression pills. Become _normal_. Johann doesn't completely remove that fact that medical anti-depressants work, they do; just for a smaller subset of humans than is currently being prescribed. We live in the loneliest age. The internet has made us shelter away from society. During a study participants were asked, "In a crisis, how many close friends could you call?" Years ago the most common answer was five. Today it is **none**. In Lost Connections, Johann travels across the world to talk to leading psychologists and researchers to figure out the leading causes for depression and anxiety. He came across nine symptoms that may be the leading factors for making us (society) depressed and anxious.
 
 ### Disconnection from Meaningful Work
 
@@ -36,7 +36,13 @@ Dr. Vincent Felitti was tasked with investigating Kaiser Permanete's, a not-for-
 
 ### Disconnection from Status and Respect
 
+Many of us would expect status and respect to be linked to depression and anxiety. The lower we are on the social totem pole the more depressed we should be, right? It was found in baboons that even the alpha, the top dog, shows high degrees on depression and anxiety also. They are constantly being challenged for the perks of leader. A constant threat of displacement. Which in time, happens to all baboons when they grow old.
+
+Two social scientists studied the same behavior in humans. What they found is the wider the gap between the poor and rich, the higher the society suffers from depression and anxiety. "When the status gap is too big, it creates a sense of defeat that you can't escape from." Today, more than any other time, we have a much wider status gap. "The six heirs to the Walmart fortune own more [wealth] than the bottom 100 million Americans."
+
 ### Disconnection from the Natural World
+
+Just go outside, damnit.
 
 ### Disconnection from a Hopeful or Secure Future
 
