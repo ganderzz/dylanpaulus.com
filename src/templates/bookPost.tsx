@@ -2,8 +2,15 @@ import React from "react";
 import { graphql } from "gatsby";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
+import { IBookResponse } from "../interfaces/IBookResponse";
+import { IGatsbyQuery } from "../interfaces/IGatsbyQuery";
+import { RatingBadge } from "../components/ratingBadge";
 
-export default function BookPost({ data }) {
+export default function BookPost({
+  data
+}: {
+  data: IGatsbyQuery<IBookResponse>;
+}) {
   const { markdownRemark } = data;
   const { frontmatter, html } = markdownRemark;
 
@@ -18,7 +25,10 @@ export default function BookPost({ data }) {
       <div className="max-w-sm w-full max-w-full flex mb-6">
         <div className="flex flex-col justify-between leading-normal">
           <div className="mb-8">
-            <span>{frontmatter.date}</span>
+            <span>
+              {frontmatter.date} -{" "}
+              <RatingBadge>{frontmatter.rating}</RatingBadge>
+            </span>
             <h2 className="mt-4 mb-0 font-bold">{frontmatter.title}</h2>
             <h4 className="mt-0 mb-0">{frontmatter.author}</h4>
 
@@ -45,6 +55,7 @@ export const pageQuery = graphql`
         tags
         cover
         author
+        rating
       }
     }
   }

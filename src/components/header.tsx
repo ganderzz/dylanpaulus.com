@@ -1,6 +1,6 @@
 import { Link } from "gatsby";
 import React from "react";
-import { MenuLink } from "./MenuLink";
+import { MenuLink } from "./menuLink";
 
 const Header = ({ siteTitle }) => (
   <header className="pt-10 h-64 bg-gray-900">

@@ -50,7 +50,7 @@ exports.createPages = async ({ graphql, actions }) => {
   const numPages = Math.ceil(posts.length / postsPerPage);
 
   const listComponent = path.resolve("./src/templates/blogList.js");
-  const postComponent = path.resolve(`./src/templates/blogPost.js`);
+  const postComponent = path.resolve(`./src/templates/blogPost.tsx`);
   const bookPostComponent = path.resolve("./src/templates/bookPost.tsx");
   const postsForTag = path.resolve(`./src/templates/postsForTag.js`);
   const siteMap = path.resolve(`./src/templates/sitemap.js`);

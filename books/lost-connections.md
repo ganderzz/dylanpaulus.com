@@ -4,11 +4,12 @@ author: "Johann Hari"
 tags: ["Mental Health", "Depression", "Anxiety"]
 date: "2019-11-24"
 cover: lost-connections-cover.jpg
+rating: "Read It"
 ---
 
 > You need your nausea. It is a message. It will tell us what is wrong with you.
 
-Lost Connections is a challenge to the classic story any of us with depression and anxiety have heard. Go to a doctor. Get anti-depression pills. Become _normal_. Johann doesn't completely remove that fact that medical anti-depressants work, they do; just for a smaller subset of humans than is currently being prescribed. We live in the loneliest age. The internet has made us shelter away from society. During a study participants were asked, "In a crisis, how many close friends could you call?" Years ago the most common answer was five. Today it is **none**. In Lost Connections, Johann travels across the world to talk to leading psycologists and researchers to figure out the leading causes for depression and anxiety. He came across nine symptoms that suggest many of our ailments are societal, not biological.
+Lost Connections is a challenge to the classic story any of us with depression and anxiety have heard. Go to a doctor. Get anti-depression pills. Become _normal_. Johann doesn't completely remove that fact that medical anti-depressants work, they do; just for a smaller subset of humans than is currently being prescribed. We live in the loneliest age. The internet has made us shelter away from society. During a study participants were asked, "In a crisis, how many close friends could you call?" Years ago the most common answer was five. Today it is **none**. In Lost Connections, Johann travels across the world to talk to leading psychologists and researchers to figure out the leading causes for depression and anxiety. He came across nine symptoms that suggest many of our ailments are societal, not biological.
 
 ### Disconnection from Meaningful Work
 
@@ -16,7 +17,18 @@ For many of us, work is 8 hours a week day--1/4<sup>th</sup> of the day. It's no
 
 ### Disconnection from Other People
 
+As we dive head first into social media, the disconnection from humans grows. We no longer have real connections. Physical face-to-face connections. Johann talks of an experiment performed at Berkley by two professors. Groups from four countries were asked to put conscious effort into making themselves happier--The United States, Russia, Taiwan, and Japan. What they found is the group from the west (USA) didn't get any happier. Groups from the east (Russia, Taiwan, Japan) did. Why is that? Western countries tend to be more individualistic. You'll be happier if you buy that car, or get a promotion--build up the ego. The East instead looks at the group. How can I contribute to the community? They instead ignore the ego, and push to connect with other people.
+
 ### Disconnection from Meaningful Values
+
+> Just as we have shifted en masse from eating food to eating junk food [...] we have shifted from having meaningful values to having junk values.
+
+This chapter describes the shift in our culture from intrinsic values to extrinsic values (ie. trying to learn the piano, because we love it vs. learning the piano is impress others). Society has started to push "junk values" (extrinsic) as a solution to happiness. Studies have shown the opposite. An American psychologist, Tim Kasser, gives four reasons why extrinsic values make us feel bad.
+
+1. Thinking extrinsically poisons your relationships with other people
+2. The ego shrinks while performing intrinsic values. Extrinsic does the opposite. Intrinsic activities produces more flow states than extrinsic activities
+3. Extrinsic thinking keeps us wondering, "How are people judging me?" It's an infinite game. Once we become rich, we want to become richer. "Materialism leaves you constantly vulnerable to a world beyond your control"
+4. We all have innate needs--to feel connected, valued, secure, a feeling we're making a difference in the world. Extrinsic values chases a way of life that does a bad job of meeting these needs
 
 ### Disconnection from Childhood Trauma
 
