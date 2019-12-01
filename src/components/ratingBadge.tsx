@@ -17,7 +17,7 @@ export function RatingBadge({ children }: { children: BookRating }) {
       <button
         ref={ref}
         onClick={() => setShowingPopover(!isShowingPopover)}
-        className="text-lg rounded bg-gray-700 p-2 text-white no-underline font-semibold mr-2 opacity-75"
+        className="hover:opacity-100 text-lg rounded bg-gray-700 p-2 text-white no-underline font-semibold mr-2 opacity-75"
       >
         Rating: {children} <i className={"fa fa-question-circle ml-2"} />
       </button>

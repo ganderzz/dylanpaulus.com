@@ -32,6 +32,8 @@ This chapter describes the shift in our culture from intrinsic values to extrins
 
 ### Disconnection from Childhood Trauma
 
+Dr. Vincent Felitti was tasked with investigating Kaiser Permanete's, a not-for-profit medical provider, fastest-growing cost--obesity. He thought, what if we try a radical diet. Have people not eat anything, and then provide them with the required nutrients to stay alive. It worked. Vincent saw amazing results. One woman, Susan, went from 408 pounds to 132 pounds. But, there was a problem. After his patients lost the weight they became depressed, anxious, and even suicidal. Susan gained back 37 pounds in three weeks. Vincent asked her what has changed since losing the weight. She thought. When Susan was obese men never looks at her, but once she got to a healthy weight a colleague asked her out. Vincent was curious, when did she initially start to gain weight? Eleven, when Susan's grandfather began to rape her. "Overweight is overlooked, and that's the way I need to be."
+
 ### Disconnection from Status and Respect
 
 ### Disconnection from the Natural World
