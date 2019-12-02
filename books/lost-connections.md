@@ -46,10 +46,14 @@ Just go outside, damnit.
 
 ### Disconnection from a Hopeful or Secure Future
 
+Depression causes a shrinking of the future. A fog. People with depression can barely get through the day, let alone see a possible future. So any possibility of a tomorrow becomes less and less visible. This myopia ensures further depression. Without the availability of a secure future an individual gets thrown into a downwards spiral. Depression is a negative feedback loop.
+
 ### The Role of Genes and Brain Changes
+
+A group of scientists lead by Avshalom Caspi did the most detailed study of genetic based causes of depression. They found a gene, 5-HTT, that does relate having depression. "If you have a particular flavor of 5-HTT, you have a greatly increased risk of depression, but _only is a certain environment_." So certain genes make us more vulnerable to depression and anxiety, but it doesn't condemn us. Neuroplasticity also plays a role in depression. Our brains are constantly changing, growing, and killing off unused synapses. Just because we are depressed, doesn't mean we'll always be.
 
 ### Thoughts and Conclusion
 
-"You need your nausea. It is a message. It will tell us what is wrong with you." This is what a doctor told Johann after he ate an apple with pesticides on it causing him to almost die. If the doctor just prescribed nausea medication, then Johann would of surely died. It was a symptom, not the illness. Johann describes depression and anxiety exactly in the same terms. We feel terrible, because we need meaning in our lives, we need nature, and we need other people. It's a mourning for natural humanistic needs.
+"You need your nausea. It is a message. It will tell us what is wrong with you." This is what a doctor told Johann after he ate an apple, coated with pesticides, causing him to almost die. If the doctor just prescribed nausea medication, then Johann would of surely died. It was a symptom, not the illness. Johann describes depression and anxiety exactly in the same terms. We feel terrible, because we need meaning in our lives, we need nature, and we need other people. It's a mourning for natural humanistic needs.
 
-My thoughts is that Lost Connections is an interesting take on the concept of anti-depressants.
+Lost Connections is an interesting take on the concept of non-chemical anti-depressants, and the ailments of modern society.
