@@ -6,7 +6,7 @@ import { Pagination } from "../components/pagination";
 import SEO from "../components/seo";
 
 export default function BlogList({ data, pageContext }) {
-  const posts = data.allMarkdownRemark.edges;
+  const posts = data.posts.edges;
   const { numPages, currentPage } = pageContext;
 
   return (
@@ -39,8 +39,9 @@ export default function BlogList({ data, pageContext }) {
 
 export const blogListQuery = graphql`
   query blogListQuery($skip: Int!, $limit: Int!) {
-    allMarkdownRemark(
+    posts: allMarkdownRemark(
       sort: { fields: [frontmatter___date], order: DESC }
+      filter: { fileAbsolutePath: { glob: "**/posts/*.md" } }
       limit: $limit
       skip: $skip
     ) {

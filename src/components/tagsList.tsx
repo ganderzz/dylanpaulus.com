@@ -3,7 +3,8 @@ import { Link } from "gatsby";
 
 interface IProps {
   tags: string[];
-  style?: {};
+  style?: React.CSSProperties;
+  className?: string;
 }
 
 export function TagsList({ tags = [], style = {}, ...rest }: IProps) {

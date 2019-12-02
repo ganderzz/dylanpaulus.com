@@ -3,8 +3,14 @@ import { graphql } from "gatsby";
 import Layout from "../components/layout";
 import { TagsList } from "../components/tagsList";
 import SEO from "../components/seo";
+import { IGatsbyQuery } from "../interfaces/IGatsbyQuery";
+import { IBlogPostResponse } from "../interfaces/IBlogPostResponse";
 
-export default function BlogPost({ data }) {
+type Props = {
+  data: IGatsbyQuery<IBlogPostResponse>;
+};
+
+export default function BlogPost({ data }: Props) {
   const { markdownRemark } = data;
   const { frontmatter, html } = markdownRemark;
 

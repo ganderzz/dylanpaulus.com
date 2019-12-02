@@ -77,3 +77,93 @@ h1 {
   position: relative;
   top: 20px;
 }
+
+blockquote {
+  background: #f9f9f9;
+  border-left: 10px solid #ccc;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  quotes: "\201C""\201D""\2018""\2019";
+}
+
+blockquote:before {
+  color: #ccc;
+  content: open-quote;
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+
+blockquote p {
+  @apply inline;
+}
+
+ul {
+  @apply list-disc;
+  @apply list-inside;
+}
+
+ol {
+  @apply list-decimal;
+  @apply list-inside;
+  @apply ml-6;
+  @apply mt-4;
+  @apply leading-relaxed;
+}
+
+ol li {
+  @apply mt-4;
+}
+
+ol li::marker {
+  font-weight: bold;
+}
+
+/* ---- Utilities ---- */
+.has-arrow {
+  position: relative;
+}
+.has-arrow::before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  left: -14px;
+  top: 10px;
+  border-right: 8px solid #333;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 8px solid transparent;
+}
+
+/* ---- Animations ---- */
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.animated {
+  -webkit-animation-duration: 0.3s;
+  animation-duration: 0.3s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.fadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+}
