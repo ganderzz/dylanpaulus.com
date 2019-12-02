@@ -1,11 +1,18 @@
 import * as React from "react";
 import Gitment from "gitment";
 
-export function Comments() {
+interface IProps {
+  title: string;
+}
+
+export function Comments({ title = "" }: IProps) {
     const ref = React.useRef<HTMLDivElement>();
 
     React.useEffect(() => {
         const gitment = new Gitment({
+            id: title,
+            title: `Comments: ${title}`,
+            desc: `Comments for ${title}`,
             owner: process.env.GATSBY_GITHUB_OWNER,
             repo: process.env.GATSBY_REPOSITORY_URL,
             oauth: {

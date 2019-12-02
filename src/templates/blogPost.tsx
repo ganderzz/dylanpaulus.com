@@ -37,7 +37,7 @@ export default function BlogPost({ data }: Props) {
         dangerouslySetInnerHTML={{ __html: html }}
       />
 
-      <Comments />
+      {frontmatter && frontmatter.title  &&<Comments title={frontmatter.title.replace(/s+/g, "-")} />}
     </Layout>
   );
 }
