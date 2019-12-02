@@ -5,8 +5,6 @@ import SEO from "../components/seo";
 import { BookCard } from "../components/bookCard";
 
 const IndexPage = ({ data }) => {
-  console.log(data);
-
   return (
     <Layout>
       <SEO

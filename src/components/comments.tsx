@@ -6,8 +6,8 @@ export function Comments() {
 
     React.useEffect(() => {
         const gitment = new Gitment({
-            owner: process.env.GITHUB_OWNER,
-            repo: process.env.REPOSITORY_URL,
+            owner: process.env.GATSBY_GITHUB_OWNER,
+            repo: process.env.GATSBY_REPOSITORY_URL,
             oauth: {
               client_id: process.env.GATSBY_GITHUB_CLIENT_ID,
               client_secret: process.env.GATSBY_GITHUB_CLIENT_SECRET,
