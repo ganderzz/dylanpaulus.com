@@ -120,6 +120,10 @@ ol li::marker {
   font-weight: bold;
 }
 
+.gitment-root-container {
+  border-top: 1px solid #DDD;
+}
+
 /* ---- Utilities ---- */
 .has-arrow {
   position: relative;

@@ -5,6 +5,7 @@ import { TagsList } from "../components/tagsList";
 import SEO from "../components/seo";
 import { IGatsbyQuery } from "../interfaces/IGatsbyQuery";
 import { IBlogPostResponse } from "../interfaces/IBlogPostResponse";
+import { Comments } from "../components/comments";
 
 type Props = {
   data: IGatsbyQuery<IBlogPostResponse>;
@@ -35,6 +36,8 @@ export default function BlogPost({ data }: Props) {
         className="leading-loose"
         dangerouslySetInnerHTML={{ __html: html }}
       />
+
+      <Comments />
     </Layout>
   );
 }
