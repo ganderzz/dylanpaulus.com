@@ -9,8 +9,8 @@ export function Comments() {
             owner: process.env.GITHUB_OWNER,
             repo: process.env.REPOSITORY_URL,
             oauth: {
-              client_id: process.env.GITHUB_CLIENT_ID,
-              client_secret: process.env.GITHUB_CLIENT_SECRET,
+              client_id: process.env.GATSBY_GITHUB_CLIENT_ID,
+              client_secret: process.env.GATSBY_GITHUB_CLIENT_SECRET,
             },
             labels: ["comments"]
           });
