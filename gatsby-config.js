@@ -5,23 +5,38 @@ module.exports = {
     author: `@ganderzz`
   },
   plugins: [
-    `gatsby-plugin-typescript`,
-    `gatsby-plugin-react-helmet`,
-    `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
-    `gatsby-transformer-remark`,
+    `gatsby-plugin-sharp`,
+    `gatsby-plugin-postcss`,
     {
-      resolve: `gatsby-plugin-mdx`,
+      resolve: `gatsby-transformer-remark`,
       options: {
-        gatsbyRemarkPlugins: [
+        plugins: [
           {
             resolve: `gatsby-remark-images`,
             options: {
-              maxWidth: 1000,
-              withWebp: true,
-              showCaptions: true
+              maxWidth: 1200,
+              showCaptions: true,
+              withWebp: true
             }
-          }
+          },
+          {
+            resolve: `gatsby-remark-autolink-headers`,
+            options: {
+              className: "header-link",
+              maintainCase: true
+            }
+          },
+          {
+            resolve: `gatsby-remark-prismjs`,
+            options: {
+              classPrefix: "language-",
+              inlineCodeMarker: null,
+              aliases: {},
+              showLineNumbers: false
+            }
+          },
+          `gatsby-remark-copy-linked-files`
         ]
       }
     },
@@ -46,30 +61,8 @@ module.exports = {
         name: "books"
       }
     },
-    `gatsby-plugin-postcss`,
-    {
-      resolve: `gatsby-transformer-remark`,
-      options: {
-        plugins: [
-          {
-            resolve: `gatsby-remark-autolink-headers`,
-            options: {
-              className: "header-link",
-              maintainCase: true
-            }
-          },
-          {
-            resolve: `gatsby-remark-prismjs`,
-            options: {
-              classPrefix: "language-",
-              inlineCodeMarker: null,
-              aliases: {},
-              showLineNumbers: false
-            }
-          }
-        ]
-      }
-    },
+    `gatsby-plugin-typescript`,
+    `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {

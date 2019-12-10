@@ -6,13 +6,21 @@ import SEO from "../components/seo";
 import { IGatsbyQuery } from "../interfaces/IGatsbyQuery";
 import { IBlogPostResponse } from "../interfaces/IBlogPostResponse";
 import { Comments } from "../components/comments";
+import Img from "gatsby-image";
 
 type Props = {
   data: IGatsbyQuery<IBlogPostResponse>;
+  location: {
+    origin: string;
+  };
 };
 
-export default function BlogPost({ data }: Props) {
-  const { markdownRemark } = data;
+export default function BlogPost(payload: Props) {
+  if (!payload) {
+    return null;
+  }
+
+  const { markdownRemark } = payload.data;
   const { frontmatter, html } = markdownRemark;
 
   return (
@@ -21,6 +29,13 @@ export default function BlogPost({ data }: Props) {
         description={frontmatter.title}
         title={frontmatter.title}
         keywords={frontmatter.tags}
+        image={
+          frontmatter.image
+            ? `${
+                payload.location.origin
+              }${require(`../images/covers/${frontmatter.image}`)}`
+            : null
+        }
       />
 
       <span>
@@ -30,6 +45,7 @@ export default function BlogPost({ data }: Props) {
           tags={frontmatter.tags}
         />
       </span>
+
       <h1 className="mt-4 font-bold">{frontmatter.title}</h1>
 
       <div
@@ -37,7 +53,9 @@ export default function BlogPost({ data }: Props) {
         dangerouslySetInnerHTML={{ __html: html }}
       />
 
-      {frontmatter && frontmatter.title  &&<Comments title={frontmatter.title.replace(/s+/g, "-")} />}
+      {frontmatter && frontmatter.title && (
+        <Comments title={frontmatter.title} />
+      )}
     </Layout>
   );
 }
@@ -50,6 +68,7 @@ export const pageQuery = graphql`
         date(formatString: "MMMM DD, YYYY")
         title
         tags
+        image
       }
     }
   }

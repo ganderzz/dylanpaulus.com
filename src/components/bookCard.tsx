@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link } from "@reach/router";
 
 interface IProps {
   book: any;
@@ -13,8 +14,8 @@ export function BookCard({ book }: IProps) {
 
   return (
     <div className="max-w-sm w-full shadow-lg rounded border">
-      <a
-        href={`/books${book.fields.slug}`}
+      <Link
+        to={`/books${book.fields.slug}`}
         className="block h-48 flex-none bg-cover rounded-t text-center overflow-hidden"
         style={{
           backgroundImage: `url('${require(`../../books/book-covers/${cover}`)}')`
@@ -24,12 +25,12 @@ export function BookCard({ book }: IProps) {
 
       <div className="p-4 flex flex-col justify-between leading-normal">
         <div className="mb-8">
-          <a
-            href={`/books${book.fields.slug}`}
+          <Link
+            to={`/books${book.fields.slug}`}
             className="font-bold text-xl mb-2"
           >
             {title}
-          </a>
+          </Link>
           <p className="text-gray-700 text-base">{author}</p>
         </div>
       </div>

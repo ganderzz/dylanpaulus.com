@@ -8,6 +8,7 @@ interface IProps {
   meta: { name: string; content: string }[];
   keywords: string[];
   title: string;
+  image: string | null;
 }
 
 const Helmet: any = H;
@@ -17,7 +18,8 @@ function SEO({
   lang = "en",
   meta = [],
   keywords = [],
-  title = ""
+  title = "",
+  image = null
 }: Partial<IProps>) {
   return (
     <StaticQuery
@@ -25,6 +27,7 @@ function SEO({
       render={data => {
         const metaDescription =
           description || data.site.siteMetadata.description;
+
         return (
           <Helmet
             htmlAttributes={{
@@ -74,9 +77,16 @@ function SEO({
                     }
                   : []
               )
+              .concat(
+                image
+                  ? {
+                      name: `twitter:image`,
+                      content: image
+                    }
+                  : []
+              )
               .concat(meta)}
-          >
-          </Helmet>
+          ></Helmet>
         );
       }}
     />
