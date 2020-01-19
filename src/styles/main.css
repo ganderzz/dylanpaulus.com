@@ -131,6 +131,18 @@ ol li::marker {
   text-align: center;
 }
 
+.blog-post p:first-child,
+.blog-post h1 + p,
+.blog-post h2 + p,
+.blog-post h3 + p {
+  text-indent: 3rem;
+}
+
+.blog-post img {
+  text-align: center;
+  margin: 20px auto;
+}
+
 /* ---- Utilities ---- */
 .has-arrow {
   position: relative;

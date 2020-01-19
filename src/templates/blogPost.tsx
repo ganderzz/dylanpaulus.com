@@ -49,7 +49,7 @@ export default function BlogPost(payload: Props) {
       <h1 className="mt-4 font-bold">{frontmatter.title}</h1>
 
       <div
-        className="leading-loose"
+        className="blog-post leading-loose"
         dangerouslySetInnerHTML={{ __html: html }}
       />
 
