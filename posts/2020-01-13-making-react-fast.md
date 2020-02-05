@@ -3,7 +3,7 @@ title: "Making React Fast: Tips on Optimizing ReactJS"
 tags: ["React", "Javascript"]
 path: "/blog/making-react-fast"
 image: matthew-brodeur-eJ9mX6yEbAw-unsplash.jpg
-date: "2020-01-19"
+date: "2020-02-04"
 ---
 
 React does a fantastic job abstracting away the rendering of webpages. When state changes, our UI's reflect it. But, have you ever gotten done writing your application just to notice things seem off? Clicking a button displaying a popover stutters for a second, or animations don't run smoothly.
@@ -42,7 +42,7 @@ Don't take this as a bad thing! React cannot make any preconceived assumptions o
 
 ### shouldComponentUpdate()
 
-Every React component has a `shouldComponentUpdate()` method. It does exactly what the name suggests, returns `true` if the component should render on prop/state changes, or `false` if it shouldn't. Remember how we said a component always updates on prop/state changes? By default each component's `shouldComponentUpdate()` looks like:
+Every (class-based) React component has a `shouldComponentUpdate()` method. It does exactly what the name suggests, returns `true` if the component should render on prop/state changes, or `false` if it shouldn't. Remember how we said a component always updates on prop/state changes? By default each component's `shouldComponentUpdate()` looks like:
 
 ```js
 shouldComponentUpdate() {
@@ -64,15 +64,74 @@ shouldComponentUpdate(nextProps, nextState) {
 
 This is great for components with small amounts of props and state, but as components grow things get more difficult. Stay tuned for PureComponent and Memoization!
 
-### Hooks (useMemo, useCallback)
-
-// TODO
-
 ### PureComponent/Memo
 
-// TODO
+Let's start with memoization... what is it? Why do we care?
 
-Think of when a function receives arguments, like `add(1, 2)`. This function should always return the same result, 3. The same applies to React. If our component (function) takes the same arguments (props), then there is no reason to recalculate and render the result again.
+Think of when a function receives arguments, like `add(1, 2)`. Given the same inputs we can assume that we'll receive the same output (in our add example, the output is always 3). Let's also assume that `add(a, b)` is a function that performs a bunch of computation. On average it takes one second to complete. After running the `add(1, 2)` function once we already know it outputs 3, so why should we waste additional time computing the output? [Memoization](https://en.wikipedia.org/wiki/Memoization) is the act of caching, or storing, the result of a function call and returning the cached result on future requests.
+
+Memoization is also used within React to prevent having to compute expensive computations/renders until needed.
+
+Remember our friend `shouldComponentUpdate()`? We can achieve the same effect with PureComponent. Generally, our class-based React components will look like:
+
+```js
+class MyComponent extends React.Component {
+  ....
+}
+```
+
+But, for extra optimization goodness we can replace `React.Component` with `React.PureComponent`.
+
+```js
+class MyComponent extends React.PureComponent {
+  ....
+}
+```
+
+The difference in these two classes come from `shouldComponentUpdate()`. React.Component's `shouldComponentUpdate()` will always return true unless we override it (always rerendering). React.PureComponent has its own implementation of `shouldComponentUpdate()` which automatically compares all of the component's props. If any of the new props the component receives are updated, then return true. Otherwise, it will return false (not triggering a rerender, and returning the previously calculated render of the component).
+
+Up until this point we've only talked about class-based components. You may be asking yourself, "Fine, but what about function components?" Since we want to 'cache' the output of a function component React gives us a handy utility for memoizing our function components. `React.memo`! This works exactly like React.PureComponent above. Only if the component receives new props will it rerender. Any other time, return the computed render from before.
+
+```js
+function MyComponent(props) {
+  ...
+}
+
+export React.memo(MyComponent);
+```
+
+_Warning:_ Don't get `React.memo()` confused with `React.useMemo()`. These are different, and used in different ways!
+
+### Hooks (useMemo, useCallback)
+
+I won't specifically go over how hooks work in this section. For an introduction, [check out the infinitely better documentation](https://reactjs.org/docs/hooks-intro.html) from the official website. Instead, we'll be checking out two hooks that help us improve the rendering speed of our applications.
+
+`useMemo()` is useful for 'caching' the results of a computationally expensive expression which returns a value. For example,
+
+```js
+function MyComponent(props) {
+  const result = React.useMemo(() => JSON.parse(props.value), [props.value]);
+
+  ...
+}
+```
+
+We provide `useMemo()` a second argument, which says whenever the value changes (props.value), rerun the function provided in the first argument. This makes it so values don't get recalculated on every render, but only when they change.
+
+<br />
+
+`useCallback()` instead returns a 'cached' version of a function.
+
+```js
+function MyComponent(props) {
+  const handleClick = React.useCallback((event) => {
+    console.log(event);
+    console.log(props.value);
+  }, [props.value]);
+
+  ...
+}
+```
 
 ### Extracting Components
 
