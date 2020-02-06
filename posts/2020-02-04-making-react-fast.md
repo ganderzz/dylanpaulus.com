@@ -68,9 +68,9 @@ This is great for components with small amounts of props and state, but as compo
 
 Let's start with memoization... what is it? Why do we care?
 
-Think of when a function receives arguments, like `add(1, 2)`. Given the same inputs we can assume that we'll receive the same output (in our add example, the output is always 3). Let's also assume that `add(a, b)` is a function that performs a bunch of computation. On average it takes one second to complete. After running the `add(1, 2)` function once we already know it outputs 3, so why should we waste additional time computing the output? [Memoization](https://en.wikipedia.org/wiki/Memoization) is the act of caching, or storing, the result of a function call and returning the cached result on future requests.
+Think of when a function receives arguments, like `add(1, 2)`. Given the same inputs we can assume that we'll receive the same output (from our add example, the output is always 3). Let's also assume that `add(a, b)` is a function that performs a bunch of computation. On average it takes one second to complete. After running the `add(1, 2)` function once we already know it outputs 3, so why should we waste additional time computing the output? [Memoization](https://en.wikipedia.org/wiki/Memoization) is the act of caching, or storing, the result of a function call and returning the cached result on future requests.
 
-Memoization is also used within React to prevent having to compute expensive computations/renders until needed.
+In the same way, memoization is also used within React to prevent having to compute expensive renders (computations) over and over again.
 
 Remember our friend `shouldComponentUpdate()`? We can achieve the same effect with PureComponent. Generally, our class-based React components will look like:
 
@@ -88,9 +88,9 @@ class MyComponent extends React.PureComponent {
 }
 ```
 
-The difference in these two classes come from `shouldComponentUpdate()`. React.Component's `shouldComponentUpdate()` will always return true unless we override it (always rerendering). React.PureComponent has its own implementation of `shouldComponentUpdate()` which automatically compares all of the component's props. If any of the new props the component receives are updated, then return true. Otherwise, it will return false (not triggering a rerender, and returning the previously calculated render of the component).
+These two classes differ in their implementation of `shouldComponentUpdate()`. React.Component's `shouldComponentUpdate()` will always return true unless we override it (ie. always re-render on update). React.PureComponent has its own implementation of `shouldComponentUpdate()` which automatically performs a shallow comparison of all the component's props. If any of the new props the component receives are changed, then return true. Otherwise, it will return false (ie. not triggering a re-render, and returning the previously calculated render of the component).
 
-Up until this point we've only talked about class-based components. You may be asking yourself, "Fine, but what about function components?" Since we want to 'cache' the output of a function component React gives us a handy utility for memoizing our function components. `React.memo`! This works exactly like React.PureComponent above. Only if the component receives new props will it rerender. Any other time, return the computed render from before.
+Up until this point we've only talked about class-based components. You may be asking yourself, "Fine, but what about function components?" Since our goal is to 'cache' the output of a function component, React gives us a handy utility for memoizing our function components... `React.memo`! This works similarly to React.PureComponent in class-based components. If the component receives new props it re-renders. Otherwise, return the computed output from before.
 
 ```js
 function MyComponent(props) {
@@ -116,7 +116,7 @@ function MyComponent(props) {
 }
 ```
 
-We provide `useMemo()` a second argument, which says whenever the value changes (props.value), rerun the function provided in the first argument. This makes it so values don't get recalculated on every render, but only when they change.
+We provide `useMemo()` a second argument, which says whenever the value changes (props.value), rerun the function provided in the first argument. This makes it so values only get recalculated when they change.
 
 <br />
 
@@ -126,13 +126,18 @@ We provide `useMemo()` a second argument, which says whenever the value changes 
 function MyComponent(props) {
   const handleClick = React.useCallback((event) => {
     console.log(event);
-    console.log(props.value);
-  }, [props.value]);
+  }, []);
 
   ...
 }
 ```
 
+Instead of rebuilding the function on every render, `useCallback()` calculates a function only when needed.
+
 ### Extracting Components
 
-// TODO
+Large components are hard to maintain. To make our components easier to manage we may break them up into smaller, easier to manage pieces. Great! We achieved clean code! But, splitting components into smaller chunks also makes it easier to optimize computational heavy code. Its hard to optimize certain aspects of a gigantic component. In React either the whole component re-renders, or it doesn't. If components are broken down, using the techniques mentioned above (memo, pureComponent, and shouldComponentUpdate) become really powerful. We can isolate the bottlenecks in our applications and optimize.
+
+### End
+
+There is a tradeoff in optimization. Memoized components create more memory that needs to be stored (ie. the output being cached). Also, there are additional computations needed in figuring out when and when not to re-render. Don't prematurely optimize. Run performance tests when you can, and optimize the pieces of your code that really need it!
