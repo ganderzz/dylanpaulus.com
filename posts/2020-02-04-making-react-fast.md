@@ -42,7 +42,7 @@ Don't take this as a bad thing! React cannot make any preconceived assumptions o
 
 ### shouldComponentUpdate()
 
-Every (class-based) React component has a `shouldComponentUpdate()` method. It does exactly what the name suggests, returns `true` if the component should render on prop/state changes, or `false` if it shouldn't. Remember how we said a component always updates on prop/state changes? By default each component's `shouldComponentUpdate()` looks like:
+Every (class-based) React component has a `shouldComponentUpdate()` method which returns a boolean. It does exactly what the name suggests, returns `true` if the component should render on prop/state changes, or `false` if it shouldn't. Remember how we said a component always updates on prop/state changes? By default each component's `shouldComponentUpdate()` looks like:
 
 ```js
 shouldComponentUpdate() {
@@ -50,7 +50,7 @@ shouldComponentUpdate() {
 }
 ```
 
-Yup, on every update the component re-renders! But, what if we only wanted a component to update when certain props change? When determining if a component should update, React will first call our `shouldComponentUpdate()` method, then move on to update the component if `true` is returned. This gives us access to not only the current props/state, but `shouldComponentUpdate()` takes two parameters: the next props, and the next state. We could calculate any number of scenarios to optimize our application. Consider,
+Yup, on every update the component re-renders! But, what if we only wanted a component to update when certain props change? React will first call `shouldComponentUpdate()`, then move to updating the component if `true` is returned. `shouldComponentUpdate()` takes two parameters: the next props and the next state. We could calculate any number of scenarios to optimize our application. Consider,
 
 ```js
 shouldComponentUpdate(nextProps, nextState) {
@@ -62,15 +62,15 @@ shouldComponentUpdate(nextProps, nextState) {
 }
 ```
 
-This is great for components with small amounts of props and state, but as components grow things get more difficult. Stay tuned for PureComponent and Memoization!
+This is great for components with a few props and state, but as components grow so do the need to check every prop and state. There has to be an easier way, right? Stay tuned!
 
 ### PureComponent/Memo
 
 Let's start with memoization... what is it? Why do we care?
 
-Think of when a function receives arguments, like `add(1, 2)`. Given the same inputs we can assume that we'll receive the same output (from our add example, the output is always 3). Let's also assume that `add(a, b)` is a function that performs a bunch of computation. On average it takes one second to complete. After running the `add(1, 2)` function once we already know it outputs 3, so why should we waste additional time computing the output? [Memoization](https://en.wikipedia.org/wiki/Memoization) is the act of caching, or storing, the result of a function call and returning the cached result on future requests.
+Think of when a function receives arguments, like `add(1, 2)`. Given the same inputs we can assume that we'll receive the same output (from our add example, the output is always 3). Let's also assume we have bad code and `add(a, b)` is a function that performs a bunch of computation. On average it takes three seconds to complete. After running the `add(1, 2)` function once we already know it outputs 3, so why should we waste additional time computing the output? [Memoization](https://en.wikipedia.org/wiki/Memoization) is the act of caching, or storing, the result of a function call and returning the cached result on future requests.
 
-In the same way, memoization is also used within React to prevent having to compute expensive renders (computations) over and over again.
+In the same way, memoization is also utilized within React to prevent having to compute expensive renders (computations) over and over again.
 
 Remember our friend `shouldComponentUpdate()`? We can achieve the same effect with PureComponent. Generally, our class-based React components will look like:
 
@@ -88,9 +88,9 @@ class MyComponent extends React.PureComponent {
 }
 ```
 
-These two classes differ in their implementation of `shouldComponentUpdate()`. React.Component's `shouldComponentUpdate()` will always return true unless we override it (ie. always re-render on update). React.PureComponent has its own implementation of `shouldComponentUpdate()` which automatically performs a shallow comparison of all the component's props. If any of the new props the component receives are changed, then return true. Otherwise, it will return false (ie. not triggering a re-render, and returning the previously calculated render of the component).
+These two classes differ in their implementation of `shouldComponentUpdate()`. React.Component's `shouldComponentUpdate()` will always return true unless we override it (ie. always re-render on update). React.PureComponent has its own implementation of `shouldComponentUpdate()` which automatically performs a shallow comparison of all the component's props and state. If any of the new props the component receives are changed, then return true. Otherwise, it will return false (ie. not triggering a re-render, and returning the previously calculated render of the component).
 
-Up until this point we've only talked about class-based components. You may be asking yourself, "Fine, but what about function components?" Since our goal is to 'cache' the output of a function component, React gives us a handy utility for memoizing our function components... `React.memo`! This works similarly to React.PureComponent in class-based components. If the component receives new props it re-renders. Otherwise, return the computed output from before.
+Up until this point we've only talked about class-based components. You may be asking yourself, "Fine, but what about function components?" Since our goal is to 'cache' the output of a function component, React gives us a handy utility for memoizing our function components... `React.memo`! This works similarly to React.PureComponent in class-based components. If the component receives new props/state it re-renders. Otherwise, return the computed output from before.
 
 ```js
 function MyComponent(props) {
