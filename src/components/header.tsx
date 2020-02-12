@@ -9,7 +9,7 @@ const Header = ({ siteTitle }) => (
         to="/"
         className="text-5xl mx-0 font-bold w-1/2 text-white no-underline hover:text-gray-500"
       >
-        👱🏼 <span className="md:inline sm:hidden hidden">{siteTitle}</span>
+        <span className="md:inline sm:hidden hidden">{siteTitle}</span>
       </Link>
 
       <div className="text-right w-1/2">
