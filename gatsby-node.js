@@ -22,21 +22,6 @@ exports.createPages = async ({ graphql, actions }) => {
             }
           }
         }
-        books: allMarkdownRemark(
-          filter: { fileAbsolutePath: { glob: "**/books/*.md" } }
-          sort: { fields: [frontmatter___date], order: DESC }
-        ) {
-          edges {
-            node {
-              fields {
-                slug
-              }
-              frontmatter {
-                tags
-              }
-            }
-          }
-        }
       }
     `
   );
@@ -51,7 +36,6 @@ exports.createPages = async ({ graphql, actions }) => {
 
   const listComponent = path.resolve("./src/templates/blogList.js");
   const postComponent = path.resolve(`./src/templates/blogPost.tsx`);
-  const bookPostComponent = path.resolve("./src/templates/bookPost.tsx");
   const postsForTag = path.resolve(`./src/templates/postsForTag.js`);
   const siteMap = path.resolve(`./src/templates/sitemap.js`);
 
@@ -101,16 +85,6 @@ exports.createPages = async ({ graphql, actions }) => {
     createPage({
       path: node.fields.slug,
       component: postComponent,
-      context: {
-        slug: node.fields.slug
-      }
-    });
-  });
-
-  data.books.edges.forEach(({ node }) => {
-    createPage({
-      path: "/books" + node.fields.slug,
-      component: bookPostComponent,
       context: {
         slug: node.fields.slug
       }

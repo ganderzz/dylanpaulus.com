@@ -14,7 +14,6 @@ const Header = ({ siteTitle }) => (
 
       <div className="text-right w-1/2">
         <MenuLink to="/">Blog</MenuLink>
-        <MenuLink to="/books">Books</MenuLink>
         <MenuLink to="/about">About</MenuLink>
       </div>
     </div>

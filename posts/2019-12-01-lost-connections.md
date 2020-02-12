@@ -1,9 +1,8 @@
 ---
 title: "Lost Connections: Why You’re Depressed and How to Find Hope"
 author: "Johann Hari"
-tags: ["Mental Health", "Depression", "Anxiety"]
+tags: ["mental health", "depression", "anxiety", "books I read"]
 date: "2019-12-01"
-cover: lost-connections-cover.jpg
 rating: "Commit to Memory"
 ---
 
