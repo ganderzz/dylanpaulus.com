@@ -7,6 +7,31 @@
 @import url("https://use.fontawesome.com/releases/v5.7.1/css/brands.css");
 @import url("https://use.fontawesome.com/releases/v5.7.1/css/solid.css");
 
+:root {
+  --bg-color: #F1F1F1;
+  --bg-color-secondary: #FFF;
+  --code-bg: #333;
+  --border-color: #333;
+  --font-color-opacity: 0.7;
+  --font-color: rgba(0,0,0, var(--font-color-opacity));
+
+  --link-color: #9d6742;
+  --link-hover-color: #ce8656;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #222a3a;
+    --bg-color-secondary: #293347;
+    --border-color: rgba(255,255,255,0.3);
+    --code-bg: #222a3a;
+    --link-color: #eaab81;
+
+    --font-color-opacity: 0.8;
+    --font-color: rgba(255, 255, 255, var(--font-color-opacity));
+  }
+}
+
 @font-face {
   font-family: "Inter", sans-serif;
   font-display: swap;
@@ -21,6 +46,7 @@ html {
   -webkit-text-size-adjust: 100%;
 
   font-size: 12px;
+  color: var(--font-color);
 }
 
 @supports (font-variation-settings: normal) {
@@ -35,16 +61,20 @@ body {
 }
 
 body {
-  @apply bg-gray-200;
+  background-color: var(--bg-color);
+}
+
+.main-content {
+  background-color: var(--bg-color-secondary);
 }
 
 a {
-  color: #9d6742;
+  color: var(--link-color);
   transition: 0.15s color;
 }
 
 a:hover {
-  color: #4d3221;
+  color: var(--link-hover-color);
 }
 
 pre {
@@ -53,23 +83,27 @@ pre {
 
 :not(pre) > code[class*="language-"],
 pre[class*="language-"] {
-  background: #333;
+  background: var(--code-bg);
   @apply mb-10 mt-10;
 }
 
 h4 {
+  --font-color-opacity: 1;
   @apply font-semibold mt-12 mb-6 text-3xl;
 }
 
 h3 {
+  --font-color-opacity: 1;
   @apply font-semibold mt-12 mb-6 text-4xl;
 }
 
 h2 {
+  --font-color-opacity: 1;
   @apply font-semibold mt-12 mb-6 text-4xl;
 }
 
 h1 {
+  --font-color-opacity: 1;
   @apply font-semibold mt-12 mb-6 text-5xl;
 }
 
@@ -78,8 +112,12 @@ h1 {
   top: 20px;
 }
 
+.post-item {
+  border-top: 1px solid var(--border-color);
+}
+
 blockquote {
-  background: #f9f9f9;
+  background: var(--bg-color);
   border-left: 10px solid #ccc;
   margin: 1.5em 10px;
   padding: 0.5em 10px;
@@ -121,7 +159,7 @@ ol li::marker {
 }
 
 .gitment-root-container {
-  border-top: 1px solid #ddd;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .gatsby-resp-image-figcaption {

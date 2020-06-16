@@ -30,11 +30,11 @@ const socialMedia: ISocialProps[] = [
 ];
 
 const socialIconClass =
-  "hover:opacity-100 text-black mr-12 opacity-75 text-5xl";
+  "hover:opacity-100 mr-12 opacity-75 text-5xl";
 
 export function Footer() {
   return (
-    <footer className="border-t border-darker-white w-3/5 pt-10 text-center mx-auto mt-16">
+    <footer className="w-3/5 pt-10 text-center mx-auto mt-16">
       {socialMedia.map(item => {
         if (item.isExternal) {
           return (

@@ -20,7 +20,7 @@ const Layout = ({ children }) => (
       render={data => (
         <div>
           <Header siteTitle={data.site.siteMetadata.title} />
-          <main className="container mx-auto bg-white -mt-32 sm:p-16 p-6 pt-10 text-2xl border-t-4 border-header-blue-light">
+          <main className="main-content container mx-auto -mt-32 sm:p-16 p-6 pt-10 text-2xl">
             <section>{children}</section>
 
             <Footer />
