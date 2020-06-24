@@ -17,10 +17,11 @@ const Layout = ({ children }) => (
           }
         }
       `}
-      render={data => (
+      render={(data) => (
         <div>
           <Header siteTitle={data.site.siteMetadata.title} />
-          <main className="main-content container mx-auto -mt-32 sm:p-16 p-6 pt-10 text-2xl">
+
+          <main className="main-content container md:max-w-none md:mx-0 md:w-full lg:w-5/6 lg:mx-auto -mt-32 sm:p-16 p-6 pt-10 text-2xl">
             <section>{children}</section>
 
             <Footer />

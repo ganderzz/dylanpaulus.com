@@ -7,34 +7,62 @@
 @import url("https://use.fontawesome.com/releases/v5.7.1/css/brands.css");
 @import url("https://use.fontawesome.com/releases/v5.7.1/css/solid.css");
 
-:root {
-  --bg-color: #F1F1F1;
-  --bg-color-secondary: #FFF;
-  --code-bg: #333;
-  --border-color: #333;
-  --font-color-opacity: 0.7;
-  --font-color: rgba(0,0,0, var(--font-color-opacity));
-
-  --link-color: #9d6742;
-  --link-hover-color: #ce8656;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg-color: #222a3a;
-    --bg-color-secondary: #293347;
-    --border-color: rgba(255,255,255,0.3);
-    --code-bg: #222a3a;
-    --link-color: #eaab81;
-
-    --font-color-opacity: 0.8;
-    --font-color: rgba(255, 255, 255, var(--font-color-opacity));
-  }
-}
-
 @font-face {
   font-family: "Inter", sans-serif;
   font-display: swap;
+}
+
+html {
+  transition: color 0.2s, background 0.2s, border 0.2s;
+}
+
+html[data-theme="light"] {
+  --bg-color: #f1f1f1;
+  --bg-color-secondary: #fff;
+  --code-bg: #333;
+  --code-highlight-bg: #444;
+  --border-color: #ddd;
+  --font-color-opacity: 0.8;
+  --font-color: rgba(0, 0, 0, var(--font-color-opacity));
+
+  --link-color: #9d6742;
+  --link-hover-color: #ce8656;
+
+  --input-bg: #fff;
+}
+
+html[data-theme="dark"] {
+  --bg-color: #222a3a;
+  --bg-color-secondary: #293347;
+  --border-color: rgba(255, 255, 255, 0.3);
+  --code-bg: #222a3a;
+  --code-highlight-bg: #1a202d;
+  --link-color: #eaab81;
+
+  --input-bg: #222a3a;
+
+  --font-color-opacity: 0.9;
+  --font-color: rgba(255, 255, 255, var(--font-color-opacity));
+}
+
+.gt-ico-github {
+  fill: var(--font-color);
+}
+.gt-comments-null::after {
+  content: "🥺";
+  display: block;
+  font-size: 3rem;
+}
+.gt-btn {
+  background: var(--bg-color-secondary) !important;
+  color: var(--font-color) !important;
+  border-color: var(--border-color) !important;
+}
+textarea,
+.gt-header-preview {
+  background: var(--input-bg) !important;
+  color: var(--font-color) !important;
+  border-color: var(--border-color) !important;
 }
 
 * {
@@ -114,6 +142,7 @@ h1 {
 
 .post-item {
   border-top: 1px solid var(--border-color);
+  margin-top: 10px;
 }
 
 blockquote {
@@ -158,8 +187,11 @@ ol li::marker {
   font-weight: bold;
 }
 
-.gitment-root-container {
-  border-top: 1px solid rgba(0, 0, 0, 0.2);
+.gatsby-highlight-code-line {
+  display: block;
+  background: var(--code-highlight-bg);
+  padding: 4px;
+  border-radius: 4px;
 }
 
 .gatsby-resp-image-figcaption {

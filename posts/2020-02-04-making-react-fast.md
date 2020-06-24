@@ -110,7 +110,7 @@ I won't specifically go over how hooks work in this section. For an introduction
 
 ```js
 function MyComponent(props) {
-  const result = React.useMemo(() => JSON.parse(props.value), [props.value]);
+  const result = React.useMemo(() => JSON.parse(props.value), [props.value]); // highlight-line
 
   ...
 }
@@ -124,6 +124,7 @@ We provide `useMemo()` a second argument, which says whenever the value changes 
 
 ```js
 function MyComponent(props) {
+  /* highlight-range{1-3} */
   const handleClick = React.useCallback((event) => {
     console.log(event);
   }, []);

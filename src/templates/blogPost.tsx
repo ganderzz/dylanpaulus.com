@@ -6,7 +6,6 @@ import SEO from "../components/seo";
 import { IGatsbyQuery } from "../interfaces/IGatsbyQuery";
 import { IBlogPostResponse } from "../interfaces/IBlogPostResponse";
 import { Comments } from "../components/comments";
-import Img from "gatsby-image";
 
 type Props = {
   data: IGatsbyQuery<IBlogPostResponse>;
@@ -16,6 +15,46 @@ type Props = {
 };
 
 export default function BlogPost(payload: Props) {
+  const hasRenderedClipboard  = React.useRef(false);
+
+  React.useEffect(() => {
+    if (hasRenderedClipboard.current) {
+      return;
+    }
+
+    const codeBlocks = document.querySelectorAll("div[data-language]");
+
+    Array.prototype.forEach.call(codeBlocks, function(block) {
+      const copyElement = document.createElement("a");
+      copyElement.innerHTML = "<i class='fas fa-clipboard' />";
+      copyElement.style.cursor = "pointer";
+      copyElement.style.position = "absolute";
+      copyElement.style.top = "5px";
+      copyElement.style.right = "15px";
+
+      block.style.position = "relative";
+  
+      copyElement.onclick = function(e) {
+        const elem = (e.currentTarget as any).parentNode.querySelector("pre");
+
+        if (!elem) {
+          return;
+        }
+
+        const CopyRange = document.createRange();
+
+        CopyRange.selectNode(elem);
+        window.getSelection().addRange(CopyRange);
+        document.execCommand("copy");
+      };
+
+      block.appendChild(copyElement);
+    });
+
+    hasRenderedClipboard.current = true;
+
+  }, []);
+
   if (!payload) {
     return null;
   }
