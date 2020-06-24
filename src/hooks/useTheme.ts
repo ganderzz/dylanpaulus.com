@@ -1,8 +1,10 @@
 import { useState, useLayoutEffect } from "react";
 
 const preferDarkSchema =
-  window.matchMedia &&
-  window.matchMedia("(prefers-color-scheme: dark)").matches;
+  (window &&
+    window.matchMedia &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches) ||
+  false;
 const defaultTheme = preferDarkSchema ? "dark" : "light";
 
 function useTheme() {
