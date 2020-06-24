@@ -12,10 +12,6 @@
   font-display: swap;
 }
 
-html {
-  transition: color 0.2s, background 0.2s, border 0.2s;
-}
-
 html[data-theme="light"] {
   --bg-color: #f1f1f1;
   --bg-color-secondary: #fff;

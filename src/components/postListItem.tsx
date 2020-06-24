@@ -6,7 +6,7 @@ interface IProps {
   data: {
     node: IPost;
   };
-  style?: {};
+  style?: React.CSSProperties;
 }
 
 export function PostListItem({ data, style = {}, ...rest }: IProps) {
