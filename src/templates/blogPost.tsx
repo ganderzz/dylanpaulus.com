@@ -15,7 +15,7 @@ type Props = {
 };
 
 export default function BlogPost(payload: Props) {
-  const hasRenderedClipboard  = React.useRef(false);
+  const hasRenderedClipboard = React.useRef(false);
 
   React.useEffect(() => {
     if (hasRenderedClipboard.current) {
@@ -33,11 +33,11 @@ export default function BlogPost(payload: Props) {
       copyElement.style.right = "15px";
 
       block.style.position = "relative";
-  
+
       copyElement.onclick = function(e) {
         const elem = (e.currentTarget as any).parentNode.querySelector("pre");
 
-        if (!elem) {
+        if (!elem || !window) {
           return;
         }
 
@@ -52,7 +52,6 @@ export default function BlogPost(payload: Props) {
     });
 
     hasRenderedClipboard.current = true;
-
   }, []);
 
   if (!payload) {
