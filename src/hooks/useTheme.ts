@@ -1,15 +1,17 @@
 import { useState, useLayoutEffect } from "react";
 
-const preferDarkSchema =
-  (window &&
-    window.matchMedia &&
-    window.matchMedia("(prefers-color-scheme: dark)").matches) ||
-  false;
-const defaultTheme = preferDarkSchema ? "dark" : "light";
-
 function useTheme() {
+  const preferDarkSchema =
+    typeof window !== "undefined"
+      ? window?.matchMedia("(prefers-color-scheme: dark)").matches ?? false
+      : false;
+
+  const defaultTheme = preferDarkSchema ? "dark" : "light";
+
   const [theme, setTheme] = useState(
-    localStorage.getItem("theme") || defaultTheme
+    typeof localStorage !== "undefined"
+      ? localStorage.getItem("theme") || defaultTheme
+      : defaultTheme
   );
 
   useLayoutEffect(() => {
