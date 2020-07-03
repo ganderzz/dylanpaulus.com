@@ -45,7 +45,7 @@ export default function BlogPost(payload: Props) {
         />
       </span>
 
-      <h1 className="mt-4 font-bold">{frontmatter.title}</h1>
+      <h3 className="mt-4 mb-8 font-bold">{frontmatter.title}</h3>
 
       <div
         className="blog-post leading-loose"

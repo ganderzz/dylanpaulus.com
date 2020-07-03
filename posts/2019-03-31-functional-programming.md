@@ -24,13 +24,13 @@ When working in a programming language like JavaScript, we can assign data to va
 ```javascript
 const obj = {
   a: 1,
-  b: 2
+  b: 2,
 };
 
 function addOne(input) {
   return {
     a: input.a + 1,
-    b: input.b + 1
+    b: input.b + 1,
   };
 }
 
@@ -99,13 +99,8 @@ First, we start at some value, which in our case is `0` (see the line `let sum =
 
 To visualize this in a different way:
 
-```
-0 + [1,2,3,4]
-0 + 1 + [2,3,4]
-1 + 2 + [3,4]
-3 + 3 + [4]
-6 + 4
-10
+```javascript
+0 + [1,2,3,4] 0 + 1 + [2,3,4] 1 + 2 + [3,4] 3 + 3 + [4] 6 + 4 10
 ```
 
 We can think of this algorithm as two separate functions, first we need some way of adding numbers together.
@@ -190,13 +185,8 @@ _Hint_
 
 Remember the algorithm for reduce?
 
-```
-0 + [1,2,3,4]
-0 + 1 + [2,3,4]
-1 + 2 + [3,4]
-3 + 3 + [4]
-6 + 4
-10
+```javascript
+0 + [1,2,3,4] 0 + 1 + [2,3,4] 1 + 2 + [3,4] 3 + 3 + [4] 6 + 4 10
 ```
 
 What if instead of starting with `0` we start with an `[]` array instead ?

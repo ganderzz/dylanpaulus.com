@@ -25,7 +25,6 @@ export function Comments({ title = "" }: IProps) {
         owner: process.env.GATSBY_GITHUB_OWNER,
         admin: [process.env.GATSBY_GITHUB_OWNER],
         labels: ["discussion", "post"],
-        createIssueManually: true,
       }}
     />
   );

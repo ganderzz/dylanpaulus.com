@@ -22,11 +22,11 @@ export default function BlogList({ data, pageContext }) {
           `portfolio`,
           `react`,
           `typescript`,
-          `javascript`
+          `javascript`,
         ]}
       />
 
-      {posts.map(post => (
+      {posts.map((post) => (
         <PostListItem key={post.node.id} data={post} />
       ))}
 
@@ -54,6 +54,7 @@ export const blogListQuery = graphql`
           frontmatter {
             title
             date(formatString: "MMMM DD, YYYY")
+            tags
           }
         }
       }
