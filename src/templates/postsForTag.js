@@ -18,12 +18,12 @@ export default function PostsForTag({ data, pageContext }) {
         keywords={[pageContext.tag]}
       />
 
-      <h3 className="mt-0 mb-16 bg-gray-800 text-white p-6">
+      <h3 className="mt-0 mb-16 p-0 border-b pb-4 font-bold">
         {pageContext.tag} ({tagCount})
       </h3>
 
-      {edges.map(e => (
-        <PostListItem data={e} className="mb-12 pb-12 border-b" />
+      {edges.map((e) => (
+        <PostListItem data={e} className="mb-8 pb-8 border-b" />
       ))}
     </Layout>
   );
