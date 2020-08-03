@@ -238,6 +238,12 @@ ol li::marker {
   margin: 20px auto;
 }
 
+@media all and (max-width: 700px) {
+  .logo__text {
+    display: none;
+  }
+}
+
 /* ---- Utilities ---- */
 .has-arrow {
   position: relative;

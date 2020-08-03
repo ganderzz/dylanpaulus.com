@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     title: `Dylan Paulus`,
     description: `Ramblings on software engineering`,
-    author: `@ganderzz`
+    author: `@ganderzz`,
   },
   plugins: [
     `gatsby-transformer-sharp`,
@@ -17,15 +17,15 @@ module.exports = {
             options: {
               maxWidth: 1200,
               showCaptions: true,
-              withWebp: true
-            }
+              withWebp: true,
+            },
           },
           {
             resolve: `gatsby-remark-autolink-headers`,
             options: {
               className: "header-link",
-              maintainCase: true
-            }
+              maintainCase: true,
+            },
           },
           {
             resolve: `gatsby-remark-prismjs`,
@@ -33,26 +33,26 @@ module.exports = {
               classPrefix: "language-",
               inlineCodeMarker: null,
               aliases: {},
-              showLineNumbers: false
-            }
+              showLineNumbers: false,
+            },
           },
-          `gatsby-remark-copy-linked-files`
-        ]
-      }
+          `gatsby-remark-copy-linked-files`,
+        ],
+      },
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
-        path: `${__dirname}/src/images`
-      }
+        path: `${__dirname}/src/images`,
+      },
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         path: `${__dirname}/posts`,
-        name: "posts"
-      }
+        name: "posts",
+      },
     },
     `gatsby-plugin-typescript`,
     `gatsby-plugin-react-helmet`,
@@ -65,8 +65,8 @@ module.exports = {
         background_color: `#663399`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/favicon.png` // This path is relative to the root of the site.
-      }
-    }
-  ]
+        icon: `src/images/favicon.svg`, // This path is relative to the root of the site.
+      },
+    },
+  ],
 };
