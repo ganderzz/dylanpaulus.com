@@ -1,6 +1,7 @@
 import React from "react";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
+import { SubHeading } from "../components/subheading";
 
 const IndexPage = () => (
   <Layout>
@@ -15,13 +16,13 @@ const IndexPage = () => (
         `portfolio`,
         `react`,
         `typescript`,
-        `javascript`
+        `javascript`,
       ]}
     />
 
     <div className="md:flex sm:block leading-loose text-xl">
       <div className="pr-6 md:w-1/2 sm:w-full">
-        <h4 className="mt-0 pt-0">About</h4>
+        <SubHeading style={{ marginTop: 0 }}>About</SubHeading>
         Hi, I'm Dylan. <br />A fullstack developer working primarily in React
         and C#. This is a place where I ramble about anything.
         <br />
@@ -35,20 +36,20 @@ const IndexPage = () => (
             className="shadow mt-6"
             style={{
               width: "90%",
-              maxWidth: 600
+              maxWidth: 600,
             }}
           />
         </div>
       </div>
 
       <div className="pl-6 md:w-1/2 sm:w-full">
-        <h4 className="mt-0 pt-0">Current</h4>
+        <SubHeading style={{ marginTop: 0 }}>Current</SubHeading>
 
         <ul className="list-disc list-inside">
           <li>Lead Software Engineer @ Schweitzer Engineering Laboratories</li>
         </ul>
 
-        <h4 className="mt-4">Previous</h4>
+        <SubHeading>Past</SubHeading>
 
         <ul className="list-disc list-inside">
           <li>Software Engineer @ Schweitzer Engineering Laboratories</li>
@@ -63,7 +64,7 @@ const IndexPage = () => (
           <li>Student Web Developer @ Eastern Washington University</li>
         </ul>
 
-        <h4 className="mt-4">Talks</h4>
+        <SubHeading>Talks</SubHeading>
         <ul className="list-disc list-inside">
           <li>
             <a

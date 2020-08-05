@@ -3,9 +3,6 @@
 @tailwind utilities;
 
 @import url("https://rsms.me/inter/inter.css");
-@import url("https://use.fontawesome.com/releases/v5.7.1/css/fontawesome.css");
-@import url("https://use.fontawesome.com/releases/v5.7.1/css/brands.css");
-@import url("https://use.fontawesome.com/releases/v5.7.1/css/solid.css");
 
 @font-face {
   font-family: "Inter", sans-serif;
@@ -21,8 +18,8 @@ html[data-theme="light"] {
   --font-color-opacity: 0.8;
   --font-color: rgba(0, 0, 0, var(--font-color-opacity));
 
-  --link-color: #9d6742;
-  --link-hover-color: #ce8656;
+  --link-color: #5755c9;
+  --link-hover-color: #1e1c63;
 
   --input-bg: #fff;
 }
@@ -30,35 +27,16 @@ html[data-theme="light"] {
 html[data-theme="dark"] {
   --bg-color: #222a3a;
   --bg-color-secondary: #293347;
-  --border-color: rgba(255, 255, 255, 0.3);
   --code-bg: #222a3a;
   --code-highlight-bg: #1a202d;
-  --link-color: #eaab81;
-
-  --input-bg: #222a3a;
-
+  --border-color: rgba(255, 255, 255, 0.3);
   --font-color-opacity: 1;
   --font-color: rgba(255, 255, 255, var(--font-color-opacity));
-}
 
-.gt-ico-github {
-  fill: var(--font-color);
-}
-.gt-comments-null::after {
-  content: "🥺";
-  display: block;
-  font-size: 3rem;
-}
-.gt-btn {
-  background: var(--bg-color-secondary) !important;
-  color: var(--font-color) !important;
-  border-color: var(--border-color) !important;
-}
-textarea,
-.gt-header-preview {
-  background: var(--input-bg) !important;
-  color: var(--font-color) !important;
-  border-color: var(--border-color) !important;
+  --link-color: hsl(332.8, 100%, 71%);
+  --link-hover-color: hsl(332.8, 100%, 87%);
+
+  --input-bg: #222a3a;
 }
 
 * {
@@ -139,6 +117,8 @@ small,
 
 .main-content {
   background-color: var(--bg-color-secondary);
+  position: relative;
+  z-index: 1;
 }
 
 a {
@@ -246,10 +226,32 @@ ol li::marker {
   opacity: 0.8;
 }
 
+/* ---- Media Queries ---- */
 @media all and (max-width: 700px) {
   .logo__text {
     display: none;
   }
+}
+
+/* ---- Comments ---- */
+.gt-ico-github {
+  fill: var(--font-color);
+}
+.gt-comments-null::after {
+  content: "🥺";
+  display: block;
+  font-size: 3rem;
+}
+.gt-btn {
+  background: var(--bg-color-secondary) !important;
+  color: var(--font-color) !important;
+  border-color: var(--border-color) !important;
+}
+textarea,
+.gt-header-preview {
+  background: var(--input-bg) !important;
+  color: var(--font-color) !important;
+  border-color: var(--border-color) !important;
 }
 
 /* ---- Utilities ---- */
@@ -266,6 +268,19 @@ ol li::marker {
   border-top: 8px solid transparent;
   border-bottom: 8px solid transparent;
   border-left: 8px solid transparent;
+}
+
+.skewed {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  height: 50vh;
+  z-index: 0;
+  transform: skewY(6deg);
+  transform-origin: top right;
 }
 
 /* ---- Animations ---- */

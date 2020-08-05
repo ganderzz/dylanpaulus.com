@@ -3,6 +3,7 @@ import { graphql } from "gatsby";
 import Layout from "../components/layout";
 import { PostListItem } from "../components/postListItem";
 import { Pagination } from "../components/pagination";
+import { SubHeading } from "../components/subheading";
 import SEO from "../components/seo";
 
 export default function BlogList({ data, pageContext }) {
@@ -26,11 +27,13 @@ export default function BlogList({ data, pageContext }) {
         ]}
       />
 
+      <SubHeading style={{ marginTop: 0 }}>Recently Published</SubHeading>
+
       {posts.map((post) => (
         <PostListItem key={post.node.id} data={post} />
       ))}
 
-      <div className="text-center pt-10">
+      <div className="mt-10">
         <Pagination currentPage={currentPage} totalPages={numPages} />
       </div>
     </Layout>
@@ -48,6 +51,8 @@ export const blogListQuery = graphql`
       edges {
         node {
           id
+          excerpt(pruneLength: 200)
+          timeToRead
           fields {
             slug
           }

@@ -6,30 +6,28 @@ import { Footer } from "./footer";
 import "../styles/main.css";
 
 const Layout = ({ children }) => (
-  <div>
-    <StaticQuery
-      query={graphql`
-        query SiteTitleQuery {
-          site {
-            siteMetadata {
-              title
-            }
+  <StaticQuery
+    query={graphql`
+      query SiteTitleQuery {
+        site {
+          siteMetadata {
+            title
           }
         }
-      `}
-      render={(data) => (
-        <div>
-          <Header siteTitle={data.site.siteMetadata.title} />
+      }
+    `}
+    render={(data) => (
+      <section className="max-w-screen-xl md:max-w-none mx-auto">
+        <Header siteTitle={data.site.siteMetadata.title} />
 
-          <main className="main-content container md:max-w-none md:mx-0 md:w-full lg:w-5/6 lg:mx-auto -mt-32 sm:p-16 p-6 pt-10 text-2xl">
-            <section>{children}</section>
+        <main className="main-content container md:max-w-none mx-auto md:w-full lg:w-5/6 -mt-32 sm:p-16 p-6 pt-10 text-2xl">
+          <section className="mx-auto">{children}</section>
 
-            <Footer />
-          </main>
-        </div>
-      )}
-    />
-  </div>
+          <Footer />
+        </main>
+      </section>
+    )}
+  />
 );
 
 export default Layout;

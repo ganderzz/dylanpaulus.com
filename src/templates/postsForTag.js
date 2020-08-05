@@ -18,12 +18,12 @@ export default function PostsForTag({ data, pageContext }) {
         keywords={[pageContext.tag]}
       />
 
-      <h3 className="mt-0 mb-16 p-0 border-b pb-4 font-bold">
+      <h3 className="mt-0 mb-14 p-0 border-b pb-4 font-bold">
         {pageContext.tag} ({tagCount})
       </h3>
 
       {edges.map((e) => (
-        <PostListItem data={e} className="mb-8 pb-8 border-b" />
+        <PostListItem data={e} />
       ))}
     </Layout>
   );
@@ -38,6 +38,8 @@ export const pageQuery = graphql`
       edges {
         node {
           id
+          excerpt(pruneLength: 200)
+          timeToRead
           fields {
             slug
           }
