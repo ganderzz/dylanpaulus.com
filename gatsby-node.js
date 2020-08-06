@@ -34,15 +34,15 @@ exports.createPages = async ({ graphql, actions }) => {
   const postsPerPage = 6;
   const numPages = Math.ceil(posts.length / postsPerPage);
 
-  const listComponent = path.resolve("./src/templates/blogList.js");
+  const listComponent = path.resolve("./src/templates/blogList.tsx");
   const postComponent = path.resolve(`./src/templates/blogPost.tsx`);
-  const postsForTag = path.resolve(`./src/templates/postsForTag.js`);
-  const siteMap = path.resolve(`./src/templates/sitemap.js`);
+  const postsForTag = path.resolve(`./src/templates/postsForTag.tsx`);
+  const siteMap = path.resolve(`./src/templates/sitemap.tsx`);
 
   // Sitemap
   createPage({
     path: `/sitemap`,
-    component: siteMap
+    component: siteMap,
   });
 
   const tags = posts.reduce((accu, post) => {
@@ -56,13 +56,13 @@ exports.createPages = async ({ graphql, actions }) => {
   }, []);
 
   // Posts for Tag
-  tags.forEach(tag => {
+  tags.forEach((tag) => {
     createPage({
       path: `/tags/${tag}`,
       component: postsForTag,
       context: {
-        tag
-      }
+        tag,
+      },
     });
   });
 
@@ -75,8 +75,8 @@ exports.createPages = async ({ graphql, actions }) => {
         limit: postsPerPage,
         skip: i * postsPerPage,
         numPages: numPages,
-        currentPage: i + 1
-      }
+        currentPage: i + 1,
+      },
     });
   });
 
@@ -86,8 +86,8 @@ exports.createPages = async ({ graphql, actions }) => {
       path: node.fields.slug,
       component: postComponent,
       context: {
-        slug: node.fields.slug
-      }
+        slug: node.fields.slug,
+      },
     });
   });
 };
@@ -101,7 +101,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
     createNodeField({
       name: `slug`,
       node,
-      value
+      value,
     });
   }
 };
@@ -110,8 +110,8 @@ exports.onCreateWebpackConfig = ({ actions, plugins }) => {
   actions.setWebpackConfig({
     plugins: [
       plugins.define({
-        "global.GENTLY": false
-      })
-    ]
+        "global.GENTLY": false,
+      }),
+    ],
   });
 };
