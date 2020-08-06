@@ -35,8 +35,9 @@ const IndexPage = () => (
             alt="Image of Dylan playing drums"
             className="shadow mt-6"
             style={{
-              width: "90%",
+              width: "100%",
               maxWidth: 600,
+              minHeight: 368,
             }}
           />
         </div>
