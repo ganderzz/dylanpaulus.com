@@ -26,16 +26,17 @@ export default function BlogList({ data, pageContext }) {
           `javascript`,
         ]}
       />
+      <section className="sm:p-16 p-6 pt-10">
+        <SubHeading style={{ marginTop: 0 }}>Recently Published</SubHeading>
 
-      <SubHeading style={{ marginTop: 0 }}>Recently Published</SubHeading>
+        {posts.map((post) => (
+          <PostListItem key={post.node.id} data={post} />
+        ))}
 
-      {posts.map((post) => (
-        <PostListItem key={post.node.id} data={post} />
-      ))}
-
-      <div className="mt-10">
-        <Pagination currentPage={currentPage} totalPages={numPages} />
-      </div>
+        <div className="mt-10">
+          <Pagination currentPage={currentPage} totalPages={numPages} />
+        </div>
+      </section>
     </Layout>
   );
 }
@@ -44,7 +45,10 @@ export const blogListQuery = graphql`
   query blogListQuery($skip: Int!, $limit: Int!) {
     posts: allMarkdownRemark(
       sort: { fields: [frontmatter___date], order: DESC }
-      filter: { fileAbsolutePath: { glob: "**/posts/*.md" } }
+      filter: {
+        fileAbsolutePath: { glob: "**/posts/*.md" }
+        frontmatter: { published: { eq: true } }
+      }
       limit: $limit
       skip: $skip
     ) {

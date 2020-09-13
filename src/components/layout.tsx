@@ -17,10 +17,10 @@ const Layout = ({ children }) => (
       }
     `}
     render={(data) => (
-      <section className="max-w-screen-xl md:max-w-none mx-auto">
+      <section className="max-w-screen-xl mx-auto">
         <Header siteTitle={data.site.siteMetadata.title} />
 
-        <main className="main-content container md:max-w-none mx-auto md:w-full lg:w-5/6 -mt-32 sm:p-16 p-6 pt-10 text-2xl">
+        <main className="main-content container mx-auto md:w-full lg:w-5/6 -mt-32 text-2xl">
           <section className="mx-auto">{children}</section>
 
           <Footer />

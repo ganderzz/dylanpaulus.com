@@ -3,6 +3,7 @@ title: "Generic Type Arguments in JSX Elements"
 tags: ["React", "Typescript", "Javascript"]
 path: "/blog/generic-type-arguments-jsx"
 date: "2018-06-02"
+published: true
 ---
 
 Typescript recently released generic type arguments for JSX in their 2.9 release. It's a mouthfull, but what does that mean for us? A common use-case I'm excited for is allowing consumers of libraries to extend a component's props. Using [dynamic components]({% post_url 2017-07-26-injecting-react-tag-types %}) we'll look at allowing our components to be extended even more.

@@ -4,6 +4,7 @@ author: "Johann Hari"
 tags: ["mental health", "depression", "anxiety", "books I read"]
 date: "2019-12-01"
 rating: "Commit to Memory"
+published: true
 ---
 
 > You need your nausea. It is a message. It will tell us what is wrong with you.

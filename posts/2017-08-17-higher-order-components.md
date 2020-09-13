@@ -3,6 +3,7 @@ title: "Introduction to Higher Order Components"
 tags: ["Javascript", "Frontend", "React"]
 path: "/blog/intro-higher-order-components"
 date: "2017-08-17"
+published: true
 ---
 
 ### Introduction

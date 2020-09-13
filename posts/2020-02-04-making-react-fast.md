@@ -3,7 +3,9 @@ title: "Making React Fast: Tips on Optimizing ReactJS"
 tags: ["React", "Javascript"]
 path: "/blog/making-react-fast"
 image: matthew-brodeur-eJ9mX6yEbAw-unsplash.jpg
+theme: "light"
 date: "2020-02-04"
+published: true
 ---
 
 React does a fantastic job abstracting away the rendering of webpages. When state changes, our UI's reflect it. But, have you ever gotten done writing your application just to notice things seem off? Clicking a button displaying a popover stutters for a second, or animations don't run smoothly.

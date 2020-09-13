@@ -3,6 +3,7 @@ title: "Intro to FlightJS"
 path: "/blog/intro-to-flight-js"
 tags: ["Javascript", "FlightJS"]
 date: "2015-11-17"
+published: true
 ---
 
 > _This post is part of the archive. These are mainly random posts that were written throughout the years in no coherent order._

@@ -3,6 +3,7 @@ title: "Reusable Components: Factory Components"
 tags: ["React", "Javascript"]
 path: "/blog/factory-components"
 date: "2018-04-10"
+published: true
 ---
 
 Beware the **mega** component. Mega components contain around 50 props--when the stars align, only certain values produce specialized output. For example, let's assume we have a `<IdentityInput />` component which provides user login using only a fingerprint. Nifty, eh?

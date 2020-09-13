@@ -15,13 +15,13 @@ export default function SiteMap({ data }) {
         const formatted = tags.reduce((subAccu, tag) => {
           return {
             ...subAccu,
-            [tag]: accu[tag] && accu[tag] >= 0 ? accu[tag] + 1 : 1
+            [tag]: accu[tag] && accu[tag] >= 0 ? accu[tag] + 1 : 1,
           };
         }, {});
 
         return {
           ...accu,
-          ...formatted
+          ...formatted,
         };
       }, {}),
     [edges]
@@ -34,20 +34,21 @@ export default function SiteMap({ data }) {
         title="Sitemap"
         keywords={Object.keys(tagsList || {})}
       />
+      <section className="sm:p-16 p-6 pt-10">
+        <h3 className="mt-0 mb-16 bg-gray-800 text-white p-6">Sitemap</h3>
 
-      <h3 className="mt-0 mb-16 bg-gray-800 text-white p-6">Sitemap</h3>
-
-      <div className="flex flex-wrap -mb-4">
-        {Object.keys(tagsList).map(key => (
-          <Link
-            key={key}
-            to={`/tags/${key}`}
-            className="focus:border-2 focus:border-grey-dark hover:opacity-100 m-2 hover:bg-gray-700 hover:text-white text-lg rounded bg-gray-700 p-2 text-white no-underline font-semibold mr-2 opacity-75"
-          >
-            {key} ({tagsList[key] || 0})
-          </Link>
-        ))}
-      </div>
+        <div className="flex flex-wrap -mb-4">
+          {Object.keys(tagsList).map((key) => (
+            <Link
+              key={key}
+              to={`/tags/${key}`}
+              className="focus:border-2 focus:border-grey-dark hover:opacity-100 m-2 hover:bg-gray-700 hover:text-white text-lg rounded bg-gray-700 p-2 text-white no-underline font-semibold mr-2 opacity-75"
+            >
+              {key} ({tagsList[key] || 0})
+            </Link>
+          ))}
+        </div>
+      </section>
     </Layout>
   );
 }

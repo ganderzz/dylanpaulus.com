@@ -3,6 +3,7 @@ title: "Introducing React-Scroll-To v2"
 tags: ["React", "Javascript"]
 path: "/blog/introducing-react-scroll-to-v2"
 date: "2018-11-03"
+published: true
 ---
 
 The latest version of a React component I maintain just released, v2 of react-scroll-to. First, it started out as a component I needed, but over time a few people started using it. Because it was initially created for my specific use-case it started to show its warts when new features were ask for. The goals for v2 were two-part: introduce a more flexible API and implement some highly asked for features (scroll by a ref and smooth scrolling).

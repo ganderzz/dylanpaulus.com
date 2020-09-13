@@ -3,7 +3,9 @@ title: "How Facebook Avoids Ad Blockers"
 tags: ["encryption", "facebook", "interesting", "ads"]
 path: "/blog/how-fb-avoids-adblockers"
 image: joshua-hoehne-Uo2ZXh4XOLY-unsplash.jpg
+theme: "light"
 date: "2019-11-24"
+published: true
 ---
 
 Many sites try to avoid our ad blockers through limiting content or just straight out pleaing. Other companies are looking at encrypting any kind of indicator that screams "AD!" through obfuscation and other fancy techniques--confusing ad blockers. Here we'll look at some interesting techniques Facebook deploys to ensure we view their ads.

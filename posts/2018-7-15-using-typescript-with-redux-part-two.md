@@ -3,6 +3,7 @@ title: "Part Two: Using Typescript with Redux"
 tags: ["React", "Typescript", "Javascript"]
 path: "/blog/pt-2-typescript-with-redux"
 date: "2018-07-15"
+published: true
 ---
 
 [![Click Here](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/5w70j1916l)

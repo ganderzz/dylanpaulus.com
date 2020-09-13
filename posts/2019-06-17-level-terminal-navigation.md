@@ -3,6 +3,7 @@ title: "Leveling Up Your Terminal/Command-Line Navigation"
 tags: ["terminal", "productivity", "command-line"]
 path: "/blog/leveling-up-your-terminal-navigation"
 date: "2019-06-17"
+published: true
 ---
 
 One motivating factor in using a terminal is the productivity gains... that is, once you can sweep the keyboard like an 80's metal guitarist. Getting a few basic keyboard shortcuts/commands down can drastically improve the usability of the terminal. Let's take a look at a few of my favorites.

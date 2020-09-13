@@ -3,6 +3,7 @@ title: "React: Controlling Rendering with Keys"
 tags: ["React", "Javascript"]
 path: "/blog/controlling-rendering-with-keys"
 date: "2018-10-18"
+published: true
 ---
 
 `key`, the property we throw some value into to suppress warnings. This property is used by React to determine when a component is deleted, updated, or created. We generally don't interact much with the `key` prop--except in loops.

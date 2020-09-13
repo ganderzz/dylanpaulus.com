@@ -62,10 +62,16 @@ module.exports = {
         name: `dylan-paulus`,
         short_name: `dp`,
         start_url: `/`,
-        background_color: `#663399`,
-        theme_color: `#663399`,
+        background_color: `#5755c9`,
+        theme_color: `#5755c9`,
         display: `minimal-ui`,
         icon: `src/images/favicon.svg`, // This path is relative to the root of the site.
+      },
+    },
+    {
+      resolve: `gatsby-plugin-offline`,
+      options: {
+        precachePages: [`/about/`, `/404/`, `/posts/*`],
       },
     },
   ],

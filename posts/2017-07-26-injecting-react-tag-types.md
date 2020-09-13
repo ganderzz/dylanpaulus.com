@@ -3,6 +3,7 @@ title: "Injecting Dynamic Elements to Components"
 path: "/blog/injecting-dynamic-elements"
 tags: ["Javascript", "Frontend", "React"]
 date: "2017-07-26"
+published: true
 ---
 
 ### Introduction

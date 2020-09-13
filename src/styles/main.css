@@ -9,6 +9,10 @@
   font-display: swap;
 }
 
+:root {
+  --border-radius: 0.5rem;
+}
+
 html[data-theme="light"] {
   --bg-color: #f1f1f1;
   --bg-color-secondary: #fff;
@@ -17,6 +21,7 @@ html[data-theme="light"] {
   --border-color: #ddd;
   --font-color-opacity: 0.8;
   --font-color: rgba(0, 0, 0, var(--font-color-opacity));
+  --font-color-secondary: rgba(80, 80, 80, var(--font-color-opacity));
 
   --link-color: #5755c9;
   --link-hover-color: #1e1c63;
@@ -32,12 +37,15 @@ html[data-theme="dark"] {
   --border-color: rgba(255, 255, 255, 0.3);
   --font-color-opacity: 1;
   --font-color: rgba(255, 255, 255, var(--font-color-opacity));
+  --font-color-secondary: rgba(160, 160, 160, var(--font-color-opacity));
 
   --link-color: hsl(332.8, 100%, 71%);
   --link-hover-color: hsl(332.8, 100%, 87%);
 
   --input-bg: #222a3a;
 }
+
+/* base styling */
 
 * {
   box-sizing: border-box;
@@ -79,30 +87,30 @@ h3,
 h4,
 h5 {
   margin: 2.75rem 0 1.05rem;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.15;
   @apply tracking-tight;
 }
 
 h1 {
   margin-top: 0;
-  font-size: 7.594rem;
+  font-size: 6rem;
 }
 
 h2 {
-  font-size: 5.063rem;
+  font-size: 5rem;
 }
 
 h3 {
-  font-size: 3.375rem;
+  font-size: 3rem;
 }
 
 h4 {
-  font-size: 2.25rem;
+  font-size: 2rem;
 }
 
 h5 {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 
 small,
@@ -110,15 +118,8 @@ small,
   font-size: 0.667rem;
 }
 
-small,
-.text_small {
-  font-size: 0.667em;
-}
-
-.main-content {
-  background-color: var(--bg-color-secondary);
-  position: relative;
-  z-index: 1;
+figcaption {
+  color: var(--font-color-secondary) !important;
 }
 
 a {
@@ -140,21 +141,11 @@ pre[class*="language-"] {
   @apply mb-10 mt-10;
 }
 
-.header-link {
-  position: relative;
-  top: 20px;
-}
-
-.post-item {
-  border-top: 1px solid var(--border-color);
-  margin-top: 10px;
-}
-
 blockquote {
   background: var(--bg-color);
   border-left: 10px solid #ccc;
-  margin: 1.5em 10px;
-  padding: 0.5em 10px;
+  margin: 0.2rem 0;
+  padding: 0.5rem 10px;
   quotes: "\201C""\201D""\2018""\2019";
 }
 
@@ -192,6 +183,42 @@ ol li::marker {
   font-weight: bold;
 }
 
+/* class styles */
+.blog-post__header {
+  padding: 30px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: right;
+  border-top-right-radius: var(--border-radius);
+  border-top-left-radius: var(--border-radius);
+}
+
+.blog-post__header--light {
+  color: #fff !important;
+}
+
+.blog-post__header--dark {
+  color: #000 !important;
+}
+
+.main-content {
+  @apply max-w-screen-xl;
+  background-color: var(--bg-color-secondary);
+  position: relative;
+  border-radius: var(--border-radius);
+  z-index: 1;
+}
+
+.header-link {
+  position: relative;
+  top: 20px;
+}
+
+.post-item {
+  border-top: 1px solid var(--border-color);
+  margin-top: 10px;
+}
+
 .gatsby-highlight-code-line {
   display: block;
   background: var(--code-highlight-bg);
@@ -200,9 +227,7 @@ ol li::marker {
 }
 
 .gatsby-resp-image-figcaption {
-  color: #666;
   font-size: 70%;
-  margin: 0px auto 30px auto;
   text-align: center;
 }
 
@@ -215,7 +240,7 @@ ol li::marker {
 
 .blog-post img {
   text-align: center;
-  margin: 20px auto;
+  margin: 30px auto;
 }
 
 .logo > * {
@@ -234,6 +259,9 @@ ol li::marker {
 }
 
 /* ---- Comments ---- */
+.gt-container {
+  margin-top: 60px;
+}
 .gt-ico-github {
   fill: var(--font-color);
 }

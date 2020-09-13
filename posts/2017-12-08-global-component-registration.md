@@ -3,6 +3,7 @@ title: "Global Component Registration"
 tags: ["React", "Javascript"]
 path: "/blog/global-component-registration"
 date: "2017-12-08"
+published: true
 ---
 
 ### Introduction

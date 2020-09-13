@@ -3,6 +3,7 @@ title: "Encapsulating State with Functional Children"
 tags: ["React", "Javascript"]
 path: "/blog/encapsulating-state-functional-children"
 date: "2017-09-14"
+published: true
 ---
 
 ### Introduction

@@ -3,6 +3,7 @@ title: "React: Not Everything is State"
 tags: ["React", "Javascript"]
 path: "/blog/not-everything-is-state"
 date: "2018-10-05"
+published: true
 ---
 
 When working with React we get introduced to state as a way if storing component's data. There is another way that generally gets overlooked: class properties.

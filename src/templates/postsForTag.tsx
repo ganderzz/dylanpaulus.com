@@ -17,14 +17,15 @@ export default function PostsForTag({ data, pageContext }) {
         title={pageContext.tag}
         keywords={[pageContext.tag]}
       />
+      <section className="sm:p-16 p-6 pt-10">
+        <h3 className="mt-0 mb-14 p-0 border-b pb-4 font-bold">
+          {pageContext.tag} ({tagCount})
+        </h3>
 
-      <h3 className="mt-0 mb-14 p-0 border-b pb-4 font-bold">
-        {pageContext.tag} ({tagCount})
-      </h3>
-
-      {edges.map((e) => (
-        <PostListItem data={e} />
-      ))}
+        {edges.map((e) => (
+          <PostListItem data={e} />
+        ))}
+      </section>
     </Layout>
   );
 }

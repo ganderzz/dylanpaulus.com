@@ -3,6 +3,7 @@ title: "Write Software that Evolves"
 tags: ["Software Engineering"]
 path: "/blog/write-software-that-evolves"
 date: "2018-07-29"
+published: true
 ---
 
 In software development we can easily get trapped in [analysis paralysis](https://en.wikipedia.org/wiki/Analysis_paralysis). Having the foresight to make all the correct decisions is hard. We make hundreds, if not thousands of decisions during the lifetime of our software. You’ll likely get something wrong. Instead of trying to get every minutia correct before starting a project, we should aim to write software that can evolve.

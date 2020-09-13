@@ -3,6 +3,7 @@ title: "Part One: Using Typescript with React"
 tags: ["React", "Typescript", "Javascript"]
 path: "/blog/pt-1-typescript-with-react"
 date: "2018-05-16"
+published: true
 ---
 
 Finished Example: [Click Here](https://codesandbox.io/s/n3138x65p0?hidenavigation=1)

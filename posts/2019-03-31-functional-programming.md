@@ -3,6 +3,7 @@ title: "Intro to Functional Programming"
 tags: ["Functional Programming", "Javascript"]
 path: "/blog/intro-functional-programming"
 date: "2019-03-31"
+published: true
 ---
 
 This post comes from an example I presented at [Boise Code Camp 2019](http://www.boisecodecamp.org/) comparing imperative and functional ways of solving problems. The goal was not to teach functional programming in its entirety, but introduce a different way of thinking that is outside of traditional approaches (loops, mutation, etc). Having a different frame of reference adds more tools to the toolbox when faced with a problem.
