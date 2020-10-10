@@ -19,30 +19,31 @@ const IndexPage = () => (
         `javascript`,
       ]}
     />
-    <section className="sm:p-16 p-6 pt-10">
-      <div className="md:flex sm:block leading-loose text-xl">
+    <section className="sm:p-16 p-6">
+      <div className="md:flex sm:block leading-loose">
         <div className="pr-6 md:w-1/2 sm:w-full">
           <SubHeading style={{ marginTop: 0 }}>About</SubHeading>
           Hi, I'm Dylan. <br />A fullstack developer working primarily in React
           and C#. This is a place where I ramble about anything.
           <br />
           <br />
-          <strong>Hobbies:</strong> Programming, Brazilian Jiu-Jitsu, Drumming &
+          <em>Hobbies include:</em> Programming, Brazilian Jiu-Jitsu, Drumming &
           Music, Hiking/Backpacking/Camping, Reading
-          <div className="text-center">
+          <div className="text-center mt-8">
             <img
               src={require("../images/about-image.jpg")}
               alt="Image of Dylan playing drums"
-              className="shadow mt-6"
+              className="shadow"
               style={{
                 width: "100%",
-                maxWidth: 600,
+                maxWidth: 500,
+                margin: "0 auto",
               }}
             />
           </div>
         </div>
 
-        <div className="pl-6 md:w-1/2 sm:w-full">
+        <div className="pl-4 md:w-1/2 sm:w-full">
           <SubHeading style={{ marginTop: 0 }}>Current</SubHeading>
 
           <ul className="list-disc list-inside">

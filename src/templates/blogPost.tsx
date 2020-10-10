@@ -55,17 +55,17 @@ export default function BlogPost(payload: Props) {
       )}
 
       <div
-        className={`blog-post__header mb-6`}
+        className={`blog-post__header mb-2`}
         data-credit={frontmatter.image_credit}
       >
         <FrontmatterInfo frontmatter={frontmatter} timeToRead={timeToRead} />
       </div>
 
       <section className="sm:pl-16 sm:pr-16 sm:pb-16 pl-6 pr-6 pb-6">
-        <h3 className="mt-0 mb-8 font-bold">{frontmatter.title}</h3>
+        <h2 className="mt-0 mb-8 font-bold">{frontmatter.title}</h2>
 
         <div
-          className="blog-post text-xl leading-loose"
+          className="blog-post leading-loose"
           dangerouslySetInnerHTML={{ __html: html }}
         />
 

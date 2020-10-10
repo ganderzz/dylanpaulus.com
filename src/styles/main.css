@@ -55,9 +55,9 @@ html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
 
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
-  line-height: 1.65;
+  line-height: 1.5;
   color: var(--font-color);
 }
 
@@ -69,16 +69,19 @@ html {
 
 html,
 body {
-  @apply m-0 p-0;
+  margin: 0;
+  padding: 0;
 }
 
 body {
   background-color: var(--bg-color);
+  font-size: 1rem;
 }
 
 p {
   margin-bottom: 1.15rem;
-  --font-color-opacity: 0.8;
+  font-size: 1rem;
+  opacity: 0.9;
 }
 
 h1,
@@ -86,31 +89,31 @@ h2,
 h3,
 h4,
 h5 {
-  margin: 2.75rem 0 1.05rem;
-  font-weight: 500;
+  margin: 1rem 0 0.875rem;
+  font-weight: 600;
   line-height: 1.15;
   @apply tracking-tight;
 }
 
 h1 {
   margin-top: 0;
-  font-size: 6rem;
-}
-
-h2 {
-  font-size: 5rem;
-}
-
-h3 {
   font-size: 3rem;
 }
 
-h4 {
+h2 {
+  font-size: 2.25rem;
+}
+
+h3 {
   font-size: 2rem;
 }
 
+h4 {
+  font-size: 1.875rem;
+}
+
 h5 {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
 }
 
 small,
@@ -138,6 +141,7 @@ pre {
 :not(pre) > code[class*="language-"],
 pre[class*="language-"] {
   background: var(--code-bg);
+  font-size: 1rem;
   @apply mb-10 mt-10;
 }
 
@@ -152,7 +156,7 @@ blockquote {
 blockquote:before {
   color: #ccc;
   content: open-quote;
-  font-size: 4em;
+  font-size: 4rem;
   line-height: 0.1em;
   margin-right: 0.25em;
   vertical-align: -0.4em;
@@ -213,6 +217,12 @@ ol li::marker {
   position: relative;
   top: 20px;
 }
+.header-link > svg {
+  fill: var(--font-color);
+  width: 24px;
+  height: 24px;
+  margin-top: 5px;
+}
 
 .post-item {
   border-top: 1px solid var(--border-color);
@@ -223,11 +233,12 @@ ol li::marker {
   display: block;
   background: var(--code-highlight-bg);
   padding: 4px;
+  font-size: 1rem;
   border-radius: 4px;
 }
 
 .gatsby-resp-image-figcaption {
-  font-size: 70%;
+  font-size: 0.625rem;
   text-align: center;
 }
 
@@ -262,6 +273,9 @@ ol li::marker {
 .gt-container {
   margin-top: 60px;
 }
+.gt-container .gt-meta {
+  border-bottom: 1px solid var(--border-color) !important;
+}
 .gt-ico-github {
   fill: var(--font-color);
 }
@@ -276,10 +290,15 @@ ol li::marker {
   border-color: var(--border-color) !important;
 }
 textarea,
-.gt-header-preview {
+.gt-header-preview,
+.gt-comment-content {
   background: var(--input-bg) !important;
   color: var(--font-color) !important;
   border-color: var(--border-color) !important;
+}
+
+.gt-comment-content:hover {
+  box-shadow: none !important;
 }
 
 /* ---- Utilities ---- */
