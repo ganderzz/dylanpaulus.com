@@ -10,7 +10,7 @@ export function MenuLink({ children, to }: IProps) {
   return (
     <Link
       to={to}
-      className="text-white no-underline font-bold text-base text-2xl mr-4 p-4 hover:bg-gray-800 hover:text-white"
+      className="text-white no-underline font-bold text-2xl mr-4 p-4 transition-colors hover:bg-gray-800 hover:text-white"
     >
       {children}
     </Link>

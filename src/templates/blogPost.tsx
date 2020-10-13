@@ -31,7 +31,7 @@ export default function BlogPost(payload: Props) {
         image={
           frontmatter.image
             ? `${
-                payload.location.origin
+                (payload.data as any).site.siteMetadata.siteUrl
               }${require(`../images/covers/${frontmatter.image}`)}`
             : null
         }
@@ -42,7 +42,7 @@ export default function BlogPost(payload: Props) {
           className="flex justify-between content-center text-base bg-orange-100 rounded-t-md border-t-4 border-orange-500 text-orange-700 p-4"
           role="alert"
         >
-          <p style={{ position: "relative", top: "8px" }}>
+          <p className="relative top-0 mt-2">
             ⚠️ This post is not published! Content is subject to change.
           </p>{" "}
           <a
@@ -55,7 +55,7 @@ export default function BlogPost(payload: Props) {
       )}
 
       <div
-        className={`blog-post__header mb-2`}
+        className="blog-post__header mb-2"
         data-credit={frontmatter.image_credit}
       >
         <FrontmatterInfo frontmatter={frontmatter} timeToRead={timeToRead} />
@@ -79,6 +79,11 @@ export default function BlogPost(payload: Props) {
 
 export const pageQuery = graphql`
   query($slug: String!) {
+    site {
+      siteMetadata {
+        siteUrl
+      }
+    }
     markdownRemark(fields: { slug: { eq: $slug } }) {
       html
       rawMarkdownBody

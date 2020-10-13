@@ -1,4 +1,5 @@
 const path = require("path");
+const { Helmet } = require("react-helmet");
 const { createFilePath } = require("gatsby-source-filesystem");
 
 exports.createPages = async ({ graphql, actions }) => {
@@ -58,7 +59,7 @@ exports.createPages = async ({ graphql, actions }) => {
   // Posts for Tag
   tags.forEach((tag) => {
     createPage({
-      path: `/tags/${tag}`,
+      path: `/tags/${tag}/`,
       component: postsForTag,
       context: {
         tag,
@@ -69,7 +70,7 @@ exports.createPages = async ({ graphql, actions }) => {
   // Blog Post Lists
   Array.from({ length: numPages }).forEach((_, i) => {
     createPage({
-      path: i === 0 ? `/` : `/${i + 1}`,
+      path: i === 0 ? `/` : `/${i + 1}/`,
       component: listComponent,
       context: {
         limit: postsPerPage,

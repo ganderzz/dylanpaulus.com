@@ -6,7 +6,6 @@ import { SubHeading } from "../components/subheading";
 const IndexPage = () => (
   <Layout>
     <SEO
-      description=""
       title="About"
       keywords={[
         `software`,

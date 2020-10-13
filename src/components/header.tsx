@@ -8,10 +8,11 @@ const Header = ({ siteTitle }) => {
 
   return (
     <header className="pt-10 h-64">
-      <div className="z-10 relative container md:max-w-none mx-auto md:w-full lg:w-5/6 lg:mx-auto h-12 pl-2 pr-2 flex items-center">
+      <div className="z-10 relative container md:max-w-none mx-auto md:w-full lg:w-11/12 lg:mx-auto h-12 pl-2 pr-2 flex items-center">
         <Link
           to="/"
-          className="text-5xl mx-0 font-bold lg:w-1/2 w-1/4 text-white no-underline hover:text-gray-500"
+          title={siteTitle}
+          className="text-5xl mx-0 font-bold lg:w-1/2 w-1/4 text-white no-underline hover:text-gray-500 transition-all"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -45,20 +46,15 @@ const Header = ({ siteTitle }) => {
           </svg>
         </Link>
 
-        <div className="text-right lg:w-1/2 w-3/4 z-10">
+        <nav role="navigation" className="text-right lg:w-1/2 w-3/4 z-10">
           <MenuLink to="/">Blog</MenuLink>
-          <MenuLink to="/about">About</MenuLink>
+          <MenuLink to="/about/">About</MenuLink>
 
           <a
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            className="text-white hover:text-gray-500 transition-colors text-xl ml-3 relative inline-block cursor-pointer"
             style={{
-              color: "#FFF",
-              fontSize: "1.3rem",
-              marginLeft: 10,
-              cursor: "pointer",
-              position: "relative",
               top: 5,
-              display: "inline-block",
             }}
           >
             {theme === "dark" ? (
@@ -95,9 +91,10 @@ const Header = ({ siteTitle }) => {
               </svg>
             )}
           </a>
-        </div>
+        </nav>
       </div>
-      <div className="skewed bg-gray-900" />
+
+      <div aria-hidden="true" className="skewed bg-gray-900" />
     </header>
   );
 };

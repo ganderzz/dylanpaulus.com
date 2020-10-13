@@ -70,12 +70,13 @@ const socialMedia: ISocialProps[] = [
         />
       </svg>
     ),
-    url: "/sitemap",
+    url: "/sitemap/",
     isExternal: false,
   },
 ];
 
-const socialIconClass = "hover:opacity-100 mr-12 opacity-75 text-5xl";
+const socialIconClass =
+  "hover:opacity-100 mr-12 opacity-75 text-5xl inline-block";
 
 export function Footer() {
   return (
@@ -88,7 +89,6 @@ export function Footer() {
               className={socialIconClass}
               href={item.url}
               title={item.title}
-              style={{ display: "inline-block" }}
             >
               {item.icon}
             </a>
@@ -101,7 +101,6 @@ export function Footer() {
             title={item.title}
             className={socialIconClass}
             to={item.url}
-            style={{ display: "inline-block" }}
           >
             {item.icon}
           </Link>

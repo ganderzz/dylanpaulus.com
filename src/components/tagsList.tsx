@@ -30,7 +30,7 @@ export function TagsList({ tags = [], style = {}, ...rest }: IProps) {
       {tags.map((tag) => (
         <Link
           key={tag}
-          to={`/tags/${tag}`}
+          to={`/tags/${tag}/`}
           className={`inline-block ${tagColor(
             tag
           )} hover:bg-white rounded-full px-3 py-1 text-sm font-semibold mr-2 leading-5 transition ease-out duration-200`}

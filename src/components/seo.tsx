@@ -14,24 +14,32 @@ interface IProps {
 const Helmet: any = H;
 
 function SEO({
-  description = "",
+  description = null,
   lang = "en",
   meta = [],
   keywords = [],
-  title = "",
+  title = null,
   image = null,
 }: Partial<IProps>) {
   return (
     <StaticQuery
       query={detailsQuery}
       render={(data) => {
-        const metaDescription =
-          description || data.site.siteMetadata.description;
+        const siteMetadata = data.site.siteMetadata;
+        const metaDescription = description ?? siteMetadata.description;
+        const siteLink = `${siteMetadata.siteUrl}${location.pathname}`;
 
         return (
           <Helmet
-            title={title}
-            titleTemplate={`%s | ${data.site.siteMetadata.title}`}
+            title={title ?? title}
+            titleTemplate={`%s | ${title}`}
+            link={[
+              {
+                rel: "canonical",
+                key: siteLink,
+                href: siteLink,
+              },
+            ]}
             meta={[
               {
                 name: `description`,
@@ -39,7 +47,7 @@ function SEO({
               },
               {
                 property: `og:title`,
-                content: title,
+                content: siteMetadata.title,
               },
               {
                 property: `og:description`,
@@ -55,7 +63,7 @@ function SEO({
               },
               {
                 name: `twitter:creator`,
-                content: data.site.siteMetadata.author,
+                content: siteMetadata.author,
               },
               {
                 name: `twitter:title`,
@@ -65,15 +73,11 @@ function SEO({
                 name: `twitter:description`,
                 content: metaDescription,
               },
+              {
+                name: `keywords`,
+                content: keywords.concat(siteMetadata.keywords).join(`, `),
+              },
             ]
-              .concat(
-                keywords.length > 0
-                  ? {
-                      name: `keywords`,
-                      content: keywords.join(`, `),
-                    }
-                  : []
-              )
               .concat(
                 image
                   ? {
@@ -100,6 +104,8 @@ const detailsQuery = graphql`
         title
         description
         author
+        keywords
+        siteUrl
       }
     }
   }

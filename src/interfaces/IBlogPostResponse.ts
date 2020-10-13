@@ -3,4 +3,9 @@ export interface IBlogPostResponse {
   title: string;
   tags: string[];
   image: string | null;
+  site: {
+    siteMetadata: {
+      siteUrl: string;
+    };
+  };
 }

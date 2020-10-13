@@ -41,7 +41,7 @@ export default function SiteMap({ data }) {
           {Object.keys(tagsList).map((key) => (
             <Link
               key={key}
-              to={`/tags/${key}`}
+              to={`/tags/${key}/`}
               className="focus:border-2 focus:border-grey-dark hover:opacity-100 m-2 hover:bg-gray-700 hover:text-white text-lg rounded bg-gray-700 p-2 text-white no-underline font-semibold mr-2 opacity-75"
             >
               {key} ({tagsList[key] || 0})

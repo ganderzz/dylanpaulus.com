@@ -13,7 +13,6 @@ export default function BlogList({ data, pageContext }) {
   return (
     <Layout>
       <SEO
-        description=""
         title="Home"
         keywords={[
           `software`,
@@ -26,8 +25,8 @@ export default function BlogList({ data, pageContext }) {
           `javascript`,
         ]}
       />
-      <section className="sm:p-16 p-6 pt-10">
-        <SubHeading style={{ marginTop: 0 }}>Recently Published</SubHeading>
+      <section className="p-8">
+        <SubHeading className="mt-0">Recently Published</SubHeading>
 
         {posts.map((post) => (
           <PostListItem key={post.node.id} data={post} />

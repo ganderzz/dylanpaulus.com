@@ -1,7 +1,6 @@
 import React from "react";
 import { IPost } from "../interfaces/IPost";
 import { Link } from "gatsby";
-import { TagsList } from "./tagsList";
 
 interface IProps {
   data: {
@@ -33,7 +32,7 @@ export function PostListItem({ data, style = {}, ...rest }: IProps) {
 
       <aside
         style={{ color: "var(--font-color)" }}
-        className="text-lg leading-12 "
+        className="text-base leading-12 "
       >
         {data.node.excerpt}
       </aside>
