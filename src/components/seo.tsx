@@ -33,8 +33,8 @@ function SEO({
 
         return (
           <Helmet
-            title={title ?? title}
-            titleTemplate={`%s | ${title}`}
+            title={title ?? siteMetadata.title}
+            titleTemplate={`%s | ${siteMetadata.title}`}
             link={[
               {
                 rel: "canonical",
@@ -93,7 +93,7 @@ function SEO({
                       },
                       {
                         name: `twitter:card`,
-                        content: `summary`,
+                        content: `summary_large_image`,
                       },
                     ]
                   : [
