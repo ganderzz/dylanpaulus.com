@@ -27,7 +27,9 @@ function SEO({
       render={(data) => {
         const siteMetadata = data.site.siteMetadata;
         const metaDescription = description ?? siteMetadata.description;
-        const siteLink = `${siteMetadata.siteUrl}${location.pathname}`;
+        const siteLink = `${siteMetadata.siteUrl}${
+          typeof window !== "undefined" ? window.location.pathname : ""
+        }`;
 
         return (
           <Helmet
