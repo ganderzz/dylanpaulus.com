@@ -58,8 +58,8 @@ function SEO({
                 content: `website`,
               },
               {
-                name: `twitter:card`,
-                content: `summary`,
+                property: `og:url`,
+                content: siteLink,
               },
               {
                 name: `twitter:creator`,
@@ -80,11 +80,26 @@ function SEO({
             ]
               .concat(
                 image
-                  ? {
-                      name: `twitter:image`,
-                      content: image,
-                    }
-                  : []
+                  ? [
+                      {
+                        name: `twitter:image`,
+                        content: image,
+                      },
+                      {
+                        name: `og:image`,
+                        content: image,
+                      },
+                      {
+                        name: `twitter:card`,
+                        content: `summary`,
+                      },
+                    ]
+                  : [
+                      {
+                        name: `twitter:card`,
+                        content: `summary`,
+                      },
+                    ]
               )
               .concat(meta)}
           >
