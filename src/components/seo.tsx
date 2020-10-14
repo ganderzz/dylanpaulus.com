@@ -27,9 +27,7 @@ function SEO({
       render={(data) => {
         const siteMetadata = data.site.siteMetadata;
         const metaDescription = description ?? siteMetadata.description;
-        const siteLink = `${siteMetadata.siteUrl}${
-          typeof window !== "undefined" ? window.location.pathname : ""
-        }`;
+        const siteLink = `${siteMetadata.siteUrl}${typeof window !== "undefined" ? window.location.pathname : ""}`;
 
         return (
           <Helmet
@@ -106,6 +104,8 @@ function SEO({
               .concat(meta)}
           >
             <html lang={lang ?? "en"} />
+
+            <script async defer data-domain="dylanpaulus.com" src="https://plausible.io/js/plausible.js"></script>
           </Helmet>
         );
       }}
