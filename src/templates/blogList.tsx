@@ -45,7 +45,7 @@ export const blogListQuery = graphql`
     posts: allMarkdownRemark(
       sort: { fields: [frontmatter___date], order: DESC }
       filter: {
-        fileAbsolutePath: { glob: "**/posts/*.md" }
+        fileAbsolutePath: { glob: "**/posts/**/index.md" }
         frontmatter: { published: { eq: true } }
       }
       limit: $limit

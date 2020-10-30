@@ -1,6 +1,5 @@
 ---
 title: "Intro to FlightJS"
-path: "/blog/intro-to-flight-js"
 tags: ["Javascript", "FlightJS"]
 date: "2015-11-17"
 published: true

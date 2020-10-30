@@ -2,9 +2,8 @@
 title: "CSS: The Important Stuff (Box Model)"
 tags: ["CSS", "Frontend"]
 path: "/blog/css-box-model"
-image: "alex-hiller-ybrHV5FWqr4-unsplash.jpg"
+image: "banner.jpg"
 image_credit: "https://unsplash.com/photos/ybrHV5FWqr4"
-theme: "light"
 date: "2020-10-24"
 published: true
 ---
@@ -17,7 +16,7 @@ This is a series I'm starting called, "CSS: The Important Stuff". The goal is to
 
 It comes with great danger to myself to tell you that the web is made of boxes. Yes, it's boxes all the way down. Just take a look at this website—open the Element Inspector in the browser's dev tools and add <br />`* { border: 1px solid red; }` . Look at all those fine boxes.
 
-![The dylanpaulus.com website with visible borders around each box element.](../src/images/media/css-box-model-red-boxes.png)
+![The dylanpaulus.com website with visible borders around each box element.](./css-box-model-red-boxes.png)
 
 The browser uses boxes to layout and render our websites. Within each box there are four properties: content, padding, border, and margin. [Boxes are like onions, they have layers.](https://youtu.be/-FtCTW2rVFM?t=44) Each property defines the size of our box (ie. width and height), styling, and how content around the box flows.
 
@@ -26,7 +25,7 @@ The browser uses boxes to layout and render our websites. Within each box there 
 - **Borders** are used to visually separate boxes from each other—as seen in our red border example above
 - **Margin** is non-stylistic spacing _around_ the box. This is useful to separate boxes from each other and position boxes
 
-![Showing the layout of content, padding, border, and margin to make up a box.](../src/images/media/css-box-model.svg)
+![Showing the layout of content, padding, border, and margin to make up a box.](./css-box-model.png)
 
 ## Why does this matter?
 
@@ -48,7 +47,7 @@ Given the styling on our moon icon below, what would you expect the width and he
 }
 ```
 
-![Showing a moon icon using box sizing content-box.](../src/images/media/css-box-model-content-box.png)
+![Showing a moon icon using box sizing content-box.](./css-box-model-content-box.png)
 
 That's easy it's 100px... wait, 122px, what? How did we get 122px? Remember when we gave the width and height of 100px it only applies to the **content** layer. We also applied a **padding** of 10px on _each_ side of the box and a 1px **border** around it. If we were to calculate the width of the box, we start with 100px, add 10px for the left padding, add 10px for the right padding, add 1px for the left border, and finally 1px for the right border.
 
@@ -68,7 +67,7 @@ Let's take a look at the same moon icon, but apply `border-box` instead.
 }
 ```
 
-![Showing a moon icon using box sizing as border-box.](../src/images/media/css-box-model-border-box.png)
+![Showing a moon icon using box sizing as border-box.](./css-box-model-border-box.png)
 
 What we see is something quite different, the width and height of the moon is now a hard 100x100. This isn't magic though, the missing dimensions have to come from somewhere. Using `border-box` the **content** layer gets shrunk to make room for **padding** and **border**. With `content-box` or width was guaranteed to be 100px, but what is the width of our content now with `border-box`?
 

@@ -25,14 +25,14 @@ export default function BlogPost(payload: Props) {
   return (
     <Layout>
       <SEO
-        description={frontmatter.title}
+        description={frontmatter.description ?? frontmatter.title}
         title={frontmatter.title}
         keywords={frontmatter.tags}
         image={
           frontmatter.image
-            ? `${
-                (payload.data as any).site.siteMetadata.siteUrl
-              }${require(`../images/covers/${frontmatter.image}`)}`
+            ? `${(payload.data as any).site.siteMetadata.siteUrl}/static/${
+                frontmatter.image
+              }`
             : null
         }
       />
@@ -94,7 +94,6 @@ export const pageQuery = graphql`
         tags
         image
         image_credit
-        theme
         published
       }
       parent {

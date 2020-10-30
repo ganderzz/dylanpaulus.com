@@ -59,7 +59,8 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
-        path: `${__dirname}/src/images`,
+        path: `${__dirname}/static/images`,
+        ignore: [`**/\.*`],
       },
     },
     {
@@ -67,6 +68,7 @@ module.exports = {
       options: {
         path: `${__dirname}/posts`,
         name: "posts",
+        ignore: [`**/\.*`],
       },
     },
     `gatsby-plugin-typescript`,
@@ -80,14 +82,9 @@ module.exports = {
         background_color: `#5755c9`,
         theme_color: `#5755c9`,
         display: `minimal-ui`,
-        icon: `src/images/favicon.svg`, // This path is relative to the root of the site.
+        icon: `static/favicon.svg`, // This path is relative to the root of the site.
       },
     },
-    {
-      resolve: `gatsby-plugin-offline`,
-      options: {
-        precachePages: [`/about/`, `/404/`, `/posts/*`],
-      },
-    },
+    `gatsby-plugin-netlify-cms`,
   ],
 };

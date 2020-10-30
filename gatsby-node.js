@@ -9,7 +9,7 @@ exports.createPages = async ({ graphql, actions }) => {
     `
       {
         blog: allMarkdownRemark(
-          filter: { fileAbsolutePath: { glob: "**/posts/*.md" } }
+          filter: { fileAbsolutePath: { glob: "**/posts/**/index.md" } }
           sort: { fields: [frontmatter___date], order: DESC }
         ) {
           edges {
@@ -38,12 +38,11 @@ exports.createPages = async ({ graphql, actions }) => {
   const listComponent = path.resolve("./src/templates/blogList.tsx");
   const postComponent = path.resolve(`./src/templates/blogPost.tsx`);
   const postsForTag = path.resolve(`./src/templates/postsForTag.tsx`);
-  const siteMap = path.resolve(`./src/templates/sitemap.tsx`);
 
   // Sitemap
   createPage({
-    path: `/sitemap`,
-    component: siteMap,
+    path: `/sitemap/`,
+    component: path.resolve(`./src/templates/sitemap.tsx`),
   });
 
   const tags = posts.reduce((accu, post) => {

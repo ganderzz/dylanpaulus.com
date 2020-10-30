@@ -30,7 +30,7 @@ const IndexPage = () => (
           Music, Hiking/Backpacking/Camping, Reading
           <div className="text-center mt-8">
             <img
-              src={require("../images/about-image.jpg")}
+              src={require("../../static/images/about-image.jpg")}
               alt="Image of Dylan playing drums"
               className="shadow"
               style={{
