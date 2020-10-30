@@ -15,7 +15,7 @@ export function Pagination({ currentPage, totalPages }: IProps) {
             ? ""
             : `/${currentPage === 2 ? "" : currentPage - 1}`
         }
-        className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-500 hover:text-gray-400 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150"
+        className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-secondary-300 bg-secondary-100 text-sm leading-5 font-medium text-primary-100 hover:bg-secondary-200 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-primary-100 active:text-gray-500 transition ease-in-out duration-150"
         aria-label="Previous"
       >
         <svg
@@ -40,7 +40,7 @@ export function Pagination({ currentPage, totalPages }: IProps) {
           return (
             <strong
               key={i}
-              className="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-gray-200 text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150"
+              className="-ml-px relative inline-flex items-center px-4 py-2 border border-secondary-300 bg-secondary-300 text-sm leading-5 font-medium text-primary-100 hover:text-primary-200 hover:bg-secondary-200 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-primary-100 active:bg-secondary-200 transition ease-in-out duration-150"
             >
               {index}
             </strong>
@@ -51,7 +51,7 @@ export function Pagination({ currentPage, totalPages }: IProps) {
           <Link
             key={i}
             to={`/${pageLink}`}
-            className="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150"
+            className="-ml-px relative inline-flex items-center px-4 py-2 border border-secondary-300 bg-secondary-100 text-sm leading-5 font-medium text-primary-200 hover:bg-secondary-200 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-primary-100 active:bg-secondary-200 transition ease-in-out duration-150"
           >
             {index}
           </Link>
@@ -60,7 +60,7 @@ export function Pagination({ currentPage, totalPages }: IProps) {
 
       <Link
         to={currentPage === totalPages ? "" : `/${currentPage + 1}`}
-        className="-ml-px relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-500 hover:text-gray-400 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150"
+        className="-ml-px relative inline-flex items-center px-2 py-2 rounded-r-md border border-secondary-300 bg-secondary-100 text-sm leading-5 font-medium text-primary-100 hover:bg-secondary-200 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-primary-100 active:text-gray-500 transition ease-in-out duration-150"
         aria-label="Next"
         aria-disabled={currentPage === totalPages}
       >

@@ -14,8 +14,12 @@
 }
 
 html[data-theme="light"] {
-  --bg-color: #f1f1f1;
-  --bg-color-secondary: #fff;
+  --primary-100: #111;
+  --primary-200: #222;
+  --primary-300: #333;
+  --secondary-100: #fff;
+  --secondary-200: #f1f1f1;
+  --secondary-300: #ddd;
   --code-bg: #333;
   --code-highlight-bg: #444;
   --border-color: #ddd;
@@ -25,13 +29,15 @@ html[data-theme="light"] {
 
   --link-color: #5755c9;
   --link-hover-color: #1e1c63;
-
-  --input-bg: #fff;
 }
 
 html[data-theme="dark"] {
-  --bg-color: #222a3a;
-  --bg-color-secondary: #293347;
+  --primary-100: #fff;
+  --primary-200: #f1f1f1;
+  --primary-300: #ddd;
+  --secondary-100: #2a3546;
+  --secondary-200: #334054;
+  --secondary-300: #44546d;
   --code-bg: #222a3a;
   --code-highlight-bg: #1a202d;
   --border-color: rgba(255, 255, 255, 0.3);
@@ -41,8 +47,6 @@ html[data-theme="dark"] {
 
   --link-color: hsl(332.8, 100%, 71%);
   --link-hover-color: hsl(332.8, 100%, 87%);
-
-  --input-bg: #222a3a;
 }
 
 /* base styling */
@@ -58,7 +62,7 @@ html {
   font-size: 16px;
   font-weight: 400;
   line-height: 1.5;
-  color: var(--font-color);
+  color: var(--primary-100);
 }
 
 @supports (font-variation-settings: normal) {
@@ -74,7 +78,7 @@ body {
 }
 
 body {
-  background-color: var(--bg-color);
+  background-color: var(--secondary-200);
   font-size: 1rem;
 }
 
@@ -146,7 +150,7 @@ pre[class*="language-"] {
 }
 
 blockquote {
-  background: var(--bg-color);
+  background: var(--secondary-200);
   border-left: 10px solid #ccc;
   margin: 0.2rem 0;
   padding: 0.5rem 10px;
@@ -207,7 +211,7 @@ ol li::marker {
 
 .main-content {
   @apply max-w-screen-xl;
-  background-color: var(--bg-color-secondary);
+  background-color: var(--secondary-100);
   position: relative;
   border-radius: var(--border-radius);
   z-index: 1;
@@ -285,14 +289,14 @@ ol li::marker {
   font-size: 3rem;
 }
 .gt-btn {
-  background: var(--bg-color-secondary) !important;
+  background: var(--secondary-100) !important;
   color: var(--font-color) !important;
   border-color: var(--border-color) !important;
 }
 textarea,
 .gt-header-preview,
 .gt-comment-content {
-  background: var(--input-bg) !important;
+  background: var(--secondary-100) !important;
   color: var(--font-color) !important;
   border-color: var(--border-color) !important;
 }

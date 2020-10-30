@@ -25,7 +25,7 @@ export default function BlogList({ data, pageContext }) {
           `javascript`,
         ]}
       />
-      <section className="p-8">
+      <section className="px-8 pt-2 pb-8">
         <SubHeading className="mt-0">Recently Published</SubHeading>
 
         {posts.map((post) => (

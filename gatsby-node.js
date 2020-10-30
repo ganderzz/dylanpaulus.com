@@ -1,52 +1,16 @@
 const path = require("path");
+const fs = require("fs");
+const elasticlunr = require("elasticlunr");
+
 const { createFilePath } = require("gatsby-source-filesystem");
 
-const redirects = [
-  {
-    fromPath: "2020-02-04-making-react-fast",
-    toPath: "making-react-fast",
-  },
-  {
-    fromPath: "2019-12-29-2020-albums-decade",
-    toPath: "albums-2010-2020-decade",
-  },
-  {
-    fromPath: "2019-12-01-lost-connections",
-    toPath: "lost-connections",
-  },
-  {
-    fromPath: "2019-11-24-how-fb-avoids-adblockers",
-    toPath: "how-fb-avoids-adblockers",
-  },
-  {
-    fromPath: "2015-11-17-intro-to-flight-js",
-    toPath: "intro-to-flight-js",
-  },
-  {
-    fromPath: "2019-07-21-clean-code",
-    toPath: "clean-code",
-  },
-  {
-    fromPath: "2019-06-17-level-terminal-navigation",
-    toPath: "level-terminal-navigation",
-  },
-  {
-    fromPath: "2019-03-31-functional-programming",
-    toPath: "intro-functional-programming",
-  },
-  {
-    fromPath: "2018-11-03-introducing-react-scroll-to-v2",
-    toPath: "introducing-react-scroll-to-v2",
-  },
-  {
-    fromPath: "2018-10-18-react-controlling-rendering-with-keys",
-    toPath: "react-controlling-rendering-with-keys",
-  },
-  {
-    fromPath: "2018-10-11-tips-on-improving-fabricjs-speed",
-    toPath: "tips-on-improving-fabricjs-speed",
-  },
-];
+const redirects = require("./redirects");
+const staticUrls = require("./static-urls");
+
+const listComponent = path.resolve("./src/templates/blogList.tsx");
+const postComponent = path.resolve(`./src/templates/blogPost.tsx`);
+const postsForTag = path.resolve(`./src/templates/postsForTag.tsx`);
+const redirectComponent = path.resolve(`./src/templates/redirect.tsx`);
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage, createRedirect } = actions;
@@ -64,6 +28,7 @@ exports.createPages = async ({ graphql, actions }) => {
                 slug
               }
               frontmatter {
+                title
                 tags
               }
             }
@@ -81,14 +46,42 @@ exports.createPages = async ({ graphql, actions }) => {
   const postsPerPage = 6;
   const numPages = Math.ceil(posts.length / postsPerPage);
 
-  const listComponent = path.resolve("./src/templates/blogList.tsx");
-  const postComponent = path.resolve(`./src/templates/blogPost.tsx`);
-  const postsForTag = path.resolve(`./src/templates/postsForTag.tsx`);
+  // create search index json file.
+  const idx = elasticlunr(function () {
+    this.setRef("slug");
+
+    this.addField("title");
+    this.addField("tags");
+  });
+
+  posts.forEach(function ({ node }) {
+    idx.addDoc({
+      slug: node.fields.slug,
+      title: node.frontmatter.title,
+      tags: node.frontmatter.tags.join(" "),
+    });
+  });
+
+  fs.writeFile("search.json", JSON.stringify(idx), function (err) {
+    if (err) {
+      throw err;
+    }
+
+    console.log("Search index is created successfully.");
+  });
 
   // Sitemap
   createPage({
     path: `/sitemap/`,
     component: path.resolve(`./src/templates/sitemap.tsx`),
+  });
+
+  staticUrls.forEach((item) => {
+    createPage({
+      path: item.from,
+      component: redirectComponent,
+      context: item,
+    });
   });
 
   const tags = posts.reduce((accu, post) => {

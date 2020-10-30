@@ -22,6 +22,7 @@ module.exports = {
   plugins: [
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
+    "gatsby-plugin-svgr",
     `gatsby-plugin-postcss`,
     {
       resolve: `gatsby-transformer-remark`,

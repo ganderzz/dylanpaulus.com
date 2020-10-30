@@ -4,6 +4,7 @@ import Header from "./header";
 import { Footer } from "./footer";
 
 import "../styles/main.css";
+import { Search } from "./search";
 
 const Layout = ({ children }) => (
   <StaticQuery
@@ -21,6 +22,7 @@ const Layout = ({ children }) => (
         <Header siteTitle={data.site.siteMetadata.title} />
 
         <main className="main-content container mx-auto md:w-full lg:w-11/12 text-base -mt-32">
+          <Search />
           <section className="mx-auto">{children}</section>
 
           <Footer />
