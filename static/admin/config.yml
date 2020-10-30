@@ -1,6 +1,7 @@
 backend:
   name: github
   branch: master
+  base_url: https://api.netlify.com
   repo: ganderzz/dylanpaulus.com
 
 publish_mode: editorial_workflow
