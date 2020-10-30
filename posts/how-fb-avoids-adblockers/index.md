@@ -2,8 +2,7 @@
 title: "How Facebook Avoids Ad Blockers"
 tags: ["encryption", "facebook", "interesting", "ads"]
 path: "/blog/how-fb-avoids-adblockers"
-image: joshua-hoehne-Uo2ZXh4XOLY-unsplash.jpg
-theme: "light"
+image: banner.jpg
 date: "2019-11-24"
 published: true
 ---
@@ -14,7 +13,7 @@ Many sites try to avoid our ad blockers through limiting content or just straigh
 
 Facebook ads take the form of a card containing the text 'Sponsored' (as shown below).
 
-![Image of a Facebook Ad containing 'Sponsored' text](../src/images/media/fb_ad.png)
+![Image of a Facebook Ad containing 'Sponsored' text](./fb_ad.png)
 
 At first glance blocking these ads seems simple. Look for elements with the text containing 'Sponsored'. Maybe even look at the class names to be more specific. Then, slap on a good-ol' _display: none;_. Hold up cowboy--it's a little bit more complex than that!
 
@@ -145,7 +144,7 @@ The next technique, this is the point where it gets particularly interesting, Fa
 
 <center style="margin: 20px 0px">
 
-![Animation showing the obfuscation techniques by Facebook](../src/images/media/fb_encode.gif)
+![Animation showing the obfuscation techniques by Facebook](./fb_encode.gif)
 
 </center>
 At this point our CSS ad blocker is completely broken. There is no way for us to possibly code every possible value in CSS. Ugh.

@@ -2,9 +2,8 @@
 title: "Start With No"
 tags: ["Project Management"]
 path: "/blog/start-with-no"
-image: no.jpeg
+image: banner.jpeg
 image_credit: "https://unsplash.com/photos/JmJDyFUSYWI"
-theme: "light"
 date: "2020-09-13"
 published: true
 ---
@@ -23,7 +22,7 @@ Story time. At a previous employer I had a boss who I thought was pretty tough. 
 
 There is a natural progression to projects that looks something like this. First, the honeymoon phase. The pastures are green; the project has no technical debt and every feature is a great idea. As we add functionality our user base grows. If we're lucky enough to get traction we move to phase two, the monolith. Our application now handles a bunch of use-cases. It does your taxes, picks up your dog's poop, and reminds you to call your mom. Only power users can fully grasp the purpose of the application. The technical debt is increasing with every new feature added. Finally, we get to the last phase. The application has become so bloated that it's hard to develop new features. New users aren't willing to learn the ins-and-outs of the product. A new startup comes around with a trimmed down version of your application. It's so easy to use! Around this time users are jumping ship.
 
-![Diagram showing a product's lifecycle](../src/images/media/feature-graph.jpg)
+![Diagram showing a product's lifecycle](./feature-graph.jpg)
 
 Saying "no" is a buffer in our development process. It gives us, the developer, time to think of an optimal solution. Could a feature being asked for be solved in a way that satisfies multiple feature requests? Is there some domain logic we have yet to understand? Does the feature really make sense in _this_ application? All these questions help reduce the lifecycle described above. It reduces feature churn by keeping the application simple, and by solving issues the users actually have.
 

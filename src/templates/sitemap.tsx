@@ -4,47 +4,35 @@ import Layout from "../components/layout";
 import SEO from "../components/seo";
 
 export default function SiteMap({ data }) {
-  const { allMarkdownRemark } = data;
-  const { edges } = allMarkdownRemark;
+  const sortedTags = React.useMemo(() => {
+    return data.allMarkdownRemark.group.sort(
+      (a, b) => b.totalCount - a.totalCount
+    );
+  }, [data]);
 
-  const tagsList = React.useMemo(
-    () =>
-      edges.reduce((accu, edge) => {
-        const tags = edge.node.frontmatter.tags;
-
-        const formatted = tags.reduce((subAccu, tag) => {
-          return {
-            ...subAccu,
-            [tag]: accu[tag] && accu[tag] >= 0 ? accu[tag] + 1 : 1,
-          };
-        }, {});
-
-        return {
-          ...accu,
-          ...formatted,
-        };
-      }, {}),
-    [edges]
-  );
+  const largestTotalCount = sortedTags[0].totalCount;
 
   return (
     <Layout>
       <SEO
         description="Sitemap"
         title="Sitemap"
-        keywords={Object.keys(tagsList || {})}
+        keywords={sortedTags.map((p) => p.tag)}
       />
       <section className="sm:p-16 p-6 pt-10">
         <h3 className="mt-0 mb-16 bg-gray-800 text-white p-6">Sitemap</h3>
 
         <div className="flex flex-wrap -mb-4">
-          {Object.keys(tagsList).map((key) => (
+          {sortedTags.map(({ tag, totalCount }) => (
             <Link
-              key={key}
-              to={`/tags/${key}/`}
+              key={tag}
+              to={`/tags/${tag}/`}
+              style={{
+                opacity: Math.max(0.65, totalCount / largestTotalCount),
+              }}
               className="focus:border-2 focus:border-grey-dark hover:opacity-100 m-2 hover:bg-gray-700 hover:text-white text-lg rounded bg-gray-700 p-2 text-white no-underline font-semibold mr-2 opacity-75"
             >
-              {key} ({tagsList[key] || 0})
+              {tag} ({totalCount ?? 0})
             </Link>
           ))}
         </div>
@@ -54,15 +42,11 @@ export default function SiteMap({ data }) {
 }
 
 export const pageQuery = graphql`
-  query {
-    allMarkdownRemark {
-      edges {
-        node {
-          id
-          frontmatter {
-            tags
-          }
-        }
+  {
+    allMarkdownRemark(limit: 500) {
+      group(field: frontmatter___tags) {
+        tag: fieldValue
+        totalCount
       }
     }
   }

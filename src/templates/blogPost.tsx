@@ -31,7 +31,7 @@ export default function BlogPost(payload: Props) {
         image={
           frontmatter.image
             ? `${(payload.data as any).site.siteMetadata.siteUrl}/static/${
-                frontmatter.image
+                frontmatter.image.relativePath
               }`
             : null
         }
@@ -92,15 +92,12 @@ export const pageQuery = graphql`
         date(formatString: "MMMM DD, YYYY")
         title
         tags
-        image
+        image {
+          id
+          relativePath
+        }
         image_credit
         published
-      }
-      parent {
-        ... on File {
-          name
-          extension
-        }
       }
     }
   }
