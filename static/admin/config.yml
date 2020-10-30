@@ -1,7 +1,7 @@
 backend:
   name: git-gateway
   branch: master
-  repo: ganderzz/dylanpaulus.com
+  repo: https://github.com/ganderzz/ganderzz.github.io
 
 publish_mode: editorial_workflow
 media_folder: "static/images/uploads"
