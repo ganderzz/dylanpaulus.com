@@ -8,6 +8,7 @@
     "@mdx-js/mdx": "^1.6.19",
     "@mdx-js/react": "^1.6.19",
     "@svgr/webpack": "^5.4.0",
+    "autoprefixer": "^10.0.1",
     "elasticlunr": "^0.9.5",
     "gatsby": "^2.24.91",
     "gatsby-image": "^2.4.21",
@@ -23,7 +24,6 @@
     "gatsby-remark-autolink-headers": "^2.3.16",
     "gatsby-remark-copy-linked-files": "^2.3.19",
     "gatsby-remark-images": "^3.3.40",
-    "gatsby-remark-mathjax": "^1.0.0",
     "gatsby-remark-numbered-footnotes": "^1.0.1",
     "gatsby-remark-prismjs": "^3.5.16",
     "gatsby-source-filesystem": "^2.3.37",
@@ -31,6 +31,7 @@
     "gatsby-transformer-sharp": "^2.5.20",
     "gitalk": "^1.7.0",
     "netlify-cms-app": "^2.13.1",
+    "postcss": "^8.1.4",
     "prismjs": "^1.22.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -55,6 +56,8 @@
     "url": "https://github.com/gatsbyjs/gatsby/issues"
   },
   "devDependencies": {
+    "cssnano": "^4.1.10",
+    "cssnano-preset-advanced": "^4.0.7",
     "prettier": "^2.1.2"
   }
 }

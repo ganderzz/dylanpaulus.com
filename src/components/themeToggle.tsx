@@ -7,7 +7,7 @@ import { useSpring, useTransition, animated } from "react-spring";
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
   const transitions = useTransition(theme === "dark", null, {
-    from: { position: "absolute", opacity: 0, transform: "scale(0.8)" },
+    from: { position: "absolute" },
     enter: { opacity: 1, transform: "scale(1)" },
     leave: { opacity: 0, transform: "scale(2)" },
   });

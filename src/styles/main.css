@@ -75,7 +75,6 @@ html[data-theme="dark"] {
 
 * {
   box-sizing: border-box;
-  transition: all 0.2s;
 }
 
 html {
@@ -86,6 +85,11 @@ html {
   font-weight: 400;
   line-height: 1.5;
   color: var(--primary-100);
+  font-variation-settings: "wght" 400, "slnt" 0;
+}
+
+.font-bold {
+  font-variation-settings: "wght" 700, "slnt" 0;
 }
 
 @supports (font-variation-settings: normal) {
