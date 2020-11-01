@@ -11,7 +11,11 @@ interface IProps {
 
 export function PostListItem({ data, style = {}, ...rest }: IProps) {
   return (
-    <div style={style} className="block mb-20 max-w-screen-lg" {...rest}>
+    <div
+      style={{ minHeight: 117, ...style }}
+      className="block mb-20 max-w-screen-lg"
+      {...rest}
+    >
       <div
         style={{ color: "var(--font-color)" }}
         className="flex font-medium text-md opacity-75"
