@@ -11,6 +11,24 @@
 
 :root {
   --border-radius: 0.5rem;
+
+  --primary-100: #111;
+  --primary-200: #222;
+  --primary-300: #333;
+  --secondary-100: #fff;
+  --secondary-200: #f1f1f1;
+  --secondary-300: #ddd;
+  --secondary-400: #ccc;
+  --secondary-500: #b7b7b7;
+  --code-bg: #333;
+  --code-highlight-bg: #444;
+  --border-color: #ddd;
+  --font-color-opacity: 0.8;
+  --font-color: rgba(0, 0, 0, var(--font-color-opacity));
+  --font-color-secondary: rgba(80, 80, 80, var(--font-color-opacity));
+
+  --link-color: #5755c9;
+  --link-hover-color: #1e1c63;
 }
 
 html[data-theme="light"] {
@@ -57,6 +75,7 @@ html[data-theme="dark"] {
 
 * {
   box-sizing: border-box;
+  transition: all 0.2s;
 }
 
 html {

@@ -14,18 +14,9 @@ export default function BlogList({ data, pageContext }) {
     <Layout>
       <SEO
         title="Home"
-        keywords={[
-          `software`,
-          `code`,
-          `programming`,
-          `blog`,
-          `portfolio`,
-          `react`,
-          `typescript`,
-          `javascript`,
-        ]}
+        keywords={[`software`, `code`, `programming`, `blog`, `portfolio`, `react`, `typescript`, `javascript`]}
       />
-      <section className="px-8 pt-2 pb-8">
+      <section className="px-10 pt-2 pb-8">
         <SubHeading className="mt-0">Recently Published</SubHeading>
 
         {posts.map((post) => (
@@ -44,10 +35,7 @@ export const blogListQuery = graphql`
   query blogListQuery($skip: Int!, $limit: Int!) {
     posts: allMarkdownRemark(
       sort: { fields: [frontmatter___date], order: DESC }
-      filter: {
-        fileAbsolutePath: { glob: "**/posts/**/index.md" }
-        frontmatter: { published: { eq: true } }
-      }
+      filter: { fileAbsolutePath: { glob: "**/posts/**/index.md" }, frontmatter: { published: { eq: true } } }
       limit: $limit
       skip: $skip
     ) {

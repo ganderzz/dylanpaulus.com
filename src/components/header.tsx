@@ -2,13 +2,9 @@ import { Link } from "gatsby";
 import React from "react";
 import { MenuLink } from "./menuLink";
 import { ReactComponent as Logo } from "../../static/logo.svg";
-import { ReactComponent as MoonIcon } from "../icons/moon.svg";
-import { ReactComponent as SunIcon } from "../icons/sun.svg";
-import useTheme from "../hooks/useTheme";
+import { ThemeToggle } from "./themeToggle";
 
 const Header = ({ siteTitle }) => {
-  const { theme, setTheme } = useTheme();
-
   return (
     <header className="pt-10 h-64">
       <div className="z-10 relative container md:max-w-none mx-auto md:w-full lg:w-11/12 lg:mx-auto h-12 pl-2 pr-2 flex items-center">
@@ -24,15 +20,7 @@ const Header = ({ siteTitle }) => {
           <MenuLink to="/">Blog</MenuLink>
           <MenuLink to="/about">About</MenuLink>
 
-          <a
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="text-white hover:text-gray-500 transition-colors text-xl ml-3 relative inline-block cursor-pointer"
-            style={{
-              top: 5,
-            }}
-          >
-            {theme === "dark" ? <SunIcon /> : <MoonIcon />}
-          </a>
+          <ThemeToggle />
         </nav>
       </div>
 
@@ -41,4 +29,4 @@ const Header = ({ siteTitle }) => {
   );
 };
 
-export default Header;
+export default React.memo(Header);

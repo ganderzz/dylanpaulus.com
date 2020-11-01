@@ -2,6 +2,7 @@ import React from "react";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
 import { SubHeading } from "../components/subheading";
+import { Timeline, TimelineItem } from "../components/timeline";
 
 export default function About() {
   return (
@@ -47,70 +48,41 @@ export default function About() {
           <div className="p-4 md:w-1/2 w-full sm:mt-8 xs:mt-8 md:mt-0">
             <SubHeading style={{ marginTop: 0 }}>Experience</SubHeading>
 
-            <div class="relative ml-4">
-              <div class="border-r-2 border-secondary-400 absolute h-full top-0 z-10" style={{ left: 7 }}></div>
+            <Timeline>
+              <li class="mb-2">
+                <div class="flex-1 ml-6 font-base text-secondary-400 italic">Now</div>
+              </li>
 
-              <ul class="list-none m-0 p-0">
-                <li class="mb-2">
-                  <div class="flex-1 ml-6 font-base text-secondary-400 italic">Now</div>
-                </li>
+              <TimelineItem>
+                <strong>Lead Software Engineer</strong>
+                <div className="text-gray-600 -mt-2">Schweitzer Engineering Laboratories</div>
+              </TimelineItem>
 
-                <li class="mb-8">
-                  <div class="flex items-center mb-1">
-                    <div class="rounded-full h-4 w-4 relative z-20 bg-gradient-to-r from-blue-500 to-teal-500" />
-                    <div class="flex-1 ml-4 font-base">
-                      <strong>Lead Software Engineer</strong>
-                      <div className="text-gray-600 -mt-2">Schweitzer Engineering Laboratories</div>
-                    </div>
-                  </div>
-                </li>
+              <TimelineItem>
+                <strong>Software Engineer</strong>
+                <div className="text-gray-600 -mt-2">Schweitzer Engineering Laboratories</div>
+              </TimelineItem>
 
-                <li class="mb-8">
-                  <div class="flex items-center mb-1">
-                    <div class="bg-secondary-500 rounded-full h-4 w-4 relative z-20" />
-                    <div class="flex-1 ml-4 font-base">
-                      <strong>Software Engineer</strong>
-                      <div className="text-gray-600 -mt-2">Schweitzer Engineering Laboratories</div>
-                    </div>
-                  </div>
-                </li>
+              <TimelineItem>
+                <strong>Associate Software Engineer</strong>
+                <div className="text-gray-600 -mt-2">Schweitzer Engineering Laboratories</div>
+              </TimelineItem>
 
-                <li class="mb-8">
-                  <div class="flex items-center mb-1">
-                    <div class="bg-secondary-500 rounded-full h-4 w-4 relative z-20" />
-                    <div class="flex-1 ml-4 font-base">
-                      <strong>Associate Software Engineer</strong>
-                      <div className="text-gray-600 -mt-2">Schweitzer Engineering Laboratories</div>
-                    </div>
-                  </div>
-                </li>
+              <TimelineItem>
+                <a href="https://www.mobygames.com/developer/sheet/view/developerId,783203/">
+                  <strong>Web Developer</strong> <div className="text-gray-600 -mt-2">Sony Playstation</div>
+                </a>
+              </TimelineItem>
 
-                <li class="mb-8">
-                  <div class="flex items-center mb-1">
-                    <div class="bg-secondary-500 rounded-full h-4 w-4 relative z-20" />
-                    <div class="flex-1 ml-4 font-base">
-                      <a href="https://www.mobygames.com/developer/sheet/view/developerId,783203/">
-                        <strong>Web Developer</strong> <div className="text-gray-600 -mt-2">Sony Playstation</div>
-                      </a>
-                    </div>
-                  </div>
-                </li>
+              <TimelineItem>
+                <strong>Student Web Developer</strong>{" "}
+                <div className="text-gray-600 -mt-2">Eastern Washington University</div>
+              </TimelineItem>
 
-                <li class="mb-2">
-                  <div class="flex items-center mb-1">
-                    <div class="bg-secondary-500 rounded-full h-4 w-4 relative z-20" />
-                    <div class="flex-1 ml-4 font-base">
-                      <strong>Student Web Developer</strong>{" "}
-                      <div className="text-gray-600 -mt-2">Eastern Washington University</div>
-                    </div>
-                  </div>
-                </li>
-
-                <li>
-                  <div class="flex-1 ml-6 font-base text-secondary-400 italic">2013</div>
-                </li>
-              </ul>
-            </div>
+              <li>
+                <div class="flex-1 ml-6 font-base text-secondary-400 italic">2013</div>
+              </li>
+            </Timeline>
 
             <SubHeading>Talks</SubHeading>
             <ul className="list-disc list-inside">
