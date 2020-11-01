@@ -22,10 +22,9 @@ const Header = ({ siteTitle }) => {
 
         <nav role="navigation" className="text-right lg:w-1/2 w-3/4 z-10">
           <MenuLink to="/">Blog</MenuLink>
-          <MenuLink to="/about/">About</MenuLink>
+          <MenuLink to="/about">About</MenuLink>
 
           <a
-            href="#"
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             className="text-white hover:text-gray-500 transition-colors text-xl ml-3 relative inline-block cursor-pointer"
             style={{

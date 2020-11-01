@@ -1,7 +1,7 @@
 module.exports = [
   {
     from: "github",
-    to: "https://github.com/ganderzz",
+    to: "https://github.com/ganderzz/",
   },
   {
     from: "linkedin",
@@ -9,10 +9,10 @@ module.exports = [
   },
   {
     from: "dev",
-    to: "https://dev.to/ganderzz",
+    to: "https://dev.to/ganderzz/",
   },
   {
     from: "twitter",
-    to: "https://twitter.com/DylanPaulus",
+    to: "https://twitter.com/DylanPaulus/",
   },
 ];

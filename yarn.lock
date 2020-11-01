@@ -7243,6 +7243,22 @@ gatsby-remark-images@^3.3.40:
     unist-util-select "^1.5.0"
     unist-util-visit-parents "^2.1.2"
 
+gatsby-remark-mathjax@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/gatsby-remark-mathjax/-/gatsby-remark-mathjax-1.0.0.tgz#80629cd3471192f32d75bae9b8b119b8ba9ae27b"
+  integrity sha512-rWRuZGcUvlgNIhHkE/0xXYOR+nfDFBuJ5P8s669UqprTDlk0rfYIyrxGYmQi4Se3LBvrLAkvNQyLSQU+LT3IKA==
+  dependencies:
+    babel-runtime "^6.26.0"
+    remark-math "^1.0.3"
+    unist-util-visit "^1.1.1"
+
+gatsby-remark-numbered-footnotes@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/gatsby-remark-numbered-footnotes/-/gatsby-remark-numbered-footnotes-1.0.1.tgz#b922357d44b953dfb9b8754676f161e048a98f02"
+  integrity sha512-eqb/vxhniIASyoNYRbATpHVD1owtRAM2vTLyUJTz5pe3RugU99n1xNyeYHeg6eb98iyoWi2EaEskI4+reytN4A==
+  dependencies:
+    remark-numbered-footnotes "^1.0.1"
+
 gatsby-remark-prismjs@^3.5.16:
   version "3.5.16"
   resolved "https://registry.yarnpkg.com/gatsby-remark-prismjs/-/gatsby-remark-prismjs-3.5.16.tgz#d073e9b740072cacdad5aa449a635e8db774a28e"
@@ -12745,7 +12761,7 @@ postcss-selector-parser@^3.0.0:
     indexes-of "^1.0.1"
     uniq "^1.0.1"
 
-postcss-selector-parser@^6.0.0, postcss-selector-parser@^6.0.2, postcss-selector-parser@^6.0.4:
+postcss-selector-parser@^6.0.0, postcss-selector-parser@^6.0.2:
   version "6.0.4"
   resolved "https://registry.yarnpkg.com/postcss-selector-parser/-/postcss-selector-parser-6.0.4.tgz#56075a1380a04604c38b063ea7767a129af5c2b3"
   integrity sha512-gjMeXBempyInaBqpp8gODmwZ52WaYsVOsfr4L4lDQ7n3ncD6mEyySiDtgzCT+NYC0mmeOLvtsF8iaEf0YT6dBw==
@@ -13919,6 +13935,13 @@ remark-footnotes@2.0.0:
   resolved "https://registry.yarnpkg.com/remark-footnotes/-/remark-footnotes-2.0.0.tgz#9001c4c2ffebba55695d2dd80ffb8b82f7e6303f"
   integrity sha512-3Clt8ZMH75Ayjp9q4CorNeyjwIxHFcTkaektplKGl2A1jNGEUey8cKL0ZC5vJwfcD5GFGsNLImLG/NGzWIzoMQ==
 
+remark-math@^1.0.3:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/remark-math/-/remark-math-1.0.6.tgz#49eb3dd15d298734c9ae21673115389793af4d1b"
+  integrity sha512-I43wU/QOQpXvVFXKjA4FHp5xptK65+5F6yolm8+69/JV0EqSOB64wURUZ3JK50JtnTL8FvwLiH2PZ+fvsBxviA==
+  dependencies:
+    trim-trailing-lines "^1.1.0"
+
 remark-mdx@1.6.19:
   version "1.6.19"
   resolved "https://registry.yarnpkg.com/remark-mdx/-/remark-mdx-1.6.19.tgz#9f5330a6b151c40643ddda81714d45a751b158e0"
@@ -13954,6 +13977,13 @@ remark-mdxjs@^2.0.0-next.4:
     "@babel/plugin-proposal-object-rest-spread" "7.10.4"
     "@babel/plugin-syntax-jsx" "7.10.4"
     "@mdx-js/util" "^2.0.0-next.8"
+
+remark-numbered-footnotes@^1.0.1:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/remark-numbered-footnotes/-/remark-numbered-footnotes-1.1.0.tgz#6c2f825488dd9fc7f691beb5e6f989880c004437"
+  integrity sha512-1clY6IdWs3Ppv/IsdEVzvM9HxUNDkIicEU0lhdqmxDv2I/qaqDufSYSXmtsNti7j8/B1z93WamT6iDWGzkiTpA==
+  dependencies:
+    unist-util-visit "^1.3.1"
 
 remark-parse@8.0.3:
   version "8.0.3"
@@ -15673,15 +15703,7 @@ table@^5.2.3:
     slice-ansi "^2.1.0"
     string-width "^3.0.0"
 
-tailwindcss-dark-mode@^1.1.7:
-  version "1.1.7"
-  resolved "https://registry.yarnpkg.com/tailwindcss-dark-mode/-/tailwindcss-dark-mode-1.1.7.tgz#b9b1a49fed12601826c6b6b7e9f98170e4b14abf"
-  integrity sha512-RGYAlOJq4VynCy7LRAIJPHHvV1E3wivMD+K2njVlqIJsegqAZSGIOYnlQwNnkYrQCdFcNZj/ygzplB4y4mYITg==
-  dependencies:
-    postcss-selector-parser "^6.0.4"
-    tailwindcss "^1.9.2"
-
-tailwindcss@^1.9.2, tailwindcss@^1.9.6:
+tailwindcss@^1.9.6:
   version "1.9.6"
   resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-1.9.6.tgz#0c5089911d24e1e98e592a31bfdb3d8f34ecf1a0"
   integrity sha512-nY8WYM/RLPqGsPEGEV2z63riyQPcHYZUJpAwdyBzVpxQHOHqHE+F/fvbCeXhdF1+TA5l72vSkZrtYCB9hRcwkQ==
@@ -16464,7 +16486,7 @@ unist-util-visit@2.0.3, unist-util-visit@^2.0.0, unist-util-visit@^2.0.2:
     unist-util-is "^4.0.0"
     unist-util-visit-parents "^3.0.0"
 
-unist-util-visit@^1.0.0, unist-util-visit@^1.1.0, unist-util-visit@^1.4.1:
+unist-util-visit@^1.0.0, unist-util-visit@^1.1.0, unist-util-visit@^1.1.1, unist-util-visit@^1.3.1, unist-util-visit@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/unist-util-visit/-/unist-util-visit-1.4.1.tgz#4724aaa8486e6ee6e26d7ff3c8685960d560b1e3"
   integrity sha512-AvGNk7Bb//EmJZyhtRUnNMEpId/AZ5Ph/KUpTI09WHQuDZHKovQ1oEv3mfmKpWKtoMzyMC4GLBm1Zy5k12fjIw==

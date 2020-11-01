@@ -2,6 +2,7 @@ import elasticlunr from "elasticlunr";
 import { Link } from "gatsby";
 import React from "react";
 import searchIndex from "../../search.json";
+import { ReactComponent as SearchIcon } from "../icons/search.svg";
 
 const debounce = (function debounce(time) {
   let handle: unknown = undefined;
@@ -39,6 +40,7 @@ export function Search() {
   return (
     <>
       <form
+        className="relative"
         onSubmit={(e) => {
           e.preventDefault();
           setSearchResults(search(value));
@@ -54,13 +56,15 @@ export function Search() {
       >
         <input
           type="search"
-          className="form-input block w-full font-primary-100 p-4 bg-secondary-100 bg-secondary-100 sm:text-sm sm:leading-5 rounded-md shadow-lg"
+          className="form-input block w-full font-primary-100 p-4 pl-10 bg-secondary-100 placeholder-gray-600::placeholder sm:text-sm sm:leading-5 rounded-md shadow-lg"
           value={value}
           placeholder="Search the site..."
           onChange={(e: any) => {
             setValue(e.currentTarget.value);
           }}
         />
+
+        <SearchIcon className="text-secondary-500" style={{ position: "absolute", top: 14, left: 8 }} />
       </form>
 
       {searchResults && searchResults.length > 0 && (

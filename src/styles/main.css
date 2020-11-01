@@ -20,6 +20,8 @@ html[data-theme="light"] {
   --secondary-100: #fff;
   --secondary-200: #f1f1f1;
   --secondary-300: #ddd;
+  --secondary-400: #ccc;
+  --secondary-500: #b7b7b7;
   --code-bg: #333;
   --code-highlight-bg: #444;
   --border-color: #ddd;
@@ -38,6 +40,8 @@ html[data-theme="dark"] {
   --secondary-100: #2a3546;
   --secondary-200: #334054;
   --secondary-300: #44546d;
+  --secondary-400: #546784;
+  --secondary-500: #65799b;
   --code-bg: #222a3a;
   --code-highlight-bg: #1a202d;
   --border-color: rgba(255, 255, 255, 0.3);
@@ -96,6 +100,7 @@ h5 {
   margin: 1rem 0 0.875rem;
   font-weight: 600;
   line-height: 1.15;
+  font-variation-settings: "wght" 700, "slnt" 0 !important;
   @apply tracking-tight;
 }
 
@@ -241,16 +246,34 @@ ol li::marker {
   border-radius: 4px;
 }
 
+.gatsby-resp-image-figure {
+  @apply my-16;
+  @apply p-4;
+}
+
 .gatsby-resp-image-figcaption {
   font-size: 0.625rem;
+  @apply mt-4;
   text-align: center;
+}
+
+.blog-post > *:not(figure) {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .blog-post p:first-child,
 .blog-post h1 + p,
 .blog-post h2 + p,
-.blog-post h3 + p {
-  text-indent: 3rem;
+.blog-post h3 + p,
+.blog-post blockquote + p,
+.blog-post figure + p {
+  text-indent: 1.5rem;
+}
+
+.blog-post h3 {
+  @apply mt-10;
 }
 
 .blog-post img {

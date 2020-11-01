@@ -30,9 +30,7 @@ export default function BlogPost(payload: Props) {
         keywords={frontmatter.tags}
         image={
           frontmatter.image
-            ? `${(payload.data as any).site.siteMetadata.siteUrl}/static/${
-                frontmatter.image.relativePath
-              }`
+            ? `${(payload.data as any).site.siteMetadata.siteUrl}/static/${frontmatter.image.relativePath}`
             : null
         }
       />
@@ -42,9 +40,7 @@ export default function BlogPost(payload: Props) {
           className="flex justify-between content-center text-base bg-orange-100 rounded-t-md border-t-4 border-orange-500 text-orange-700 p-4"
           role="alert"
         >
-          <p className="relative top-0 mt-2">
-            ⚠️ This post is not published! Content is subject to change.
-          </p>{" "}
+          <p className="relative top-0 mt-2">⚠️ This post is not published! Content is subject to change.</p>{" "}
           <a
             href={`https://github.com/ganderzz/dylanpaulus.com/blob/master/posts/${parent.name}.${parent.extension}`}
             className="bg-white hover:text-black hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
@@ -54,24 +50,18 @@ export default function BlogPost(payload: Props) {
         </div>
       )}
 
-      <div
-        className="blog-post__header mb-2"
-        data-credit={frontmatter.image_credit}
-      >
+      <div className="blog-post__header mb-2" data-credit={frontmatter.image_credit}>
         <FrontmatterInfo frontmatter={frontmatter} timeToRead={timeToRead} />
       </div>
 
-      <section className="sm:pl-16 sm:pr-16 sm:pb-16 pl-6 pr-6 pb-6">
-        <h2 className="mt-0 mb-8 font-bold">{frontmatter.title}</h2>
+      <section className="sm:pl-16 sm:pr-16 sm:pb-16 pl-2 pr-2 pb-6">
+        <h1 className="mt-0 mb-10 font-bold" style={{ maxWidth: 1100, marginLeft: "auto", marginRight: "auto" }}>
+          {frontmatter.title}
+        </h1>
 
-        <div
-          className="blog-post leading-loose"
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
+        <div className="blog-post leading-loose" dangerouslySetInnerHTML={{ __html: html }} />
 
-        {frontmatter && frontmatter.title && (
-          <Comments title={frontmatter.title} />
-        )}
+        {frontmatter && frontmatter.title && <Comments title={frontmatter.title} />}
       </section>
     </Layout>
   );

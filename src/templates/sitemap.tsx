@@ -5,32 +5,26 @@ import SEO from "../components/seo";
 
 export default function SiteMap({ data }) {
   const sortedTags = React.useMemo(() => {
-    return data.allMarkdownRemark.group.sort(
-      (a, b) => b.totalCount - a.totalCount
-    );
+    return data.allMarkdownRemark.group.sort((a, b) => b.totalCount - a.totalCount);
   }, [data]);
 
   const largestTotalCount = sortedTags[0].totalCount;
 
   return (
     <Layout>
-      <SEO
-        description="Sitemap"
-        title="Sitemap"
-        keywords={sortedTags.map((p) => p.tag)}
-      />
-      <section className="sm:p-16 p-6 pt-10">
-        <h3 className="mt-0 mb-16 bg-gray-800 text-white p-6">Sitemap</h3>
+      <SEO description="Sitemap" title="Sitemap" keywords={sortedTags.map((p) => p.tag)} />
+      <section className="p-10">
+        <h1 className="mt-0 mb-8 border-b pb-4 font-bold">Sitemap</h1>
 
-        <div className="flex flex-wrap -mb-4">
+        <div className="flex flex-wrap">
           {sortedTags.map(({ tag, totalCount }) => (
             <Link
               key={tag}
-              to={`/tags/${tag}/`}
+              to={`/tags/${tag}`}
               style={{
                 opacity: Math.max(0.65, totalCount / largestTotalCount),
               }}
-              className="focus:border-2 focus:border-grey-dark hover:opacity-100 m-2 hover:bg-gray-700 hover:text-white text-lg rounded bg-gray-700 p-2 text-white no-underline font-semibold mr-2 opacity-75"
+              className="focus:border-2 focus:border-grey-dark hover:opacity-100 m-2 hover:bg-gray-900 hover:text-white text-lg rounded bg-gray-700 p-2 text-white no-underline font-semibold mr-2"
             >
               {tag} ({totalCount ?? 0})
             </Link>
