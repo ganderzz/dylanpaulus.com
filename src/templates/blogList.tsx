@@ -25,14 +25,14 @@ export default function BlogList({ data, pageContext }) {
           `javascript`,
         ]}
       />
-      <section className="px-10 pt-2 pb-8" style={{ minHeight: 1332 }}>
+      <section style={{ minHeight: 1332 }}>
         <SubHeading className="mt-0">Recently Published</SubHeading>
 
         {posts.map((post) => (
           <PostListItem key={post.node.id} data={post} />
         ))}
 
-        <div style={{ margin: "2rem auto 0 auto", textAlign: "center" }}>
+        <div className="mt-8 mx-auto text-center">
           <Pagination currentPage={currentPage} totalPages={numPages} />
         </div>
       </section>

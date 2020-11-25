@@ -20,7 +20,7 @@ export default function About() {
           `javascript`,
         ]}
       />
-      <section className="sm:p-8 p-4">
+      <section>
         <div className="md:flex sm:block leading-loose">
           <div className="p-4 md:w-1/2 w-full">
             <SubHeading style={{ marginTop: 0 }}>About</SubHeading>
@@ -46,7 +46,7 @@ export default function About() {
             </p>
             <div className="text-center mt-8">
               <img
-                src={require("../../static/images/about-image.jpg")}
+                src={"/images/about-image.jpg"}
                 alt="Image of Dylan playing drums"
                 className="shadow"
                 style={{
@@ -56,7 +56,7 @@ export default function About() {
                 }}
               />
 
-              <figcaption class="gatsby-resp-image-figcaption">
+              <figcaption className="gatsby-resp-image-figcaption">
                 That's me, the one in the middle!
               </figcaption>
             </div>

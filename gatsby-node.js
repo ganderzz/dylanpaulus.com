@@ -11,6 +11,7 @@ const listComponent = path.resolve("./src/templates/blogList.tsx");
 const postComponent = path.resolve(`./src/templates/blogPost.tsx`);
 const postsForTag = path.resolve(`./src/templates/postsForTag.tsx`);
 const redirectComponent = path.resolve(`./src/templates/redirect.tsx`);
+const allLinksListComponent = path.resolve(`./src/templates/allLinks.tsx`);
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage, createRedirect } = actions;
@@ -82,6 +83,12 @@ exports.createPages = async ({ graphql, actions }) => {
       component: redirectComponent,
       context: item,
     });
+  });
+
+  createPage({
+    path: "/links",
+    component: allLinksListComponent,
+    context: staticUrls,
   });
 
   const tags = posts.reduce((accu, post) => {

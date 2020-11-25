@@ -3,11 +3,12 @@ import React from "react";
 import { MenuLink } from "./menuLink";
 import { ReactComponent as Logo } from "../../static/logo.svg";
 import { ThemeToggle } from "./themeToggle";
+import { Search } from "./search";
 
 const Header = ({ siteTitle }) => {
   return (
     <header className="pt-10 h-64">
-      <div className="z-10 relative container md:max-w-none mx-auto md:w-full lg:w-11/12 lg:mx-auto h-12 pl-2 pr-2 flex items-center">
+      <div className="z-10 relative container md:max-w-none mx-auto md:w-full lg:mx-auto h-12 flex items-center">
         <Link
           to="/"
           title={siteTitle}
@@ -17,6 +18,8 @@ const Header = ({ siteTitle }) => {
         </Link>
 
         <nav role="navigation" className="text-right lg:w-1/2 w-3/4 z-10">
+          <Search className="mr-4" />
+
           <MenuLink to="/">Blog</MenuLink>
           <MenuLink to="/about">About</MenuLink>
 
@@ -24,7 +27,14 @@ const Header = ({ siteTitle }) => {
         </nav>
       </div>
 
-      <div aria-hidden="true" className="skewed bg-gray-900" />
+      <div
+        aria-hidden="true"
+        className="skewed bg-gray-900"
+        style={{
+          backgroundImage:
+            "linear-gradient(524deg, rgba(228, 228, 228,0.04) 0%, rgba(228, 228, 228,0.04) 30%,rgba(130, 130, 130,0.04) 30%, rgba(130, 130, 130,0.04) 49%,rgba(31, 31, 31,0.04) 49%, rgba(31, 31, 31,0.04) 100%),linear-gradient(538deg, rgba(228, 228, 228,0.04) 0%, rgba(228, 228, 228,0.04) 20%,rgba(130, 130, 130,0.04) 20%, rgba(130, 130, 130,0.04) 60%,rgba(31, 31, 31,0.04) 60%, rgba(31, 31, 31,0.04) 100%),linear-gradient(483deg, rgba(228, 228, 228,0.04) 0%, rgba(228, 228, 228,0.04) 29%,rgba(130, 130, 130,0.04) 29%, rgba(130, 130, 130,0.04) 48%,rgba(31, 31, 31,0.04) 48%, rgba(31, 31, 31,0.04) 100%),linear-gradient(331deg, rgb(17,24,39),rgb(17,24,39))",
+        }}
+      />
     </header>
   );
 };

@@ -88,7 +88,7 @@ body {
 }
 
 body {
-  background-color: var(--secondary-200);
+  background-color: var(--secondary-100);
   font-size: 1rem;
 }
 
@@ -220,12 +220,21 @@ ol li::marker {
   color: #000 !important;
 }
 
-.main-content {
-  @apply max-w-screen-xl;
-  background-color: var(--secondary-100);
-  position: relative;
-  border-radius: var(--border-radius);
-  z-index: 1;
+.blog__post {
+  display: grid;
+  font-size: 1.2rem;
+  grid-template-columns:
+    1fr
+    min(65ch, 100%)
+    1fr;
+}
+
+.blog__post > * {
+  grid-column: 2;
+}
+.full-bleed {
+  width: 100%;
+  grid-column: 1 / -1;
 }
 
 .header-link {
@@ -302,6 +311,10 @@ ol li::marker {
   }
 }
 
+.prose code {
+  color: #fff;
+}
+
 /* ---- Comments ---- */
 .gt-container {
   margin-top: 60px;
@@ -312,10 +325,18 @@ ol li::marker {
 .gt-ico-github {
   fill: var(--font-color);
 }
+.gt-comments-null {
+  padding: 2rem;
+  background: #f1f1f1;
+}
+.dark .gt-comments-null {
+  background: var(--secondary-200);
+}
 .gt-comments-null::after {
-  content: "🥺";
+  content: "🤓";
   display: block;
   font-size: 3rem;
+  margin-top: 1rem;
 }
 .gt-btn {
   background: var(--secondary-100) !important;
@@ -357,9 +378,9 @@ textarea,
   right: 0;
   left: 0;
   width: 100%;
-  height: 50vh;
+  height: 9rem;
   z-index: 0;
-  transform: skewY(6deg);
+  transform: skewY(1deg);
   transform-origin: top right;
 }
 

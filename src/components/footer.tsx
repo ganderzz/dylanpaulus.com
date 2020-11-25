@@ -32,7 +32,8 @@ const socialMedia: ISocialProps[] = [
   },
 ];
 
-const socialIconClass = "hover:opacity-100 mr-12 opacity-75 text-5xl inline-block";
+const socialIconClass =
+  "hover:opacity-100 mr-12 opacity-75 text-5xl inline-block";
 
 export function Footer() {
   return (
@@ -40,14 +41,24 @@ export function Footer() {
       {socialMedia.map((item) => {
         if (item.isExternal) {
           return (
-            <a key={item.title} className={socialIconClass} href={item.url} title={item.title}>
+            <a
+              key={item.title}
+              className={socialIconClass}
+              href={item.url}
+              title={item.title}
+            >
               {item.icon}
             </a>
           );
         }
 
         return (
-          <Link key={item.title} title={item.title} className={socialIconClass} to={item.url}>
+          <Link
+            key={item.title}
+            title={item.title}
+            className={socialIconClass}
+            to={item.url}
+          >
             {item.icon}
           </Link>
         );

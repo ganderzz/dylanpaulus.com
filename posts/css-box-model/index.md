@@ -51,7 +51,9 @@ Given the styling on our moon icon below, what would you expect the width and he
 
 That's easy it's 100px... wait, 122px, what? How did we get 122px? Remember when we gave the width and height of 100px it only applies to the **content** layer. We also applied a **padding** of 10px on _each_ side of the box and a 1px **border** around it. If we were to calculate the width of the box, we start with 100px, add 10px for the left padding, add 10px for the right padding, add 1px for the left border, and finally 1px for the right border.
 
-$100px + 10px + 10px + 1px + 1px = 122px$
+$$
+100px + 10px + 10px + 1px + 1px = 122px
+$$
 
 Seems a little counter intuitive—if I set my box to have a 100px width then it should be 100px darn-it! Luckily, there are more ways for the browser to calculate a box's size. When I think of the size of a box I think of `border-box` . Think of the layers of a box, and when assigning `box-sizing` think of the value as being cascading. When an element has `content-box` that means the browser determines the size of a box starting from **content** and adding any child layers. Since there are no children to **content** width/height only applies to content. When using `border-box`, width/height is set for the border, padding, and content.
 
@@ -71,7 +73,9 @@ Let's take a look at the same moon icon, but apply `border-box` instead.
 
 What we see is something quite different, the width and height of the moon is now a hard 100x100. This isn't magic though, the missing dimensions have to come from somewhere. Using `border-box` the **content** layer gets shrunk to make room for **padding** and **border**. With `content-box` or width was guaranteed to be 100px, but what is the width of our content now with `border-box`?
 
-$100px - 10px - 10px - 1px - 1px = 78px$
+$$
+100px - 10px - 10px - 1px - 1px = 78px
+$$
 
 To me `border-box` is easier to intuit and reason around, and becomes my default, but if the width and height of the content matters more than the visible box itself, use `content-box`.
 

@@ -9,6 +9,18 @@ yarn-debug.log*
 yarn-error.log*
 .pnp.js
 .yarn
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+.yarn/*
+!.yarn/cache
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
 
 # Runtime data
 pids

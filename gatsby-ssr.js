@@ -12,12 +12,12 @@ const applyDarkModeClass = `
 })();
 `;
 
-export const onRenderBody = ({ setPreBodyComponents }) => {
+export const onRenderBody = ({ setHeadComponents }) => {
   const script = createElement("script", {
     dangerouslySetInnerHTML: {
       __html: applyDarkModeClass,
     },
   });
 
-  setPreBodyComponents([script]);
+  setHeadComponents([script]);
 };

@@ -55,22 +55,22 @@ export default function BlogPost(payload: Props) {
       )}
 
       <div
-        className="blog-post__header mb-2"
+        className="blog-post__header text-center"
         data-credit={frontmatter.image_credit}
       >
         <FrontmatterInfo frontmatter={frontmatter} timeToRead={timeToRead} />
       </div>
 
-      <section className="sm:pl-16 sm:pr-16 sm:pb-16 pl-2 pr-2 pb-6">
+      <section className="mt-4">
         <h1
-          className="mt-0 mb-6 font-bold"
-          style={{ maxWidth: 1100, marginLeft: "auto", marginRight: "auto" }}
+          className="mb-8 mx-auto font-bold text-center"
+          style={{ maxWidth: "50ch" }}
         >
           {frontmatter.title}
         </h1>
 
-        <div
-          className="blog-post leading-loose"
+        <article
+          className="blog__post mx-auto mb-16 dark:text-gray-100 leading-relaxed"
           dangerouslySetInnerHTML={{ __html: html }}
         />
 

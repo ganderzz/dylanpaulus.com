@@ -108,12 +108,6 @@ function SEO({
             <html lang={lang ?? "en"} />
 
             <link rel="preconnect" href="https://rsms.me" />
-            <script
-              async
-              defer
-              data-domain="dylanpaulus.com"
-              src="https://plausible.io/js/plausible.js"
-            ></script>
           </Helmet>
         );
       }}

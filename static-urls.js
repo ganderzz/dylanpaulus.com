@@ -1,7 +1,13 @@
+const githubLink = "https://github.com/ganderzz/";
+
 module.exports = [
   {
     from: "github",
-    to: "https://github.com/ganderzz/",
+    to: githubLink,
+  },
+  {
+    from: "gh",
+    to: githubLink,
   },
   {
     from: "linkedin",
