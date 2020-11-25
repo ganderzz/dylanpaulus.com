@@ -5,8 +5,8 @@ import SEO from "../components/seo";
 import { PostListItem } from "../components/postListItem";
 
 export default function PostsForTag({ data, pageContext }) {
-  const { allMarkdownRemark } = data;
-  const { edges } = allMarkdownRemark;
+  const { allMdx } = data;
+  const { edges } = allMdx;
 
   const tagCount = edges.length;
 
@@ -28,7 +28,7 @@ export default function PostsForTag({ data, pageContext }) {
 
 export const pageQuery = graphql`
   query($tag: String) {
-    allMarkdownRemark(
+    allMdx(
       sort: { fields: [frontmatter___date], order: DESC }
       filter: { frontmatter: { tags: { in: [$tag] } } }
     ) {

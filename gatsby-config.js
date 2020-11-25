@@ -24,10 +24,13 @@ module.exports = {
     `gatsby-plugin-sharp`,
     "gatsby-plugin-svgr",
     `gatsby-plugin-postcss`,
+    `gatsby-plugin-mdx`,
+    `gatsby-plugin-netlify`,
     {
-      resolve: `gatsby-transformer-remark`,
+      resolve: `gatsby-plugin-mdx`,
       options: {
-        plugins: [
+        extensions: [`.md`, `.mdx`],
+        gatsbyRemarkPlugins: [
           {
             resolve: `gatsby-remark-katex`,
             options: {

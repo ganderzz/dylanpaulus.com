@@ -104,11 +104,7 @@ function SEO({
                     ]
               )
               .concat(meta)}
-          >
-            <html lang={lang ?? "en"} />
-
-            <link rel="preconnect" href="https://rsms.me" />
-          </Helmet>
+          />
         );
       }}
     />

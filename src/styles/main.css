@@ -86,7 +86,27 @@ body {
 p {
   margin-bottom: 1.15rem;
   font-size: 1rem;
-  opacity: 0.9;
+  opacity: 0.95;
+}
+
+.blog__post ul,
+.blog__post ol {
+  margin-bottom: 1.15rem;
+  font-size: 1rem;
+  margin-left: 5%;
+}
+
+.blog__post ul > li,
+.blog__post ol > li {
+  margin-top: 0.625rem;
+}
+
+.blog__post p a:not(.header-link) {
+  border-bottom: 2px solid var(--link-color);
+  transition: border 0.2s ease-in-out;
+}
+.blog__post p a:hover:not(.header-link) {
+  border-bottom: 2px solid var(--link-hover-color);
 }
 
 h1,
@@ -133,7 +153,7 @@ figcaption {
 
 a {
   color: var(--link-color);
-  transition: 0.15s color;
+  transition: 0.15s all;
 }
 
 a:hover {
@@ -148,7 +168,7 @@ pre {
 pre[class*="language-"] {
   background: var(--code-bg);
   font-size: 1rem;
-  @apply mb-10 mt-10;
+  @apply mb-6 mt-6;
 }
 
 blockquote {
@@ -211,16 +231,31 @@ ol li::marker {
   width: 100%;
   grid-column: 1 / -1;
 }
+.full-bleed .gatsby-resp-image-wrapper {
+  max-width: unset !important;
+}
+.full-bleed .gatsby-resp-image-figure {
+  padding: 0 !important;
+}
 
 .header-link {
   position: relative;
-  top: 20px;
+  top: 30px;
+  left: -25px;
+  opacity: 0.2;
+}
+.header-link:hover {
+  opacity: 1;
 }
 .header-link > svg {
   fill: var(--font-color);
-  width: 24px;
-  height: 24px;
+  width: 1.25rem;
+  height: 1.25rem;
   margin-top: 5px;
+}
+
+.katex-display {
+  margin: 2rem 0;
 }
 
 .font-bold {
@@ -295,6 +330,7 @@ textarea,
   left: 0;
   width: 100%;
   height: 9rem;
+  min-height: 168px;
   z-index: 0;
   transform: skewY(1deg);
   transform-origin: top right;

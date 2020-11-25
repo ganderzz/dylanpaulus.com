@@ -16,9 +16,9 @@ This is a series I'm starting called, "CSS: The Important Stuff". The goal is to
 
 It comes with great danger to myself to tell you that the web is made of boxes. Yes, it's boxes all the way down. Just take a look at this website—open the Element Inspector in the browser's dev tools and add <br />`* { border: 1px solid red; }` . Look at all those fine boxes.
 
-<img src="./css-box-model-red-boxes.png" className="full-bleed">
-
-![The dylanpaulus.com website with visible borders around each box element.](./css-box-model-red-boxes.png)
+<div className="full-bleed">
+  <img src="./css-box-model-red-boxes.png" alt="The dylanpaulus.com website with visible borders around each box element." />
+</div>
 
 The browser uses boxes to layout and render our websites. Within each box there are four properties: content, padding, border, and margin. [Boxes are like onions, they have layers.](https://youtu.be/-FtCTW2rVFM?t=44) Each property defines the size of our box (ie. width and height), styling, and how content around the box flows.
 

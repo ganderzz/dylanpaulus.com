@@ -5,14 +5,18 @@ import SEO from "../components/seo";
 
 export default function SiteMap({ data }) {
   const sortedTags = React.useMemo(() => {
-    return data.allMarkdownRemark.group.sort((a, b) => b.totalCount - a.totalCount);
+    return data.allMdx.group.sort((a, b) => b.totalCount - a.totalCount);
   }, [data]);
 
   const largestTotalCount = sortedTags[0].totalCount;
 
   return (
     <Layout>
-      <SEO description="Sitemap" title="Sitemap" keywords={sortedTags.map((p) => p.tag)} />
+      <SEO
+        description="Sitemap"
+        title="Sitemap"
+        keywords={sortedTags.map((p) => p.tag)}
+      />
       <section className="p-10">
         <h1 className="mt-0 mb-8 border-b pb-4 font-bold">Sitemap</h1>
 
@@ -24,7 +28,7 @@ export default function SiteMap({ data }) {
               style={{
                 opacity: Math.max(0.65, totalCount / largestTotalCount),
               }}
-              className="focus:border-2 focus:border-grey-dark hover:opacity-100 m-2 hover:bg-gray-900 hover:text-white text-lg rounded bg-gray-700 p-2 text-white no-underline font-semibold mr-2"
+              className="focus:border-2 focus:border-grey-dark hover:opacity-100 hover:scale-105 transform m-2 hover:bg-gray-900 hover:text-white text-lg rounded bg-gray-700 p-2 text-white no-underline font-semibold mr-2"
             >
               {tag} ({totalCount ?? 0})
             </Link>
@@ -37,7 +41,7 @@ export default function SiteMap({ data }) {
 
 export const pageQuery = graphql`
   {
-    allMarkdownRemark(limit: 500) {
+    allMdx(limit: 500) {
       group(field: frontmatter___tags) {
         tag: fieldValue
         totalCount

@@ -1,5 +1,5 @@
 export interface IGatsbyQuery<T> {
-  markdownRemark: {
+  Mdx: {
     frontmatter: T;
     html: string;
   };

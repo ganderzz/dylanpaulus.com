@@ -33,7 +33,7 @@ export function TagsList({ tags = [], style = {}, ...rest }: IProps) {
           to={`/tags/${tag}`}
           className={`inline-block ${tagColor(
             tag
-          )} hover:bg-gray-400 rounded-full px-3 py-1 text-sm font-semibold mr-2 leading-5 transition ease-out duration-200`}
+          )} hover:bg-gray-400 hover:scale-105 rounded-full px-3 py-1 text-sm font-semibold mr-2 leading-5 transition ease-out duration-200`}
         >
           {tag}
         </Link>

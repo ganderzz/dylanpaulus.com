@@ -13,7 +13,7 @@ export function PostListItem({ data, style = {}, ...rest }: IProps) {
   return (
     <div
       style={{ minHeight: 117, ...style }}
-      className="block mb-20 max-w-screen-lg"
+      className="block mb-20 max-w-max md:max-w-screen-md lg:max-w-screen-lg"
       {...rest}
     >
       <div

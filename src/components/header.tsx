@@ -7,7 +7,7 @@ import { Search } from "./search";
 
 const Header = ({ siteTitle }) => {
   return (
-    <header className="pt-10 h-64">
+    <header className="pt-10 h-64 max-w-screen-xl mx-auto">
       <div className="z-10 relative container md:max-w-none mx-auto md:w-full lg:mx-auto h-12 flex items-center">
         <Link
           to="/"

@@ -25,7 +25,7 @@ export default function BlogList({ data, pageContext }) {
           `javascript`,
         ]}
       />
-      <section style={{ minHeight: 1332 }}>
+      <section className="max-w-screen-xl mx-auto" style={{ minHeight: 1332 }}>
         <SubHeading className="mt-0">Recently Published</SubHeading>
 
         {posts.map((post) => (
@@ -42,7 +42,7 @@ export default function BlogList({ data, pageContext }) {
 
 export const blogListQuery = graphql`
   query blogListQuery($skip: Int!, $limit: Int!) {
-    posts: allMarkdownRemark(
+    posts: allMdx(
       sort: { fields: [frontmatter___date], order: DESC }
       filter: {
         fileAbsolutePath: { glob: "**/posts/**/index.md" }

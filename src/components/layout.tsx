@@ -17,7 +17,7 @@ const Layout = ({ children }) => (
       }
     `}
     render={(data) => (
-      <section className="max-w-screen-xl mx-auto">
+      <section>
         <Header siteTitle={data.site.siteMetadata.title} />
 
         <main className="w-full text-base -mt-20">

@@ -19,6 +19,7 @@ At first glance blocking these ads seems simple. Look for elements with the text
 
 First, Facebook doesn't actually have 'Sponsored' in their HTML. At least, not together as we would think. In the DOM, 'Sponsored' is actually broken up character by character.
 <br /><br />
+
 Instead of:
 
 ```html
@@ -142,11 +143,10 @@ span
 The next technique, this is the point where it gets particularly interesting, Facebook actually hides 'dummy' DOM nodes between the 'Sponsored' text. These values are entirely random characters, with a random number of DOM nodes between them. Invisible characters.
 <br />
 
-<center style="margin: 20px 0px">
-
-![Animation showing the obfuscation techniques by Facebook](./fb_encode.gif)
-
+<center>
+  <img alt="Animation showing the obfuscation techniques by Facebook." src="./fb_encode.gif" />
 </center>
+
 At this point our CSS ad blocker is completely broken. There is no way for us to possibly code every possible value in CSS. Ugh.
 
 We could try playing around with ids or class names, but these are pretty generic. A lot of content within the Facebook code share similar classes, so there is no unique identifier in finding an _ad_.
