@@ -20,7 +20,7 @@ const Layout = ({ children }) => (
       <section className="max-w-screen-xl mx-auto">
         <Header siteTitle={data.site.siteMetadata.title} />
 
-        <main className="w-full text-base -mt-20 container">
+        <main className="w-full text-base -mt-20">
           {children}
 
           <Footer />

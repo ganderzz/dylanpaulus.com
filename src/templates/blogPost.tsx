@@ -61,7 +61,7 @@ export default function BlogPost(payload: Props) {
         <FrontmatterInfo frontmatter={frontmatter} timeToRead={timeToRead} />
       </div>
 
-      <section className="mt-4">
+      <section className="mt-4 blog__post">
         <h1
           className="mb-8 mx-auto font-bold text-center"
           style={{ maxWidth: "50ch" }}
@@ -70,7 +70,7 @@ export default function BlogPost(payload: Props) {
         </h1>
 
         <article
-          className="blog__post mx-auto mb-16 dark:text-gray-100 leading-relaxed"
+          className="mx-auto mb-16 dark:text-gray-100 leading-relaxed"
           dangerouslySetInnerHTML={{ __html: html }}
         />
 
@@ -91,7 +91,6 @@ export const pageQuery = graphql`
     }
     markdownRemark(fields: { slug: { eq: $slug } }) {
       html
-      rawMarkdownBody
       timeToRead
       frontmatter {
         date(formatString: "MMMM DD, YYYY")
