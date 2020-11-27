@@ -6,7 +6,6 @@ import { IGatsbyQuery } from "../interfaces/IGatsbyQuery";
 import { IBlogPostResponse } from "../interfaces/IBlogPostResponse";
 import { Comments } from "../components/comments";
 import { FrontmatterInfo } from "../components/frontmatterInfo";
-import { MDXRenderer } from "gatsby-plugin-mdx";
 
 type Props = {
   data: IGatsbyQuery<IBlogPostResponse>;
@@ -20,11 +19,11 @@ export default function BlogPost(payload: Props) {
     return null;
   }
 
-  const { mdx } = payload.data as any;
-  const { frontmatter, body, timeToRead, parent } = mdx;
+  const { markdownRemark } = payload.data as any;
+  const { frontmatter, html, timeToRead, parent } = markdownRemark;
 
   return (
-    <Layout>
+    <Layout className="mt-4">
       <SEO
         description={frontmatter.description ?? frontmatter.title}
         title={frontmatter.title}
@@ -62,20 +61,23 @@ export default function BlogPost(payload: Props) {
         <FrontmatterInfo frontmatter={frontmatter} timeToRead={timeToRead} />
       </div>
 
-      <section className="mt-4 blog__post">
+      <section className="mt-4">
         <h1
-          className="mb-8 mt-4 mx-auto font-bold text-center"
+          className="mb-10 mt-4 mx-auto font-bold text-center"
           style={{ maxWidth: "50ch" }}
         >
           {frontmatter.title}
         </h1>
 
-        <MDXRenderer className="mb-16 dark:text-gray-100 leading-relaxed">
-          {body}
-        </MDXRenderer>
+        <article
+          className="blog__post mb-10 dark:text-gray-100 leading-relaxed"
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
 
         {frontmatter && frontmatter.title && (
-          <Comments title={frontmatter.title} />
+          <div className="blog__post">
+            <Comments title={frontmatter.title} />
+          </div>
         )}
       </section>
     </Layout>
@@ -89,8 +91,8 @@ export const pageQuery = graphql`
         siteUrl
       }
     }
-    mdx(fields: { slug: { eq: $slug } }) {
-      body
+    markdownRemark(fields: { slug: { eq: $slug } }) {
+      html
       timeToRead
       frontmatter {
         date(formatString: "MMMM DD, YYYY")

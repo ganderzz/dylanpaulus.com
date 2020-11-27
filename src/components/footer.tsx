@@ -37,7 +37,7 @@ const socialIconClass =
 
 export function Footer() {
   return (
-    <footer className="w-3/5 pt-10 pb-10 text-center border-t border-secondary-400 border-solid mx-auto mt-8">
+    <footer className="w-3/5 pt-10 pb-10 text-center border-t border-gray-200 dark:border-gray-700 border-solid mx-auto mt-8">
       {socialMedia.map((item) => {
         if (item.isExternal) {
           return (

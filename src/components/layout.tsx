@@ -5,7 +5,7 @@ import { Footer } from "./footer";
 
 import "../styles/main.css";
 
-const Layout = ({ children }) => (
+const Layout = ({ children, className = "" }) => (
   <StaticQuery
     query={graphql`
       query SiteTitleQuery {
@@ -20,7 +20,7 @@ const Layout = ({ children }) => (
       <section>
         <Header siteTitle={data.site.siteMetadata.title} />
 
-        <main className="w-full text-base -mt-20">
+        <main className={`w-full text-base -mt-20 ${className}`}>
           {children}
 
           <Footer />

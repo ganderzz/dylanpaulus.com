@@ -20,9 +20,9 @@ export default function About() {
           `javascript`,
         ]}
       />
-      <section>
+      <section className="flex max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl mx-auto">
         <div className="md:flex sm:block leading-loose">
-          <div className="p-4 md:w-1/2 w-full">
+          <div className="px-8 md:w-1/2 w-full">
             <SubHeading style={{ marginTop: 0 }}>About</SubHeading>
             <em className="text-xl bg-clip-text text-transparent bg-gradient-to-tr from-blue-500 to-teal-500 font-bold">
               Hi, I'm Dylan.
@@ -62,7 +62,7 @@ export default function About() {
             </div>
           </div>
 
-          <div className="p-4 md:w-1/2 w-full sm:mt-8 xs:mt-8 md:mt-0">
+          <div className="px-8 md:w-1/2 w-full sm:mt-8 xs:mt-8 md:mt-0">
             <SubHeading style={{ marginTop: 0 }}>Experience</SubHeading>
 
             <Timeline>

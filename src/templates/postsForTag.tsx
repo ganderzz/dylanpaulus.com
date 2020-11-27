@@ -5,15 +5,15 @@ import SEO from "../components/seo";
 import { PostListItem } from "../components/postListItem";
 
 export default function PostsForTag({ data, pageContext }) {
-  const { allMdx } = data;
-  const { edges } = allMdx;
+  const { allMarkdownRemark } = data;
+  const { edges } = allMarkdownRemark;
 
   const tagCount = edges.length;
 
   return (
     <Layout>
       <SEO title={pageContext.tag} keywords={[pageContext.tag]} />
-      <section className="p-10">
+      <section className="max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl mx-auto">
         <h1 className="mt-0 mb-8 border-b pb-4 font-bold">
           {pageContext.tag} ({tagCount})
         </h1>
@@ -28,7 +28,7 @@ export default function PostsForTag({ data, pageContext }) {
 
 export const pageQuery = graphql`
   query($tag: String) {
-    allMdx(
+    allMarkdownRemark(
       sort: { fields: [frontmatter___date], order: DESC }
       filter: { frontmatter: { tags: { in: [$tag] } } }
     ) {

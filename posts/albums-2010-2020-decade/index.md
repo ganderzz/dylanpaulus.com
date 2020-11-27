@@ -9,10 +9,9 @@ published: true
 
 This is an attempt at a different kind of post. Something less technical. Something more personal. I'm a pretty big music fan, and I'm always scrounging around the internet for new artists and songs to fill my Spotify portfolio. One of my biggest fears is being that 50 year old dude who still only listens to those same two Def Leppard songs. Mullet optional.
 
-<br />
 Just to be clear, this isn't a list of the best albums/songs/whatever in the last decade--though I think they're pretty dope--but an anthology of nostalgia from the last ten years. Some songs are associated with life events, which I'll go in to. Others, just cool songs. For myself this is a journal. Maybe for the reader, a novelty to find new music.
-<br /><br />
-To give some context, when 2010 reared its head I had just turned 17. Still in highschool! I had just became an uncle, and my favorite artists were The White Stripes and The Red Hot Chili Peppers. A big change from Blink-182 and My Chemical Romance from years before (we all listened to it, don't judge). This was all fueled by that drunk next door neighbor who knew all the cool bands. It was around this time that I had been playing guitar for a few years. Playing in a band was the natural progression. We played all the covers: Iron Man, Smoke on the Water, and Crazy Train. This was short lived--we wanted music that related to us.
+
+To give some context, when 2010 reared its head I had just turned 17. Still in high school! I had just became an uncle, and my favorite artists were The White Stripes and The Red Hot Chili Peppers. A big change from Blink-182 and My Chemical Romance from years before (we all listened to it, don't judge). This was all fueled by that drunk next door neighbor who knew all the cool bands. It was around this time that I had been playing guitar for a few years. Playing in a band was the natural progression. We played all the covers: Iron Man, Smoke on the Water, and Crazy Train. This was short lived--we wanted music that related to us.
 
 ### Wavelets split w/ Senders
 

@@ -1,14 +1,21 @@
 import React from "react";
-import { graphql } from "gatsby";
+import { graphql, Link } from "gatsby";
 import Layout from "../components/layout";
 import { PostListItem } from "../components/postListItem";
 import { Pagination } from "../components/pagination";
 import { SubHeading } from "../components/subheading";
 import SEO from "../components/seo";
+import { TagsList } from "../components/tagsList";
 
 export default function BlogList({ data, pageContext }) {
   const posts = data.posts.edges;
   const { numPages, currentPage } = pageContext;
+
+  const sortedTags = React.useMemo(() => {
+    return data.tags.group
+      .sort((a, b) => b.totalCount - a.totalCount)
+      .slice(0, 5);
+  }, [data]);
 
   return (
     <Layout>
@@ -25,15 +32,35 @@ export default function BlogList({ data, pageContext }) {
           `javascript`,
         ]}
       />
-      <section className="max-w-screen-xl mx-auto" style={{ minHeight: 1332 }}>
-        <SubHeading className="mt-0">Recently Published</SubHeading>
+      <section
+        className="flex max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl mx-auto"
+        style={{ minHeight: 1332 }}
+      >
+        <div className="w-2/3 px-8">
+          <div className="flex">
+            <div className="flex-1">
+              <SubHeading className="mt-0">Recently Published</SubHeading>
+            </div>
+            <div className="flex-1 text-right mt-8 mb-8">
+              <Pagination currentPage={currentPage} totalPages={numPages} />
+            </div>
+          </div>
 
-        {posts.map((post) => (
-          <PostListItem key={post.node.id} data={post} />
-        ))}
+          {posts.map((post) => (
+            <PostListItem key={post.node.id} data={post} />
+          ))}
 
-        <div className="mt-8 mx-auto text-center">
-          <Pagination currentPage={currentPage} totalPages={numPages} />
+          <div className="mt-8 mx-auto text-right">
+            <Pagination currentPage={currentPage} totalPages={numPages} />
+          </div>
+        </div>
+
+        <div className="flex flex-col w-1/3 px-8">
+          <Link to="/sitemap">
+            <SubHeading className="mt-0">Popular Tags</SubHeading>
+          </Link>
+
+          <TagsList tags={sortedTags.map((p) => p.tag)} />
         </div>
       </section>
     </Layout>
@@ -42,7 +69,13 @@ export default function BlogList({ data, pageContext }) {
 
 export const blogListQuery = graphql`
   query blogListQuery($skip: Int!, $limit: Int!) {
-    posts: allMdx(
+    tags: allMarkdownRemark(limit: 500) {
+      group(field: frontmatter___tags) {
+        tag: fieldValue
+        totalCount
+      }
+    }
+    posts: allMarkdownRemark(
       sort: { fields: [frontmatter___date], order: DESC }
       filter: {
         fileAbsolutePath: { glob: "**/posts/**/index.md" }

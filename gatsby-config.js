@@ -1,3 +1,41 @@
+const remarkPlugins = [
+  {
+    resolve: `gatsby-remark-katex`,
+    options: {
+      // Add any KaTeX options from https://github.com/KaTeX/KaTeX/blob/master/docs/options.md here
+      strict: `ignore`,
+    },
+  },
+  {
+    resolve: `gatsby-remark-images`,
+    options: {
+      showCaptions: true,
+      withWebp: true,
+      quality: 60,
+      linkImagesToOriginal: false,
+      srcSetBreakpoints: [340, 520, 890],
+    },
+  },
+  {
+    resolve: `gatsby-remark-autolink-headers`,
+    options: {
+      className: "header-link",
+      maintainCase: true,
+    },
+  },
+  {
+    resolve: `gatsby-remark-prismjs`,
+    options: {
+      classPrefix: "language-",
+      inlineCodeMarker: null,
+      aliases: {},
+      showLineNumbers: false,
+    },
+  },
+  `gatsby-remark-copy-linked-files`,
+  "gatsby-remark-numbered-footnotes",
+];
+
 module.exports = {
   siteMetadata: {
     title: `Dylan Paulus`,
@@ -27,43 +65,9 @@ module.exports = {
     `gatsby-plugin-mdx`,
     `gatsby-plugin-netlify`,
     {
-      resolve: `gatsby-plugin-mdx`,
+      resolve: `gatsby-transformer-remark`,
       options: {
-        extensions: [`.md`, `.mdx`],
-        gatsbyRemarkPlugins: [
-          {
-            resolve: `gatsby-remark-katex`,
-            options: {
-              // Add any KaTeX options from https://github.com/KaTeX/KaTeX/blob/master/docs/options.md here
-              strict: `ignore`,
-            },
-          },
-          {
-            resolve: `gatsby-remark-images`,
-            options: {
-              showCaptions: true,
-              withWebp: true,
-            },
-          },
-          {
-            resolve: `gatsby-remark-autolink-headers`,
-            options: {
-              className: "header-link",
-              maintainCase: true,
-            },
-          },
-          {
-            resolve: `gatsby-remark-prismjs`,
-            options: {
-              classPrefix: "language-",
-              inlineCodeMarker: null,
-              aliases: {},
-              showLineNumbers: false,
-            },
-          },
-          `gatsby-remark-copy-linked-files`,
-          "gatsby-remark-numbered-footnotes",
-        ],
+        plugins: remarkPlugins,
       },
     },
     {
