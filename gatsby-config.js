@@ -114,7 +114,6 @@ module.exports = {
             }
           }
         `,
-
         feeds: [
           {
             serialize: ({ query: { site, allMarkdownRemark } }) => {
