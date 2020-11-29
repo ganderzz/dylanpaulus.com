@@ -114,16 +114,24 @@ module.exports = {
             }
           }
         `,
+
         feeds: [
           {
             serialize: ({ query: { site, allMarkdownRemark } }) => {
               return allMarkdownRemark.edges.map((edge) => {
-                return Object.assign({}, edge.node.frontmatter, {
-                  description: edge.node.excerpt,
-                  date: edge.node.frontmatter.date,
-                  url: site.siteMetadata.siteUrl + edge.node.fields.slug,
-                  guid: site.siteMetadata.siteUrl + edge.node.fields.slug,
-                  custom_elements: [{ "content:encoded": edge.node.html }],
+                const { frontmatter, fields, html, excerpt } = edge.node;
+
+                return Object.assign({}, frontmatter, {
+                  description: excerpt,
+                  date: frontmatter.date,
+                  url: site.siteMetadata.siteUrl + fields.slug,
+                  guid: site.siteMetadata.siteUrl + fields.slug,
+                  enclosure: frontmatter.image && {
+                    url: `${site.siteMetadata.siteUrl}/${frontmatter.image.relativePath}`,
+                    length: `${frontmatter.image.size}`,
+                    type: `image/${frontmatter.image.extension}`,
+                  },
+                  custom_elements: [{ "content:encoded": html }],
                 });
               });
             },
@@ -140,6 +148,11 @@ module.exports = {
                       frontmatter {
                         title
                         date
+                        image {
+                          relativePath
+                          size
+                          extension
+                        }
                       }
                     }
                   }

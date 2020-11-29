@@ -67,7 +67,7 @@ export default function About() {
 
             <Timeline>
               <li class="mb-2">
-                <div class="flex-1 ml-6 font-base text-secondary-400 italic">
+                <div class="flex-1 ml-6 font-base text-gray-200 dark:text-gray-800 italic">
                   Now
                 </div>
               </li>
@@ -108,7 +108,7 @@ export default function About() {
               </TimelineItem>
 
               <li>
-                <div class="flex-1 ml-6 font-base text-secondary-400 italic">
+                <div class="flex-1 ml-6 font-base text-gray-200 dark:text-gray-800 italic">
                   2013
                 </div>
               </li>
