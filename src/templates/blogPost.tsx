@@ -63,11 +63,22 @@ export default function BlogPost(payload: Props) {
 
       <section className="mt-4">
         <h1
-          className="mb-10 mt-4 mx-auto font-bold text-center"
-          style={{ maxWidth: "50ch" }}
+          className={`${
+            frontmatter.series ? "mb-0" : "mb-10"
+          } mt-4 mx-auto font-bold text-center`}
+          style={{ maxWidth: "45ch" }}
         >
           {frontmatter.title}
         </h1>
+
+        {frontmatter.series && (
+          <h6
+            className="mb-10 mt-0 mx-auto italic text-center"
+            style={{ maxWidth: "45ch" }}
+          >
+            Part of the {frontmatter.series} series.
+          </h6>
+        )}
 
         <article
           className="blog__post mb-10 dark:text-gray-100 leading-relaxed"
@@ -102,6 +113,7 @@ export const pageQuery = graphql`
           id
           relativePath
         }
+        series
         image_credit
         published
       }

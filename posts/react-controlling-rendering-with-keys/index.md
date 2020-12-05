@@ -1,7 +1,7 @@
 ---
 title: "React: Controlling Rendering with Keys"
 tags: ["React", "Javascript"]
-path: "/blog/controlling-rendering-with-keys"
+
 date: "2018-10-18"
 published: true
 ---
@@ -16,15 +16,15 @@ Let's take a look.
 class Parent extends Component {
   state = {
     key: true,
-    count: 0
+    count: 0,
   };
 
   handleChildUnmount = () => {
-    this.setState(prevProps => ({ count: prevProps.count + 1 }));
+    this.setState((prevProps) => ({ count: prevProps.count + 1 }));
   };
 
   toggleKey = () => {
-    this.setState(prevProps => ({ key: !prevProps.key }));
+    this.setState((prevProps) => ({ key: !prevProps.key }));
   };
 
   render() {

@@ -1,8 +1,8 @@
 ---
 title: "Part Two: Using Typescript with Redux"
 tags: ["React", "Typescript", "Javascript"]
-path: "/blog/pt-2-typescript-with-redux"
 date: "2018-07-15"
+series: "Using Typescript with React"
 published: true
 ---
 
@@ -37,8 +37,8 @@ export function increment(amount: number): IAction {
   return {
     type: INCREMENT,
     payload: {
-      amount
-    }
+      amount,
+    },
   };
 }
 
@@ -46,8 +46,8 @@ export function decrement(amount: number): IAction {
   return {
     type: DECREMENT,
     payload: {
-      amount
-    }
+      amount,
+    },
   };
 }
 ```
@@ -62,19 +62,19 @@ Finally, we'll create an action creator for both increment and decrementing our 
 
 ```jsx
 export const defaultState = {
-  count: 0
+  count: 0,
 };
 
 export function rootReducer(state = defaultState, action: IAction) {
   switch (action.type) {
     case INCREMENT:
       return {
-        count: state.count + action.payload.amount
+        count: state.count + action.payload.amount,
       };
 
     case DECREMENT:
       return {
-        count: state.count - action.payload.amount
+        count: state.count - action.payload.amount,
       };
 
     default:

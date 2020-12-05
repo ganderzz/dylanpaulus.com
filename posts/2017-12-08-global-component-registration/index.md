@@ -1,7 +1,7 @@
 ---
 title: "Global Component Registration"
 tags: ["React", "Javascript"]
-path: "/blog/global-component-registration"
+
 date: "2017-12-08"
 published: true
 ---
@@ -90,7 +90,7 @@ import React, { Component } from "react";
 
 class Modal extends Component {
   state = {
-    isOpen: false
+    isOpen: false,
   };
 
   // This is the show() function that'll be invoked

@@ -1,7 +1,7 @@
 ---
 title: "Music That Defined My Decade: 2010-2019"
 tags: ["music", "personal"]
-path: "/blog/music-that-defined-my-decade"
+
 image: banner.jpg
 date: "2019-12-29"
 published: true

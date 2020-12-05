@@ -1,7 +1,7 @@
 ---
 title: "Tips on Improving FabricJS Speed"
 tags: ["Javascript", "FabricJS"]
-path: "/blog/tips-on-improving-fabric-js"
+
 date: "2018-10-11"
 published: true
 ---

@@ -1,7 +1,7 @@
 ---
 title: "How Facebook Avoids Ad Blockers"
 tags: ["encryption", "facebook", "interesting", "ads"]
-path: "/blog/how-fb-avoids-adblockers"
+
 image: banner.jpg
 date: "2019-11-24"
 published: true

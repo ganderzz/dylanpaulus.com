@@ -11,7 +11,9 @@ const listComponent = path.resolve("./src/templates/blogList.tsx");
 const postComponent = path.resolve(`./src/templates/blogPost.tsx`);
 const postsForTag = path.resolve(`./src/templates/postsForTag.tsx`);
 const redirectComponent = path.resolve(`./src/templates/redirect.tsx`);
-const allLinksListComponent = path.resolve(`./src/templates/allLinks.tsx`);
+const externalLinksComponent = path.resolve(
+  `./src/templates/externalLinks.tsx`
+);
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage, createRedirect } = actions;
@@ -44,7 +46,7 @@ exports.createPages = async ({ graphql, actions }) => {
   }
 
   const posts = data.blog.edges;
-  const postsPerPage = 6;
+  const postsPerPage = 10;
   const numPages = Math.ceil(posts.length / postsPerPage);
 
   // create search index json file.
@@ -87,7 +89,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
   createPage({
     path: "/links",
-    component: allLinksListComponent,
+    component: externalLinksComponent,
     context: staticUrls,
   });
 

@@ -1,7 +1,7 @@
 ---
 title: "React: Not Everything is State"
 tags: ["React", "Javascript"]
-path: "/blog/not-everything-is-state"
+
 date: "2018-10-05"
 published: true
 ---
@@ -16,13 +16,13 @@ class AnnoyingButton extends React.Component {
   id = generateUniqueId(); // Here!
 
   state = {
-    isDisabled: false
+    isDisabled: false,
   };
 
   componentDidMount() {
     this.intervalId = setInterval(() => {
       this.setState(({ isDisabled }) => ({
-        isDisabled: !isDisabled
+        isDisabled: !isDisabled,
       }));
     }, 100);
   }

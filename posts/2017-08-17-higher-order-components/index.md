@@ -1,7 +1,6 @@
 ---
 title: "Introduction to Higher Order Components"
 tags: ["Javascript", "Frontend", "React"]
-path: "/blog/intro-higher-order-components"
 date: "2017-08-17"
 published: true
 ---
@@ -25,7 +24,7 @@ Before jumping straight into the HOC, what are we trying to achieve? We want to 
 
 ```javascript
 function withEmptyState(component) {
-  return function(props) {
+  return function (props) {
     // Start new stateless functional component
     if (props.children) {
       return component(props);

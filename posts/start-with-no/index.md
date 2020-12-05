@@ -1,7 +1,7 @@
 ---
 title: "Start With No"
 tags: ["Project Management"]
-path: "/blog/start-with-no"
+
 image: banner.jpeg
 image_credit: "https://unsplash.com/photos/JmJDyFUSYWI"
 date: "2020-09-13"

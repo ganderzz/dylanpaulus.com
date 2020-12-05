@@ -1,7 +1,7 @@
 ---
 title: "Making React Fast: Tips on Optimizing ReactJS"
 tags: ["React", "Javascript"]
-path: "/blog/making-react-fast"
+
 image: banner.jpg
 date: "2020-02-04"
 published: true

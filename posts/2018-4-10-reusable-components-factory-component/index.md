@@ -1,7 +1,7 @@
 ---
 title: "Reusable Components: Factory Components"
 tags: ["React", "Javascript"]
-path: "/blog/factory-components"
+
 date: "2018-04-10"
 published: true
 ---

@@ -1,7 +1,7 @@
 ---
 title: "Generic Type Arguments in JSX Elements"
 tags: ["React", "Typescript", "Javascript"]
-path: "/blog/generic-type-arguments-jsx"
+
 date: "2018-06-02"
 published: true
 ---

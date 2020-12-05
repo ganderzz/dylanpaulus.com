@@ -1,7 +1,7 @@
 ---
 title: "Introducing React-Scroll-To v2"
 tags: ["React", "Javascript"]
-path: "/blog/introducing-react-scroll-to-v2"
+
 date: "2018-11-03"
 published: true
 ---

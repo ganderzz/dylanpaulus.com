@@ -1,7 +1,7 @@
 ---
 title: "Tips on Creating Reusable Components"
 tags: ["React", "Javascript"]
-path: "/blog/tips-on-creating-resuable-components"
+
 date: "2017-09-08"
 published: true
 ---

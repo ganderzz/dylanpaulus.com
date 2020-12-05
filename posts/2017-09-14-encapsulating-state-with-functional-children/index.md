@@ -1,7 +1,7 @@
 ---
 title: "Encapsulating State with Functional Children"
 tags: ["React", "Javascript"]
-path: "/blog/encapsulating-state-functional-children"
+
 date: "2017-09-14"
 published: true
 ---
@@ -20,14 +20,14 @@ class Booer extends React.Component {
     super(props);
 
     this.state = {
-      test: "..."
+      test: "...",
     };
   }
 
   componentDidMount() {
     setTimeout(() => {
       this.setState({
-        test: "BOO!"
+        test: "BOO!",
       });
     }, 1000);
   }
@@ -39,7 +39,7 @@ class Booer extends React.Component {
 }
 
 function Timer(props) {
-  return <Booer>{test => <div>{test}</div>}</Booer>;
+  return <Booer>{(test) => <div>{test}</div>}</Booer>;
 }
 ```
 
@@ -57,15 +57,15 @@ class Toggle extends React.Component {
     super(props);
 
     this.state = {
-      isToggled: false
+      isToggled: false,
     };
 
     this.toggle = this.toggle.bind(this);
   }
 
   toggle() {
-    this.setState(prevState => ({
-      isToggled: !prevState.isToggled
+    this.setState((prevState) => ({
+      isToggled: !prevState.isToggled,
     }));
   }
 

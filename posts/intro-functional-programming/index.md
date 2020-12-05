@@ -1,7 +1,7 @@
 ---
 title: "Intro to Functional Programming"
 tags: ["Functional Programming", "Javascript"]
-path: "/blog/intro-functional-programming"
+
 date: "2019-03-31"
 published: true
 ---

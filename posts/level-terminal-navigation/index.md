@@ -1,7 +1,7 @@
 ---
 title: "Leveling Up Your Terminal/Command-Line Navigation"
 tags: ["terminal", "productivity", "command-line"]
-path: "/blog/leveling-up-your-terminal-navigation"
+
 date: "2019-06-17"
 published: true
 ---

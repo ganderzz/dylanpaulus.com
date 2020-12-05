@@ -1,7 +1,7 @@
 ---
 title: "Write Software that Evolves"
 tags: ["Software Engineering"]
-path: "/blog/write-software-that-evolves"
+
 date: "2018-07-29"
 published: true
 ---
