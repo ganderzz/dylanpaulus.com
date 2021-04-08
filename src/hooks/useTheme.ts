@@ -9,9 +9,9 @@ function useTheme() {
   const defaultTheme = preferDarkSchema ? "dark" : "light";
 
   const [theme, setTheme] = useState(
-    typeof localStorage !== "undefined"
-      ? localStorage.getItem("theme") || defaultTheme
-      : defaultTheme
+    (typeof localStorage !== "undefined"
+      ? localStorage.getItem("theme") ?? defaultTheme
+      : defaultTheme) as "dark" | "light"
   );
 
   useLayoutEffect(() => {

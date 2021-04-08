@@ -2,7 +2,11 @@ import React from "react";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
 import { SubHeading } from "../components/subheading";
-import { Timeline, TimelineItem } from "../components/timeline";
+import {
+  Timeline,
+  TimelineContent,
+  TimelineItem,
+} from "../components/timeline";
 
 export default function About() {
   return (
@@ -24,7 +28,7 @@ export default function About() {
         <div className="md:flex sm:block leading-loose">
           <div className="px-8 md:w-1/2 w-full">
             <SubHeading style={{ marginTop: 0 }}>About</SubHeading>
-            <em className="text-xl bg-clip-text text-transparent bg-gradient-to-tr from-blue-500 to-teal-500 font-bold">
+            <em className="text-3xl bg-clip-text text-transparent bg-gradient-to-tr from-blue-500 to-purple-800 dark:from-blue-100 dark:to-orange-300 font-bold">
               Hi, I'm Dylan.
             </em>
             <p className="text-base">
@@ -67,48 +71,49 @@ export default function About() {
 
             <Timeline>
               <li class="mb-2">
-                <div class="flex-1 ml-6 font-base text-gray-200 dark:text-gray-800 italic">
+                <div class="flex-1 ml-6 font-base text-gray-300 dark:text-gray-700 italic">
                   Now
                 </div>
               </li>
 
               <TimelineItem isActive>
-                <strong>Lead Software Engineer</strong>
-                <div className="text-gray-600 -mt-2">
+                <TimelineContent title="Lead Software Engineer">
                   Schweitzer Engineering Laboratories
-                </div>
+                </TimelineContent>
               </TimelineItem>
 
               <TimelineItem>
-                <strong>Software Engineer</strong>
-                <div className="text-gray-600 -mt-2">
+                <TimelineContent title="Software Engineer">
                   Schweitzer Engineering Laboratories
-                </div>
+                </TimelineContent>
               </TimelineItem>
 
               <TimelineItem>
-                <strong>Associate Software Engineer</strong>
-                <div className="text-gray-600 -mt-2">
+                <TimelineContent title="Associate Software Engineer">
                   Schweitzer Engineering Laboratories
-                </div>
+                </TimelineContent>
               </TimelineItem>
 
               <TimelineItem>
-                <a href="https://www.mobygames.com/developer/sheet/view/developerId,783203/">
-                  <strong>Web Developer</strong>{" "}
-                  <div className="text-gray-600 -mt-2">Sony Playstation</div>
-                </a>
+                <TimelineContent
+                  title={
+                    <a href="https://www.mobygames.com/developer/sheet/view/developerId,783203/">
+                      Web Developer
+                    </a>
+                  }
+                >
+                  Sony Playstation
+                </TimelineContent>
               </TimelineItem>
 
               <TimelineItem>
-                <strong>Student Web Developer</strong>{" "}
-                <div className="text-gray-600 -mt-2">
+                <TimelineContent title="Student Web Developer">
                   Eastern Washington University
-                </div>
+                </TimelineContent>
               </TimelineItem>
 
               <li>
-                <div class="flex-1 ml-6 font-base text-gray-200 dark:text-gray-800 italic">
+                <div class="flex-1 ml-6 font-base text-gray-300 dark:text-gray-700 italic">
                   2013
                 </div>
               </li>

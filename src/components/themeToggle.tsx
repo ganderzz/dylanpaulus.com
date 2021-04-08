@@ -2,15 +2,9 @@ import React from "react";
 import { ReactComponent as MoonIcon } from "../icons/moon.svg";
 import { ReactComponent as SunIcon } from "../icons/sun.svg";
 import useTheme from "../hooks/useTheme";
-import { useSpring, useTransition, animated } from "react-spring";
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
-  const transitions = useTransition(theme === "dark", null, {
-    from: { position: "absolute" },
-    enter: { opacity: 1, transform: "scale(1)" },
-    leave: { opacity: 0, transform: "scale(2)" },
-  });
 
   return (
     <a
@@ -24,17 +18,7 @@ export function ThemeToggle() {
         height: 24,
       }}
     >
-      {transitions.map(({ item, key, props }) =>
-        item ? (
-          <animated.div key={key} style={props}>
-            <SunIcon />
-          </animated.div>
-        ) : (
-          <animated.div key={key} style={props}>
-            <MoonIcon />
-          </animated.div>
-        )
-      )}
+      {theme === "dark" ? <SunIcon /> : <MoonIcon />}
     </a>
   );
 }
