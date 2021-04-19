@@ -66,7 +66,7 @@ export default function About() {
             </div>
           </div>
 
-          <div className="px-8 md:w-1/2 w-full sm:mt-8 xs:mt-8 md:mt-0">
+          <div className="px-8 md:w-1/2 w-full sm:mt-0 mt-8">
             <SubHeading style={{ marginTop: 0 }}>Experience</SubHeading>
 
             <Timeline>

@@ -6,11 +6,11 @@ date: "2018-10-11"
 published: true
 ---
 
-[FabricJS](http://fabricjs.com/) is an awesome library that handles [Canvas](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API) interactions and rendering. Inherently it is a pretty performant library, but recently we ran into an issue where we needed to render ~8mbof json data (10k objects). Given any framework, it is no easy task to render this much data. The biggest culprit when rendering this many objects is renders (or rerenders). When the canvas has to show any change, it renders the _entire_ canvas. This includes clearing the canvas, looping through each object, and drawing it. In this post I'll go through some of the techniques we used to improve interaction and rendering speed.
+[FabricJS](http://fabricjs.com/) is an awesome library that handles [Canvas](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API) interactions and rendering. Inherently it is a pretty performant library, but recently we ran into an issue where we needed to render ~8mb of json data (10k objects). Given any framework, it is no easy task to render this much data. The biggest culprit while rendering a lot of objects is renders (or rerenders). When the canvas has to show any change, it renders the _entire_ canvas. This includes clearing the canvas, looping through each object, and drawing it. In this post I'll go through some of the techniques we used to improve interaction and rendering speed.
 
 #### Cut out the basics
 
-FabricJS has a [small post about optimizing performance](https://github.com/fabricjs/fabric.js/wiki/Optimizing-performance). All great tips, but the one to look at is setting `renderOnAddRemove` to false. Adding this property to the canvas will prevent Fabric from rerendering if a shape is added or deleted. This gives huge speed improvements on initial loads while adding a lot of shapes to the canvas.
+FabricJS has a [small post about optimizing performance](https://github.com/fabricjs/fabric.js/wiki/Optimizing-performance). All great tips, but the one to look at is setting `renderOnAddRemove` to false. Adding this property to the canvas will prevent Fabric from re-rendering if a shape is added or deleted. This gives huge speed improvements on initial loads while adding a lot of shapes to the canvas.
 
 ```javascript
 const canvas = new fabric.Canvas("myId", { renderOnAddRemove: false });

@@ -20,7 +20,7 @@ const Layout = ({ children, className = "" }) => (
       <section>
         <Header siteTitle={data.site.siteMetadata.title} />
 
-        <main className={`w-full text-base -mt-20 ${className}`}>
+        <main className={`p-4 sm:p-0 w-full text-base -mt-20 ${className}`}>
           {children}
 
           <Footer />

@@ -17,7 +17,7 @@ export function PostListItem({ data, style = {}, ...rest }: IProps) {
       {...rest}
     >
       <div
-        style={{ color: "var(--font-color)" }}
+        style={{ color: "var(--font-color)", minHeight: 24 }}
         className="flex font-medium text-md opacity-75"
       >
         <span className="flex content-center mr-2">

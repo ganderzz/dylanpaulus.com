@@ -22,7 +22,7 @@ export function TimelineItem({
       <div className="flex items-center mb-1">
         <div
           className={`rounded-full h-4 w-4 relative z-20 ${
-            isActive ? "bg-green-300 shadow" : "bg-secondary-500"
+            isActive ? "bg-green-300 shadow pulse" : "bg-secondary-500"
           }`}
         />
         <div className="flex-1 ml-4 font-base">{children}</div>

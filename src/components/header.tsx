@@ -7,18 +7,21 @@ import { Search } from "./search";
 
 const Header = ({ siteTitle }) => {
   return (
-    <header className="pt-10 pl-2 pr-2 h-64 max-w-screen-xl mx-auto">
-      <div className="z-10 relative container md:max-w-none mx-auto md:w-full lg:mx-auto h-12 flex items-center">
+    <header className="pt-2 sm:pt-10 pl-2 pr-2 h-64 max-w-screen-xl mx-auto">
+      <div className="z-10 relative container md:max-w-none mx-auto md:w-full lg:mx-auto h-12 block sm:flex sm:items-center">
         <Link
           to="/"
           title={siteTitle}
-          className="text-5xl mx-0 font-bold lg:w-1/2 w-1/4 text-white no-underline hover:text-gray-500 transition-all"
+          className="block text-5xl mx-0 font-bold lg:w-1/2 w-full sm:w-1/4 text-white no-underline hover:text-gray-500 transition-all"
         >
           <Logo style={{ maxWidth: 350, minWidth: 120, width: "100%" }} />
         </Link>
 
-        <nav role="navigation" className="text-right lg:w-1/2 w-3/4 z-10">
-          <Search className="mr-4" />
+        <nav
+          role="navigation"
+          className="sm:mt-0 sm:text-right text-center mt-4 w-full block lg:w-1/2 sm:w-3/4 z-10"
+        >
+          <Search className="mr-4 hidden sm:inline-block" />
 
           <MenuLink to="/">Blog</MenuLink>
           <MenuLink to="/about">About</MenuLink>
