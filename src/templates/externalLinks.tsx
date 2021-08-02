@@ -11,21 +11,14 @@ export default function ExternalLinks({ pageContext }) {
         keywords={["external links"]}
       />
 
-      <section className="p-10">
-        <h1 className="mt-0 mb-8 border-b pb-4 font-bold">External Links</h1>
+      <section>
+        <h1>External Links</h1>
 
-        <div className="flex flex-row flex-wrap">
+        <div>
           {Object.values(pageContext)?.map(({ from, to }) => (
-            <div
-              key={from}
-              className="my-2 mx-4 p-4 shadow-md border border-gray-200 rounded-md"
-            >
-              <a href={to} className="block m-0 p-0">
-                {from}
-              </a>
-              <p className="block dark:text-gray-200 text-gray-700 italic text-sm">
-                {to}
-              </p>
+            <div key={from}>
+              <a href={to}>{from}</a>
+              <p>{to}</p>
             </div>
           ))}
         </div>

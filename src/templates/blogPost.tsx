@@ -1,4 +1,5 @@
 import React from "react";
+import styled from "styled-components";
 import { graphql } from "gatsby";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
@@ -14,16 +15,41 @@ type Props = {
   };
 };
 
+const TableOfContents = styled.div`
+  margin: 0;
+
+  ul,
+  li {
+    margin: 0;
+    padding: 0 0 0 0.5rem;
+    list-style-type: none;
+  }
+
+  a,
+  a:active,
+  a:visited {
+    opacity: 0.8;
+    color: ${(props) => props.theme.link.font};
+    text-decoration: none;
+    transition: color 0.2s opacity 0.2;
+  }
+  a:hover {
+    opacity: 1;
+    color: ${(props) => props.theme.link.hover};
+  }
+`;
+
 export default function BlogPost(payload: Props) {
   if (!payload) {
     return null;
   }
 
   const { markdownRemark } = payload.data as any;
-  const { frontmatter, html, timeToRead, parent } = markdownRemark;
+  const { frontmatter, html, timeToRead, parent, tableOfContents } =
+    markdownRemark;
 
   return (
-    <Layout className="mt-4">
+    <Layout>
       <SEO
         description={frontmatter.description ?? frontmatter.title}
         title={frontmatter.title}
@@ -38,16 +64,10 @@ export default function BlogPost(payload: Props) {
       />
 
       {!frontmatter.published && (
-        <div
-          className="flex justify-between content-center text-base bg-orange-100 rounded-t-md border-t-4 border-orange-500 text-orange-700 p-4"
-          role="alert"
-        >
-          <p className="relative top-0 mt-2">
-            ⚠️ This post is not published! Content is subject to change.
-          </p>{" "}
+        <div role="alert">
+          <p>⚠️ This post is not published! Content is subject to change.</p>{" "}
           <a
             href={`https://github.com/ganderzz/dylanpaulus.com/blob/master/posts/${parent.name}.${parent.extension}`}
-            className="bg-white hover:text-black hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
           >
             Suggest Edits
           </a>
@@ -55,40 +75,72 @@ export default function BlogPost(payload: Props) {
       )}
 
       <div
-        className="blog-post__header text-center"
+        style={{
+          margin: "0 auto",
+          textAlign: "center",
+          display: "flex",
+          justifyContent: "center",
+        }}
         data-credit={frontmatter.image_credit}
       >
         <FrontmatterInfo frontmatter={frontmatter} timeToRead={timeToRead} />
       </div>
 
-      <section className="mt-4">
+      <section style={{ position: "relative" }}>
         <h1
-          className={`${
-            frontmatter.series ? "mb-0" : "mb-10"
-          } mt-4 mx-auto font-bold text-center`}
-          style={{ maxWidth: "45ch" }}
+          style={{
+            maxWidth: "45ch",
+            margin: "12px auto 0 auto",
+            textAlign: "center",
+            fontWeight: 600,
+            fontSize: "3rem",
+          }}
         >
           {frontmatter.title}
         </h1>
 
         {frontmatter.series && (
           <h6
-            className="mb-10 mt-0 mx-auto italic text-center"
-            style={{ maxWidth: "45ch" }}
+            style={{
+              fontSize: "1rem",
+              fontStyle: "italic",
+              maxWidth: "45ch",
+              margin: "0 auto 20px auto",
+              textAlign: "center",
+              fontWeight: 400,
+            }}
           >
             Part of the {frontmatter.series} series.
           </h6>
         )}
 
-        <article
-          className="blog__post mb-10 dark:text-gray-100 leading-relaxed"
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
+        <div style={{ marginTop: 30, marginBottom: 10, display: "flex" }}>
+          <article
+            className="blog__post"
+            style={{ lineHeight: 1.8 }}
+            dangerouslySetInnerHTML={{ __html: html }}
+          />
+
+          <aside>
+            <div
+              style={{
+                position: "sticky",
+                top: 60,
+                left: 0,
+                margin: 0,
+                lineHeight: 1.7,
+              }}
+            >
+              <span style={{ opacity: 0.8 }}>Contents</span>
+              <TableOfContents
+                dangerouslySetInnerHTML={{ __html: tableOfContents }}
+              />
+            </div>
+          </aside>
+        </div>
 
         {frontmatter && frontmatter.title && (
-          <div className="blog__post">
-            <Comments title={frontmatter.title} />
-          </div>
+          <Comments title={frontmatter.title} />
         )}
       </section>
     </Layout>
@@ -96,7 +148,7 @@ export default function BlogPost(payload: Props) {
 }
 
 export const pageQuery = graphql`
-  query($slug: String!) {
+  query ($slug: String!) {
     site {
       siteMetadata {
         siteUrl
@@ -105,6 +157,7 @@ export const pageQuery = graphql`
     markdownRemark(fields: { slug: { eq: $slug } }) {
       html
       timeToRead
+      tableOfContents
       frontmatter {
         date(formatString: "MMMM DD, YYYY")
         title

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "gatsby";
+import stylized from "styled-components";
 import { ReactComponent as TwitterIcon } from "../icons/twitter.svg";
 import { ReactComponent as GithubIcon } from "../icons/github.svg";
 import { ReactComponent as SitemapIcon } from "../icons/sitemap.svg";
@@ -54,37 +55,46 @@ const socialMedia: ISocialProps[] = [
   },
 ];
 
-const socialIconClass =
-  "hover:opacity-100 mr-12 opacity-75 text-5xl inline-block";
+const Container = stylized.footer`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid ${(props) => props.theme.border};
+  margin: 40px auto 0 auto;
+  padding-top: 1rem;
+
+  > * {
+    margin: 0 1rem;
+  }
+
+  a, a:visited {
+    color: ${(props) => props.theme.link.font};
+    transition: color 0.2s;
+  }
+
+  a:hover {
+    color: ${(props) => props.theme.link.hover};
+  }
+`;
 
 export function Footer() {
   return (
-    <footer className="w-full sm:w-3/5 pt-10 pb-10 text-center border-t border-gray-200 dark:border-gray-700 border-solid mx-auto mt-8">
+    <Container>
       {socialMedia.map((item) => {
         if (item.isExternal) {
           return (
-            <a
-              key={item.title}
-              className={socialIconClass}
-              href={item.url}
-              title={item.title}
-            >
+            <a key={item.title} href={item.url} title={item.title}>
               {item.icon}
             </a>
           );
         }
 
         return (
-          <Link
-            key={item.title}
-            title={item.title}
-            className={socialIconClass}
-            to={item.url}
-          >
+          <Link key={item.title} title={item.title} to={item.url}>
             {item.icon}
           </Link>
         );
       })}
-    </footer>
+    </Container>
   );
 }

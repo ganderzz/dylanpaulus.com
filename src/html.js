@@ -1,7 +1,5 @@
 import React from "react";
 
-function startCLI() {}
-
 export default function HTML(props) {
   return (
     <html {...props.htmlAttributes}>

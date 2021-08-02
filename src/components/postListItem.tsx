@@ -1,6 +1,7 @@
 import React from "react";
-import { IPost } from "../interfaces/IPost";
 import { Link } from "gatsby";
+import styled from "styled-components";
+import { IPost } from "../interfaces/IPost";
 
 interface IProps {
   data: {
@@ -9,37 +10,41 @@ interface IProps {
   style?: React.CSSProperties;
 }
 
+const Container = styled.div`
+  min-height: 117px;
+  color: var(--font-color);
+  margin-bottom: 2.4rem;
+
+  a {
+    text-decoration: none;
+    color: ${(props) => props.theme.link.font};
+    transition: color 0.15s;
+  }
+
+  a:hover {
+    color: ${(props) => props.theme.link.hover};
+  }
+
+  h2 {
+    margin: 0;
+  }
+`;
+
 export function PostListItem({ data, style = {}, ...rest }: IProps) {
   return (
-    <div
-      style={{ minHeight: 117, ...style }}
-      className="block mb-20 max-w-max md:max-w-screen-md lg:max-w-screen-lg"
-      {...rest}
-    >
-      <div
-        style={{ color: "var(--font-color)", minHeight: 24 }}
-        className="flex font-medium text-md opacity-75"
-      >
-        <span className="flex content-center mr-2">
-          {data.node.frontmatter.date}
-        </span>
-        •<span className="ml-2">{data.node.timeToRead} min</span>
+    <Container style={style} {...rest}>
+      <div style={{ minHeight: 24 }}>
+        <span>{data.node.frontmatter.date}</span> •{" "}
+        <span>{data.node.timeToRead} min</span>
       </div>
 
-      <Link
-        to={data.node.fields.slug}
-        title={data.node.excerpt}
-        className="font-bold text-3xl"
-      >
-        {data.node.frontmatter.title}
-      </Link>
+      <h2>
+        <Link to={data.node.fields.slug} title={data.node.excerpt}>
+          {data.node.frontmatter.title}
+        </Link>
+      </h2>
 
-      <aside
-        style={{ color: "var(--font-color)" }}
-        className="text-base leading-12 "
-      >
-        {data.node.excerpt}
-      </aside>
-    </div>
+      <aside>{data.node.excerpt}</aside>
+    </Container>
   );
 }

@@ -32,16 +32,19 @@ export default function BlogList({ data, pageContext }) {
           `javascript`,
         ]}
       />
-      <section
-        className="flex max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl mx-auto"
-        style={{ minHeight: 1332 }}
-      >
-        <div className="w-full sm:w-2/3 px-8">
-          <div className="flex">
-            <div className="flex-1">
-              <SubHeading className="mt-0">Recently Published</SubHeading>
+      <section style={{ display: "flex", minHeight: 1332 }}>
+        <div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <div>
+              <SubHeading>Recently Published</SubHeading>
             </div>
-            <div className="flex-1 text-right mt-8 mb-8">
+            <div>
               <Pagination currentPage={currentPage} totalPages={numPages} />
             </div>
           </div>
@@ -50,14 +53,14 @@ export default function BlogList({ data, pageContext }) {
             <PostListItem key={post.node.id} data={post} />
           ))}
 
-          <div className="mt-8 mx-auto text-right">
+          <div style={{ display: "flex", justifyContent: "flex-end" }}>
             <Pagination currentPage={currentPage} totalPages={numPages} />
           </div>
         </div>
 
-        <div className="sm:flex flex-col w-1/3 px-8 hidden">
-          <Link to="/sitemap">
-            <SubHeading className="mt-0">Popular Tags</SubHeading>
+        <div style={{ padding: "0 1rem" }}>
+          <Link to="/sitemap" style={{ textDecoration: "none" }}>
+            <SubHeading>Popular Tags</SubHeading>
           </Link>
 
           <TagsList tags={sortedTags.map((p) => p.tag)} />

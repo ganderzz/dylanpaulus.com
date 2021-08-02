@@ -7,10 +7,18 @@ export default function NotFound() {
   return (
     <Layout>
       <SEO title="404: Not found" description="Not Found" />
-      <section className="text-center">
-        <Missing className="mx-auto" style={{ maxWidth: 600 }} />
-        <h1 className="-mt-8">404</h1>
-        <p>You hit a route that doesn&#39;t exist..</p>
+
+      <section
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignitems: "center",
+        }}
+      >
+        <Missing style={{ maxWidth: 600 }} />
+        <h1 style={{ margin: 0 }}>404</h1>
+        <p style={{ margin: 0 }}>You hit a route that doesn&#39;t exist..</p>
       </section>
     </Layout>
   );

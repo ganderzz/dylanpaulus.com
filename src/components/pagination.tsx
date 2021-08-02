@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "gatsby";
+import styled from "styled-components";
 import { ReactComponent as ChevronLeftIcon } from "../icons/chevron-left.svg";
 import { ReactComponent as ChevronRightIcon } from "../icons/chevron-right.svg";
 
@@ -8,19 +9,46 @@ interface IProps {
   currentPage: number;
 }
 
+const Container = styled.nav`
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  border-radius: 4px;
+
+  a {
+    text-decoration: none;
+    color: ${(props) => props.theme.link.font};
+    transition: color 0.15s;
+  }
+
+  a:hover {
+    color: ${(props) => props.theme.link.hover};
+  }
+
+  svg {
+    width: 1.4rem;
+    margin-top: 0.5rem;
+  }
+
+  > * {
+    padding: 0 0.4rem;
+  }
+`;
+
+const ActivePage = styled.strong`
+  border: 1px solid ${(props) => props.theme.link.hover};
+  border-radius: 4px;
+  font-weight: 500;
+`;
+
 export function Pagination({ currentPage, totalPages }: IProps) {
   return (
-    <nav className="relative z-0 inline-flex shadow-sm">
+    <Container>
       <Link
-        to={
-          currentPage === 1
-            ? "/"
-            : `/${currentPage === 2 ? "" : currentPage - 1}/`
-        }
-        className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-secondary-300 dark:border-secondary-600 bg-secondary-100 text-sm leading-5 font-medium text-primary-100 hover:bg-secondary-200 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-primary-100 active:text-gray-500 transition ease-in-out duration-150"
+        to={currentPage <= 2 ? "/" : `/${currentPage - 1}/`}
         aria-label="Previous"
       >
-        <ChevronLeftIcon className="h-5 w-5" />
+        <ChevronLeftIcon />
       </Link>
 
       {Array.from({ length: totalPages }).map((_, i) => {
@@ -28,22 +56,11 @@ export function Pagination({ currentPage, totalPages }: IProps) {
         const index = i + 1;
 
         if (index === currentPage) {
-          return (
-            <strong
-              key={i}
-              className="-ml-px relative inline-flex items-center px-4 py-2 border border-secondary-300 dark:border-secondary-600 bg-secondary-300 text-sm leading-5 font-medium text-primary-100 hover:text-primary-200 hover:bg-secondary-200 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-primary-100 active:bg-secondary-200 transition ease-in-out duration-150"
-            >
-              {index}
-            </strong>
-          );
+          return <ActivePage key={i}>{index}</ActivePage>;
         }
 
         return (
-          <Link
-            key={i}
-            to={pageLink}
-            className="-ml-px relative inline-flex items-center px-4 py-2 border border-secondary-300 dark:border-secondary-600 bg-secondary-100 text-sm leading-5 font-medium text-primary-200 hover:bg-secondary-200 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-primary-100 active:bg-secondary-200 transition ease-in-out duration-150"
-          >
+          <Link key={i} to={pageLink}>
             {index}
           </Link>
         );
@@ -55,12 +72,11 @@ export function Pagination({ currentPage, totalPages }: IProps) {
             ? `/${totalPages}/`
             : `/${currentPage + 1}/`
         }
-        className="-ml-px relative inline-flex items-center px-2 py-2 rounded-r-md border border-secondary-300 dark:border-secondary-600 bg-secondary-100 text-sm leading-5 font-medium text-primary-100 hover:bg-secondary-200 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-primary-100 active:text-gray-500 transition ease-in-out duration-150"
         aria-label="Next"
         aria-disabled={currentPage === totalPages}
       >
-        <ChevronRightIcon className="h-5 w-5" />
+        <ChevronRightIcon />
       </Link>
-    </nav>
+    </Container>
   );
 }

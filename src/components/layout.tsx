@@ -1,33 +1,33 @@
 import React from "react";
-import { StaticQuery, graphql } from "gatsby";
 import Header from "./header";
 import { Footer } from "./footer";
+import { useSiteMetadata } from "../hooks/useMetadata";
+import { GlobalStyle } from "../styles";
+import { ThemeContext } from "styled-components";
 
-import "../styles/main.css";
+const Layout = ({ children }) => {
+  const { title } = useSiteMetadata();
+  const theme = React.useContext(ThemeContext);
 
-const Layout = ({ children, className = "" }) => (
-  <StaticQuery
-    query={graphql`
-      query SiteTitleQuery {
-        site {
-          siteMetadata {
-            title
-          }
-        }
-      }
-    `}
-    render={(data) => (
-      <section>
-        <Header siteTitle={data.site.siteMetadata.title} />
+  return (
+    <>
+      <GlobalStyle theme={theme} />
 
-        <main className={`p-4 sm:p-0 w-full text-base -mt-20 ${className}`}>
-          {children}
+      <Header siteTitle={title} />
+      <main
+        style={{
+          padding: "1.4rem",
+          width: "100%",
+          maxWidth: 1200,
+          margin: "0 auto",
+        }}
+      >
+        {children}
 
-          <Footer />
-        </main>
-      </section>
-    )}
-  />
-);
+        <Footer />
+      </main>
+    </>
+  );
+};
 
 export default Layout;

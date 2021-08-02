@@ -1,5 +1,16 @@
 const remarkPlugins = [
   {
+    resolve: `gatsby-remark-table-of-contents`,
+    options: {
+      exclude: "Table of Contents",
+      tight: false,
+      ordered: false,
+      fromHeading: 1,
+      toHeading: 6,
+      className: "table-of-contents",
+    },
+  },
+  {
     resolve: `gatsby-remark-katex`,
     options: {
       // Add any KaTeX options from https://github.com/KaTeX/KaTeX/blob/master/docs/options.md here
@@ -11,7 +22,7 @@ const remarkPlugins = [
     options: {
       showCaptions: true,
       withWebp: true,
-      quality: 60,
+      quality: 80,
       linkImagesToOriginal: false,
       srcSetBreakpoints: [340, 520, 890],
     },
@@ -20,7 +31,7 @@ const remarkPlugins = [
     resolve: `gatsby-remark-autolink-headers`,
     options: {
       className: "header-link",
-      maintainCase: true,
+      maintainCase: false,
     },
   },
   {
@@ -60,9 +71,15 @@ module.exports = {
   plugins: [
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
-    "gatsby-plugin-svgr",
+    {
+      resolve: `gatsby-plugin-svgr`,
+      options: {
+        svgo: false,
+      },
+    },
     `gatsby-plugin-postcss`,
     `gatsby-plugin-netlify`,
+    `gatsby-plugin-styled-components`,
     {
       resolve: `gatsby-transformer-remark`,
       options: {
@@ -83,6 +100,47 @@ module.exports = {
         path: `${__dirname}/posts`,
         name: "posts",
         ignore: [`**/\.*`],
+      },
+    },
+    {
+      resolve: `gatsby-styled-components-dark-mode`,
+      options: {
+        light: {
+          font: "#111",
+          background: "#FFF",
+          border: "#DDD",
+          header: {
+            font: "#FFF",
+            background: "#111",
+          },
+          link: {
+            font: "hsl(241,52%,56%)",
+            hover: "hsl(241,52%,25%)",
+          },
+          tag: {
+            font: "#e1e1f7",
+            background: "#5755c9",
+            hover: "#414099",
+          },
+        },
+        dark: {
+          font: "#FFF",
+          background: "#111",
+          border: "#222",
+          header: {
+            font: "#FFF",
+            background: "#414099",
+          },
+          link: {
+            font: "hsl(241,52%,60%)",
+            hover: "hsl(241,52%,90%)",
+          },
+          tag: {
+            font: "#e1e1f7",
+            background: "#5755c9",
+            hover: "#414099",
+          },
+        },
       },
     },
     `gatsby-plugin-typescript`,

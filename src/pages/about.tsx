@@ -24,14 +24,12 @@ export default function About() {
           `javascript`,
         ]}
       />
-      <section className="flex max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl mx-auto">
-        <div className="md:flex sm:block leading-loose">
-          <div className="px-8 md:w-1/2 w-full">
+      <section>
+        <div>
+          <div>
             <SubHeading style={{ marginTop: 0 }}>About</SubHeading>
-            <em className="text-3xl bg-clip-text text-transparent bg-gradient-to-tr from-blue-500 to-purple-800 dark:from-blue-100 dark:to-orange-300 font-bold">
-              Hi, I'm Dylan.
-            </em>
-            <p className="text-base">
+            <em>Hi, I'm Dylan.</em>
+            <p>
               A fullstack developer working primarily in React and C#. In the
               past I was known for my PHP and Scala, but those days are long
               gone. I'm a fan of graphic design/UX, Postgres, Docker/Kubernetes,
@@ -48,11 +46,10 @@ export default function About() {
               For questions or inqueries:{" "}
               <a href="mailto:dylanpaulus@hey.com">📧</a>
             </p>
-            <div className="text-center mt-8">
+            <div>
               <img
                 src={"/images/about-image.jpg"}
                 alt="Image of Dylan playing drums"
-                className="shadow"
                 style={{
                   width: "100%",
                   maxWidth: 500,
@@ -60,13 +57,11 @@ export default function About() {
                 }}
               />
 
-              <figcaption className="gatsby-resp-image-figcaption">
-                That's me, the one in the middle!
-              </figcaption>
+              <figcaption>That's me, the one in the middle!</figcaption>
             </div>
           </div>
 
-          <div className="px-8 md:w-1/2 w-full sm:mt-0 mt-8">
+          <div>
             <SubHeading style={{ marginTop: 0 }}>Experience</SubHeading>
 
             <Timeline>
@@ -120,7 +115,7 @@ export default function About() {
             </Timeline>
 
             <SubHeading>Talks</SubHeading>
-            <ul className="list-disc list-inside">
+            <ul>
               <li>
                 <a
                   target="_blank"

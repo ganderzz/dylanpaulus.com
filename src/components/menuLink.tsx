@@ -1,18 +1,18 @@
 import * as React from "react";
+import styled from "styled-components";
 import { Link } from "gatsby";
 
 interface IProps {
   to: string;
 }
 
+const MenuLinkItem = styled(Link)`
+  font-size: 1.4rem;
+  padding: 0 12px;
+  text-decoration: none;
+  color: ${(props) => props.theme.header.font};
+`;
+
 export function MenuLink({ children, to }: React.PropsWithChildren<IProps>) {
-  return (
-    <Link
-      to={to}
-      activeClassName="bg-gray-700 bg-opacity-50 text-opacity-100"
-      className="rounded text-white no-underline font-bold text-2xl mr-4 p-4 transition-colors hover:bg-gray-800 hover:text-white text-opacity-75"
-    >
-      {children}
-    </Link>
-  );
+  return <MenuLinkItem to={to}>{children}</MenuLinkItem>;
 }

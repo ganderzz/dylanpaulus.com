@@ -1,4 +1,5 @@
 import React from "react";
+import styled from "styled-components";
 import { Link } from "gatsby";
 
 interface IProps {
@@ -7,17 +8,30 @@ interface IProps {
   className?: string;
 }
 
+const Tag = styled(Link)`
+  display: inline-block;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  margin: 0.2rem;
+  padding: 0.2rem 0.4rem;
+  text-decoration: none;
+  word-break: keep-all;
+  color: ${(props) => props.theme.tag.font};
+  background: ${(props) => props.theme.tag.background};
+  transition: background 0.2s;
+
+  :hover {
+    background: ${(props) => props.theme.tag.hover};
+  }
+`;
+
 export function TagsList({ tags = [], style = {}, ...rest }: IProps) {
   return (
     <span style={style} {...rest}>
       {tags.map((tag) => (
-        <Link
-          key={tag}
-          to={`/tags/${tag}`}
-          className={`inline-block hover:bg-gray-400 hover:text-gray-800 bg-gray-300 text-gray-800 border-0 scale-100 transform hover:scale-105 rounded-full px-3 py-1 text-sm font-semibold m-2 leading-5 transition ease-out duration-200`}
-        >
+        <Tag key={tag} to={`/tags/${tag}`}>
           {tag}
-        </Link>
+        </Tag>
       ))}
     </span>
   );

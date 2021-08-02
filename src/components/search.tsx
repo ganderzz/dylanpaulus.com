@@ -1,6 +1,7 @@
 import elasticlunr from "elasticlunr";
 import { Link } from "gatsby";
 import React from "react";
+import styled from "styled-components";
 import searchIndex from "../../search.json";
 import { ReactComponent as SearchIcon } from "../icons/search.svg";
 
@@ -27,7 +28,17 @@ function search(value: string) {
     .map((item) => searchIndex.documentStore.docs[item.ref]);
 }
 
-export function Search({ className = "" }: { className: string }) {
+const SearchContainer = styled.div`
+  position: absolute;
+  top: 65px;
+
+  > a {
+    display: block;
+    padding: 1rem 2rem;
+  }
+`;
+
+export function Search({ ...rest }: React.PropsWithoutRef<unknown>) {
   const [value, setValue] = React.useState("");
   const [searchResults, setSearchResults] = React.useState([]);
 
@@ -40,7 +51,7 @@ export function Search({ className = "" }: { className: string }) {
   return (
     <>
       <form
-        className={`relative inline-block ${className}`}
+        style={{ position: "relative", marginRight: 16 }}
         onSubmit={(e) => {
           e.preventDefault();
           setSearchResults(search(value));
@@ -53,28 +64,32 @@ export function Search({ className = "" }: { className: string }) {
             setValue("");
           }
         }}
+        {...rest}
       >
         <input
           type="search"
-          className="opacity-75 hover:opacity-100 focus:opacity-100 form-input block w-full dark:text-gray-100 text-gray-700 bg-gray-100 dark:bg-gray-600 p-4 pl-10 text-gray-300::placeholder sm:text-sm sm:leading-5 rounded-md shadow-md"
           value={value}
           placeholder="Search the site..."
+          style={{ height: "2.4rem", paddingLeft: 42, border: 0 }}
           onChange={(e: any) => {
             setValue(e.currentTarget.value);
           }}
         />
 
         <SearchIcon
-          className="dark:text-gray-400 text-gray-500"
-          style={{ position: "absolute", top: 14, left: 8 }}
+          style={{
+            position: "absolute",
+            top: "0.5rem",
+            left: 8,
+            color: "#000",
+          }}
         />
       </form>
 
       {searchResults && searchResults.length > 0 && (
-        <div className="animated fadeIn bg-gray-200 dark:bg-gray-600 border-gray-300 dark:border-gray-500 absolute right-0 w-full p-0 m-0 z-10">
-          <div className="relative block bg-gray-200 dark:bg-gray-600 border-gray-300 dark:border-gray-500 text-right w-full font-bold py-2">
+        <SearchContainer>
+          <div>
             <a
-              className="z-30 block mr-4 dark:text-gray-100 text-gray-700"
               aria-label="close"
               onClick={() => {
                 setSearchResults([]);
@@ -86,18 +101,14 @@ export function Search({ className = "" }: { className: string }) {
             </a>
           </div>
 
-          <div className="relative top-0 left-0 right-0 list-none bg-gray-200 dark:bg-gray-600 p-2 shadow-xl z-20">
+          <div>
             {searchResults.map((item) => (
-              <Link
-                to={item.slug}
-                key={item.title}
-                className="p-4 dark:text-gray-100 text-gray-700 block hover:bg-gray-300 bg-gray-200 dark:bg-gray-600 dark:hover:bg-gray-700 transition-colors border-t border-gray-300 dark:border-gray-500"
-              >
+              <Link to={item.slug} key={item.title}>
                 {item.title}
               </Link>
             ))}
           </div>
-        </div>
+        </SearchContainer>
       )}
     </>
   );

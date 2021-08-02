@@ -1,4 +1,6 @@
-import { useState, useLayoutEffect } from "react";
+import { useState, useEffect } from "react";
+
+type Theme = "light" | "dark";
 
 function useTheme() {
   const preferDarkSchema =
@@ -8,19 +10,18 @@ function useTheme() {
 
   const defaultTheme = preferDarkSchema ? "dark" : "light";
 
-  const [theme, setTheme] = useState(
+  const [theme, setTheme] = useState<Theme>(
     (typeof localStorage !== "undefined"
       ? localStorage.getItem("theme") ?? defaultTheme
-      : defaultTheme) as "dark" | "light"
+      : defaultTheme) as Theme
   );
 
-  useLayoutEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
-    document.body.className = theme;
+  const onThemeChange = (theme: Theme) => {
     localStorage.setItem("theme", theme);
-  }, [theme]);
+    setTheme(theme);
+  };
 
-  return { theme, setTheme };
+  return { theme, setTheme: onThemeChange };
 }
 
 export default useTheme;
