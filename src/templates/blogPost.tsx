@@ -7,6 +7,7 @@ import { IGatsbyQuery } from "../interfaces/IGatsbyQuery";
 import { IBlogPostResponse } from "../interfaces/IBlogPostResponse";
 import { Comments } from "../components/comments";
 import { FrontmatterInfo } from "../components/frontmatterInfo";
+import { Giscus } from "@giscus/react";
 
 type Props = {
   data: IGatsbyQuery<IBlogPostResponse>;
@@ -139,9 +140,16 @@ export default function BlogPost(payload: Props) {
           </aside>
         </div>
 
-        {frontmatter && frontmatter.title && (
-          <Comments title={frontmatter.title} />
-        )}
+        <Giscus
+          repo="ganderzz/dylanpaulus.com"
+          repoId="MDEwOlJlcG9zaXRvcnk3NjUzNTg5OQ=="
+          category="Announcements"
+          categoryId="DIC_kwDOBI_YW84B-i8I"
+          mapping="title"
+          reactionsEnabled="1"
+          emitMetadata="0"
+          theme="light"
+        />
       </section>
     </Layout>
   );

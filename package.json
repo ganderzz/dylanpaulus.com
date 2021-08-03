@@ -24,6 +24,7 @@
     "url": "https://github.com/gatsbyjs/gatsby/issues"
   },
   "dependencies": {
+    "@giscus/react": "^1.0.0",
     "@svgr/webpack": "5.5.0",
     "babel-plugin-styled-components": "^1.13.2",
     "elasticlunr": "0.9.5",
