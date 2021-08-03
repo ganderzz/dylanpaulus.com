@@ -27,7 +27,7 @@
     "@svgr/webpack": "5.5.0",
     "babel-plugin-styled-components": "^1.13.2",
     "elasticlunr": "0.9.5",
-    "gatsby": "3.10.1",
+    "gatsby": "3.10.2",
     "gatsby-image": "3.10.0",
     "gatsby-plugin-feed": "3.10.0",
     "gatsby-plugin-manifest": "3.10.0",
