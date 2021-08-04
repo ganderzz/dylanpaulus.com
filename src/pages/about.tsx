@@ -25,8 +25,8 @@ export default function About() {
         ]}
       />
       <section>
-        <div>
-          <div>
+        <div style={{ display: "flex", flexDirection: "row" }}>
+          <div style={{ width: "50%", padding: "1rem" }}>
             <SubHeading style={{ marginTop: 0 }}>About</SubHeading>
             <em>Hi, I'm Dylan.</em>
             <p>
@@ -61,16 +61,10 @@ export default function About() {
             </div>
           </div>
 
-          <div>
+          <div style={{ width: "50%", padding: "1rem" }}>
             <SubHeading style={{ marginTop: 0 }}>Experience</SubHeading>
 
             <Timeline>
-              <li class="mb-2">
-                <div class="flex-1 ml-6 font-base text-gray-300 dark:text-gray-700 italic">
-                  Now
-                </div>
-              </li>
-
               <TimelineItem isActive>
                 <TimelineContent title="Lead Software Engineer">
                   Schweitzer Engineering Laboratories
@@ -106,12 +100,6 @@ export default function About() {
                   Eastern Washington University
                 </TimelineContent>
               </TimelineItem>
-
-              <li>
-                <div class="flex-1 ml-6 font-base text-gray-300 dark:text-gray-700 italic">
-                  2013
-                </div>
-              </li>
             </Timeline>
 
             <SubHeading>Talks</SubHeading>

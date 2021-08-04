@@ -8,6 +8,7 @@ import { IBlogPostResponse } from "../interfaces/IBlogPostResponse";
 import { Comments } from "../components/comments";
 import { FrontmatterInfo } from "../components/frontmatterInfo";
 import { Giscus } from "@giscus/react";
+import { useStyledDarkMode } from "gatsby-styled-components-dark-mode";
 
 type Props = {
   data: IGatsbyQuery<IBlogPostResponse>;
@@ -41,6 +42,8 @@ const TableOfContents = styled.div`
 `;
 
 export default function BlogPost(payload: Props) {
+  const { isDark } = useStyledDarkMode();
+
   if (!payload) {
     return null;
   }
@@ -117,39 +120,42 @@ export default function BlogPost(payload: Props) {
 
         <div style={{ marginTop: 30, marginBottom: 10, display: "flex" }}>
           <article
-            className="blog__post"
-            style={{ lineHeight: 1.8 }}
+            style={{ lineHeight: 1.8, width: "120ch", padding: "1.5rem" }}
             dangerouslySetInnerHTML={{ __html: html }}
           />
 
-          <aside>
-            <div
-              style={{
-                position: "sticky",
-                top: 60,
-                left: 0,
-                margin: 0,
-                lineHeight: 1.7,
-              }}
-            >
-              <span style={{ opacity: 0.8 }}>Contents</span>
-              <TableOfContents
-                dangerouslySetInnerHTML={{ __html: tableOfContents }}
-              />
-            </div>
-          </aside>
+          {tableOfContents && (
+            <aside>
+              <div
+                style={{
+                  position: "sticky",
+                  top: 20,
+                  left: 0,
+                  margin: 0,
+                  lineHeight: 1.7,
+                }}
+              >
+                <span style={{ opacity: 0.8 }}>Contents</span>
+                <TableOfContents
+                  dangerouslySetInnerHTML={{ __html: tableOfContents }}
+                />
+              </div>
+            </aside>
+          )}
         </div>
 
-        <Giscus
-          repo="ganderzz/dylanpaulus.com"
-          repoId="MDEwOlJlcG9zaXRvcnk3NjUzNTg5OQ=="
-          category="Announcements"
-          categoryId="DIC_kwDOBI_YW84B-i8I"
-          mapping="title"
-          reactionsEnabled="1"
-          emitMetadata="0"
-          theme="light"
-        />
+        <div style={{ marginTop: "2rem" }}>
+          <Giscus
+            repo="ganderzz/dylanpaulus.com"
+            repoId="MDEwOlJlcG9zaXRvcnk3NjUzNTg5OQ=="
+            category="Announcements"
+            categoryId="DIC_kwDOBI_YW84B-i8I"
+            mapping="title"
+            reactionsEnabled="1"
+            emitMetadata="0"
+            theme={isDark ? "dark" : "light"}
+          />
+        </div>
       </section>
     </Layout>
   );

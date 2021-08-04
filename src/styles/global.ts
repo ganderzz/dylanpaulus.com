@@ -3,10 +3,8 @@ import { createGlobalStyle } from "styled-components";
 export const GlobalStyle = createGlobalStyle`
 * {
   box-sizing: border-box;
-  transition: all 0.3s;
+  transition: background 0.2s color 0.2s;
 }
-
-@import url("https://rsms.me/inter/inter.css");
 
 @font-face {
   font-family: "Inter", sans-serif;
@@ -64,27 +62,4 @@ h6 {
   margin: 0;
 }
 
-.blog__post {
-  display: grid;
-  font-size: 1.2rem;
-  grid-template-columns:
-    1fr
-    min(65ch, 100%)
-    1fr;
-}
-
-.blog__post > * {
-  grid-column: 2;
-}
-
-.full-bleed {
-  width: 100%;
-  grid-column: 1 / -1;
-}
-.full-bleed .gatsby-resp-image-wrapper {
-  max-width: unset !important;
-}
-.full-bleed .gatsby-resp-image-figure {
-  padding: 0 !important;
-}
 `;
