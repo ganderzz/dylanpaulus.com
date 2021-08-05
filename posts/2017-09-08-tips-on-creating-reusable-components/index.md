@@ -1,7 +1,6 @@
 ---
 title: "Tips on Creating Reusable Components"
 tags: ["React", "Javascript"]
-
 date: "2017-09-08"
 published: true
 ---

@@ -2,6 +2,7 @@ import elasticlunr from "elasticlunr";
 import { Link } from "gatsby";
 import React from "react";
 import searchIndex from "../../search.json";
+import { useOnClickOutside } from "../hooks/useOnClickOutside";
 import { ReactComponent as SearchIcon } from "../icons/search.svg";
 
 const debounce = (function debounce(time) {
@@ -25,27 +26,6 @@ function search(value: string) {
     })
     .slice(0, 6)
     .map((item) => searchIndex.documentStore.docs[item.ref]);
-}
-
-function useOnClickOutside(ref, handler) {
-  React.useEffect(() => {
-    const listener = (event) => {
-      // Do nothing if clicking ref's element or descendent elements
-      if (!ref.current || ref.current.contains(event.target)) {
-        return;
-      }
-
-      handler(event);
-    };
-
-    document.addEventListener("mousedown", listener);
-    document.addEventListener("touchstart", listener);
-
-    return () => {
-      document.removeEventListener("mousedown", listener);
-      document.removeEventListener("touchstart", listener);
-    };
-  }, [ref, handler]);
 }
 
 export function Search({ className = "" }: { className: string }) {

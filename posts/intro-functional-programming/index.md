@@ -1,7 +1,6 @@
 ---
 title: "Intro to Functional Programming"
 tags: ["Functional Programming", "Javascript"]
-
 date: "2019-03-31"
 published: true
 ---
@@ -20,7 +19,7 @@ Let's go quickly into what each of these bullets mean.
 
 When working in a programming language like JavaScript, we can assign data to variables `let myVariable = 5;`. But, nothing stops up from reassigning the variable to something else later on `myVariable = "Now I'm a string."`. This can be dangerous--maybe another function relies on `myVariable` to be a number, or what if some asynchronous functions are both working on `myVariable` at the same time! We could run into merge conflicts.
 
-##### Example
+#### Example
 
 ```javascript
 const obj = {
@@ -44,7 +43,7 @@ newObj === obj; // false
 
 Pure functions are side effect free. What does that mean? Well, a function that calculates an output based solely on it's input can be considered a pure function. If our function takes an input, performs a database update, then returns a value, then we contain a side effect in our code--updating the database. Calling the function multiple times might not always return the same result (out of memory, database is locked, etc). Having pure functions is crucial in helping us write bug-free, easily testable code.
 
-##### Example
+#### Example
 
 ```javascript
 function notPureAdd(a, b) {
@@ -60,7 +59,7 @@ function pureAdd(a, b) {
 
 The term First Class might seem strange, but all it means is that functions can be passed around and used just like we might use other data-types. For example, strings, ints, floats, etc. A programming language that supports first class functions allow us to pass functions into other functions. Think of this like dependency injection. If you've worked with JavaScript first class functions are used everywhere, and we'll touch on them more in the coming examples.
 
-##### Example
+#### Example
 
 ```javascript
 // robot expects a function to be passed in

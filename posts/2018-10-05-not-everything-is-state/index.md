@@ -1,7 +1,6 @@
 ---
 title: "React: Not Everything is State"
 tags: ["React", "Javascript"]
-
 date: "2018-10-05"
 published: true
 ---

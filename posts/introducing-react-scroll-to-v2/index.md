@@ -1,7 +1,6 @@
 ---
 title: "Introducing React-Scroll-To v2"
 tags: ["React", "Javascript"]
-
 date: "2018-11-03"
 published: true
 ---

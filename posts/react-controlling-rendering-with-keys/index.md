@@ -1,7 +1,6 @@
 ---
 title: "React: Controlling Rendering with Keys"
 tags: ["React", "Javascript"]
-
 date: "2018-10-18"
 published: true
 ---

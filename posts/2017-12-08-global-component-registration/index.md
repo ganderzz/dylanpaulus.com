@@ -1,7 +1,6 @@
 ---
 title: "Global Component Registration"
 tags: ["React", "Javascript"]
-
 date: "2017-12-08"
 published: true
 ---

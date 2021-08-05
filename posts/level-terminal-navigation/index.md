@@ -1,7 +1,6 @@
 ---
 title: "Leveling Up Your Terminal/Command-Line Navigation"
 tags: ["terminal", "productivity", "command-line"]
-
 date: "2019-06-17"
 published: true
 ---

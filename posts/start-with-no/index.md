@@ -1,7 +1,6 @@
 ---
 title: "Start With No"
 tags: ["Project Management"]
-
 image: banner.jpeg
 image_credit: "https://unsplash.com/photos/JmJDyFUSYWI"
 date: "2020-09-13"

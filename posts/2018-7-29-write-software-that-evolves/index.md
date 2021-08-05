@@ -1,7 +1,6 @@
 ---
 title: "Write Software that Evolves"
 tags: ["Software Engineering"]
-
 date: "2018-07-29"
 published: true
 ---

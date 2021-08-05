@@ -1,7 +1,6 @@
 ---
 title: "Part One: Using Typescript with React"
 tags: ["React", "Typescript", "Javascript"]
-
 date: "2018-05-16"
 series: "Using Typescript with React"
 published: true

@@ -1,7 +1,6 @@
 ---
 title: "Music That Defined My Decade: 2010-2019"
 tags: ["music", "personal"]
-
 image: banner.jpg
 date: "2019-12-29"
 published: true

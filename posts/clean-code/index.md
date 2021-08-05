@@ -1,12 +1,9 @@
 ---
 title: "On Writing Clean Code"
 tags: ["programming", "software-engineering", "beginner"]
-
 date: "2019-07-21"
 published: true
 ---
-
-_Warning: what you see below might be subjective_
 
 We can all agree that writing clean code is important. It makes it easier to work in a team, and even if we're a single developer, clean code keeps our future selves happy. Ever look at your old code and wonder, "What is this crap?" If you said "no", write more code--the feeling will come. For those who said "yes", let's look at some techniques that will improve your code readability.
 

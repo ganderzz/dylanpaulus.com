@@ -1,7 +1,6 @@
 ---
 title: "How Facebook Avoids Ad Blockers"
 tags: ["encryption", "facebook", "interesting", "ads"]
-
 image: banner.jpg
 date: "2019-11-24"
 published: true

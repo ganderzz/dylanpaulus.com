@@ -1,7 +1,6 @@
 ---
 title: "Encapsulating State with Functional Children"
 tags: ["React", "Javascript"]
-
 date: "2017-09-14"
 published: true
 ---
