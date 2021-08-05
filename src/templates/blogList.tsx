@@ -33,15 +33,15 @@ export default function BlogList({ data, pageContext }) {
         ]}
       />
       <section
-        className="flex max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl mx-auto"
+        className="flex max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl mx-auto mt-6"
         style={{ minHeight: 1332 }}
       >
         <div className="w-full sm:w-2/3 px-8">
           <div className="flex">
             <div className="flex-1">
-              <SubHeading className="mt-0">Recently Published</SubHeading>
+              <SubHeading style={{ margin: 0 }}>Recently Published</SubHeading>
             </div>
-            <div className="flex-1 text-right mt-8 mb-8">
+            <div className="flex-1 text-right">
               <Pagination currentPage={currentPage} totalPages={numPages} />
             </div>
           </div>
@@ -57,7 +57,7 @@ export default function BlogList({ data, pageContext }) {
 
         <div className="sm:flex flex-col w-1/3 px-8 hidden">
           <Link to="/sitemap">
-            <SubHeading className="mt-0">Popular Tags</SubHeading>
+            <SubHeading style={{ marginTop: 0 }}>Popular Tags</SubHeading>
           </Link>
 
           <TagsList tags={sortedTags.map((p) => p.tag)} />
@@ -87,7 +87,7 @@ export const blogListQuery = graphql`
       edges {
         node {
           id
-          excerpt(pruneLength: 200)
+          excerpt(pruneLength: 300)
           timeToRead
           fields {
             slug

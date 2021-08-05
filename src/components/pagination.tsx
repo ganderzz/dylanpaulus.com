@@ -12,11 +12,7 @@ export function Pagination({ currentPage, totalPages }: IProps) {
   return (
     <nav className="relative z-0 inline-flex shadow-sm">
       <Link
-        to={
-          currentPage === 1
-            ? "/"
-            : `/${currentPage === 2 ? "" : currentPage - 1}/`
-        }
+        to={currentPage <= 2 ? "/" : `/${currentPage - 1}/`}
         className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-secondary-300 dark:border-secondary-600 bg-secondary-100 text-sm leading-5 font-medium text-primary-100 hover:bg-secondary-200 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-primary-100 active:text-gray-500 transition ease-in-out duration-150"
         aria-label="Previous"
       >

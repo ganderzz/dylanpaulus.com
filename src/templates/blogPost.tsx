@@ -1,11 +1,12 @@
 import React from "react";
 import { graphql } from "gatsby";
+import { Giscus } from "@giscus/react";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
 import { IGatsbyQuery } from "../interfaces/IGatsbyQuery";
 import { IBlogPostResponse } from "../interfaces/IBlogPostResponse";
-import { Comments } from "../components/comments";
 import { FrontmatterInfo } from "../components/frontmatterInfo";
+import useTheme from "../hooks/useTheme";
 
 type Props = {
   data: IGatsbyQuery<IBlogPostResponse>;
@@ -15,6 +16,8 @@ type Props = {
 };
 
 export default function BlogPost(payload: Props) {
+  const { theme } = useTheme();
+
   if (!payload) {
     return null;
   }
@@ -85,11 +88,18 @@ export default function BlogPost(payload: Props) {
           dangerouslySetInnerHTML={{ __html: html }}
         />
 
-        {frontmatter && frontmatter.title && (
-          <div className="blog__post">
-            <Comments title={frontmatter.title} />
-          </div>
-        )}
+        <div className="blog__post" style={{ marginTop: "2rem" }}>
+          <Giscus
+            repo="ganderzz/dylanpaulus.com"
+            repoId="MDEwOlJlcG9zaXRvcnk3NjUzNTg5OQ=="
+            category="Announcements"
+            categoryId="DIC_kwDOBI_YW84B-i8I"
+            mapping="title"
+            reactionsEnabled="1"
+            emitMetadata="0"
+            theme={theme === "dark" ? "dark" : "light"}
+          />
+        </div>
       </section>
     </Layout>
   );
