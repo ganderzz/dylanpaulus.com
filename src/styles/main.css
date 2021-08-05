@@ -230,6 +230,7 @@ ol li::marker {
 .full-bleed {
   width: 100%;
   grid-column: 1 / -1;
+  z-index: 60;
 }
 .full-bleed .gatsby-resp-image-wrapper {
   max-width: unset !important;
@@ -281,44 +282,26 @@ ol li::marker {
   text-align: center;
 }
 
-/* ---- Comments ---- */
-.gt-container {
-  margin-top: 60px;
-}
-.gt-container .gt-meta {
-  border-bottom: 1px solid var(--border-color) !important;
-}
-.gt-ico-github {
-  fill: var(--font-color);
-}
-.gt-comments-null {
-  padding: 2rem;
-  background: #f1f1f1;
-}
-.dark .gt-comments-null {
-  background: var(--secondary-200);
-}
-.gt-comments-null::after {
-  content: "🤓";
-  display: block;
-  font-size: 3rem;
-  margin-top: 1rem;
-}
-.gt-btn {
-  background: var(--secondary-100) !important;
-  color: var(--font-color) !important;
-  border-color: var(--border-color) !important;
-}
-textarea,
-.gt-header-preview,
-.gt-comment-content {
-  background: var(--secondary-100) !important;
-  color: var(--font-color) !important;
-  border-color: var(--border-color) !important;
+.table__contents ul {
+  list-style-type: none;
+  margin: 0;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
-.gt-comment-content:hover {
-  box-shadow: none !important;
+.table__contents > ul > li {
+  padding: 0.2rem 0;
+}
+
+.table__contents > ul > li > ul {
+  padding-left: 1rem;
+}
+
+.table__contents ul li,
+.table__contents ul li p {
+  margin: 0;
 }
 
 /* ---- Utilities ---- */

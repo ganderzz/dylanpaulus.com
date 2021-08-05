@@ -23,7 +23,13 @@ export default function BlogPost(payload: Props) {
   }
 
   const { markdownRemark } = payload.data as any;
-  const { frontmatter, html, timeToRead, parent } = markdownRemark;
+  const {
+    frontmatter,
+    html,
+    timeToRead,
+    parent,
+    tableOfContents,
+  } = markdownRemark;
 
   return (
     <Layout className="mt-4">

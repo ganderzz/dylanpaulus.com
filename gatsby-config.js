@@ -20,7 +20,7 @@ const remarkPlugins = [
     resolve: `gatsby-remark-autolink-headers`,
     options: {
       className: "header-link",
-      maintainCase: true,
+      maintainCase: false,
     },
   },
   {

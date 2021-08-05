@@ -12,7 +12,7 @@ const Header = ({ siteTitle }) => {
         <Link
           to="/"
           title={siteTitle}
-          className="block text-5xl mx-0 font-bold lg:w-1/2 w-full sm:w-1/4 text-white no-underline hover:text-gray-500 transition-all"
+          className="block relative text-5xl mx-0 font-bold lg:w-1/2 w-full sm:w-1/4 text-white no-underline"
         >
           <Logo style={{ maxWidth: 350, minWidth: 120, width: "100%" }} />
         </Link>
