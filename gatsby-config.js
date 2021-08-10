@@ -61,7 +61,6 @@ module.exports = {
     `gatsby-plugin-sharp`,
     "gatsby-plugin-svgr",
     `gatsby-plugin-postcss`,
-    `gatsby-plugin-netlify`,
     {
       resolve: `gatsby-transformer-remark`,
       options: {
