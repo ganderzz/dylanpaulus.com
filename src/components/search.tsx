@@ -30,6 +30,7 @@ function search(value: string) {
 
 export function Search({ className = "" }: { className: string }) {
   const [value, setValue] = React.useState("");
+  const [isLoading, setIsLoading] = React.useState(false);
   const [searchResults, setSearchResults] = React.useState([]);
   const ref = React.useRef<HTMLDivElement | undefined>();
 
@@ -41,8 +42,11 @@ export function Search({ className = "" }: { className: string }) {
   useOnClickOutside(ref, clickAwayHandler);
 
   React.useEffect(() => {
+    setIsLoading(true);
+
     debounce(() => {
       setSearchResults(search(value));
+      setIsLoading(false);
     });
   }, [value]);
 
@@ -79,8 +83,14 @@ export function Search({ className = "" }: { className: string }) {
         />
       </form>
 
-      {searchResults && searchResults.length > 0 && (
+      {value.length > 0 && (
         <div className="animated fadeIn min-w-full mr-4 bg-white dark:bg-gray-600 border-gray-300 dark:border-gray-600 absolute right-0 p-0 m-0 mt-2 rounded-md shadow-lg overflow-hidden z-20">
+          {!isLoading && searchResults.length === 0 && (
+            <em className="flex items-center p-4 text-gray-600 dark:text-gray-100">
+              No results
+            </em>
+          )}
+
           {searchResults.map((item) => (
             <Link
               to={item.slug}

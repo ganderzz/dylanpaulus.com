@@ -61,21 +61,16 @@ export default function BlogList({ data, pageContext }) {
           <div className="mb-6">
             <SubHeading style={{ marginTop: 0 }}>📣 Announcements</SubHeading>
 
-            <div
+            <a
+              href="https://www.newline.co/courses/creating-react-libraries-from-scratch"
               style={{
                 background: "var(--link-color)",
                 borderRadius: 4,
               }}
-              className="text-white p-4"
+              className="block p-4 text-white hover:text-white shadow-md hover:shadow-xl transition transform hover:scale-105 ease-in-out"
             >
               <h5>Creating React Libraries from Scratch course launched!</h5>
-              <a
-                className="text-white hover:text-gray-300"
-                href="https://www.newline.co/courses/creating-react-libraries-from-scratch"
-              >
-                Click Here to learn more!
-              </a>
-            </div>
+            </a>
           </div>
 
           <Link to="/sitemap">

@@ -23,13 +23,7 @@ export default function BlogPost(payload: Props) {
   }
 
   const { markdownRemark } = payload.data as any;
-  const {
-    frontmatter,
-    html,
-    timeToRead,
-    parent,
-    tableOfContents,
-  } = markdownRemark;
+  const { frontmatter, html, timeToRead, parent } = markdownRemark;
 
   return (
     <Layout className="mt-4">
@@ -112,7 +106,7 @@ export default function BlogPost(payload: Props) {
 }
 
 export const pageQuery = graphql`
-  query($slug: String!) {
+  query ($slug: String!) {
     site {
       siteMetadata {
         siteUrl

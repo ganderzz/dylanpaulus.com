@@ -15,6 +15,31 @@ const externalLinksComponent = path.resolve(
   `./src/templates/externalLinks.tsx`
 );
 
+function createSearchPages(posts) {
+  const idx = elasticlunr(function () {
+    this.setRef("slug");
+
+    this.addField("title");
+    this.addField("tags");
+  });
+
+  posts.forEach(function ({ node }) {
+    idx.addDoc({
+      slug: node.fields.slug,
+      title: node.frontmatter.title,
+      tags: node.frontmatter.tags.join(" "),
+    });
+  });
+
+  fs.writeFile("search.json", JSON.stringify(idx), function (err) {
+    if (err) {
+      throw err;
+    }
+
+    console.log("Search index is created successfully.");
+  });
+}
+
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage, createRedirect } = actions;
 
@@ -22,7 +47,7 @@ exports.createPages = async ({ graphql, actions }) => {
     `
       {
         blog: allMarkdownRemark(
-          filter: { fileAbsolutePath: { glob: "**/posts/**/index.md" } }
+          filter: { fileAbsolutePath: { glob: "**/posts/**/index.md(x)" } }
           sort: { fields: [frontmatter___date], order: DESC }
         ) {
           edges {
@@ -50,28 +75,7 @@ exports.createPages = async ({ graphql, actions }) => {
   const numPages = Math.ceil(posts.length / postsPerPage);
 
   // create search index json file.
-  const idx = elasticlunr(function () {
-    this.setRef("slug");
-
-    this.addField("title");
-    this.addField("tags");
-  });
-
-  posts.forEach(function ({ node }) {
-    idx.addDoc({
-      slug: node.fields.slug,
-      title: node.frontmatter.title,
-      tags: node.frontmatter.tags.join(" "),
-    });
-  });
-
-  fs.writeFile("search.json", JSON.stringify(idx), function (err) {
-    if (err) {
-      throw err;
-    }
-
-    console.log("Search index is created successfully.");
-  });
+  createSearchPages(posts);
 
   // Sitemap
   createPage({
@@ -79,6 +83,7 @@ exports.createPages = async ({ graphql, actions }) => {
     component: path.resolve(`./src/templates/sitemap.tsx`),
   });
 
+  // Link redirects
   staticUrls.forEach((item) => {
     createPage({
       path: item.from,
@@ -93,17 +98,11 @@ exports.createPages = async ({ graphql, actions }) => {
     context: staticUrls,
   });
 
-  const tags = posts.reduce((accu, post) => {
-    const tags = post.node.frontmatter.tags;
-
-    if (tags) {
-      return [...accu, ...tags];
-    }
-
-    return accu;
-  }, []);
-
   // Posts for Tag
+  const tags = posts.flatMap((post) => {
+    return post.node.frontmatter.tags;
+  });
+
   tags.forEach((tag) => {
     createPage({
       path: `/tags/${tag}/`,
