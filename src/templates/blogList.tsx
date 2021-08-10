@@ -39,7 +39,9 @@ export default function BlogList({ data, pageContext }) {
         <div className="w-full sm:w-2/3 px-8">
           <div className="flex">
             <div className="flex-1">
-              <SubHeading style={{ margin: 0 }}>Recently Published</SubHeading>
+              <SubHeading style={{ margin: 0 }}>
+                📄 Recently Published
+              </SubHeading>
             </div>
             <div className="flex-1 text-right">
               <Pagination currentPage={currentPage} totalPages={numPages} />
@@ -56,8 +58,28 @@ export default function BlogList({ data, pageContext }) {
         </div>
 
         <div className="sm:flex flex-col w-1/3 px-8 hidden">
+          <div className="mb-6">
+            <SubHeading style={{ marginTop: 0 }}>📣 Announcements</SubHeading>
+
+            <div
+              style={{
+                background: "var(--link-color)",
+                borderRadius: 4,
+              }}
+              className="text-white p-4"
+            >
+              <h5>Creating React Libraries from Scratch course launched!</h5>
+              <a
+                className="text-white hover:text-gray-300"
+                href="https://www.newline.co/courses/creating-react-libraries-from-scratch"
+              >
+                Click Here to learn more!
+              </a>
+            </div>
+          </div>
+
           <Link to="/sitemap">
-            <SubHeading style={{ marginTop: 0 }}>Popular Tags</SubHeading>
+            <SubHeading style={{ marginTop: 0 }}>🏷 Popular Tags</SubHeading>
           </Link>
 
           <TagsList tags={sortedTags.map((p) => p.tag)} />

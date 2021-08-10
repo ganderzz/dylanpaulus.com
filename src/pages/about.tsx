@@ -130,6 +130,18 @@ export default function About() {
                 </a>
               </li>
             </ul>
+
+            <SubHeading>Courses</SubHeading>
+            <ul className="list-disc list-inside">
+              <li>
+                <a
+                  target="_blank"
+                  href="https://www.newline.co/courses/creating-react-libraries-from-scratch"
+                >
+                  Creating React Libraries from Scratch
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
       </section>
