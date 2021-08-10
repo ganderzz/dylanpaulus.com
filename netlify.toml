@@ -1,6 +1,0 @@
-[build]
-command = "yarn run build"
-publish = "public/"
-
-[[plugins]]
-package = "@netlify/plugin-gatsby"
