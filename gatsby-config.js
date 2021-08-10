@@ -33,7 +33,6 @@ const remarkPlugins = [
     },
   },
   `gatsby-remark-copy-linked-files`,
-  "gatsby-remark-numbered-footnotes",
 ];
 
 module.exports = {
