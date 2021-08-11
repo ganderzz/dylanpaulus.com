@@ -47,7 +47,7 @@ exports.createPages = async ({ graphql, actions }) => {
     `
       {
         blog: allMarkdownRemark(
-          filter: { fileAbsolutePath: { glob: "**/posts/**/index.md(x)" } }
+          filter: { fileAbsolutePath: { glob: "**/posts/**/index.md" } }
           sort: { fields: [frontmatter___date], order: DESC }
         ) {
           edges {
@@ -99,9 +99,15 @@ exports.createPages = async ({ graphql, actions }) => {
   });
 
   // Posts for Tag
-  const tags = posts.flatMap((post) => {
-    return post.node.frontmatter.tags;
-  });
+  const tags = posts.reduce((accu, post) => {
+    const tags = post.node.frontmatter.tags;
+
+    if (tags) {
+      return [...accu, ...tags];
+    }
+
+    return accu;
+  }, []);
 
   tags.forEach((tag) => {
     createPage({

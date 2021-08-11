@@ -24,7 +24,7 @@
     "@giscus/react": "^1.0.0",
     "@svgr/webpack": "5.5.0",
     "elasticlunr": "0.9.5",
-    "gatsby": "3.11.0",
+    "gatsby": "3.11.1",
     "gatsby-image": "3.11.0",
     "gatsby-plugin-feed": "3.11.0",
     "gatsby-plugin-manifest": "3.11.0",
