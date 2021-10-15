@@ -4,15 +4,9 @@ import { ReactComponent as CalendarIcon } from "../icons/calendar.svg";
 import { ReactComponent as TagIcon } from "../icons/tag.svg";
 import { ReactComponent as ClockIcon } from "../icons/clock.svg";
 
-export function FrontmatterInfo({
-  frontmatter,
-  timeToRead,
-}: {
-  frontmatter: any;
-  timeToRead: any;
-}) {
+export function FrontmatterInfo({ frontmatter, timeToRead }: { frontmatter: any; timeToRead: any }) {
   return (
-    <span className="opacity-75 text-base flex items-center md:block md:pb-1">
+    <span className="opacity-75 text-base md:flex hidden justify-center items-center md:pb-1">
       <CalendarIcon className="mr-2" style={{ display: "inline-flex" }} />
       {frontmatter.date}
       <TagIcon className="mr-2 ml-8" style={{ display: "inline-flex" }} />
