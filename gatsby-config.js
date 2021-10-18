@@ -31,13 +31,27 @@ const remarkPlugins = [
       showLineNumbers: false,
     },
   },
+  {
+    resolve: `gatsby-remark-twitter-cards`,
+    options: {
+      title: "dylanpaulus.com", // website title
+      separator: "", // default
+      author: "",
+      background: require.resolve("./static/card.png"),
+      fontColor: "#FFFFFF", // defaults to white (#ffffff)
+      titleFontSize: 96, // default
+      subtitleFontSize: 60, // default
+      fontStyle: "sans-serif", // default
+      useFrontmatterSlug: false, // default, if true it will use the slug defined in the post frontmatter
+    },
+  },
   `gatsby-remark-copy-linked-files`,
 ];
 
 module.exports = {
   siteMetadata: {
     title: `Dylan Paulus`,
-    description: `Ramblings on software engineering`,
+    description: `Ramblings on software.`,
     author: `@ganderzz`,
     siteUrl: "https://dylanpaulus.com",
     keywords: [

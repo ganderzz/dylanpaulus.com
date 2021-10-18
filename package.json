@@ -57,6 +57,7 @@
     "autoprefixer": "10.3.7",
     "cssnano": "5.0.8",
     "cssnano-preset-advanced": "5.1.4",
+    "gatsby-remark-twitter-cards": "^0.6.1",
     "prettier": "2.4.1",
     "textlint": "12.0.2",
     "textlint-rule-footnote-order": "1.0.3",

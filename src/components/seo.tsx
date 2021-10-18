@@ -3,6 +3,7 @@ import H from "react-helmet";
 import { StaticQuery, graphql } from "gatsby";
 
 interface IProps {
+  pathname?: string;
   description: string;
   lang: string;
   meta: { name: string; content: string }[];
@@ -14,8 +15,8 @@ interface IProps {
 const Helmet: any = H;
 
 function SEO({
+  pathname = "",
   description = null,
-  lang = "en",
   meta = [],
   keywords = [],
   title = null,
@@ -85,7 +86,7 @@ function SEO({
                   ? [
                       {
                         name: `twitter:image`,
-                        content: image,
+                        content: `${siteMetadata.siteUrl}${pathname}twitter-card.jpg`,
                       },
                       {
                         name: `og:image`,
