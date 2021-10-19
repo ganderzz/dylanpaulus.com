@@ -2,14 +2,27 @@ import React from "react";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
 import { SubHeading } from "../components/subheading";
-import { Timeline, TimelineContent, TimelineItem } from "../components/timeline";
+import {
+  Timeline,
+  TimelineContent,
+  TimelineItem,
+} from "../components/timeline";
 
 export default function About() {
   return (
     <Layout>
       <SEO
         title="About"
-        keywords={[`software`, `code`, `programming`, `blog`, `portfolio`, `react`, `typescript`, `javascript`]}
+        keywords={[
+          `software`,
+          `code`,
+          `programming`,
+          `blog`,
+          `portfolio`,
+          `react`,
+          `typescript`,
+          `javascript`,
+        ]}
       />
       <section className="max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl mx-auto mt-8">
         <div className="flex flex-col gap-4 leading-loose">
@@ -24,7 +37,9 @@ export default function About() {
                 }}
               />
 
-              <figcaption className="text-sm mt-2">That's me, the one in the middle!</figcaption>
+              <figcaption className="text-sm mt-2">
+                That's me, the one in the middle!
+              </figcaption>
             </div>
 
             <section className="w-full md:w-1/2 mt-8 md:mt-0 ml-0 md:ml-12">
@@ -34,33 +49,44 @@ export default function About() {
               <em className="text-3xl bg-clip-text text-transparent bg-gradient-to-tr from-blue-500 to-purple-800 dark:from-blue-100 dark:to-orange-300 font-bold">
                 Hi, I'm Dylan.
               </em>
+
               <p className="text-base">
-                A fullstack developer working primarily in React and C#. In the past I was known for my PHP and Scala,
-                but those days are long gone. I'm a fan of graphic design/UX, Postgres, Docker/Kubernetes, and teaching.
-                The site you are currently looking at was designed to{" "}
-                <a
-                  title="A link to Scott Hanselman's blog post about 'Do they deserve the gift of your keystrokes'"
-                  href="https://www.hanselman.com/blog/do-they-deserve-the-gift-of-your-keystrokes"
-                >
-                  save keystrokes
+                I'm a Lead Software Engineer at Schweitzer Engineering
+                Laboratories (SEL) working primarily in React, C#, Postgres,
+                Docker, Kubernetes, and Redis. Before SEL I was a{" "}
+                <a href="https://www.mobygames.com/developer/sheet/view/developerId,783203/">
+                  web developer at Sony PlayStation
                 </a>
-                .
+                , and student web developer at Eastern Washington University.
               </p>
 
-              <p aria-hidden className="text-base">
-                For questions or inqueries: <a href="mailto:dylanpaulus@hey.com">📧</a>
+              <p className="text-base">
+                I'm a fan of
+                <ul className="mt-2 ml-4">
+                  <li>Hiking/Backpacking</li>
+                  <li>Brazilian Jiu-Jitsu</li>
+                  <li>Embarrassing myself in Muay Thai</li>
+                  <li>Midwest Emo & Mathrock music</li>
+                  <li>Playing Drums</li>
+                </ul>
               </p>
 
               <div className="w-full mt-12">
                 <SubHeading>Talks</SubHeading>
                 <ul className="list-disc list-inside ml-4">
                   <li>
-                    <a target="_blank" href="https://introduction-functional-programming-boise.netlify.com/#/">
+                    <a
+                      target="_blank"
+                      href="https://introduction-functional-programming-boise.netlify.com/#/"
+                    >
                       Functional Programming Light (Boise Code Camp 2019)
                     </a>
                   </li>
                   <li>Making React Fast (Internal Presentation 2019)</li>
-                  <li>NPM, Dependencies, and JS Modules (Internal Presentation 2021)</li>
+                  <li>
+                    NPM, Dependencies, and JS Modules (Internal Presentation
+                    2021)
+                  </li>
                 </ul>
 
                 <SubHeading className="my-0">Courses</SubHeading>

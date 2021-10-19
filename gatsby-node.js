@@ -4,8 +4,8 @@ const elasticlunr = require("elasticlunr");
 
 const { createFilePath } = require("gatsby-source-filesystem");
 
-const redirects = require("./redirects");
-const staticUrls = require("./static-urls");
+const redirects = require("./src/redirects");
+const staticUrls = require("./src/static-urls");
 
 const listComponent = path.resolve("./src/templates/blogList.tsx");
 const postComponent = path.resolve(`./src/templates/blogPost.tsx`);
@@ -138,6 +138,7 @@ exports.createPages = async ({ graphql, actions }) => {
     createPage({
       path: node.fields.slug,
       component: postComponent,
+      key: node.fields.slug,
       context: {
         slug: node.fields.slug,
       },
@@ -166,14 +167,4 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       value,
     });
   }
-};
-
-exports.onCreateWebpackConfig = ({ actions, plugins }) => {
-  actions.setWebpackConfig({
-    plugins: [
-      plugins.define({
-        "global.GENTLY": false,
-      }),
-    ],
-  });
 };
