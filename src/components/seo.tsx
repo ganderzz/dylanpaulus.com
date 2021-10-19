@@ -90,7 +90,7 @@ function SEO({
                       },
                       {
                         name: `og:image`,
-                        content: image,
+                        content: `${siteMetadata.siteUrl}${pathname}twitter-card.jpg`,
                       },
                       {
                         name: `twitter:card`,

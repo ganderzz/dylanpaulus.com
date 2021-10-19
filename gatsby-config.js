@@ -34,15 +34,15 @@ const remarkPlugins = [
   {
     resolve: `gatsby-remark-twitter-cards`,
     options: {
-      title: "dylanpaulus.com", // website title
+      title: "", // website title
       separator: "", // default
       author: "",
       background: require.resolve("./static/card.png"),
       fontColor: "#FFFFFF", // defaults to white (#ffffff)
       titleFontSize: 96, // default
       subtitleFontSize: 60, // default
-      fontStyle: "sans-serif", // default
-      useFrontmatterSlug: false, // default, if true it will use the slug defined in the post frontmatter
+      fontStyle: "sans-serif",
+      useFrontmatterSlug: false,
     },
   },
   `gatsby-remark-copy-linked-files`,
