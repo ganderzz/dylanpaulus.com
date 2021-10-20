@@ -60,16 +60,14 @@ export default function About() {
                 , and student web developer at Eastern Washington University.
               </p>
 
-              <p className="text-base">
-                I'm a fan of
-                <ul className="mt-2 ml-4">
-                  <li>Hiking/Backpacking</li>
-                  <li>Brazilian Jiu-Jitsu</li>
-                  <li>Embarrassing myself in Muay Thai</li>
-                  <li>Midwest Emo & Mathrock music</li>
-                  <li>Playing Drums</li>
-                </ul>
-              </p>
+              <p className="text-base">I'm a fan of</p>
+              <ul className="mt-2 ml-4">
+                <li>Hiking/Backpacking</li>
+                <li>Brazilian Jiu-Jitsu</li>
+                <li>Embarrassing myself in Muay Thai</li>
+                <li>Midwest Emo & Mathrock music</li>
+                <li>Playing Drums</li>
+              </ul>
 
               <div className="w-full mt-12">
                 <SubHeading>Talks</SubHeading>

@@ -7,6 +7,7 @@ import { IGatsbyQuery } from "../interfaces/IGatsbyQuery";
 import { IBlogPostResponse } from "../interfaces/IBlogPostResponse";
 import { FrontmatterInfo } from "../components/frontmatterInfo";
 import useTheme from "../hooks/useTheme";
+import { MDXRenderer } from "gatsby-plugin-mdx";
 
 type Props = {
   data: IGatsbyQuery<IBlogPostResponse>;
@@ -22,23 +23,16 @@ export default function BlogPost(payload: Props) {
     return null;
   }
 
-  const { markdownRemark } = payload.data;
-  const { frontmatter, html, timeToRead, parent } = markdownRemark;
+  const { post } = payload.data as any;
+  const { frontmatter, body, timeToRead, parent, slug } = post;
 
   return (
     <Layout>
       <SEO
-        pathname={`${markdownRemark.fields.slug}`}
+        pathname={`${slug}`}
         description={frontmatter.description ?? frontmatter.title}
         title={frontmatter.title}
         keywords={frontmatter.tags}
-        image={
-          frontmatter.image
-            ? `${(payload.data as any).site.siteMetadata.siteUrl}/static/${
-                frontmatter.image.relativePath
-              }`
-            : null
-        }
       />
 
       {!frontmatter.published && (
@@ -58,10 +52,7 @@ export default function BlogPost(payload: Props) {
         </div>
       )}
 
-      <div
-        className="blog-post__header text-center mt-8"
-        data-credit={frontmatter.image_credit}
-      >
+      <div className="blog-post__header text-center mt-8">
         <FrontmatterInfo frontmatter={frontmatter} timeToRead={timeToRead} />
       </div>
 
@@ -84,10 +75,9 @@ export default function BlogPost(payload: Props) {
           </h6>
         )}
 
-        <article
-          className="blog__post mb-10 dark:text-gray-100 leading-relaxed"
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
+        <article className="blog__post mb-10 dark:text-gray-100 leading-relaxed">
+          <MDXRenderer>{body}</MDXRenderer>
+        </article>
 
         <div className="blog__post" style={{ marginTop: "2rem" }}>
           <Giscus
@@ -113,12 +103,10 @@ export const pageQuery = graphql`
         siteUrl
       }
     }
-    markdownRemark(fields: { slug: { eq: $slug } }) {
-      html
+    post: mdx(slug: { eq: $slug }) {
+      body
       timeToRead
-      fields {
-        slug
-      }
+      slug
       frontmatter {
         date(formatString: "MMMM DD, YYYY")
         title

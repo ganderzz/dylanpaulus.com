@@ -25,7 +25,7 @@ function createSearchPages(posts) {
 
   posts.forEach(function ({ node }) {
     idx.addDoc({
-      slug: node.fields.slug,
+      slug: node.slug,
       title: node.frontmatter.title,
       tags: node.frontmatter.tags.join(" "),
     });
@@ -46,15 +46,13 @@ exports.createPages = async ({ graphql, actions }) => {
   const { data, errors } = await graphql(
     `
       {
-        blog: allMarkdownRemark(
+        blog: allMdx(
           filter: { fileAbsolutePath: { glob: "**/posts/**/index.md" } }
           sort: { fields: [frontmatter___date], order: DESC }
         ) {
           edges {
             node {
-              fields {
-                slug
-              }
+              slug
               frontmatter {
                 title
                 tags
@@ -136,11 +134,11 @@ exports.createPages = async ({ graphql, actions }) => {
   // Post Pages
   data.blog.edges.forEach(({ node }) => {
     createPage({
-      path: node.fields.slug,
+      path: node.slug,
       component: postComponent,
-      key: node.fields.slug,
+      key: node.slug,
       context: {
-        slug: node.fields.slug,
+        slug: node.slug,
       },
     });
   });

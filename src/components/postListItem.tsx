@@ -16,16 +16,28 @@ export function PostListItem({ data, style = {}, ...rest }: IProps) {
       className="block mb-14 max-w-max md:max-w-screen-md lg:max-w-screen-lg"
       {...rest}
     >
-      <div style={{ color: "var(--font-color)", minHeight: 24 }} className="flex font-medium text-md opacity-75">
-        <span className="flex content-center mr-2">{data.node.frontmatter.date}</span>•
-        <span className="ml-2">{data.node.timeToRead} min</span>
+      <div
+        style={{ color: "var(--font-color)", minHeight: 24 }}
+        className="flex font-medium text-md opacity-75"
+      >
+        <span className="flex content-center mr-2">
+          {data.node.frontmatter.date}
+        </span>
+        •<span className="ml-2">{data.node.timeToRead} min</span>
       </div>
 
-      <Link to={data.node.fields.slug} title={data.node.excerpt} className="font-bold text-3xl">
+      <Link
+        to={data.node.slug}
+        title={data.node.excerpt}
+        className="font-bold text-3xl"
+      >
         {data.node.frontmatter.title}
       </Link>
 
-      <aside style={{ color: "var(--font-color)" }} className="text-base leading-12 mt-2">
+      <aside
+        style={{ color: "var(--font-color)" }}
+        className="text-base leading-12 mt-2"
+      >
         {data.node.excerpt}
       </aside>
     </div>

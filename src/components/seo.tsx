@@ -9,7 +9,6 @@ interface IProps {
   meta: { name: string; content: string }[];
   keywords: string[];
   title: string;
-  image: string | null;
 }
 
 const Helmet: any = H;
@@ -20,7 +19,6 @@ function SEO({
   meta = [],
   keywords = [],
   title = null,
-  image = null,
 }: Partial<IProps>) {
   return (
     <StaticQuery
@@ -65,6 +63,10 @@ function SEO({
                 content: siteLink,
               },
               {
+                name: `og:image`,
+                content: `${siteMetadata.siteUrl}${pathname}twitter-card.jpg`,
+              },
+              {
                 name: `twitter:creator`,
                 content: siteMetadata.author,
               },
@@ -80,31 +82,15 @@ function SEO({
                 name: `keywords`,
                 content: keywords.concat(siteMetadata.keywords).join(`, `),
               },
-            ]
-              .concat(
-                image
-                  ? [
-                      {
-                        name: `twitter:image`,
-                        content: `${siteMetadata.siteUrl}${pathname}twitter-card.jpg`,
-                      },
-                      {
-                        name: `og:image`,
-                        content: `${siteMetadata.siteUrl}${pathname}twitter-card.jpg`,
-                      },
-                      {
-                        name: `twitter:card`,
-                        content: `summary_large_image`,
-                      },
-                    ]
-                  : [
-                      {
-                        name: `twitter:card`,
-                        content: `summary`,
-                      },
-                    ]
-              )
-              .concat(meta)}
+              {
+                name: `twitter:image`,
+                content: `${siteMetadata.siteUrl}${pathname}twitter-card.jpg`,
+              },
+              {
+                name: `twitter:card`,
+                content: `summary_large_image`,
+              },
+            ].concat(meta)}
           />
         );
       }}

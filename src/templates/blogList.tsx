@@ -12,14 +12,25 @@ export default function BlogList({ data, pageContext }) {
   const { numPages, currentPage } = pageContext;
 
   const sortedTags = React.useMemo(() => {
-    return data.tags.group.sort((a, b) => b.totalCount - a.totalCount).slice(0, 5);
+    return data.tags.group
+      .sort((a, b) => b.totalCount - a.totalCount)
+      .slice(0, 5);
   }, [data]);
 
   return (
     <Layout>
       <SEO
         title="Home"
-        keywords={[`software`, `code`, `programming`, `blog`, `portfolio`, `react`, `typescript`, `javascript`]}
+        keywords={[
+          `software`,
+          `code`,
+          `programming`,
+          `blog`,
+          `portfolio`,
+          `react`,
+          `typescript`,
+          `javascript`,
+        ]}
       />
       <section
         className="flex max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl mx-auto mt-8"
@@ -28,7 +39,9 @@ export default function BlogList({ data, pageContext }) {
         <div className="w-full sm:w-2/3 md:px-8">
           <div className="flex flex-col md:flex-row mb-4">
             <div className="flex-1">
-              <SubHeading style={{ margin: 0 }}>📄 Recently Published</SubHeading>
+              <SubHeading style={{ margin: 0 }}>
+                📄 Recently Published
+              </SubHeading>
             </div>
             <div className="flex-1 md:text-right md:my-0 my-4">
               <Pagination currentPage={currentPage} totalPages={numPages} />
@@ -73,26 +86,27 @@ export default function BlogList({ data, pageContext }) {
 
 export const blogListQuery = graphql`
   query blogListQuery($skip: Int!, $limit: Int!) {
-    tags: allMarkdownRemark(limit: 500) {
+    tags: allMdx(limit: 500) {
       group(field: frontmatter___tags) {
         tag: fieldValue
         totalCount
       }
     }
-    posts: allMarkdownRemark(
+    posts: allMdx(
       sort: { fields: [frontmatter___date], order: DESC }
-      filter: { fileAbsolutePath: { glob: "**/posts/**/index.md" }, frontmatter: { published: { eq: true } } }
+      filter: {
+        fileAbsolutePath: { glob: "**/posts/**/index.md" }
+        frontmatter: { published: { eq: true } }
+      }
       limit: $limit
       skip: $skip
     ) {
       edges {
         node {
           id
+          slug
           excerpt(pruneLength: 300)
           timeToRead
-          fields {
-            slug
-          }
           frontmatter {
             title
             date(formatString: "MMMM DD, YYYY")

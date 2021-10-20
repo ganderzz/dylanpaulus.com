@@ -45,7 +45,7 @@ const remarkPlugins = [
       useFrontmatterSlug: false,
     },
   },
-  `gatsby-remark-copy-linked-files`,
+  { resolve: `gatsby-remark-copy-linked-files` },
 ];
 
 module.exports = {
@@ -75,12 +75,6 @@ module.exports = {
     "gatsby-plugin-svgr",
     `gatsby-plugin-postcss`,
     {
-      resolve: `gatsby-transformer-remark`,
-      options: {
-        plugins: remarkPlugins,
-      },
-    },
-    {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
@@ -91,9 +85,16 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        path: `${__dirname}/posts`,
         name: "posts",
+        path: `${__dirname}/posts`,
         ignore: [`**/\.*`],
+      },
+    },
+    {
+      resolve: `gatsby-plugin-mdx`,
+      options: {
+        extensions: [`.mdx`, `.md`],
+        gatsbyRemarkPlugins: remarkPlugins,
       },
     },
     `gatsby-plugin-typescript`,
