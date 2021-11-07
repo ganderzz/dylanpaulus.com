@@ -9,13 +9,11 @@ const Header = ({ siteTitle }) => {
   return (
     <header className="pt-2 sm:pt-10 pl-2 pr-2 h-64 max-w-screen-xl mx-auto">
       <div className="z-10 relative container md:max-w-none mx-auto md:w-full lg:mx-auto h-12 block sm:flex sm:items-center">
-        <Link
-          to="/"
-          title={siteTitle}
-          className="block relative text-5xl mx-0 font-bold lg:w-1/2 w-full sm:w-1/4 text-white no-underline"
-        >
-          <Logo style={{ maxWidth: 350, minWidth: 120, width: "100%" }} />
-        </Link>
+        <div className="block relative text-5xl mx-0 font-bold lg:w-1/2 w-full sm:w-1/4">
+          <Link to="/" title={siteTitle} className="text-white no-underline">
+            <Logo style={{ maxWidth: 350, minWidth: 120, width: "100%" }} />
+          </Link>
+        </div>
 
         <nav
           role="navigation"
@@ -25,6 +23,7 @@ const Header = ({ siteTitle }) => {
 
           <MenuLink to="/">Blog</MenuLink>
           <MenuLink to="/about">About</MenuLink>
+          {/* <MenuLink to="/resume">Resume</MenuLink> */}
 
           <ThemeToggle />
         </nav>
