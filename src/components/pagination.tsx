@@ -13,7 +13,7 @@ export function Pagination({ currentPage, totalPages }: IProps) {
     <nav className="relative z-0 inline-flex shadow-sm">
       <Link
         to={currentPage <= 2 ? "/" : `/${currentPage - 1}/`}
-        className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-secondary-300 dark:border-secondary-700 bg-secondary-100 text-sm leading-5 font-medium text-primary-100 hover:bg-secondary-200 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-primary-100 active:text-gray-500 transition ease-in-out duration-150"
+        className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-secondary-300 dark:border-gray-600 bg-secondary-100 text-sm leading-5 font-medium text-primary-100 hover:bg-gray-100 focus:z-10  dark:hover:bg-gray-800 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-primary-100 active:text-gray-500 transition ease-in-out duration-150"
         aria-label="Previous"
       >
         <ChevronLeftIcon className="h-5 w-5" />
@@ -27,7 +27,7 @@ export function Pagination({ currentPage, totalPages }: IProps) {
           return (
             <strong
               key={i}
-              className="-ml-px relative inline-flex items-center px-4 py-2 border border-secondary-300 dark:border-secondary-700 bg-secondary-300 text-sm leading-5 font-medium text-primary-100 hover:text-primary-200 hover:bg-secondary-200 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-primary-100 active:bg-secondary-200 transition ease-in-out duration-150"
+              className="-ml-px relative inline-flex items-center px-4 py-2 border border-secondary-300 dark:border-gray-600 bg-secondary-300 text-sm leading-5 font-medium text-primary-100 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-primary-100 active:bg-secondary-200 transition ease-in-out duration-150"
             >
               {index}
             </strong>
@@ -38,7 +38,7 @@ export function Pagination({ currentPage, totalPages }: IProps) {
           <Link
             key={i}
             to={pageLink}
-            className="-ml-px relative inline-flex items-center px-4 py-2 border border-secondary-300 dark:border-secondary-700 bg-secondary-100 text-sm leading-5 font-medium text-primary-200 hover:bg-secondary-200 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-primary-100 active:bg-secondary-200 transition ease-in-out duration-150"
+            className="-ml-px relative inline-flex items-center px-4 py-2 border border-secondary-300 dark:border-gray-600 bg-secondary-100 text-sm leading-5 font-medium text-primary-200 hover:bg-gray-100 dark:hover:bg-gray-800 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-primary-100 active:bg-secondary-200 transition ease-in-out duration-150"
           >
             {index}
           </Link>
@@ -46,8 +46,12 @@ export function Pagination({ currentPage, totalPages }: IProps) {
       })}
 
       <Link
-        to={currentPage === totalPages ? `/${totalPages}/` : `/${currentPage + 1}/`}
-        className="-ml-px relative inline-flex items-center px-2 py-2 rounded-r-md border border-secondary-300 dark:border-secondary-700 bg-secondary-100 text-sm leading-5 font-medium text-primary-100 hover:bg-secondary-200 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-primary-100 active:text-gray-500 transition ease-in-out duration-150"
+        to={
+          currentPage === totalPages
+            ? `/${totalPages}/`
+            : `/${currentPage + 1}/`
+        }
+        className="-ml-px relative inline-flex items-center px-2 py-2 rounded-r-md border border-secondary-300 dark:border-gray-600 bg-secondary-100 text-sm leading-5 font-medium text-primary-100 hover:bg-gray-100 dark:hover:bg-gray-800 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-primary-100 active:text-gray-500 transition ease-in-out duration-150"
         aria-label="Next"
         aria-disabled={currentPage === totalPages}
       >
