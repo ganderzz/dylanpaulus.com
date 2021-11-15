@@ -48,7 +48,7 @@ class AwesomeButtonReactRouterLink extends Component {
 }
 ```
 
-We have ourselves a problem. Everytime there is a new request we have to create new components that are very similar, just using slightly different render elements. What if the company decides to rebrand. Instead of blue, we are a red company now. Little changes to the visuals of these AwesomeButton components need to be updated individually. Think DRY! Is there a better way of doing this? Stay tuned.
+We have ourselves a problem. Every time there is a new request we have to create new components that are very similar, just using slightly different render elements. What if the company decides to re-brand. Instead of blue, we are a red company now. Little changes to the visuals of these AwesomeButton components need to be updated individually. Think DRY! Is there a better way of doing this? Stay tuned.
 
 ### Dynamically Injecting Elements
 
@@ -66,7 +66,7 @@ class AwesomeButton extends React.Component {
 ```
 
 So we have this new property called tag. Tag will be our way of passing in an element/component into AwesomeButton. If the es6 destructing looks different, let me explain. We will pull out the `tag` prop from `this.props`. If no value is defined for tag, we will set its default value to be `"button"` (A Button HTML element).
-The next line, `const Tag = tag;` is so we can fulfill what React's JSX considers a component. All components must be uppercased, where html elements need to be lowercase. Since we are using then variable `tag`, JSX will always treat the incoming values as a component. So, we have to uppercase our variable.
+The next line, `const Tag = tag;` is so we can fulfill what React's JSX considers a component. All components must be uppercase, where html elements need to be lowercase. Since we are using then variable `tag`, JSX will always treat the incoming values as a component. So, we have to uppercase our variable.
 We now render the prop `Tag` as our element. Whatever `tag` equals, that will be our element!
 
 A few examples:
@@ -125,7 +125,7 @@ class AwesomeButton extends React.Component {
 }
 ```
 
-[\<AwesomeButton\>Click Me!</AwesomeButton>](https://babeljs.io/repl/#?babili=false&evaluate=true&lineWrap=false&presets=es2015%2Creact%2Cstage-2&targets=&browsers=&builtIns=false&debug=false&code_lz=MYGwhgzhAECCDuBTCB7AtogQgVwC65QDtpEAPXRQgExgCVExhcA6AYXQAcjLdoBvALAAoaKOgAnSlUTiAFAEp-wsSujAiEXnzUALAJYgqkwgBpouMAHNoAXmgAiAEZ4Che2eaeUuHTOgBfW3N9CGYOcRQOCABuZVVRdUJNaAAVKyCLS1ihOPjJXGxxYllc-NEAHjTrPk9mb19xfwA-PmB9Q2N_coB6KqboUpV5bJV_YX8gA)
+[\<AwesomeButton\>Click Me!\</AwesomeButton\>](https://babeljs.io/repl/#?babili=false&evaluate=true&lineWrap=false&presets=es2015%2Creact%2Cstage-2&targets=&browsers=&builtIns=false&debug=false&code_lz=MYGwhgzhAECCDuBTCB7AtogQgVwC65QDtpEAPXRQgExgCVExhcA6AYXQAcjLdoBvALAAoaKOgAnSlUTiAFAEp-wsSujAiEXnzUALAJYgqkwgBpouMAHNoAXmgAiAEZ4Che2eaeUuHTOgBfW3N9CGYOcRQOCABuZVVRdUJNaAAVKyCLS1ihOPjJXGxxYllc-NEAHjTrPk9mb19xfwA-PmB9Q2N_coB6KqboUpV5bJV_YX8gA)
 
 Looking at the render method in AwesomeButton:
 

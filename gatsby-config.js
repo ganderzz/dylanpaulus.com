@@ -128,15 +128,15 @@ module.exports = {
         `,
         feeds: [
           {
-            serialize: ({ query: { site, allMarkdownRemark } }) => {
-              return allMarkdownRemark.edges.map((edge) => {
-                const { frontmatter, fields, html, excerpt } = edge.node;
+            serialize: ({ query: { site, allMdx } }) => {
+              return allMdx.edges.map((edge) => {
+                const { frontmatter, slug, html, excerpt } = edge.node;
 
                 return Object.assign({}, frontmatter, {
                   description: excerpt,
                   date: frontmatter.date,
-                  url: site.siteMetadata.siteUrl + fields.slug,
-                  guid: site.siteMetadata.siteUrl + fields.slug,
+                  url: site.siteMetadata.siteUrl + slug,
+                  guid: site.siteMetadata.siteUrl + slug,
                   enclosure: frontmatter.image && {
                     url: `${site.siteMetadata.siteUrl}/${frontmatter.image.relativePath}`,
                     length: `${frontmatter.image.size}`,
@@ -148,14 +148,14 @@ module.exports = {
             },
             query: `
               {
-                allMarkdownRemark(
+                allMdx(
                   sort: { order: DESC, fields: [frontmatter___date] },
                 ) {
                   edges {
                     node {
                       excerpt
                       html
-                      fields { slug }
+                      slug
                       frontmatter {
                         title
                         date

@@ -1,4 +1,4 @@
-import { Link, Image } from "gatsby";
+import { Link } from "gatsby";
 import React from "react";
 import { ReactComponent as Logo } from "../../static/logo.svg";
 import SEO from "../components/seo";
@@ -90,7 +90,6 @@ export default function Resume() {
       >
         <h2>{data.basics?.label}</h2>
         <p className="mb-12">{data.basics?.summary}</p>
-        <Image />
 
         <section className="flex gap-12 flex-row justify-between">
           <div className="flex-1">
