@@ -27,7 +27,7 @@ export function PostListItem({ data, style = {}, ...rest }: IProps) {
       </div>
 
       <Link
-        to={data.node.slug}
+        to={`/${data.node.slug}`}
         title={data.node.excerpt}
         className="font-bold text-3xl"
       >

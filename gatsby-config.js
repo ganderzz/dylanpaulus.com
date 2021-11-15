@@ -134,15 +134,14 @@ module.exports = {
 
                 return Object.assign({}, frontmatter, {
                   description: excerpt,
-                  date: frontmatter.date,
-                  url: site.siteMetadata.siteUrl + slug,
-                  guid: site.siteMetadata.siteUrl + slug,
-                  enclosure: frontmatter.image && {
-                    url: `${site.siteMetadata.siteUrl}/${frontmatter.image.relativePath}`,
-                    length: `${frontmatter.image.size}`,
-                    type: `image/${frontmatter.image.extension}`,
+                  url: `${site.siteMetadata.siteUrl}/${slug}`,
+                  guid: `${site.siteMetadata.siteUrl}/${slug}`,
+                  enclosure: {
+                    url: `${site.siteMetadata.siteUrl}/twitter-card.jpg`,
+                    type: `image/jpg`,
                   },
                   custom_elements: [{ "content:encoded": html }],
+                  categories: frontmatter.tags,
                 });
               });
             },
@@ -159,11 +158,6 @@ module.exports = {
                       frontmatter {
                         title
                         date
-                        image {
-                          relativePath
-                          size
-                          extension
-                        }
                       }
                     }
                   }
