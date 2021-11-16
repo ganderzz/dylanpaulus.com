@@ -7,7 +7,5 @@ export interface IPost {
     date: string;
     tags?: string[];
   };
-  fields: {
-    slug: string;
-  };
+  slug: string;
 }

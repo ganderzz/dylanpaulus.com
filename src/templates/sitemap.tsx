@@ -28,7 +28,7 @@ export default function SiteMap({ data }) {
               key={tag}
               to={`/tags/${tag}`}
               style={{
-                opacity: Math.max(0.65, totalCount / largestTotalCount),
+                opacity: Math.max(0.6, totalCount / largestTotalCount),
               }}
               className="focus:border-2 focus:border-grey-dark hover:opacity-100 hover:scale-105 transform m-2 hover:bg-gray-900 hover:text-white text-lg rounded bg-gray-700 p-2 text-white no-underline font-semibold mr-2"
             >

@@ -1,13 +1,19 @@
 import { createElement } from "react";
 
 const applyDarkModeClass = `
-(function() {
+(function () {
   try {
-    var mode = localStorage.getItem('theme');
-
-    if (mode === 'dark') {
-        document.body.classList.add('dark');
+    var mode = localStorage.getItem("theme");
+    var supportDarkMode =
+      window.matchMedia("(prefers-color-scheme: dark)").matches === true;
+    if (!mode && supportDarkMode) {
+      document.body.classList.add("dark");
+      document.documentElement.dataset.theme = "dark";
     }
+    if (!mode) return;
+
+    document.body.classList.add(mode);
+    document.documentElement.dataset.theme = mode;
   } catch (e) {}
 })();
 `;

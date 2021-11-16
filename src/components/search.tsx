@@ -15,15 +15,15 @@ const debounce = (function debounce(time) {
 
     handle = setTimeout(callback, time);
   };
-})(300);
+})(100);
 
-const idx: any = elasticlunr.Index.load(searchIndex);
+const idx = elasticlunr.Index.load(searchIndex);
 
 function search(value: string) {
   return idx
     .search(value, {
       expand: true,
-    })
+    } as any)
     .slice(0, 6)
     .map((item) => searchIndex.documentStore.docs[item.ref]);
 }

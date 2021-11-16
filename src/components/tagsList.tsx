@@ -14,7 +14,7 @@ export function TagsList({ tags = [], style = {}, ...rest }: IProps) {
         <Link
           key={tag}
           to={`/tags/${tag}`}
-          className={`inline-block hover:bg-gray-400 hover:text-gray-800 dark:bg-gray-900 dark:text-white bg-gray-300 text-gray-800 border-0 scale-100 transform hover:scale-105 rounded-full px-3 py-1 text-sm font-semibold m-2 leading-5 transition ease-out duration-200`}
+          className={`inline-block hover:bg-gray-400 hover:text-gray-800 dark:bg-gray-900 dark:text-white bg-gray-300 text-gray-800 border-0 scale-100 transform hover:scale-105 rounded-full px-3 py-1 text-sm font-semibold my-2 mx-1 leading-5 transition ease-out duration-200`}
         >
           {tag}
         </Link>

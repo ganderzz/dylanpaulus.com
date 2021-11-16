@@ -1,31 +1,32 @@
 import { Link } from "gatsby";
 import React from "react";
+import { useQuery, QueryClientProvider, QueryClient } from "react-query";
 import { ReactComponent as Logo } from "../../static/logo.svg";
 import SEO from "../components/seo";
 import { IResume } from "../interfaces/IResume";
 import { SubHeading } from "../components/subheading";
 import { Timeline, TimelineItem } from "../components/timeline";
+import Layout from "../components/layout";
 
 const pathToGist =
   "https://gist.githubusercontent.com/ganderzz/244451a55c288a5ee8606e7ab2e64c55/raw/resume.json";
 
-const dateFormat = new Intl.DateTimeFormat("en-US", {
-  dateStyle: "medium",
+const queryClient = new QueryClient({
+  defaultOptions: { queries: { staleTime: 900 } },
 });
 
-export default function Resume() {
-  const [data, setData] = React.useState<Partial<IResume>>({});
-
-  React.useEffect(() => {
-    fetch(pathToGist)
-      .then((result) => result.json())
-      .then(setData);
-  }, []);
-
-  console.log(data);
+const ResumeBody = () => {
+  const { data, isError, isLoading } = useQuery<IResume, Error>(
+    ["gistData"],
+    () => fetch(pathToGist).then((p) => p.json()),
+    {
+      refetchOnWindowFocus: false,
+      refetchInterval: 0,
+    }
+  );
 
   return (
-    <>
+    <Layout>
       <SEO
         title="Resume"
         description="Dylan's resume"
@@ -47,97 +48,79 @@ export default function Resume() {
         ]}
       />
 
-      <header className="pt-2 sm:pt-10 pl-2 pr-2 h-64 max-w-screen-xl mx-auto">
-        <div className="z-10 relative container md:max-w-none mx-auto md:w-full lg:mx-auto h-12 flex justify-between sm:items-center">
-          <Link
-            to="/"
-            className="block relative text-5xl mx-0 font-bold lg:w-1/2 w-full sm:w-1/4 text-white no-underline"
-          >
-            <Logo style={{ maxWidth: 350, minWidth: 120, width: "100%" }} />
-          </Link>
-
-          <aside className="text-white text-right">
-            {data.basics?.location && (
-              <p className="my-0">
-                {data.basics?.location.city}, {data.basics?.location.region}{" "}
-                {data.basics?.location.countryCode}
-              </p>
-            )}
-
-            {data.basics?.email && (
-              <a
-                className="text-gray-300 hover:text-white hover:underline"
-                href={`mailto:${data.basics?.email}`}
-              >
-                {data.basics?.email}
-              </a>
-            )}
-          </aside>
+      {isError ? (
+        <div role="alert" className="p-4 bg-red-200 text-red-900">
+          There was an error while loading Dylan's resume.
         </div>
+      ) : (
+        <>
+          {isLoading ? (
+            <div className="mx-auto text-center">Loading...</div>
+          ) : (
+            <main
+              className={`max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl mx-auto text-base -mt-20`}
+            >
+              <h2>{data.basics?.label}</h2>
+              <p className="mb-12">{data.basics?.summary}</p>
 
-        <div
-          aria-hidden="true"
-          className="skewed bg-gray-900"
-          style={{
-            backgroundImage:
-              "linear-gradient(524deg, rgba(228, 228, 228,0.04) 0%, rgba(228, 228, 228,0.04) 30%,rgba(130, 130, 130,0.04) 30%, rgba(130, 130, 130,0.04) 49%,rgba(31, 31, 31,0.04) 49%, rgba(31, 31, 31,0.04) 100%),linear-gradient(538deg, rgba(228, 228, 228,0.04) 0%, rgba(228, 228, 228,0.04) 20%,rgba(130, 130, 130,0.04) 20%, rgba(130, 130, 130,0.04) 60%,rgba(31, 31, 31,0.04) 60%, rgba(31, 31, 31,0.04) 100%),linear-gradient(483deg, rgba(228, 228, 228,0.04) 0%, rgba(228, 228, 228,0.04) 29%,rgba(130, 130, 130,0.04) 29%, rgba(130, 130, 130,0.04) 48%,rgba(31, 31, 31,0.04) 48%, rgba(31, 31, 31,0.04) 100%),linear-gradient(331deg, rgb(17,24,39),rgb(17,24,39))",
-          }}
-        />
-      </header>
+              <section className="flex gap-12 flex-row justify-between">
+                <div className="flex-1">
+                  <SubHeading>Education</SubHeading>
 
-      <main
-        className={`max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl mx-auto text-base -mt-20`}
-      >
-        <h2>{data.basics?.label}</h2>
-        <p className="mb-12">{data.basics?.summary}</p>
+                  {data.education?.map((item) => (
+                    <React.Fragment key={item.institution}>
+                      <h6 className="font-bold text-lg">{item.institution}</h6>
+                      <p>
+                        {item.area} - {item.studyType}
+                      </p>
+                      <p className="mt-0 mb-4 text-gray-700">
+                        {new Date(item.startDate).getFullYear()}-
+                        {new Date(item.endDate).getFullYear()}
+                      </p>
+                    </React.Fragment>
+                  ))}
+                </div>
 
-        <section className="flex gap-12 flex-row justify-between">
-          <div className="flex-1">
-            <SubHeading>Education</SubHeading>
+                <div className="flex-1">
+                  <SubHeading>Experience</SubHeading>
 
-            {data.education?.map((item) => (
-              <>
-                <h6 className="font-bold text-lg">{item.institution}</h6>
-                <p>
-                  {item.area} - {item.studyType}
-                </p>
-                <p className="mt-0 mb-4 text-gray-700">
-                  {dateFormat.format(new Date(item.startDate))}-
-                  {dateFormat.format(new Date(item.endDate))}
-                </p>
-              </>
-            ))}
-          </div>
+                  <Timeline>
+                    {data.work?.map((item) => (
+                      <TimelineItem>
+                        <h6 className="font-bold text-lg">{item.name}</h6>
+                        <p className="mt-0 mb-4 text-gray-700">
+                          {item.position}
+                          <br />
+                          {new Date(item.startDate).getFullYear()}-
+                          {new Date(item.endDate).getFullYear()}
+                        </p>
 
-          <div className="flex-1">
-            <SubHeading>Experience</SubHeading>
+                        <p>{item.summary}</p>
 
-            <Timeline>
-              {data.work?.map((item) => (
-                <TimelineItem>
-                  <h6 className="font-bold text-lg">{item.name}</h6>
-                  <p className="mt-0 mb-4 text-gray-700">
-                    {item.position}
-                    <br />
-                    {dateFormat.format(new Date(item.startDate))}-
-                    {dateFormat.format(new Date(item.endDate))}
-                  </p>
+                        {item.highlights && (
+                          <ul>
+                            {item.highlights.map((highlight) => (
+                              <li>{highlight}</li>
+                            ))}
+                          </ul>
+                        )}
+                      </TimelineItem>
+                    ))}
+                  </Timeline>
+                </div>
+              </section>
+            </main>
+          )}
+        </>
+      )}
+    </Layout>
+  );
+};
 
-                  <p>{item.summary}</p>
-
-                  {item.highlights && (
-                    <ul>
-                      {item.highlights.map((highlight) => (
-                        <li>{highlight}</li>
-                      ))}
-                    </ul>
-                  )}
-                </TimelineItem>
-              ))}
-            </Timeline>
-          </div>
-        </section>
-      </main>
-    </>
+export default function Resume() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <ResumeBody />
+    </QueryClientProvider>
   );
 }
