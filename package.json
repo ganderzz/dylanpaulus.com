@@ -57,6 +57,7 @@
     "tailwindcss": "2.2.19"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.17.12",
     "@textlint-rule/textlint-rule-no-unmatched-pair": "1.0.8",
     "autoprefixer": "10.4.0",
     "cssnano": "5.0.10",
