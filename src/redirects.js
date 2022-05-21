@@ -1,9 +1,5 @@
 module.exports = [
   {
-    fromPath: "2020-02-04-making-react-fast",
-    toPath: "making-react-fast",
-  },
-  {
     fromPath: "2019-12-29-2020-albums-decade",
     toPath: "albums-2010-2020-decade",
   },

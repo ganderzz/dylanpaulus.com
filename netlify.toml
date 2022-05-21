@@ -1,0 +1,16 @@
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Prevent XSS through Iframes
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+
+[[redirects]]
+  from = "/2020-02-04-making-react-fast"
+  to = "/making-react-fast"
+  status = 301
+
+# Redirect to social media and other common sites!
+[[redirects]]
+  from = "/gh"
+  to = "https://github.com/ganderzz/"
