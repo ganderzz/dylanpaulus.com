@@ -4,16 +4,9 @@ const elasticlunr = require("elasticlunr");
 
 const { createFilePath } = require("gatsby-source-filesystem");
 
-const redirects = require("./src/redirects");
-const staticUrls = require("./src/static-urls");
-
 const listComponent = path.resolve("./src/templates/blogList.tsx");
 const postComponent = path.resolve(`./src/templates/blogPost.tsx`);
 const postsForTag = path.resolve(`./src/templates/postsForTag.tsx`);
-const redirectComponent = path.resolve(`./src/templates/redirect.tsx`);
-const externalLinksComponent = path.resolve(
-  `./src/templates/externalLinks.tsx`
-);
 
 function createSearchPages(posts) {
   const idx = elasticlunr(function () {
@@ -41,7 +34,7 @@ function createSearchPages(posts) {
 }
 
 exports.createPages = async ({ graphql, actions }) => {
-  const { createPage, createRedirect } = actions;
+  const { createPage } = actions;
 
   const { data, errors } = await graphql(
     `
@@ -79,21 +72,6 @@ exports.createPages = async ({ graphql, actions }) => {
   createPage({
     path: `/sitemap/`,
     component: path.resolve(`./src/templates/sitemap.tsx`),
-  });
-
-  // Link redirects
-  staticUrls.forEach((item) => {
-    createPage({
-      path: item.from,
-      component: redirectComponent,
-      context: item,
-    });
-  });
-
-  createPage({
-    path: "/links",
-    component: externalLinksComponent,
-    context: staticUrls,
   });
 
   // Posts for Tag
@@ -142,15 +120,6 @@ exports.createPages = async ({ graphql, actions }) => {
       },
     });
   });
-
-  // Redirects
-  redirects.forEach((redirect) =>
-    createRedirect({
-      ...redirect,
-      isPermanent: true,
-      redirectInBrowser: true,
-    })
-  );
 };
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
