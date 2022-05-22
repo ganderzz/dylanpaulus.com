@@ -115,6 +115,7 @@ exports.createPages = async ({ graphql, actions }) => {
       path: node.slug,
       component: postComponent,
       key: node.slug,
+      defer: true,
       context: {
         slug: node.slug,
       },

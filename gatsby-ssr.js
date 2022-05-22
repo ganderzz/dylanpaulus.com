@@ -1,4 +1,4 @@
-import { createElement } from "react";
+import React from "react";
 
 const applyDarkModeClass = `
 (function () {
@@ -9,21 +9,28 @@ const applyDarkModeClass = `
     if (!mode && supportDarkMode) {
       document.body.classList.add("dark");
       document.documentElement.dataset.theme = "dark";
-    }
-    if (!mode) return;
 
-    document.body.classList.add(mode);
+      return;
+    }
+
+    if (!mode) {
+      return;
+    }
+
+    document.body?.classList.add(mode);
     document.documentElement.dataset.theme = mode;
-  } catch (e) {}
+  } catch (e) {
+    console.error(e);
+  }
 })();
 `;
 
 export const onRenderBody = ({ setHeadComponents }) => {
-  const script = createElement("script", {
-    dangerouslySetInnerHTML: {
-      __html: applyDarkModeClass,
-    },
-  });
-
-  setHeadComponents([script]);
+  setHeadComponents([
+    <script
+      dangerouslySetInnerHTML={{
+        __html: applyDarkModeClass,
+      }}
+    />,
+  ]);
 };
