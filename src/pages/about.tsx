@@ -2,44 +2,25 @@ import React from "react";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
 import { SubHeading } from "../components/subheading";
-import {
-  Timeline,
-  TimelineContent,
-  TimelineItem,
-} from "../components/timeline";
 
 export default function About() {
   return (
     <Layout>
       <SEO
         title="About"
-        keywords={[
-          `software`,
-          `code`,
-          `programming`,
-          `blog`,
-          `portfolio`,
-          `react`,
-          `typescript`,
-          `javascript`,
-        ]}
+        keywords={[`software`, `code`, `programming`, `blog`, `portfolio`, `react`, `typescript`, `javascript`]}
       />
       <section className="max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl mx-auto mt-8">
         <div className="flex flex-col gap-4 leading-loose">
           <div className="flex flex-col md:flex-row w-full">
             <div className="text-center w-full md:w-1/2">
               <img
-                src={"/images/about-image.jpg"}
+                src="/images/about-image.jpg"
                 alt="Image of Dylan playing drums"
-                className="shadow rounded-md m-auto"
-                style={{
-                  width: "100%",
-                }}
+                className="shadow rounded-md m-auto w-full aspect-video"
               />
 
-              <figcaption className="text-sm mt-2">
-                That's me, the one in the middle!
-              </figcaption>
+              <figcaption className="text-sm mt-2">That's me, the one in the middle!</figcaption>
             </div>
 
             <section className="w-full md:w-1/2 mt-8 md:mt-0 ml-0 md:ml-12">
@@ -51,9 +32,8 @@ export default function About() {
               </em>
 
               <p className="text-base">
-                I'm a Lead Software Engineer at Schweitzer Engineering
-                Laboratories (SEL) working primarily in React, C#, Postgres,
-                Docker, Kubernetes, and Redis. Before SEL I was a{" "}
+                I'm an Engineering Manager II at Schweitzer Engineering Laboratories (SEL) working primarily in React,
+                C#, Postgres, Docker, Kubernetes, and Redis. Before SEL I was a{" "}
                 <a href="https://www.mobygames.com/developer/sheet/view/developerId,783203/">
                   web developer at Sony PlayStation
                 </a>
@@ -64,7 +44,6 @@ export default function About() {
               <ul className="mt-2 ml-4">
                 <li>Hiking/Backpacking</li>
                 <li>Brazilian Jiu-Jitsu</li>
-                <li>Embarrassing myself in Muay Thai</li>
                 <li>Midwest Emo & Mathrock music</li>
                 <li>Playing Drums</li>
               </ul>
@@ -73,18 +52,12 @@ export default function About() {
                 <SubHeading>Talks</SubHeading>
                 <ul className="list-disc list-inside ml-4">
                   <li>
-                    <a
-                      target="_blank"
-                      href="https://introduction-functional-programming-boise.netlify.com/#/"
-                    >
+                    <a target="_blank" href="https://introduction-functional-programming-boise.netlify.com/#/">
                       Functional Programming Light (Boise Code Camp 2019)
                     </a>
                   </li>
                   <li>Making React Fast (Internal Presentation 2019)</li>
-                  <li>
-                    NPM, Dependencies, and JS Modules (Internal Presentation
-                    2021)
-                  </li>
+                  <li>NPM, Dependencies, and JS Modules (Internal Presentation 2021)</li>
                 </ul>
 
                 <SubHeading className="my-0">Courses</SubHeading>
@@ -103,51 +76,6 @@ export default function About() {
                   </li>
                 </ul>
               </div>
-              {/* 
-              <SubHeading className="mt-12">Experience</SubHeading>
-
-              <Timeline>
-                <li className="mb-2">
-                  <div className="flex-1 ml-6 font-base text-gray-300 dark:text-gray-700 italic">Now</div>
-                </li>
-
-                <TimelineItem isActive>
-                  <TimelineContent title="Lead Software Engineer">Schweitzer Engineering Laboratories</TimelineContent>
-                </TimelineItem>
-
-                <TimelineItem>
-                  <TimelineContent title="Software Engineer">Schweitzer Engineering Laboratories</TimelineContent>
-                </TimelineItem>
-
-                <TimelineItem>
-                  <TimelineContent title="Associate Software Engineer">
-                    Schweitzer Engineering Laboratories
-                  </TimelineContent>
-                </TimelineItem>
-
-                <TimelineItem>
-                  <TimelineContent
-                    title={
-                      <a
-                        title="A link to a list of games Dylan has worked on"
-                        href="https://www.mobygames.com/developer/sheet/view/developerId,783203/"
-                      >
-                        Web Developer
-                      </a>
-                    }
-                  >
-                    Sony Playstation
-                  </TimelineContent>
-                </TimelineItem>
-
-                <TimelineItem>
-                  <TimelineContent title="Student Web Developer">Eastern Washington University</TimelineContent>
-                </TimelineItem>
-
-                <li>
-                  <div className="flex-1 ml-6 font-base text-gray-300 dark:text-gray-700 italic">2013</div>
-                </li>
-              </Timeline> */}
             </section>
           </div>
         </div>

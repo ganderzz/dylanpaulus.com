@@ -20,7 +20,6 @@ const applyDarkModeClass = `
     document.body?.classList.add(mode);
     document.documentElement.dataset.theme = mode;
   } catch (e) {
-    console.error(e);
   }
 })();
 `;
