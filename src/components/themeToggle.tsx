@@ -8,6 +8,7 @@ export function ThemeToggle() {
 
   return (
     <button
+      aria-label="Toggle site theme"
       onClick={() => {
         setTheme(theme === "dark" ? "light" : "dark");
       }}

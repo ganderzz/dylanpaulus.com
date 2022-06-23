@@ -10,7 +10,7 @@ const Header = ({ siteTitle }: { siteTitle?: string }) => {
     <header className="pt-2 sm:pt-10 pl-2 pr-2 h-64 max-w-screen-xl mx-auto">
       <div className="z-10 relative container md:max-w-none mx-auto md:w-full lg:mx-auto h-12 block sm:flex sm:items-center">
         <div className="block relative text-5xl mx-0 font-bold lg:w-1/2 w-full sm:w-1/4">
-          <Link to="/" title={siteTitle} className="text-white no-underline">
+          <Link to="/" title="Navigate to home page" className="text-white no-underline">
             <Logo style={{ maxWidth: 350, minWidth: 120, width: "100%" }} />
           </Link>
         </div>
