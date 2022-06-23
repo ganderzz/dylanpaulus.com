@@ -194,6 +194,21 @@ ol li::marker {
 }
 
 /* class styles */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  right: 0;
+  background: #1e1c63;
+  color: #FFF;
+  z-index: 999;
+  padding: 8px;
+}
+
+.skip-link:focus {
+  top: 5px;
+}
+
 .blog__post {
   display: grid;
   font-size: 1.2rem;

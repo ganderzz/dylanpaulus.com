@@ -10,7 +10,11 @@ export default function About() {
         title="About"
         keywords={[`software`, `code`, `programming`, `blog`, `portfolio`, `react`, `typescript`, `javascript`]}
       />
-      <section className="max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl mx-auto mt-8">
+      <section
+        id="main-content"
+        tabIndex={-1}
+        className="max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl mx-auto mt-8"
+      >
         <div className="flex flex-col gap-4 leading-loose">
           <div className="flex flex-col md:flex-row w-full">
             <div className="text-center w-full md:w-1/2">

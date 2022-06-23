@@ -18,13 +18,14 @@ const Layout = ({ children, className = "" }) => (
     `}
     render={({ site }: { site: { siteMetadata: { title: string } } }) => (
       <>
+        <a className="skip-link" href="#main-content">
+          Skip to main content
+        </a>
         <Header siteTitle={site.siteMetadata.title} />
 
-        <main className={`p-4 sm:p-0 w-full text-base -mt-20 ${className}`}>
-          {children}
+        <main className={`p-4 sm:p-0 w-full text-base -mt-20 ${className}`}>{children}</main>
 
-          <Footer />
-        </main>
+        <Footer />
       </>
     )}
   />

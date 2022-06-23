@@ -22,6 +22,8 @@ export default function BlogList({ data, pageContext }) {
         keywords={[`software`, `code`, `programming`, `blog`, `portfolio`, `react`, `typescript`, `javascript`]}
       />
       <section
+        id="main-content"
+        tabIndex={-1}
         className="flex max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl mx-auto mt-8"
         style={{ minHeight: 1332 }}
       >

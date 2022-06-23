@@ -8,8 +8,7 @@ import { SubHeading } from "../components/subheading";
 import { Timeline, TimelineItem } from "../components/timeline";
 import Layout from "../components/layout";
 
-const pathToGist =
-  "https://gist.githubusercontent.com/ganderzz/244451a55c288a5ee8606e7ab2e64c55/raw/resume.json";
+const pathToGist = "https://gist.githubusercontent.com/ganderzz/244451a55c288a5ee8606e7ab2e64c55/raw/resume.json";
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { staleTime: 900 } },
@@ -58,6 +57,8 @@ const ResumeBody = () => {
             <div className="mx-auto text-center">Loading...</div>
           ) : (
             <main
+              id="main-content"
+              tabIndex={-1}
               className={`max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl mx-auto text-base -mt-20`}
             >
               <h2>{data.basics?.label}</h2>
@@ -74,8 +75,7 @@ const ResumeBody = () => {
                         {item.area} - {item.studyType}
                       </p>
                       <p className="mt-0 mb-4 text-gray-700">
-                        {new Date(item.startDate).getFullYear()}-
-                        {new Date(item.endDate).getFullYear()}
+                        {new Date(item.startDate).getFullYear()}-{new Date(item.endDate).getFullYear()}
                       </p>
                     </React.Fragment>
                   ))}
@@ -91,8 +91,7 @@ const ResumeBody = () => {
                         <p className="mt-0 mb-4 text-gray-700">
                           {item.position}
                           <br />
-                          {new Date(item.startDate).getFullYear()}-
-                          {new Date(item.endDate).getFullYear()}
+                          {new Date(item.startDate).getFullYear()}-{new Date(item.endDate).getFullYear()}
                         </p>
 
                         <p>{item.summary}</p>
