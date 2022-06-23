@@ -7,7 +7,7 @@ export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
 
   return (
-    <a
+    <button
       onClick={() => {
         setTheme(theme === "dark" ? "light" : "dark");
       }}
@@ -19,6 +19,6 @@ export function ThemeToggle() {
       }}
     >
       {theme === "dark" ? <SunIcon /> : <MoonIcon />}
-    </a>
+    </button>
   );
 }

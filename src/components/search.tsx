@@ -53,6 +53,7 @@ export function Search({ className = "" }: { className: string }) {
   return (
     <div className="inline-block relative text-left" ref={ref}>
       <form
+        role="search"
         className={`relative inline-block ${className}`}
         onSubmit={(e) => {
           e.preventDefault();
@@ -77,18 +78,13 @@ export function Search({ className = "" }: { className: string }) {
           }}
         />
 
-        <SearchIcon
-          className="dark:text-gray-400 text-gray-500"
-          style={{ position: "absolute", top: 14, left: 8 }}
-        />
+        <SearchIcon className="dark:text-gray-400 text-gray-500" style={{ position: "absolute", top: 14, left: 8 }} />
       </form>
 
       {value.length > 0 && (
         <div className="animated fadeIn min-w-full mr-4 bg-white dark:bg-gray-600 border-gray-300 dark:border-gray-600 absolute right-0 p-0 m-0 mt-2 rounded-md shadow-lg overflow-hidden z-20">
           {!isLoading && searchResults.length === 0 && (
-            <em className="flex items-center p-4 text-gray-600 dark:text-gray-100">
-              No results
-            </em>
+            <em className="flex items-center p-4 text-gray-600 dark:text-gray-100">No results</em>
           )}
 
           {searchResults.map((item) => (
@@ -96,7 +92,7 @@ export function Search({ className = "" }: { className: string }) {
               key={item.title}
               to={`/${item.slug}`}
               title={item.title}
-              className="flex items-center p-4 text-gray-600 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors border-t border-gray-300 dark:border-gray-500"
+              className="flex items-center p-4 text-gray-600 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700 focus:bg-gray-200 dark:focus:bg-gray-700 transition-colors border-t border-gray-300 dark:border-gray-500"
             >
               {item.title}
             </Link>

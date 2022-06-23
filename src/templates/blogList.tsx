@@ -12,25 +12,14 @@ export default function BlogList({ data, pageContext }) {
   const { numPages, currentPage } = pageContext;
 
   const sortedTags = React.useMemo(() => {
-    return data.tags.group
-      .sort((a, b) => b.totalCount - a.totalCount)
-      .slice(0, 5);
+    return data.tags.group.sort((a, b) => b.totalCount - a.totalCount).slice(0, 5);
   }, [data]);
 
   return (
     <Layout>
       <SEO
         title="Home"
-        keywords={[
-          `software`,
-          `code`,
-          `programming`,
-          `blog`,
-          `portfolio`,
-          `react`,
-          `typescript`,
-          `javascript`,
-        ]}
+        keywords={[`software`, `code`, `programming`, `blog`, `portfolio`, `react`, `typescript`, `javascript`]}
       />
       <section
         className="flex max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl mx-auto mt-8"
@@ -39,9 +28,7 @@ export default function BlogList({ data, pageContext }) {
         <div className="w-full sm:w-2/3 md:px-8">
           <div className="flex flex-col md:flex-row mb-4">
             <div className="flex-1">
-              <SubHeading style={{ margin: 0 }}>
-                📄 Recently Published
-              </SubHeading>
+              <SubHeading style={{ margin: 0 }}>📄 Recently Published</SubHeading>
             </div>
             <div className="flex-1 md:text-right md:my-0 my-4">
               <Pagination currentPage={currentPage} totalPages={numPages} />
@@ -57,7 +44,7 @@ export default function BlogList({ data, pageContext }) {
           </div>
         </div>
 
-        <div className="sm:flex flex-col w-1/3 md:px-8 hidden">
+        <aside className="sm:flex flex-col w-1/3 md:px-8 hidden">
           <div className="mb-6">
             <SubHeading style={{ marginTop: 0 }}>📣 Announcements</SubHeading>
 
@@ -69,6 +56,8 @@ export default function BlogList({ data, pageContext }) {
                 src={"/images/Course_Card_5_1.png"}
                 alt="Image of Dylan playing drums"
                 className="rounded-md m-auto"
+                style={{ minHeight: 204 }}
+                loading="lazy"
               />
             </a>
           </div>
@@ -78,7 +67,7 @@ export default function BlogList({ data, pageContext }) {
           </Link>
 
           <TagsList tags={sortedTags.map((p) => p.tag)} />
-        </div>
+        </aside>
       </section>
     </Layout>
   );
@@ -94,10 +83,7 @@ export const blogListQuery = graphql`
     }
     posts: allMdx(
       sort: { fields: [frontmatter___date], order: DESC }
-      filter: {
-        fileAbsolutePath: { glob: "**/posts/**/index.md" }
-        frontmatter: { published: { eq: true } }
-      }
+      filter: { fileAbsolutePath: { glob: "**/posts/**/index.md" }, frontmatter: { published: { eq: true } } }
       limit: $limit
       skip: $skip
     ) {

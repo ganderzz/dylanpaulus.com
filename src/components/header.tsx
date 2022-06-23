@@ -15,10 +15,7 @@ const Header = ({ siteTitle }: { siteTitle?: string }) => {
           </Link>
         </div>
 
-        <nav
-          role="navigation"
-          className="sm:mt-0 sm:text-right text-center mt-4 w-full block lg:w-1/2 sm:w-3/4 z-10"
-        >
+        <nav aria-label="Main" className="sm:mt-0 sm:text-right text-center mt-4 w-full block lg:w-1/2 sm:w-3/4 z-10">
           <Search className="mr-4 hidden sm:inline-block" />
 
           <MenuLink to="/">Blog</MenuLink>
