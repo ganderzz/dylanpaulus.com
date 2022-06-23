@@ -46,8 +46,8 @@ html[data-theme="dark"] {
   --font-color: rgba(255, 255, 255, var(--font-color-opacity));
   --font-color-secondary: rgba(160, 160, 160, var(--font-color-opacity));
 
-  --link-color: hsl(332.8, 100%, 71%);
-  --link-hover-color: hsl(332.8, 100%, 87%);
+  --link-color: hsl(332.8, 100%, 80%);
+  --link-hover-color: hsl(332.8, 100%, 90%);
 }
 
 /* base styling */

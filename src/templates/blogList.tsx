@@ -54,13 +54,16 @@ export default function BlogList({ data, pageContext }) {
               href="https://www.newline.co/courses/creating-react-libraries-from-scratch"
               className="block shadow hover:shadow-xl transition transform hover:scale-105 ease-in-out"
             >
-              <img
-                src={"/images/Course_Card_5_1.png"}
-                alt="Image of Dylan playing drums"
-                className="rounded-md m-auto"
-                style={{ minHeight: 204 }}
-                loading="lazy"
-              />
+              <picture>
+                <source srcSet="/images/Course_Card_5_1.webp" type="image/webp" />
+
+                <img
+                  src="/images/Course_Card_5_1.png"
+                  alt="Image of Dylan playing drums"
+                  className="rounded-md m-auto"
+                  loading="lazy"
+                />
+              </picture>
             </a>
           </div>
 
