@@ -31,7 +31,7 @@ A colleague, who did the talk with CS graduates with me, has a saying, "Optimize
 
 - Having _battle buddies_ you can rely on when _sh\*t hits the fan_. Find a support system who can jump in and help when production breaks
 - Learn everything about the environment. Ask questions not just about the systems you work on, but neighboring systems. How does each piece connect?
-- Improve your skills and learn different parts of the software stack. Learn how Databases work, maybe learn networking and DNS, and if you're working in containers maybe introduce yourself to Kubernetes.
+- Improve your skills and learn different parts of the software stack. Learn how Databases work, maybe learn networking and DNS, and if you're working in containers maybe introduce yourself to Kubernetes
 
 When interviewing for a company look for blameless cultures. This means when something eventually breaks in production the team doesn't start pointing fingers. Ask the interviewers how they deal with outages, and watch out for warning signs. Many buzzwords without any concrete plan/action can be a cause for concern.
 
