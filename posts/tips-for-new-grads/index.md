@@ -27,7 +27,7 @@ Technology is a [a means to an end](https://www.dictionary.com/e/slang/means-to-
 ## Everyone breaks production
 
 You're going to break production. Everyone does it. Even that lead engineer you look up to who never does wrong has broke production at some point. Don't stress about _if_ you're going to break production. _Breathe in._ _Breathe out._ _Let it go._
-A colleague who did the talk with CS graduates with me has said, "Optimize for mean to recovery." Find ways to reduce the blast radius once production is broken instead of worrying about breaking production in the first place. This could be:
+A colleague, who did the talk with CS graduates with me, has a saying, "Optimize for mean to recovery." Find ways to reduce the blast radius once production is broken instead of worrying about breaking production in the first place. This could be:
 
 - Having _battle buddies_ you can rely on when _sh\*t hits the fan_. Find a support system who can jump in and help when production breaks
 - Learn everything about the environment. Ask questions not just about the systems you work on, but neighboring systems. How does each piece connect?
@@ -37,6 +37,6 @@ When interviewing for a company look for blameless cultures. This means when som
 
 Lastly, writing software is a team effort. When software breaks there are multiple chains in the process of breaking down. Maybe code reviews weren't as thorough as they could have been? Or maybe we're missing testing or test cases that would have caught the error? Did the [Continuous Integration](https://en.wikipedia.org/wiki/Continuous_integration) step run? Maybe the architecture is inherently complex? As engineers we like to point to a root cause ([Fallacy of the single cause](https://en.wikipedia.org/wiki/Fallacy_of_the_single_cause)), but the [Titanic](https://en.wikipedia.org/wiki/Titanic) didn't sink for one reason. The builders of the ship cut costs, the ship was moving too fast, and the ship's radio operator dismissed the warning (Pruitt, 2018). Find a team with a blameless culture and don't point fingers when systems fail. Iterate on failures to learn and get better. Software is a team pursuit.
 
-#### References
+### References
 
 Pruitt, S., 2018. \_Why Did the Titanic Sink?\_. [online] History. Available at: <https://www.history.com/news/why-did-the-titanic-sink> [Accessed 4 July 2022].
