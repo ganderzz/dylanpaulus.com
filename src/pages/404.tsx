@@ -10,7 +10,7 @@ export default function NotFound() {
       <section className="text-center">
         <Missing className="mx-auto" style={{ maxWidth: 600 }} />
         <h1 className="-mt-8">404</h1>
-        <p>You hit a route that doesn&#39;t exist..</p>
+        <p>Howdy there partner. This trail is a dead end.</p>
       </section>
     </Layout>
   );

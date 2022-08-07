@@ -1,3 +1,4 @@
+import { Link } from "gatsby";
 import React from "react";
 import Layout from "../../components/layout";
 import SEO from "../../components/seo";
@@ -47,6 +48,9 @@ export default function About() {
               <p className="text-base">
                 I play drums in an ok emo/math rock band, <a href="https://griffeymusic.bandcamp.com/">Griffey</a>.
               </p>
+
+              <SubHeading>Stuff I use</SubHeading>
+              <Link to="/about/uses">Click Here {"->"}</Link>
 
               <div className="w-full mt-12">
                 <SubHeading>Talks</SubHeading>

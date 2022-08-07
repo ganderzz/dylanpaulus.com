@@ -1,5 +1,5 @@
 import React from "react";
-import H from "react-helmet";
+import { Helmet } from "react-helmet";
 import { StaticQuery, graphql } from "gatsby";
 
 interface IProps {
@@ -11,37 +11,21 @@ interface IProps {
   title: string;
 }
 
-const Helmet: any = H;
-
-function SEO({
-  pathname = "",
-  description = null,
-  meta = [],
-  keywords = [],
-  title = null,
-}: Partial<IProps>) {
+function SEO({ pathname = "", title = "", description = "", meta = [], keywords = [] }: Partial<IProps>) {
   return (
     <StaticQuery
       query={detailsQuery}
       render={(data) => {
         const siteMetadata = data.site.siteMetadata;
         const metaDescription = description ?? siteMetadata.description;
-        const siteLink = `${siteMetadata.siteUrl}${
-          typeof window !== "undefined" ? window.location.pathname : ""
-        }`;
+        const siteLink = `${siteMetadata.siteUrl}${typeof window !== "undefined" ? window.location.pathname : ""}`;
 
         return (
-          <Helmet
-            title={title ?? siteMetadata.title}
-            titleTemplate={`%s | ${siteMetadata.title}`}
-            link={[
-              {
-                rel: "canonical",
-                key: siteLink,
-                href: siteLink,
-              },
-            ]}
-            meta={[
+          <Helmet>
+            <title>{title ? `${title} | ${siteMetadata.title}` : siteMetadata.title}</title>
+            <link rel="canonical" href={siteLink} />
+
+            {[
               {
                 name: `description`,
                 content: metaDescription,
@@ -90,8 +74,12 @@ function SEO({
                 name: `twitter:card`,
                 content: `summary_large_image`,
               },
-            ].concat(meta)}
-          />
+            ]
+              .concat(meta)
+              .map((item) => (
+                <meta key={item.name} {...item} />
+              ))}
+          </Helmet>
         );
       }}
     />

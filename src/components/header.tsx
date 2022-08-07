@@ -5,7 +5,7 @@ import { ReactComponent as Logo } from "../../static/logo.svg";
 import { ThemeToggle } from "./themeToggle";
 import { Search } from "./search";
 
-const Header = ({ siteTitle }: { siteTitle?: string }) => {
+const HeaderBase = () => {
   return (
     <header className="pt-2 sm:pt-10 pl-2 pr-2 h-64 max-w-screen-xl mx-auto">
       <div className="z-10 relative container md:max-w-none mx-auto md:w-full lg:mx-auto h-12 block sm:flex sm:items-center">
@@ -37,4 +37,4 @@ const Header = ({ siteTitle }: { siteTitle?: string }) => {
   );
 };
 
-export default React.memo(Header);
+export const Header = React.memo(HeaderBase);
