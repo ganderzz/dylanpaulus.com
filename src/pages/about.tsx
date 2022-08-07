@@ -44,13 +44,9 @@ export default function About() {
                 , and student web developer at Eastern Washington University.
               </p>
 
-              <p className="text-base">I'm a fan of</p>
-              <ul className="mt-2 ml-4">
-                <li>Hiking/Backpacking</li>
-                <li>Brazilian Jiu-Jitsu</li>
-                <li>Midwest Emo & Mathrock music</li>
-                <li>Playing Drums</li>
-              </ul>
+              <p className="text-base">
+                I play drums in an ok emo/math rock band, <a href="https://griffeymusic.bandcamp.com/">Griffey</a>.
+              </p>
 
               <div className="w-full mt-12">
                 <SubHeading>Talks</SubHeading>
