@@ -10,6 +10,11 @@
 
 # Blog post redirects to keep old Jenkins URL paths active
 [[redirects]]
+  from = "/tips-for-new-software-engineers"
+  to = "/advice-for-new-software-engineers"
+  status = 301
+
+[[redirects]]
   from = "/2020-02-04-making-react-fast"
   to = "/making-react-fast"
   status = 301

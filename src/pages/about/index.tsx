@@ -1,7 +1,7 @@
 import React from "react";
-import Layout from "../components/layout";
-import SEO from "../components/seo";
-import { SubHeading } from "../components/subheading";
+import Layout from "../../components/layout";
+import SEO from "../../components/seo";
+import { SubHeading } from "../../components/subheading";
 
 export default function About() {
   return (
@@ -68,7 +68,7 @@ export default function About() {
                       className="block w-2/3 shadow hover:shadow-xl transition transform hover:scale-105 ease-in-out"
                     >
                       <img
-                        src={"/images/Course_Card_5_1.png"}
+                        src="/images/Course_Card_5_1.png"
                         alt="Image of Dylan playing drums"
                         className="rounded-md m-auto"
                       />

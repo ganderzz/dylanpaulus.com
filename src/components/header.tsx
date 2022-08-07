@@ -18,9 +18,8 @@ const Header = ({ siteTitle }: { siteTitle?: string }) => {
         <nav aria-label="Main" className="sm:mt-0 sm:text-right text-center mt-4 w-full block lg:w-1/2 sm:w-3/4 z-10">
           <Search className="mr-4 hidden sm:inline-block" />
 
-          <MenuLink to="/">Blog</MenuLink>
+          <MenuLink to="/">Articles</MenuLink>
           <MenuLink to="/about">About</MenuLink>
-          {/* <MenuLink to="/resume">Resume</MenuLink> */}
 
           <ThemeToggle />
         </nav>

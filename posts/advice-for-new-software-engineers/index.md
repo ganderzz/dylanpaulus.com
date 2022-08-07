@@ -1,5 +1,5 @@
 ---
-title: "Tips for New Software Engineers"
+title: "Advice for New Software Engineers"
 tags: ["advice", "software-engineering", "beginner"]
 date: "2022-07-04"
 published: true

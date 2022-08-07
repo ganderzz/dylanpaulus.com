@@ -30,7 +30,7 @@ export default function BlogList({ data, pageContext }) {
         <div className="w-full sm:w-2/3 md:px-8">
           <div className="flex flex-col md:flex-row mb-4">
             <div className="flex-1">
-              <SubHeading style={{ margin: 0 }}>📄 Recently Published</SubHeading>
+              <SubHeading style={{ margin: 0 }}>Recently Published</SubHeading>
             </div>
             <div className="flex-1 md:text-right md:my-0 my-4">
               <Pagination currentPage={currentPage} totalPages={numPages} />
@@ -48,7 +48,7 @@ export default function BlogList({ data, pageContext }) {
 
         <aside className="sm:flex flex-col w-1/3 md:px-8 hidden">
           <div className="mb-6">
-            <SubHeading style={{ marginTop: 0 }}>📣 Announcements</SubHeading>
+            <SubHeading style={{ marginTop: 0 }}>Announcements</SubHeading>
 
             <a
               href="https://www.newline.co/courses/creating-react-libraries-from-scratch"
@@ -68,7 +68,7 @@ export default function BlogList({ data, pageContext }) {
           </div>
 
           <Link to="/sitemap">
-            <SubHeading style={{ marginTop: 0 }}>🏷 Popular Tags</SubHeading>
+            <SubHeading style={{ marginTop: 0 }}>Popular Tags</SubHeading>
           </Link>
 
           <TagsList tags={sortedTags.map((p) => p.tag)} />
