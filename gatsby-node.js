@@ -12,7 +12,7 @@ const postsForTag = path.resolve(`./src/templates/postsForTag.tsx`);
  * Generates a `search.json` file for a given list of posts to be queried by elasticlunr.
  */
 function createSearchPages(posts) {
-  const idx = elasticlunr(() => {
+  const idx = elasticlunr(function () {
     this.setRef("slug");
 
     this.addField("title");
