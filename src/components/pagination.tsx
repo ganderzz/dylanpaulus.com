@@ -8,7 +8,7 @@ interface IProps {
   currentPage: number;
 }
 
-export function Pagination({ currentPage, totalPages }: IProps) {
+export const Pagination = ({ currentPage, totalPages }: IProps) => {
   return (
     <nav className="relative z-0 inline-flex shadow-sm">
       <Link
@@ -55,4 +55,4 @@ export function Pagination({ currentPage, totalPages }: IProps) {
       </Link>
     </nav>
   );
-}
+};

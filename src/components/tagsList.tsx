@@ -7,7 +7,7 @@ interface IProps {
   className?: string;
 }
 
-export function TagsList({ tags = [], style = {}, ...rest }: IProps) {
+export const TagsList = ({ tags = [], style = {}, ...rest }: IProps) => {
   return (
     <span style={style} {...rest}>
       {tags.map((tag) => (
@@ -21,4 +21,4 @@ export function TagsList({ tags = [], style = {}, ...rest }: IProps) {
       ))}
     </span>
   );
-}
+};

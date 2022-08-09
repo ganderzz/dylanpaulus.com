@@ -1,7 +1,7 @@
 import React from "react";
 import { graphql } from "gatsby";
-import Layout from "../components/layout";
-import SEO from "../components/seo";
+import { Layout } from "../components/layout";
+import { SEO } from "../components/seo";
 import { PostListItem } from "../components/postListItem";
 
 export default function PostsForTag({ data, pageContext }) {
@@ -11,7 +11,6 @@ export default function PostsForTag({ data, pageContext }) {
 
   return (
     <Layout>
-      <SEO title={pageContext.tag} keywords={[pageContext.tag]} />
       <section
         id="main-content"
         tabIndex={-1}
@@ -27,6 +26,10 @@ export default function PostsForTag({ data, pageContext }) {
       </section>
     </Layout>
   );
+}
+
+export function Head({ pageContext }) {
+  return <SEO title={pageContext.tag} keywords={[pageContext.tag]} />;
 }
 
 export const pageQuery = graphql`

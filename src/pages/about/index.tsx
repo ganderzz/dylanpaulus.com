@@ -1,16 +1,12 @@
 import { Link } from "gatsby";
 import React from "react";
-import Layout from "../../components/layout";
-import SEO from "../../components/seo";
+import { Layout } from "../../components/layout";
+import { SEO } from "../../components/seo";
 import { SubHeading } from "../../components/subheading";
 
 export default function About() {
   return (
     <Layout>
-      <SEO
-        title="About"
-        keywords={[`software`, `code`, `programming`, `blog`, `portfolio`, `react`, `typescript`, `javascript`]}
-      />
       <section
         id="main-content"
         tabIndex={-1}
@@ -85,5 +81,14 @@ export default function About() {
         </div>
       </section>
     </Layout>
+  );
+}
+
+export function Head() {
+  return (
+    <SEO
+      title="About"
+      keywords={[`software`, `code`, `programming`, `blog`, `portfolio`, `react`, `typescript`, `javascript`]}
+    />
   );
 }

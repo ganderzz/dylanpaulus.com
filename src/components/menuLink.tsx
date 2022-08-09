@@ -5,7 +5,7 @@ interface IProps {
   to: string;
 }
 
-export function MenuLink({ children, to }: React.PropsWithChildren<IProps>) {
+export const MenuLink = ({ children, to }: React.PropsWithChildren<IProps>) => {
   return (
     <Link
       to={to}
@@ -15,4 +15,4 @@ export function MenuLink({ children, to }: React.PropsWithChildren<IProps>) {
       {children}
     </Link>
   );
-}
+};

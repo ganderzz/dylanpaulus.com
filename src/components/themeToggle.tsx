@@ -3,7 +3,7 @@ import { ReactComponent as MoonIcon } from "../icons/moon.svg";
 import { ReactComponent as SunIcon } from "../icons/sun.svg";
 import useTheme from "../hooks/useTheme";
 
-export function ThemeToggle() {
+export const ThemeToggle = () => {
   const { theme, setTheme } = useTheme();
 
   return (
@@ -22,4 +22,4 @@ export function ThemeToggle() {
       {theme === "dark" ? <SunIcon /> : <MoonIcon />}
     </button>
   );
-}
+};

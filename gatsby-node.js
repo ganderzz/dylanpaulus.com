@@ -8,15 +8,18 @@ const listComponent = path.resolve("./src/templates/blogList.tsx");
 const postComponent = path.resolve(`./src/templates/blogPost.tsx`);
 const postsForTag = path.resolve(`./src/templates/postsForTag.tsx`);
 
+/**
+ * Generates a `search.json` file for a given list of posts to be queried by elasticlunr.
+ */
 function createSearchPages(posts) {
-  const idx = elasticlunr(function () {
+  const idx = elasticlunr(() => {
     this.setRef("slug");
 
     this.addField("title");
     this.addField("tags");
   });
 
-  posts.forEach(function ({ node }) {
+  posts.forEach(({ node }) => {
     idx.addDoc({
       slug: node.slug,
       title: node.frontmatter.title,
@@ -35,7 +38,6 @@ function createSearchPages(posts) {
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
-
   const { data, errors } = await graphql(
     `
       {
@@ -74,32 +76,34 @@ exports.createPages = async ({ graphql, actions }) => {
     component: path.resolve(`./src/templates/sitemap.tsx`),
   });
 
-  // Posts for Tag
-  const tags = posts.reduce((accu, post) => {
-    const tags = post.node.frontmatter.tags;
+  // Tag pages for looking up similar blog posts
+  posts
+    .reduce((accu, post) => {
+      const tags = post.node.frontmatter.tags;
 
-    if (tags) {
-      return [...accu, ...tags];
-    }
+      if (tags) {
+        return [...accu, ...tags];
+      }
 
-    return accu;
-  }, []);
-
-  tags.forEach((tag) => {
-    createPage({
-      path: `/tags/${tag}/`,
-      component: postsForTag,
-      context: {
-        tag,
-      },
+      return accu;
+    }, [])
+    .forEach((tag) => {
+      createPage({
+        path: `/tags/${tag}/`,
+        key: tag,
+        component: postsForTag,
+        context: {
+          tag,
+        },
+      });
     });
-  });
 
-  // Blog Post Lists
+  // Paginated list pages
   Array.from({ length: numPages }).forEach((_, i) => {
     createPage({
       path: i === 0 ? `/` : `/${i + 1}/`,
       component: listComponent,
+      key: i,
       context: {
         limit: postsPerPage,
         skip: i * postsPerPage,
@@ -109,7 +113,7 @@ exports.createPages = async ({ graphql, actions }) => {
     });
   });
 
-  // Post Pages
+  // Blog post pages
   data.blog.edges.forEach(({ node }) => {
     createPage({
       path: node.slug,

@@ -1,6 +1,6 @@
 import React from "react";
-import Layout from "../../components/layout";
-import SEO from "../../components/seo";
+import { Layout } from "../../components/layout";
+import { SEO } from "../../components/seo";
 import { SubHeading } from "../../components/subheading";
 
 const data = {
@@ -114,10 +114,6 @@ const ItemList = ({ items }: { items: { name: string; url: string; description?:
 export default function Uses() {
   return (
     <Layout>
-      <SEO
-        title="Uses"
-        keywords={[`software`, `code`, `programming`, `blog`, `portfolio`, `react`, `typescript`, `javascript`]}
-      />
       <section
         id="main-content"
         tabIndex={-1}
@@ -135,5 +131,14 @@ export default function Uses() {
         ))}
       </section>
     </Layout>
+  );
+}
+
+export function Head() {
+  return (
+    <SEO
+      title="Uses"
+      keywords={[`software`, `code`, `programming`, `blog`, `portfolio`, `react`, `typescript`, `javascript`]}
+    />
   );
 }

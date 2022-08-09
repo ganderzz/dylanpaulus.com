@@ -4,6 +4,7 @@ import React from "react";
 import searchIndex from "../../search.json";
 import { useOnClickOutside } from "../hooks/useOnClickOutside";
 import { ReactComponent as SearchIcon } from "../icons/search.svg";
+import { ISearchResult } from "../interfaces/ISearchResult";
 
 const debounce = (function debounce(time) {
   let handle: unknown = undefined;
@@ -28,11 +29,11 @@ function search(value: string) {
     .map((item) => searchIndex.documentStore.docs[item.ref]);
 }
 
-export function Search({ className = "" }: { className: string }) {
+export const Search = ({ className = "" }: { className: string }) => {
   const [value, setValue] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
-  const [searchResults, setSearchResults] = React.useState([]);
-  const ref = React.useRef<HTMLDivElement | undefined>();
+  const [searchResults, setSearchResults] = React.useState<ISearchResult[]>([]);
+  const ref = React.useRef<HTMLDivElement>();
 
   const clickAwayHandler = React.useCallback(() => {
     setSearchResults([]);
@@ -73,7 +74,7 @@ export function Search({ className = "" }: { className: string }) {
           className="opacity-75 hover:opacity-100 focus:opacity-100 focus:shadow-md form-input block w-full dark:text-gray-100 text-gray-700 bg-gray-100 dark:bg-gray-600 p-4 pl-10 text-gray-300::placeholder sm:text-sm sm:leading-5 rounded-md shadow-md"
           value={value}
           placeholder="Search the site..."
-          onChange={(e: any) => {
+          onChange={(e) => {
             setValue(e.currentTarget.value);
           }}
         />
@@ -101,4 +102,4 @@ export function Search({ className = "" }: { className: string }) {
       )}
     </div>
   );
-}
+};

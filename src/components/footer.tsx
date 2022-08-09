@@ -56,7 +56,7 @@ const socialMedia: ISocialProps[] = [
 
 const socialIconClass = "hover:opacity-100 mr-12 opacity-75 text-5xl inline-block";
 
-export function Footer() {
+export const Footer = () => {
   return (
     <footer className="w-full sm:w-3/5 pt-10 pb-10 text-center border-t border-gray-200 dark:border-gray-700 border-solid mx-auto mt-8">
       <nav aria-label="External Links">
@@ -78,4 +78,4 @@ export function Footer() {
       </nav>
     </footer>
   );
-}
+};

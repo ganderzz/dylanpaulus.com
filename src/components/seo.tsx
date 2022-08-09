@@ -1,5 +1,4 @@
 import React from "react";
-import { Helmet } from "react-helmet";
 import { StaticQuery, graphql } from "gatsby";
 
 interface IProps {
@@ -11,7 +10,7 @@ interface IProps {
   title: string;
 }
 
-function SEO({ pathname = "", title = "", description = "", meta = [], keywords = [] }: Partial<IProps>) {
+export const SEO = ({ pathname = "", title = "", description = "", meta = [], keywords = [] }: Partial<IProps>) => {
   return (
     <StaticQuery
       query={detailsQuery}
@@ -21,7 +20,7 @@ function SEO({ pathname = "", title = "", description = "", meta = [], keywords 
         const siteLink = `${siteMetadata.siteUrl}${typeof window !== "undefined" ? window.location.pathname : ""}`;
 
         return (
-          <Helmet>
+          <>
             <title>{title ? `${title} | ${siteMetadata.title}` : siteMetadata.title}</title>
             <link rel="canonical" href={siteLink} />
 
@@ -48,7 +47,7 @@ function SEO({ pathname = "", title = "", description = "", meta = [], keywords 
               },
               {
                 name: `og:image`,
-                content: `${siteMetadata.siteUrl}${pathname}twitter-card.jpg`,
+                content: `${siteMetadata.siteUrl}/${pathname}twitter-card.jpg`,
               },
               {
                 name: `twitter:creator`,
@@ -68,7 +67,7 @@ function SEO({ pathname = "", title = "", description = "", meta = [], keywords 
               },
               {
                 name: `twitter:image`,
-                content: `${siteMetadata.siteUrl}${pathname}twitter-card.jpg`,
+                content: `${siteMetadata.siteUrl}/${pathname}twitter-card.jpg`,
               },
               {
                 name: `twitter:card`,
@@ -79,13 +78,12 @@ function SEO({ pathname = "", title = "", description = "", meta = [], keywords 
               .map((item) => (
                 <meta key={item.name} {...item} />
               ))}
-          </Helmet>
+          </>
         );
       }}
     />
   );
-}
-export default SEO;
+};
 
 const detailsQuery = graphql`
   query DefaultSEOQuery {
