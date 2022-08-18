@@ -1,0 +1,385 @@
+@import url("https://rsms.me/inter/inter.css");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Inter", sans-serif;
+  font-display: swap;
+}
+
+:root {
+  --border-radius: 0.5rem;
+}
+
+html,
+html[data-theme="light"] {
+  --primary-100: #111;
+  --secondary-100: #fff;
+  --secondary-200: #f1f1f1;
+  --secondary-300: #ddd;
+  --secondary-400: #ccc;
+  --secondary-500: #b7b7b7;
+  --code-bg: #333;
+  --code-highlight-bg: #444;
+  --border-color: #ddd;
+  --font-color-opacity: 0.8;
+  --font-color: rgba(0, 0, 0, var(--font-color-opacity));
+  --font-color-secondary: rgba(80, 80, 80, var(--font-color-opacity));
+
+  --link-color: #5755c9;
+  --link-hover-color: #1e1c63;
+}
+
+html[data-theme="dark"] {
+  --primary-100: #fff;
+  --secondary-100: #2a3546;
+  --secondary-200: #334054;
+  --secondary-300: #44546d;
+  --secondary-400: #546784;
+  --secondary-500: #65799b;
+  --code-bg: #222a3a;
+  --code-highlight-bg: #1a202d;
+  --border-color: rgba(255, 255, 255, 0.3);
+  --font-color-opacity: 1;
+  --font-color: rgba(255, 255, 255, var(--font-color-opacity));
+  --font-color-secondary: rgba(160, 160, 160, var(--font-color-opacity));
+
+  --link-color: hsl(332.8, 100%, 80%);
+  --link-hover-color: hsl(332.8, 100%, 90%);
+}
+
+/* base styling */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--primary-100);
+  font-variation-settings: "wght" 400, "slnt" 0;
+}
+
+@supports (font-variation-settings: normal) {
+  html {
+    font-family: "Inter var", sans-serif;
+  }
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--secondary-100);
+  font-size: 1rem;
+}
+
+p {
+  margin-bottom: 1.15rem;
+  font-size: 1rem;
+  opacity: 0.95;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin: 1rem 0 0.875rem;
+  font-weight: 600;
+  line-height: 1.15;
+  font-variation-settings: "wght" 700, "slnt" 0 !important;
+  @apply tracking-tight;
+}
+
+h1 {
+  margin-top: 0;
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 2.25rem;
+}
+
+h3 {
+  font-size: 2rem;
+}
+
+h4 {
+  font-size: 1.875rem;
+}
+
+h5 {
+  font-size: 1.5rem;
+}
+
+small,
+.text_small {
+  font-size: 0.667rem;
+}
+
+figcaption {
+  color: var(--font-color-secondary) !important;
+}
+
+a {
+  color: var(--link-color);
+  transition: 0.15s all;
+}
+
+a:hover {
+  color: var(--link-hover-color);
+}
+
+pre {
+  @apply rounded;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+  background: var(--code-bg);
+  font-size: 1rem;
+  @apply mb-6 mt-6;
+}
+
+blockquote {
+  background: var(--secondary-200);
+  border-left: 10px solid #ccc;
+  margin: 0.2rem 0;
+  padding: 0.5rem 10px;
+  quotes: "\201C""\201D""\2018""\2019";
+}
+
+blockquote:before {
+  color: #ccc;
+  content: open-quote;
+  font-size: 4rem;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+
+blockquote p {
+  @apply inline;
+}
+
+ul {
+  @apply list-disc;
+  @apply list-inside;
+}
+
+ol {
+  @apply list-decimal;
+  @apply list-inside;
+  @apply ml-6;
+  @apply mt-4;
+  @apply leading-relaxed;
+}
+
+ol li {
+  @apply mt-4;
+}
+
+ol li::marker {
+  font-weight: bold;
+}
+
+/* class styles */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  right: 0;
+  background: #1e1c63;
+  color: #FFF;
+  z-index: 999;
+  padding: 8px;
+}
+
+.skip-link:focus {
+  top: 5px;
+}
+
+.blog__post {
+  display: grid;
+  font-size: 1.2rem;
+  grid-template-columns:
+    1fr
+    min(65ch, 100%)
+    1fr;
+}
+
+.blog__post > * {
+  grid-column: 2;
+}
+
+.blog__post ul,
+.blog__post ol {
+  margin-bottom: 1.15rem;
+  font-size: 1rem;
+  margin-left: 5%;
+}
+
+.blog__post ul > li,
+.blog__post ol > li {
+  margin-top: 0.625rem;
+}
+
+.blog__post p a:not(.header-link) {
+  border-bottom: 2px solid var(--link-color);
+  transition: border 0.2s ease-in-out;
+}
+.blog__post p a:hover:not(.header-link) {
+  border-bottom: 2px solid var(--link-hover-color);
+}
+
+p + ol {
+  margin-top: 0;
+}
+
+.full-bleed {
+  width: 100%;
+  grid-column: 1 / -1;
+  z-index: 60;
+}
+.full-bleed .gatsby-resp-image-wrapper {
+  max-width: unset !important;
+}
+.full-bleed .gatsby-resp-image-figure {
+  padding: 0 !important;
+}
+
+.header-link {
+  position: relative;
+  top: 30px;
+  left: -25px;
+  opacity: 0.2;
+}
+.header-link:hover {
+  opacity: 1;
+}
+.header-link > svg {
+  fill: var(--font-color);
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 5px;
+}
+
+.katex-display {
+  margin: 2rem 0;
+}
+
+.font-bold {
+  font-variation-settings: "wght" 700, "slnt" 0;
+}
+
+.gatsby-highlight-code-line {
+  display: block;
+  background: var(--code-highlight-bg);
+  padding: 4px;
+  font-size: 1rem;
+  border-radius: 4px;
+}
+
+.gatsby-resp-image-figure {
+  @apply my-16;
+  @apply p-4;
+}
+
+.gatsby-resp-image-figcaption {
+  font-size: 0.825rem;
+  @apply mt-4;
+  text-align: center;
+}
+
+.table__contents ul {
+  list-style-type: none;
+  margin: 0;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.table__contents > ul > li {
+  padding: 0.2rem 0;
+}
+
+.table__contents > ul > li > ul {
+  padding-left: 1rem;
+}
+
+.table__contents ul li,
+.table__contents ul li p {
+  margin: 0;
+}
+
+/* ---- Utilities ---- */
+.skewed {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  height: 9rem;
+  min-height: 168px;
+  z-index: 0;
+  transform: skewY(1deg);
+  transform-origin: top right;
+}
+
+/* ---- Animations ---- */
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 0 20px rgba(0, 0, 0, 0);
+  }
+}
+
+.animated {
+  -webkit-animation-duration: 0.3s;
+  animation-duration: 0.3s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.pulse {
+  -webkit-animation-name: pulse;
+  animation-name: pulse;
+}
+
+.fadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+}

@@ -1,0 +1,26 @@
+---
+import type { Post } from "../types/Post";
+import TagList from "./TagList.astro";
+
+export type Props = {
+  frontmatter: Post
+};
+
+const { frontmatter } = Astro.props as Props;
+---
+
+<span class="opacity-75 text-base md:flex hidden justify-center items-center md:pb-1">
+  <img src="/icons/calendar.svg" alt="Calendar" class="mr-2 inline" />
+  {frontmatter.date}
+  <img src="/icons/tag.svg" class="mr-2 ml-8 inline" />
+  <TagList class="sm:inline block" tags={frontmatter.tags} />
+  <img src="/icons/clock.svg" class="mr-2 ml-4 inline" />
+  {frontmatter.timeToRead}
+</span>
+
+
+<style>
+  .inline {
+    display: inline-flex;
+  }
+</style>
