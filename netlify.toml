@@ -1,5 +1,5 @@
 [build]
-  publish = "/public/"
+  publish = "/dist/"
 
 [[headers]]
   for = "/*"
@@ -11,62 +11,62 @@
 # Blog post redirects to keep old Jenkins URL paths active
 [[redirects]]
   from = "/tips-for-new-software-engineers"
-  to = "/advice-for-new-software-engineers"
+  to = "/posts/advice-for-new-software-engineers"
   status = 301
 
 [[redirects]]
   from = "/2020-02-04-making-react-fast"
-  to = "/making-react-fast"
+  to = "/posts/making-react-fast"
   status = 301
 
 [[redirects]]
   from = "2019-12-29-2020-albums-decade"
-  to = "albums-2010-2020-decade"
+  to = "/posts/albums-2010-2020-decade"
   status = 301
 
 [[redirects]]
   from = "2019-12-01-lost-connections"
-  to = "lost-connections"
+  to = "/posts/lost-connections"
   status = 301
 
 [[redirects]]
   from = "2019-11-24-how-fb-avoids-adblockers"
-  to = "how-fb-avoids-adblockers"
+  to = "/posts/how-fb-avoids-adblockers"
   status = 301
 
 [[redirects]]
   from = "2015-11-17-intro-to-flight-js"
-  to = "intro-to-flight-js"
+  to = "/posts/intro-to-flight-js"
   status = 301
 
 [[redirects]]
   from = "2019-07-21-clean-code"
-  to = "clean-code"
+  to = "/posts/clean-code"
   status = 301
 
 [[redirects]]
   from = "2019-06-17-level-terminal-navigation"
-  to = "level-terminal-navigation"
+  to = "/posts/level-terminal-navigation"
   status = 301
 
 [[redirects]]
   from = "2019-03-31-functional-programming"
-  to = "intro-functional-programming"
+  to = "/posts/intro-functional-programming"
   status = 301
 
 [[redirects]]
   from = "2018-11-03-introducing-react-scroll-to-v2"
-  to = "introducing-react-scroll-to-v2"
+  to = "/posts/introducing-react-scroll-to-v2"
   status = 301
 
 [[redirects]]
   from = "2018-10-18-react-controlling-rendering-with-keys"
-  to = "react-controlling-rendering-with-keys"
+  to = "/posts/react-controlling-rendering-with-keys"
   status = 301
 
 [[redirects]]
   from = "2018-10-11-tips-on-improving-fabricjs-speed"
-  to = "tips-on-improving-fabricjs-speed"
+  to = "/posts/tips-on-improving-fabricjs-speed"
   status = 301
 
 # Redirect to social media and other common sites!
