@@ -1,23 +1,36 @@
 ---
-import type { Post } from "../types/Post";
+import { Image } from "@astrojs/image/components";
 import TagList from "./TagList.astro";
+import CalendarIcon from "../icons/calendar.astro";
+import type { Post } from "../types/Post";
 
 export type Props = {
-  frontmatter: Post
+  frontmatter: Post;
 };
 
 const { frontmatter } = Astro.props as Props;
 ---
 
-<span class="opacity-75 text-base md:flex hidden justify-center items-center md:pb-1">
-  <img src="/icons/calendar.svg" alt="Calendar" class="mr-2 inline" />
+<span
+  class="opacity-75 text-base md:flex hidden justify-center items-center md:pb-1"
+>
+  <CalendarIcon class="mr-2 inline" />
   {frontmatter.date}
-  <img src="/icons/tag.svg" class="mr-2 ml-8 inline" />
+  <Image
+    src="/icons/tag.svg"
+    class="mr-2 ml-8 inline"
+    width={25}
+    aspectRatio="1:1"
+  />
   <TagList class="sm:inline block" tags={frontmatter.tags} />
-  <img src="/icons/clock.svg" class="mr-2 ml-4 inline" />
+  <Image
+    src="/icons/clock.svg"
+    class="mr-2 ml-4 inline"
+    width={25}
+    aspectRatio="1:1"
+  />
   {frontmatter.timeToRead}
 </span>
-
 
 <style>
   .inline {

@@ -1,18 +1,24 @@
 ---
-import SubHeading from '../components/SubHeading.astro';
-import PostListItem from '../components/PostListItem.astro';
-import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from "@astrojs/image/components";
+import SubHeading from "../components/SubHeading.astro";
+import PostListItem from "../components/PostListItem.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
 import type { Post } from "../types/Post";
 
-const unsortedPosts = await Astro.glob<Post>('./posts/**/*.md');
-const posts = unsortedPosts.sort((a, b) =>
-  new Date(b.frontmatter.date).valueOf() - new Date(a.frontmatter.date).valueOf()
+const unsortedPosts = await Astro.glob<Post>("./posts/**/*.md");
+const posts = unsortedPosts.sort(
+  (a, b) =>
+    new Date(b.frontmatter.date).valueOf() -
+    new Date(a.frontmatter.date).valueOf()
 );
 ---
 
 <BaseLayout title="Dylan Paulus" description="">
-  <section id="main-content" tab-index="-1"
-    class="flex max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl mx-auto mt-8">
+  <section
+    id="main-content"
+    tab-index="-1"
+    class="flex max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl mx-auto mt-8"
+  >
     <div class="w-full sm:w-2/3 md:px-8">
       <div class="flex flex-col md:flex-row mb-4">
         <div class="flex-1">
@@ -23,9 +29,7 @@ const posts = unsortedPosts.sort((a, b) =>
         </div>
       </div>
 
-      {posts.map((post) => (
-      <PostListItem data={post} />
-      ))}
+      {posts.map((post) => <PostListItem data={post} />)}
 
       <div class="mt-8 mx-auto text-right">
         <!-- <Pagination currentPage={currentPage} totalPages={numPages} /> -->
@@ -36,13 +40,22 @@ const posts = unsortedPosts.sort((a, b) =>
       <div class="mb-6">
         <SubHeading style={{ marginTop: 0 }}>Announcements</SubHeading>
 
-        <a href="https://www.newline.co/courses/creating-react-libraries-from-scratch"
-          class="block shadow hover:shadow-xl transition transform hover:scale-105 ease-in-out">
+        <a
+          href="https://www.newline.co/courses/creating-react-libraries-from-scratch"
+          class="block shadow hover:shadow-xl transition transform hover:scale-105 ease-in-out"
+        >
           <picture>
             <source src-set="/images/Course_Card_5_1.webp" type="image/webp" />
 
-            <img src="/images/Course_Card_5_1.png" alt="Image of Dylan playing drums" class="rounded-md m-auto"
-              loading="lazy" />
+            <Image
+              src="/images/Course_Card_5_1.png"
+              alt="Image of Dylan playing drums"
+              class="rounded-md m-auto"
+              loading="lazy"
+              width={200}
+              height={200}
+              format="webp"
+            />
           </picture>
         </a>
       </div>
