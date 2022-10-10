@@ -33,12 +33,17 @@ export default function About() {
               </em>
 
               <p className="text-base">
-                I'm an Engineering Manager II at Schweitzer Engineering Laboratories (SEL) working primarily in React,
-                C#, Postgres, Docker, Kubernetes, and Redis. Before SEL I was a{" "}
-                <a href="https://www.mobygames.com/developer/sheet/view/developerId,783203/">
-                  web developer at Sony PlayStation
-                </a>
-                , and student web developer at Eastern Washington University.
+                I'm a Senior Software Engineer at Rover.com
+                <h3>Previously</h3>
+                <ol>
+                  <li>Engineering Manager II at Schweitzer Engineering Laboratories</li>
+                  <li>
+                    <a href="https://www.mobygames.com/developer/sheet/view/developerId,783203/">
+                      Web developer at Sony PlayStation
+                    </a>
+                  </li>
+                  <li>Student web developer at Eastern Washington University</li>
+                </ol>
               </p>
 
               <p className="text-base">
