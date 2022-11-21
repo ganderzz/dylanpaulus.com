@@ -1,0 +1,47 @@
+---
+import BaseLayout from "~/src/layouts/BaseLayout.astro";
+import type { Post } from "~/src/types/Post";
+
+export async function getStaticPaths() {
+  const posts = await Astro.glob<Post>("../posts/**/*.md");
+  const tags = posts
+    .flatMap((post) => post.frontmatter.tags)
+    .reduce((accu: Record<string, number>, tagName) => {
+      const lowerTagName = tagName.toLocaleLowerCase().replace(/\s+/g, "-");
+
+      if (lowerTagName in accu) {
+        return {
+          ...accu,
+          [lowerTagName]: accu[lowerTagName] + 1,
+        };
+      }
+
+      return {
+        ...accu,
+        [lowerTagName]: 1,
+      };
+    }, {});
+
+  return Object.entries(tags).map(([tag, count]) => ({
+    params: {
+      tag,
+    },
+    props: {
+      count,
+    },
+  }));
+}
+
+const { tag } = Astro.params;
+const { count } = Astro.props;
+---
+
+<BaseLayout title={`${tag} tag`} description={`A tags list for ${tag}`}>
+  <section
+    id="main-content"
+    tab-index="-1"
+    class="flex max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl mx-auto mt-8"
+  >
+    <h1>{tag} {count}</h1>
+  </section>
+</BaseLayout>
