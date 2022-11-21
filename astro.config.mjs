@@ -8,9 +8,10 @@ import compress from "astro-compress";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [image(), preact(), tailwind(), compress()],
+  integrations: [compress(), image(), preact(), tailwind()],
   output: "static",
   site: `https://dylanpaulus.com`,
+  vite: { ssr: { external: ["svgo"] } },
   markdown: {
     extendDefaultPlugins: true,
     syntaxHighlight: "prism",

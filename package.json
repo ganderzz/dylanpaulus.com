@@ -19,8 +19,9 @@
     "reading-time": "1.5.0"
   },
   "dependencies": {
-    "astro-icon": "^0.8.0",
+    "astro-icon": "0.8.0",
     "giscus": "1.2.4",
-    "preact": "10.11.3"
+    "preact": "10.11.3",
+    "svgo": "2.8.0"
   }
 }
