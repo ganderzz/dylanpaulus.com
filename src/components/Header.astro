@@ -1,0 +1,68 @@
+---
+import Icon from "astro-icon";
+import MenuLink from "./MenuLink.astro";
+import { ThemeToggle } from "./ThemeToggle";
+---
+
+<header class="pt-2 sm:pt-10 pl-2 pr-2 h-64 max-w-screen-xl mx-auto">
+  <div class="z-10 relative container md:max-w-none mx-auto md:w-full lg:mx-auto h-12 block sm:flex sm:items-center">
+    <div class="block relative text-5xl mx-0 font-bold lg:w-1/2 w-full sm:w-1/4">
+      <a href="/" title="Navigate to home page" class="text-white no-underline">
+        <Icon name="logo" width={350} />
+      </a>
+    </div>
+
+    <nav
+      aria-label="Main"
+      class="sm:mt-0 sm:text-right text-center mt-4 w-full lg:w-1/2 sm:w-3/4 z-10 flex items-center justify-end"
+    >
+      <!-- <Search class="mr-4 hidden sm:inline-block" /> -->
+
+      <MenuLink href="/">Articles</MenuLink>
+      <MenuLink href="/about">About</MenuLink>
+
+      <div style={{ display: "inline-block", width: "24px", height: "24px" }}>
+        <ThemeToggle client:only="preact" />
+      </div>
+    </nav>
+  </div>
+
+  <div aria-hidden="true" class="skewed bg-gray-900" id="weird-background-thing"></div>
+</header>
+
+<style>
+  #logo {
+    max-width: 350px;
+  }
+
+  #weird-background-thing {
+    background-image: linear-gradient(
+        524deg,
+        rgba(228, 228, 228, 0.04) 0%,
+        rgba(228, 228, 228, 0.04) 30%,
+        rgba(130, 130, 130, 0.04) 30%,
+        rgba(130, 130, 130, 0.04) 49%,
+        rgba(31, 31, 31, 0.04) 49%,
+        rgba(31, 31, 31, 0.04) 100%
+      ),
+      linear-gradient(
+        538deg,
+        rgba(228, 228, 228, 0.04) 0%,
+        rgba(228, 228, 228, 0.04) 20%,
+        rgba(130, 130, 130, 0.04) 20%,
+        rgba(130, 130, 130, 0.04) 60%,
+        rgba(31, 31, 31, 0.04) 60%,
+        rgba(31, 31, 31, 0.04) 100%
+      ),
+      linear-gradient(
+        483deg,
+        rgba(228, 228, 228, 0.04) 0%,
+        rgba(228, 228, 228, 0.04) 29%,
+        rgba(130, 130, 130, 0.04) 29%,
+        rgba(130, 130, 130, 0.04) 48%,
+        rgba(31, 31, 31, 0.04) 48%,
+        rgba(31, 31, 31, 0.04) 100%
+      ),
+      linear-gradient(331deg, rgb(17, 24, 39), rgb(17, 24, 39));
+  }
+</style>

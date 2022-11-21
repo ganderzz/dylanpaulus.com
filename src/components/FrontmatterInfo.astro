@@ -1,0 +1,36 @@
+---
+import { Icon } from "astro-icon";
+import TagList from "./TagList.astro";
+import type { Post } from "../types/Post";
+
+export type Props = {
+  frontmatter: Post;
+};
+
+const { frontmatter } = Astro.props as Props;
+---
+
+<span
+  class="opacity-75 text-base md:flex hidden justify-center items-center md:pb-1"
+>
+  <Icon name="carbon:calendar" width={20} class="mr-2 inline" />
+  {frontmatter.date}
+  <Icon
+    name="carbon:tag"
+    class="mr-2 ml-8 inline"
+    width={20}
+  />
+  <TagList class="sm:inline block" tags={frontmatter.tags} />
+  <Icon
+    name="carbon:time"
+    class="mr-2 ml-4 inline"
+    width={20}
+  />
+  {frontmatter.timeToRead}
+</span>
+
+<style>
+  .inline {
+    display: inline-flex;
+  }
+</style>

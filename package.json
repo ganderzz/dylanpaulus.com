@@ -1,63 +1,28 @@
 {
-  "name": "dylanpaulus.com",
+  "name": "dylanpaulus",
+  "version": "0.0.1",
   "private": true,
-  "description": "",
-  "version": "1.1.0",
-  "author": "ganderzz",
-  "nodeLinker": "node-modules",
-  "license": "MIT",
   "scripts": {
-    "build": "gatsby build",
-    "develop": "gatsby develop",
-    "start": "npm run develop",
-    "serve": "gatsby serve",
-    "lint": "textlint posts/**/*.md"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
-  },
-  "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
-  },
-  "dependencies": {
-    "@giscus/react": "2.2.0",
-    "@mdx-js/mdx": "1.6.22",
-    "@mdx-js/react": "1.6.22",
-    "@svgr/webpack": "6.3.1",
-    "elasticlunr": "0.9.5",
-    "gatsby": "4.20.0",
-    "gatsby-plugin-feed": "4.20.0",
-    "gatsby-plugin-manifest": "4.20.0",
-    "gatsby-plugin-mdx": "3.20.0",
-    "gatsby-plugin-postcss": "5.20.0",
-    "gatsby-plugin-sharp": "4.20.0",
-    "gatsby-plugin-svgr": "3.0.0-beta.0",
-    "gatsby-plugin-typescript": "4.20.0",
-    "gatsby-remark-autolink-headers": "5.20.0",
-    "gatsby-remark-copy-linked-files": "5.20.0",
-    "gatsby-remark-images": "6.20.0",
-    "gatsby-remark-katex": "6.20.0",
-    "gatsby-remark-prismjs": "6.20.0",
-    "gatsby-source-filesystem": "4.20.0",
-    "gatsby-transformer-remark": "5.20.0",
-    "gatsby-transformer-sharp": "4.20.0",
-    "katex": "0.16.0",
-    "prismjs": "1.28.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "remark": "14.0.2",
-    "tailwindcss": "3.1.8",
-    "three": "^0.143.0"
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-class-properties": "7.18.6",
-    "autoprefixer": "10.4.8",
-    "cssnano": "5.1.12",
-    "cssnano-preset-advanced": "5.3.8",
-    "gatsby-plugin-netlify": "5.0.1",
-    "gatsby-remark-twitter-cards": "0.6.1",
-    "postcss": "8.4.16",
-    "prettier": "2.7.1"
+    "@astrojs/image": "0.11.6",
+    "@astrojs/preact": "1.2.0",
+    "@astrojs/tailwind": "2.1.2",
+    "astro": "1.6.10",
+    "astro-compress": "1.1.7",
+    "mdast-util-to-string": "3.1.0",
+    "svgo": "2.8.0",
+    "reading-time": "1.5.0"
+  },
+  "dependencies": {
+    "astro-icon": "0.8.0",
+    "giscus": "1.2.4",
+    "preact": "10.11.3",
+    "tailwindcss": "^3.2.4"
   }
 }
