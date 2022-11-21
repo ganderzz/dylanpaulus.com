@@ -1,6 +1,5 @@
 ---
 title: "Injecting Dynamic Elements to Components"
-description: ""
 tags: ["Javascript", "Frontend", "React"]
 date: "2017-07-26"
 published: true

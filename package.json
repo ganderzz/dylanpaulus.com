@@ -10,16 +10,17 @@
     "astro": "astro"
   },
   "devDependencies": {
-    "@astrojs/preact": "1.0.0",
-    "@astrojs/tailwind": "1.0.0",
-    "@astrojs/image": "0.3.4",
-    "astro": "1.0.0",
-    "astro-compress": "1.0.2",
+    "@astrojs/image": "0.11.6",
+    "@astrojs/preact": "1.2.0",
+    "@astrojs/tailwind": "2.1.2",
+    "astro": "1.6.10",
+    "astro-compress": "1.1.7",
     "mdast-util-to-string": "3.1.0",
     "reading-time": "1.5.0"
   },
   "dependencies": {
-    "giscus": "1.2.0",
-    "preact": "10.7.3"
+    "astro-icon": "^0.8.0",
+    "giscus": "1.2.4",
+    "preact": "10.11.3"
   }
 }

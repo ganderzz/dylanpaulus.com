@@ -7,11 +7,12 @@ export type Props = {
 };
 
 const { data } = Astro.props as Props;
+const dateFormatter = new Intl.DateTimeFormat("en-us", { year: 'numeric', month: 'long', day: 'numeric', timeZone: "UTC" });
 ---
 
 <div class="block mb-14 max-w-max md:max-w-screen-md lg:max-w-screen-lg">
   <div style={{ color: "var(--font-color)" , minHeight: 24 }} class="flex font-medium text-md opacity-75">
-    <span class="flex content-center mr-2">{data.frontmatter.date}</span>•
+    <span class="flex content-center mr-2">{dateFormatter.format(new Date(data.frontmatter.date))}</span>•
     <span class="ml-2">{data.frontmatter.timeToRead}</span>
   </div>
 

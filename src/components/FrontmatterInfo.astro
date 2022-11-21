@@ -1,7 +1,6 @@
 ---
-import { Image } from "@astrojs/image/components";
+import { Icon } from "astro-icon";
 import TagList from "./TagList.astro";
-import CalendarIcon from "../icons/calendar.astro";
 import type { Post } from "../types/Post";
 
 export type Props = {
@@ -14,20 +13,18 @@ const { frontmatter } = Astro.props as Props;
 <span
   class="opacity-75 text-base md:flex hidden justify-center items-center md:pb-1"
 >
-  <CalendarIcon class="mr-2 inline" />
+  <Icon name="carbon:calendar" width={20} class="mr-2 inline" />
   {frontmatter.date}
-  <Image
-    src="/icons/tag.svg"
+  <Icon
+    name="carbon:tag"
     class="mr-2 ml-8 inline"
-    width={25}
-    aspectRatio="1:1"
+    width={20}
   />
   <TagList class="sm:inline block" tags={frontmatter.tags} />
-  <Image
-    src="/icons/clock.svg"
+  <Icon
+    name="carbon:time"
     class="mr-2 ml-4 inline"
-    width={25}
-    aspectRatio="1:1"
+    width={20}
   />
   {frontmatter.timeToRead}
 </span>

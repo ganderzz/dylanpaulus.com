@@ -70,6 +70,36 @@
   to = "/posts/tips-on-improving-fabricjs-speed"
   status = 301
 
+[[redirects]]
+  from = "start-with-no"
+  to = "/posts/start-with-no"
+  status = 301
+
+[[redirects]]
+  from = "advice-for-new-software-engineers"
+  to = "/posts/advice-for-new-software-engineers"
+  status = 301
+
+[[redirects]]
+  from = "node-dependency-types"
+  to = "/posts/node-dependency-types"
+  status = 301
+
+[[redirects]]
+  from = "css-box-model"
+  to = "/posts/css-box-model"
+  status = 301
+
+[[redirects]]
+  from = "making-react-fast"
+  to = "/posts/making-react-fast"
+  status = 301
+
+[[redirects]]
+  from = "how-fb-avoids-adblockers"
+  to = "/posts/how-fb-avoids-adblockers"
+  status = 301
+
 # Redirect to social media and other common sites!
 [[redirects]]
   from = "/gh"
@@ -90,3 +120,7 @@
 [[redirects]]
   from = "twitter"
   to = "https://twitter.com/DylanPaulus/"
+
+[[redirects]]
+  from = "mastodon"
+  to = "https://hachyderm.io/web/@ganderzz"

@@ -1,4 +1,5 @@
 ---
+import Icon from "astro-icon";
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 
@@ -13,41 +14,45 @@ const { title, description } = Astro.props as Props;
 ---
 
 <html>
+  <head>
+    <BaseHead title={title} description={description} />
+  </head>
 
-<head>
-  <BaseHead title={title} description={description} />
-</head>
+  <body>
+    <Header />
 
-<body>
-  <Header />
-  <main class="p-4 sm:p-0 w-full text-base -mt-20">
-    <slot />
-  </main>
+    <main class="p-4 sm:p-0 w-full text-base -mt-28">
+      <slot />
+    </main>
 
-  <script data-goatcounter="https://dylanpaulus.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-</body>
+    <footer class="flex gap-4 max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl mx-auto mt-12 border-t-2 border-gray-200 dark:border-gray-600 py-10 px-6">
+      <a rel="me" href="https://hachyderm.io/@ganderzz"><Icon name="ri:mastodon-fill" width={30} /></a>
+      <a href="https://github.com/ganderzz"><Icon name="mdi:github" width={30} /></a>
+    </footer>
 
+    <script data-goatcounter="https://dylanpaulus.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  </body>
+  
+  <script is:inline>
+    /**
+     * Show the correct theme on page load and page switching.
+     * This code prevents the site from flickering light/dark.
+     */
+    const theme = (() => {
+      const mode = typeof localStorage !== "undefined" && localStorage.getItem("theme");
+
+      if (mode) {
+        return mode;
+      }
+
+      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        return "dark";
+      }
+
+      return "light";
+    })();
+
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem("theme", theme);
+  </script>
 </html>
-
-<script is:inline>
-  /**
-   * Show the correct theme on page load and page switching.
-   * This code prevents the site from flickering light/dark.
-   */
-  const theme = (() => {
-    const mode = typeof localStorage !== "undefined" && localStorage.getItem("theme");
-
-    if (mode) {
-      return mode;
-    }
-
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      return "dark";
-    }
-
-    return "light";
-  })();
-
-  document.documentElement.dataset.theme = theme;
-  localStorage.setItem("theme", theme);
-</script>
