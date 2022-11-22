@@ -15,12 +15,12 @@ export default defineConfig({
   site: `https://dylanpaulus.com`,
   vite: {
     ssr: {
-      external: ["svgo"]
-    }
+      external: ["svgo"],
+    },
   },
   markdown: {
     extendDefaultPlugins: true,
-    syntaxHighlight: "prism",
-    remarkPlugins: [remarkReadingTime, remarkExcerpt]
-  }
+    syntaxHighlight: "shiki",
+    remarkPlugins: [remarkReadingTime, remarkExcerpt],
+  },
 });

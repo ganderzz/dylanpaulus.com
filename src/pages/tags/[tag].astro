@@ -1,13 +1,19 @@
 ---
+import type { MarkdownInstance } from "astro";
+import PostListItem from "~/src/components/PostListItem.astro";
 import BaseLayout from "~/src/layouts/BaseLayout.astro";
 import type { Post } from "~/src/types/Post";
 
 export async function getStaticPaths() {
+  function normalizeTag(tag: string): string {
+    return tag.toLocaleLowerCase().replace(/\s+/g, "-");
+  }
+
   const posts = await Astro.glob<Post>("../posts/**/*.md");
   const tags = posts
     .flatMap((post) => post.frontmatter.tags)
     .reduce((accu: Record<string, number>, tagName) => {
-      const lowerTagName = tagName.toLocaleLowerCase().replace(/\s+/g, "-");
+      const lowerTagName = normalizeTag(tagName);
 
       if (lowerTagName in accu) {
         return {
@@ -28,20 +34,26 @@ export async function getStaticPaths() {
     },
     props: {
       count,
+      posts: posts.filter((post) => post.frontmatter.tags.map(normalizeTag).includes(tag)),
     },
   }));
 }
 
 const { tag } = Astro.params;
-const { count } = Astro.props;
+const { count, posts } = Astro.props as { count: number; posts: MarkdownInstance<Post>[] };
 ---
 
-<BaseLayout title={`${tag} tag`} description={`A tags list for ${tag}`}>
+<BaseLayout title={`${tag} | Dylan Paulus`} description={`A tags list for ${tag}`}>
   <section
     id="main-content"
     tab-index="-1"
-    class="flex max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl mx-auto mt-8"
+    class="flex flex-col max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl mx-auto mt-8"
   >
-    <h1>{tag} {count}</h1>
+    <div class="flex items-center">
+      <h1>{tag}</h1>
+      <p class="ml-4 mt-4">- {count} article{count !== 1 && "s"}</p>
+    </div>
+
+    <div class="mt-8">{posts.map((post) => <PostListItem data={post} />)}</div>
   </section>
 </BaseLayout>
