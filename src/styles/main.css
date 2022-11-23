@@ -379,3 +379,15 @@ p + ol {
   -webkit-animation-name: fadeIn;
   animation-name: fadeIn;
 }
+
+.astro-code {
+  padding: 8px 12px;
+  margin: 8px 0;
+}
+
+:not(.astro-code) > code {
+  padding: 2px 4px;
+  border-radius: 5px;
+  color: #79C0FF;
+  background-color: #0d1117;
+}
