@@ -244,14 +244,14 @@ p + ol {
 
 .full-bleed {
   width: 100%;
+  margin-bottom: 40px;
+  margin-top: 40px;
   grid-column: 1 / -1;
   z-index: 60;
-}
-.full-bleed .gatsby-resp-image-wrapper {
-  max-width: unset !important;
-}
-.full-bleed .gatsby-resp-image-figure {
   padding: 0 !important;
+}
+.full-bleed > img {
+  width: 100%;
 }
 
 .header-link {
