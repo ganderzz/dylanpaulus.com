@@ -5,22 +5,21 @@ import image from "@astrojs/image";
 import { remarkExcerpt } from "./plugins/remark-excerpt.mjs";
 import { remarkReadingTime } from "./plugins/remark-reading-time.mjs";
 import compress from "astro-compress";
-
 import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [compress(), image(), preact(), tailwind(), sitemap()],
-  output: "static",
-  site: `https://dylanpaulus.com`,
-  vite: {
-    ssr: {
-      external: ["svgo"],
+    integrations: [compress(), image(), preact(), tailwind(), sitemap()],
+    output: "static",
+    site: `https://dylanpaulus.com`,
+    vite: {
+        ssr: {
+            external: ["svgo"],
+        },
     },
-  },
-  markdown: {
-    extendDefaultPlugins: true,
-    syntaxHighlight: "shiki",
-    remarkPlugins: [remarkReadingTime, remarkExcerpt],
-  },
+    markdown: {
+        extendDefaultPlugins: true,
+        syntaxHighlight: "shiki",
+        remarkPlugins: [remarkReadingTime, remarkExcerpt],
+    },
 });
