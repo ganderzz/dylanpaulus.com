@@ -27,7 +27,7 @@ If we consider the following HTML:
 
 Then the data structure representation would look like:
 
-![DOM tree structure](making-react-fast/html-diagram.svg)
+![DOM tree structure](html-diagram.svg)
 
 React takes the same DOM (Document Object Model.. ie. HTML) tree structure, and mirrors it in memory--called the Virtual DOM. Kind of like how a cache is to I/O, the Virtual DOM is to the DOM Tree. It's faster to perform CRUD operations (Create, Read, Update, Delete) in the Virtual DOM. The browser performs massive amounts of work when the DOM Tree is changed: painting, layout, calculations, etc. The Virtual DOM is only a representation of the DOM in memory, so things like painting and layout don't need to be calculated. It's easier to perform many changes to the Virtual DOM then commit the final result, than it is to perform each change to the browser's DOM tree.
 

@@ -4,22 +4,28 @@ import SubHeading from "../components/SubHeading.astro";
 import PostListItem from "../components/PostListItem.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import type { Post } from "../types/Post";
-import type { PaginateFunction, Page, MarkdownInstance } from "astro";
+import type { Page, MarkdownInstance } from "astro";
 import Pagination from "../components/Pagination.astro";
+import { getTags } from "../utils/tags";
+import TagList from "../components/TagList.astro";
 
 export async function getStaticPaths({ paginate }) {
-  const unsortedPosts = await Astro.glob<Post>("./posts/**/*.m(d|dx)");
+  const unsortedPosts = await Astro.glob<MarkdownInstance<Post>>("./posts/**/*.m(d|dx)");
   const posts = unsortedPosts.sort(
-    (a, b) =>
-      new Date(b.frontmatter.date).valueOf() -
-      new Date(a.frontmatter.date).valueOf()
+    (a, b) => new Date(b.frontmatter.date).valueOf() - new Date(a.frontmatter.date).valueOf()
   );
 
+  const tags = await getTags(posts);
+  const filteredTags = Object.fromEntries(Object.entries(tags).sort(([, a], [, b]) => a - b));
+
   // Generate pages from our array of astronauts, with 2 to a page
-  return paginate(posts, { pageSize: 5 });
+  return paginate(posts, { pageSize: 5 }).map((data) => ({
+    props: { ...data.props, tags: Object.keys(filteredTags).slice(0, 7) },
+    params: data.params,
+  }));
 }
 
-const { page } = Astro.props as { page: Page<MarkdownInstance<Post>> };
+const { page, tags } = Astro.props as { tags: string[]; page: Page<MarkdownInstance<Post>> };
 ---
 
 <BaseLayout title="Dylan Paulus" description="">
@@ -64,11 +70,11 @@ const { page } = Astro.props as { page: Page<MarkdownInstance<Post>> };
         </a>
       </div>
 
-      <!-- <a href="/sitemap">
-          <SubHeading style={{ marginTop: 0 }}>Popular Tags</SubHeading>
-        </a> -->
-      <!-- 
-          <TagsList tags={sortedTags.map((p)=> p.tag)} /> -->
+      <!-- <a href="/sitemap"> -->
+      <SubHeading>Popular Tags</SubHeading>
+      <!-- </a> -->
+
+      <TagList tags={tags} />
     </aside>
   </section>
 </BaseLayout>
