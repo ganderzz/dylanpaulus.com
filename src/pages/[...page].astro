@@ -40,7 +40,7 @@ const { page } = Astro.props as { page: Page<MarkdownInstance<Post>> };
 
       {page.data.map((post) => <PostListItem data={post} />)}
 
-      <div class="flex items-center mt-8 mx-auto">
+      <div class="flex items-center justify-end mt-8 mx-auto">
         <Pagination page={page} />
       </div>
     </div>
