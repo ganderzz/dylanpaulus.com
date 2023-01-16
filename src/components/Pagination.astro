@@ -1,0 +1,67 @@
+---
+import type { Page } from "astro";
+import { Icon } from "astro-icon";
+
+export type Props = {
+  page: Page;
+};
+
+const { page } = Astro.props as Props;
+---
+
+<div class="flex">
+  <a
+    href={!page.url.prev ? "/" : page.url.prev}
+    aria-label="Previous page"
+    aria-disabled={!page.url.prev}
+    class={`${!page.url.prev ? `opacity-50` : ``}`}
+  >
+    <Icon
+      name="carbon:chevron-left"
+      style={{
+        width: "24px",
+      }}
+    />
+  </a>
+
+  {
+    Array.from({ length: page.lastPage }).map((_, index) => {
+      const pageIndex = index + 1;
+
+      if (pageIndex == page.currentPage) {
+        return (
+          <strong
+            class="font-bold"
+            style={{ width: "24px", textAlign: "center" }}
+          >
+            {pageIndex}
+          </strong>
+        );
+      }
+
+      return (
+        <a
+          style={{ width: "24px", textAlign: "center" }}
+          aria-label={`Go to page`}
+          href={`/${page.currentPage === 2 ? "" : pageIndex}`}
+        >
+          {pageIndex}
+        </a>
+      );
+    })
+  }
+
+  <a
+    href={page.url.next}
+    aria-label="Next page"
+    aria-disabled={!page.url.next}
+    class={`${!page.url.next ? `opacity-50` : ``}`}
+  >
+    <Icon
+      name="carbon:chevron-right"
+      style={{
+        width: "24px",
+      }}
+    />
+  </a>
+</div>

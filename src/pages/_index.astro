@@ -1,0 +1,65 @@
+---
+import { Image } from "@astrojs/image/components";
+import SubHeading from "../components/SubHeading.astro";
+import PostListItem from "../components/PostListItem.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import type { Post } from "../types/Post";
+
+const unsortedPosts = await Astro.glob<Post>("./posts/**/*.m(d|dx)");
+const posts = unsortedPosts.sort(
+  (a, b) =>
+    new Date(b.frontmatter.date).valueOf() -
+    new Date(a.frontmatter.date).valueOf()
+);
+---
+
+<BaseLayout title="Dylan Paulus" description="">
+  <section
+    id="main-content"
+    tab-index="-1"
+    class="flex max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl mx-auto mt-8"
+  >
+    <div class="w-full sm:w-2/3 md:px-8">
+      <div class="flex flex-col md:flex-row mb-4">
+        <div class="flex-1">
+          <SubHeading style={{ margin: 0 }}>Recently Published</SubHeading>
+        </div>
+        <div class="flex-1 md:text-right md:my-0 my-4">
+          <!-- <Pagination currentPage={currentPage} totalPages={numPages} /> -->
+        </div>
+      </div>
+
+      {posts.map((post) => <PostListItem data={post} />)}
+
+      <div class="mt-8 mx-auto text-right">
+        <!-- <Pagination currentPage={currentPage} totalPages={numPages} /> -->
+      </div>
+    </div>
+
+    <aside class="sm:flex flex-col w-1/3 md:px-8 hidden">
+      <div class="mb-6">
+        <SubHeading style={{ marginTop: 0 }}>Announcements</SubHeading>
+
+        <a
+          href="https://www.newline.co/courses/creating-react-libraries-from-scratch"
+          class="block transition transform hover:scale-105 ease-in-out"
+        >
+          <Image
+            src="/images/Course_Card_5_1.png"
+            alt="Creating React Libraries from Scratch course"
+            class="rounded-md m-auto shadow hover:shadow-xl transition transform hover:scale-105 ease-in-out"
+            format="png"
+            aspectRatio="5:3"
+            height={200}
+          />
+        </a>
+      </div>
+
+      <!-- <a href="/sitemap">
+        <SubHeading style={{ marginTop: 0 }}>Popular Tags</SubHeading>
+      </a> -->
+      <!-- 
+        <TagsList tags={sortedTags.map((p)=> p.tag)} /> -->
+    </aside>
+  </section>
+</BaseLayout>

@@ -13,13 +13,14 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
     <div class="flex flex-col gap-4 leading-loose">
       <div class="flex flex-col md:flex-row w-full">
         <div class="text-center w-full md:w-1/2">
-          <Picture 
-            src="/images/about-image.jpg" 
-            widths={[200, 400, 800]} 
-            aspectRatio="4:3" 
-            sizes="(max-width: 800px) 100vw, 800px" 
+          <Picture
+            src="/images/about-image.jpg"
+            widths={[200, 400, 800]}
+            aspectRatio="4:3"
+            sizes="(max-width: 800px) 100vw, 800px"
             alt="Image of Dylan playing drums"
-            class="shadow rounded-md m-auto w-full aspect-auto" />
+            class="shadow rounded-md m-auto w-full aspect-auto"
+          />
 
           <figcaption class="text-sm mt-2">
             That's me, the one in the middle!
@@ -46,14 +47,12 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
               </li>
               <li>
                 <a
-                href="https://www.mobygames.com/developer/sheet/view/developerId,783203/"
-              >
+                  href="https://www.mobygames.com/developer/sheet/view/developerId,783203/"
+                >
                   Web developer @ Sony PlayStation
                 </a>
               </li>
-              <li>
-                Student web developer @ Eastern Washington University
-              </li>
+              <li>Student web developer @ Eastern Washington University</li>
             </ul>
           </p>
 
@@ -74,10 +73,13 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
                 <a
                   target="_blank"
                   href="https://introduction-functional-programming-boise.netlify.com/#/"
-                >Functional Programming Light (Boise Code Camp 2019)</a>
+                  >Functional Programming Light (Boise Code Camp 2019)</a
+                >
               </li>
               <li>Making React Fast (Internal Presentation 2019)</li>
-              <li>NPM, Dependencies, and JS Modules (Internal Presentation 2021)</li>
+              <li>
+                NPM, Dependencies, and JS Modules (Internal Presentation 2021)
+              </li>
             </ul>
 
             <SubHeading class="my-0">Courses</SubHeading>
@@ -89,10 +91,10 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
                 >
                   <Image
                     src="/images/Course_Card_5_1.png"
-                    alt="Image of Dylan playing drums"
+                    alt="Creating React Libraries from Scratch course"
                     class="rounded-md m-auto shadow hover:shadow-xl transition transform hover:scale-105 ease-in-out"
                     format="png"
-                    aspectRatio="5:3" 
+                    aspectRatio="5:3"
                     height={200}
                   />
                 </a>

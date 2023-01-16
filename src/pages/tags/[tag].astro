@@ -34,16 +34,24 @@ export async function getStaticPaths() {
     },
     props: {
       count,
-      posts: posts.filter((post) => post.frontmatter.tags.map(normalizeTag).includes(tag)),
+      posts: posts.filter((post) =>
+        post.frontmatter.tags.map(normalizeTag).includes(tag)
+      ),
     },
   }));
 }
 
 const { tag } = Astro.params;
-const { count, posts } = Astro.props as { count: number; posts: MarkdownInstance<Post>[] };
+const { count, posts } = Astro.props as {
+  count: number;
+  posts: MarkdownInstance<Post>[];
+};
 ---
 
-<BaseLayout title={`${tag} | Dylan Paulus`} description={`A tags list for ${tag}`}>
+<BaseLayout
+  title={`${tag} | Dylan Paulus`}
+  description={`A tags list for ${tag}`}
+>
   <section
     id="main-content"
     tab-index="-1"
