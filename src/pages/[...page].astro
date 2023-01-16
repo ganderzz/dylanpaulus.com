@@ -16,7 +16,7 @@ export async function getStaticPaths({ paginate }) {
   );
 
   const tags = await getTags(posts);
-  const filteredTags = Object.fromEntries(Object.entries(tags).sort(([, a], [, b]) => a - b));
+  const filteredTags = Object.fromEntries(Object.entries(tags).sort(([, a], [, b]) => b - a));
 
   // Generate pages from our array of astronauts, with 2 to a page
   return paginate(posts, { pageSize: 5 }).map((data) => ({
