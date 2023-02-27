@@ -1,4 +1,5 @@
 ---
+import type { GetStaticPathsOptions } from "astro";
 import { Image } from "@astrojs/image/components";
 import SubHeading from "../components/SubHeading.astro";
 import PostListItem from "../components/PostListItem.astro";
@@ -9,18 +10,14 @@ import Pagination from "../components/Pagination.astro";
 import { getTags } from "../utils/tags";
 import TagList from "../components/TagList.astro";
 
-export async function getStaticPaths({ paginate }) {
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   const unsortedPosts = await Astro.glob<MarkdownInstance<Post>>("./posts/**/*.m(d|dx)");
-  const posts = unsortedPosts.sort(
-    (a, b) => new Date(b.frontmatter.date).valueOf() - new Date(a.frontmatter.date).valueOf()
-  );
+  const posts = unsortedPosts
+    .filter((post) => post.frontmatter.published)
+    .sort((a, b) => new Date(b.frontmatter.date).valueOf() - new Date(a.frontmatter.date).valueOf());
 
   const tags = await getTags(posts);
-  const filteredTags = Object.fromEntries(
-    Object.entries(tags)
-      .sort(([, a], [, b]) => a - b)
-      .reverse()
-  );
+  const filteredTags = Object.fromEntries(Object.entries(tags).sort(([, a], [, b]) => b - a));
 
   // Generate pages from our array of astronauts, with 2 to a page
   return paginate(posts, { pageSize: 5 }).map((data) => ({
@@ -64,7 +61,7 @@ const { page, tags } = Astro.props as { tags: string[]; page: Page<MarkdownInsta
           class="block transition transform hover:scale-105 ease-in-out"
         >
           <Image
-            src="/images/Course_Card_5_1.png"
+            src="/images/create-react-libraries-card.png"
             alt="Creating React Libraries from Scratch course"
             class="rounded-md m-auto shadow hover:shadow-xl transition transform hover:scale-105 ease-in-out"
             format="png"
