@@ -100,6 +100,66 @@
   to = "/posts/how-fb-avoids-adblockers"
   status = 301
 
+[[redirects]]
+  from = "2018-10-05-not-everything-is-state"
+  to = "/posts/not-everything-is-state"
+  status = 301
+
+[[redirects]]
+  from = "2018-7-29-write-software-that-evolves"
+  to = "/posts/write-software-that-evolves"
+  status = 301
+
+[[redirects]]
+  from = "2018-7-15-using-typescript-with-redux-part-two"
+  to = "/posts/using-typescript-with-redux-part-two"
+  status = 301
+
+[[redirects]]
+  from = "2018-6-02-generic-jsx-type-argument"
+  to = "/posts/generic-jsx-type-argument"
+  status = 301
+
+[[redirects]]
+  from = "2018-5-16-using-typescript-with-react-part-one"
+  to = "/posts/using-typescript-with-react-part-one"
+  status = 301
+
+[[redirects]]
+  from = "2018-7-15-using-typescript-with-redux-part-two"
+  to = "/posts/using-typescript-with-redux-part-two"
+  status = 301
+
+[[redirects]]
+  from = "2018-4-10-reusable-components-factory-component"
+  to = "/posts/reusable-components-factory-component"
+  status = 301
+
+[[redirects]]
+  from = "2017-12-08-global-component-registration"
+  to = "/posts/2017-12-08-global-component-registration"
+  status = 301
+
+[[redirects]]
+  from = "2017-09-14-encapsulating-state-with-functional-children"
+  to = "/posts/encapsulating-state-with-functional-children"
+  status = 301
+
+[[redirects]]
+  from = "2017-08-17-higher-order-components"
+  to = "/posts/higher-order-components"
+  status = 301
+
+[[redirects]]
+  from = "2017-09-08-tips-on-creating-reusable-components"
+  to = "/posts/tips-on-creating-reusable-components"
+  status = 301
+
+[[redirects]]
+  from = "2017-07-26-injecting-react-tag-types"
+  to = "/posts/injecting-react-tag-types"
+  status = 301
+
 # Redirect to social media and other common sites!
 [[redirects]]
   from = "/gh"
