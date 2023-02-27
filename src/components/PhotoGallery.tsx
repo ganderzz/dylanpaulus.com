@@ -1,5 +1,4 @@
 import { useState } from "preact/hooks";
-import Icon from "astro-icon";
 
 type Image = { src: string; alt?: string };
 

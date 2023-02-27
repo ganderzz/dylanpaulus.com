@@ -1,26 +1,32 @@
 ---
-import type { MarkdownInstance } from "astro";
-import type { Post } from "../types/Post";
+import type { CollectionEntry } from "astro:content";
 
 export type Props = {
-  data: MarkdownInstance<Post>
+  data: CollectionEntry<"post">;
 };
 
 const { data } = Astro.props as Props;
-const dateFormatter = new Intl.DateTimeFormat("en-us", { year: 'numeric', month: 'long', day: 'numeric', timeZone: "UTC" });
+const { remarkPluginFrontmatter } = await data.render();
+
+const dateFormatter = new Intl.DateTimeFormat("en-us", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+  timeZone: "UTC",
+});
 ---
 
 <div class="block mb-14 max-w-max md:max-w-screen-md lg:max-w-screen-lg">
-  <div style={{ color: "var(--font-color)" , minHeight: 24 }} class="flex font-medium text-md opacity-75">
-    <span class="flex content-center mr-2">{dateFormatter.format(new Date(data.frontmatter.date))}</span>•
-    <span class="ml-2">{data.frontmatter.timeToRead}</span>
+  <div style={{ color: "var(--font-color)", minHeight: 24 }} class="flex font-medium text-md opacity-75">
+    <span class="flex content-center mr-2">{dateFormatter.format(new Date(data.data.date))}</span>•
+    <span class="ml-2">{remarkPluginFrontmatter.timeToRead}</span>
   </div>
 
-  <a href={data.url} title={data.frontmatter.title} class="font-bold text-3xl">
-    {data.frontmatter.title}
+  <a href={`/posts/${data.slug}`} title={data.data.title} class="font-bold text-3xl">
+    {data.data.title}
   </a>
 
   <aside style={{ color: "var(--font-color)" }} class="text-base leading-12 mt-2">
-    {data.frontmatter.description ?? data.frontmatter.excerpt}
+    {data.data.description ?? remarkPluginFrontmatter.excerpt}
   </aside>
 </div>

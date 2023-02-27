@@ -1,22 +1,21 @@
 ---
 import type { GetStaticPathsOptions } from "astro";
 import { Image } from "@astrojs/image/components";
-import SubHeading from "../components/SubHeading.astro";
-import PostListItem from "../components/PostListItem.astro";
-import BaseLayout from "../layouts/BaseLayout.astro";
-import type { Post } from "../types/Post";
-import type { Page, MarkdownInstance } from "astro";
-import Pagination from "../components/Pagination.astro";
-import { getTags } from "../utils/tags";
-import TagList from "../components/TagList.astro";
+import SubHeading from "@components/SubHeading.astro";
+import PostListItem from "@components/PostListItem.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import type { Page } from "astro";
+import type { CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
+import Pagination from "@components/Pagination.astro";
+import { getTags } from "@utils/tags";
+import TagList from "@components/TagList.astro";
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
-  const unsortedPosts = await Astro.glob<MarkdownInstance<Post>>("./posts/**/*.m(d|dx)");
-  const posts = unsortedPosts
-    .filter((post) => post.frontmatter.published)
-    .sort((a, b) => new Date(b.frontmatter.date).valueOf() - new Date(a.frontmatter.date).valueOf());
+  const unsortedPosts = await getCollection("post", ({ data }) => data.published);
+  const posts = unsortedPosts.sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf());
 
-  const tags = await getTags(posts);
+  const tags = await getTags(unsortedPosts);
   const filteredTags = Object.fromEntries(Object.entries(tags).sort(([, a], [, b]) => b - a));
 
   // Generate pages from our array of astronauts, with 2 to a page
@@ -26,7 +25,7 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   }));
 }
 
-const { page, tags } = Astro.props as { tags: string[]; page: Page<MarkdownInstance<Post>> };
+const { page, tags } = Astro.props as { tags: string[]; page: Page<CollectionEntry<"post">> };
 ---
 
 <BaseLayout title="Dylan Paulus" description="">

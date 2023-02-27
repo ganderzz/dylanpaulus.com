@@ -1,13 +1,12 @@
 ---
-import type { MarkdownInstance } from "astro";
-import PostListItem from "~/src/components/PostListItem.astro";
-import BaseLayout from "~/src/layouts/BaseLayout.astro";
-import type { Post } from "~/src/types/Post";
-import { getTags, normalizeTag } from "~/src/utils/tags";
+import PostListItem from "@components/PostListItem.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { getTags, normalizeTag } from "@utils/tags";
+import { CollectionEntry, getCollection } from "astro:content";
 
 export async function getStaticPaths() {
-  const posts = await Astro.glob<Post>("../posts/**/*.md");
-  const tags = await getTags(posts);
+  const unsortedPosts = await getCollection("post", ({ data }) => data.published);
+  const tags = await getTags(unsortedPosts);
 
   return Object.entries(tags).map(([tag, count]) => ({
     params: {
@@ -15,7 +14,7 @@ export async function getStaticPaths() {
     },
     props: {
       count,
-      posts: posts.filter((post) => post.frontmatter.tags.map(normalizeTag).includes(tag)),
+      posts: unsortedPosts.filter((post) => post.data.tags.map(normalizeTag).includes(tag)),
     },
   }));
 }
@@ -23,7 +22,7 @@ export async function getStaticPaths() {
 const { tag } = Astro.params;
 const { count, posts } = Astro.props as {
   count: number;
-  posts: MarkdownInstance<Post>[];
+  posts: CollectionEntry<"post">[];
 };
 ---
 

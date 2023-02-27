@@ -1,16 +1,18 @@
 import rss from "@astrojs/rss";
+import { getCollection } from "astro:content";
 
-const posts = import.meta.glob("./posts/**/*.md", { eager: true });
+export const get = async () => {
+  const posts = await getCollection("post");
 
-export const get = () =>
-  rss({
+  return rss({
     title: "Dylan Paulus' Blog",
     description: "Rambling on software.",
     site: import.meta.env.SITE,
-    items: Object.values(posts).map((post: any) => ({
-      link: post.url,
-      title: post.frontmatter.title,
-      pubDate: post.frontmatter.date,
+    items: posts.map((post) => ({
+      link: `/posts/${post.slug}`,
+      title: post.data.title,
+      pubDate: post.data.date as any,
     })),
     customData: `<language>en-us</language>`,
   });
+};
