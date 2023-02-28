@@ -28,9 +28,9 @@ const { title, description } = Astro.props as Props;
     <footer
       class="flex justify-center gap-4 max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl mx-auto mt-12 border-t-2 border-gray-200 dark:border-gray-600 py-10 px-6"
     >
-      <a rel="me" href="https://hachyderm.io/@ganderzz"><Icon name="ri:mastodon-fill" width={30} /></a>
-      <a href="https://github.com/ganderzz"><Icon name="mdi:github" width={30} /></a>
-      <a href="/rss.xml"><Icon name="mdi:rss" width={30} /></a>
+      <a rel="me" href="https://hachyderm.io/@ganderzz"><Icon name="mastodon" width={30} /></a>
+      <a href="https://github.com/ganderzz"><Icon name="github" width={30} /></a>
+      <a href="/rss.xml"><Icon name="rss" width={30} /></a>
     </footer>
 
     <script data-goatcounter="https://dylanpaulus.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
@@ -54,6 +54,8 @@ const { title, description } = Astro.props as Props;
       })();
 
       document.documentElement.dataset.theme = theme;
+      document.documentElement.classList.remove("light", "dark");
+      document.documentElement.classList.add(theme);
       localStorage.setItem("theme", theme);
     </script>
   </body>

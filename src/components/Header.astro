@@ -6,12 +6,8 @@ import { Search } from "./Search";
 ---
 
 <header class="pt-2 sm:pt-10 pl-2 pr-2 h-64 max-w-screen-xl mx-auto">
-  <div
-    class="z-10 relative container md:max-w-none mx-auto md:w-full lg:mx-auto h-12 block sm:flex sm:items-center"
-  >
-    <div
-      class="block relative text-5xl mx-0 font-bold lg:w-1/2 w-full sm:w-1/4"
-    >
+  <div class="z-10 relative container md:max-w-none mx-auto md:w-full lg:mx-auto h-12 block sm:flex sm:items-center">
+    <div class="block relative text-5xl mx-0 font-bold lg:w-1/2 w-full sm:w-1/4">
       <a href="/" title="Navigate to home page" class="text-white no-underline">
         <Icon name="logo" width={350} />
       </a>
@@ -27,7 +23,8 @@ import { Search } from "./Search";
                 client:load={true}
             /> -->
 
-      <MenuLink href="/">Posts</MenuLink>
+      <MenuLink href="/">Blog</MenuLink>
+      <MenuLink href="/courses">Courses</MenuLink>
       <MenuLink href="/about">About</MenuLink>
 
       <div
@@ -42,12 +39,7 @@ import { Search } from "./Search";
     </nav>
   </div>
 
-  <div
-    aria-hidden="true"
-    class="skewed bg-gray-900"
-    id="weird-background-thing"
-  >
-  </div>
+  <div aria-hidden="true" class="skewed bg-gray-900" id="weird-background-thing"></div>
 </header>
 
 <style>

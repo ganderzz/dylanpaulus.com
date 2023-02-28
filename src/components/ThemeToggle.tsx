@@ -38,6 +38,8 @@ export const ThemeToggle: FunctionComponent = () => {
     }
 
     htmlElement.dataset.theme = theme;
+    htmlElement.classList.remove("light", "dark");
+    htmlElement.classList.add(theme);
     localStorage.setItem("theme", theme);
   }, [theme]);
 
