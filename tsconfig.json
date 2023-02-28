@@ -21,6 +21,7 @@
       "@layouts/*": ["./src/layouts/*"],
       "@styles/*": ["./src/styles/*"],
       "@types/*": ["./src/types/*"],
+      "@icons/*": ["./src/icons/*"],
       "@utils/*": ["./src/utils/*"]
     }
   }
