@@ -49,7 +49,7 @@ export const ThemeToggle: FunctionComponent = () => {
       onClick={() => {
         setTheme(theme === "dark" ? "light" : "dark");
       }}
-      className="text-white hover:text-gray-500 transition-colors relative text-xl m-0 inline-block cursor-pointer"
+      className="text-white hover:opacity-100 transition-opacity relative text-xl m-0 inline-block cursor-pointer opacity-75"
     >
       {theme === "dark" ? <SunIcon /> : <MoonIcon />}
     </button>
