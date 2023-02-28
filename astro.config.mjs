@@ -13,15 +13,15 @@ import mdx from "@astrojs/mdx";
 export default defineConfig({
   integrations: [compress(), image(), preact(), tailwind(), sitemap(), mdx()],
   output: "static",
-  site: `https://dylanpaulus.com`,
+  site: "https://dylanpaulus.com",
   vite: {
     ssr: {
-      external: ["svgo"]
-    }
+      external: ["svgo"],
+    },
   },
   markdown: {
     extendDefaultPlugins: true,
     syntaxHighlight: "shiki",
-    remarkPlugins: [remarkReadingTime, remarkExcerpt]
-  }
+    remarkPlugins: [remarkReadingTime, remarkExcerpt],
+  },
 });

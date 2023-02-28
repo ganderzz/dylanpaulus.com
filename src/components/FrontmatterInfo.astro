@@ -1,8 +1,9 @@
 ---
+import type { CollectionEntry } from "astro:content";
 import TagList from "./TagList.astro";
 
 export type Props = {
-  frontmatter: any;
+  frontmatter: CollectionEntry<"post">["data"] & Record<string, string>;
 };
 
 const { frontmatter } = Astro.props as Props;

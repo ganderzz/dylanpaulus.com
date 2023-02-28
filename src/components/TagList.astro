@@ -1,4 +1,6 @@
 ---
+import { normalizeTag } from "@utils/tags";
+
 export type Props = {
   tags: string[];
   class?: string;
@@ -11,7 +13,7 @@ const { tags, class: className = "" } = Astro.props as Props;
   {
     tags.map((tag) => (
       <a
-        href={`/tags/${tag.toLocaleLowerCase()}`}
+        href={`/tags/${normalizeTag(tag)}`}
         class={`inline-block hover:bg-gray-400 hover:text-gray-800 hover:scale-110 dark:bg-gray-900 dark:text-white
     bg-gray-300 text-gray-800 border-0 scale-100 transform rounded-lg px-3 py-1 text-xs font-bold
     my-2 mx-1 leading-5 transition ease-out duration-200 ${className}`}

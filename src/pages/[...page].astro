@@ -8,19 +8,18 @@ import type { Page } from "astro";
 import type { CollectionEntry } from "astro:content";
 import { getCollection } from "astro:content";
 import Pagination from "@components/Pagination.astro";
-import { getTags } from "@utils/tags";
+import { getTags, orderByPopular } from "@utils/tags";
 import TagList from "@components/TagList.astro";
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   const unsortedPosts = await getCollection("post", ({ data }) => data.published);
   const posts = unsortedPosts.sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf());
 
-  const tags = await getTags(unsortedPosts);
-  const filteredTags = Object.fromEntries(Object.entries(tags).sort(([, a], [, b]) => b - a));
+  const tags = orderByPopular(await getTags(unsortedPosts));
 
   // Generate pages from our array of astronauts, with 2 to a page
   return paginate(posts, { pageSize: 5 }).map((data) => ({
-    props: { ...data.props, tags: Object.keys(filteredTags).slice(0, 7) },
+    props: { ...data.props, tags: Object.keys(tags).slice(0, 7) },
     params: data.params,
   }));
 }
@@ -52,9 +51,9 @@ const { page, tags } = Astro.props as { tags: string[]; page: Page<CollectionEnt
     </div>
 
     <aside class="sm:flex flex-col w-1/3 md:px-8 hidden">
-      <!-- <a href="/sitemap"> -->
-      <SubHeading>Popular Tags</SubHeading>
-      <!-- </a> -->
+      <a href="/sitemap">
+        <SubHeading>Popular Tags</SubHeading>
+      </a>
 
       <TagList tags={tags} />
     </aside>

@@ -1,15 +1,16 @@
 ---
+import type { CollectionEntry } from "astro:content";
 import FrontmatterInfo from "../components/FrontmatterInfo.astro";
 import BaseLayout from "./BaseLayout.astro";
 
 export interface Props {
-  frontmatter: Record<string, any>;
+  frontmatter: CollectionEntry<"post">["data"] & Record<string, any>;
 }
 
 const { frontmatter } = Astro.props as Props;
 ---
 
-<BaseLayout title={frontmatter.title} description={frontmatter.description}>
+<BaseLayout title={frontmatter.title} description={frontmatter.description ?? frontmatter.excerpt ?? ""}>
   <div class="blog-post__header text-center mt-8">
     <FrontmatterInfo frontmatter={frontmatter} />
   </div>

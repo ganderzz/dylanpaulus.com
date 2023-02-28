@@ -6,7 +6,9 @@ export type Props = {
 const { href } = Astro.props as Props;
 ---
 
-<a href={href}
-  class="rounded text-white no-underline font-bold text-2xl mr-4 p-4 transition-colors hover:bg-gray-800 hover:text-white text-opacity-75">
-  <slot></slot>
+<a
+  href={href}
+  class="rounded text-white no-underline font-bold text-2xl mr-4 p-4 transition-colors hover:bg-gray-800 hover:text-white text-opacity-75"
+>
+  <slot />
 </a>

@@ -4,6 +4,10 @@ export function normalizeTag(tag: string): string {
   return tag.toLocaleLowerCase().replace(/\s+/g, "-");
 }
 
+export function orderByPopular(tags: Record<string, number>): Record<string, number> {
+  return Object.fromEntries(Object.entries(tags).sort(([, a], [, b]) => b - a));
+}
+
 export async function getTags(posts: CollectionEntry<"post">[]) {
   return posts
     .flatMap((post) => post.data?.tags)
