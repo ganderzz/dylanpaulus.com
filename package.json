@@ -24,7 +24,6 @@
     "@astrojs/mdx": "0.17.2",
     "@astrojs/rss": "2.1.1",
     "@astrojs/sitemap": "1.1.0",
-    "astro-icon": "0.8.0",
     "elasticlunr": "0.9.5",
     "giscus": "1.2.8",
     "preact": "10.13.0",
