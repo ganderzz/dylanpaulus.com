@@ -16,13 +16,13 @@ import BaseLayout from "@layouts/BaseLayout.astro";
           <Picture
             src="/images/about-image.jpg"
             widths={[200, 400, 800]}
-            aspectRatio="4:3"
+            aspectRatio="4:4"
             sizes="(max-width: 800px) 100vw, 800px"
             alt="Image of Dylan playing drums"
-            class="shadow rounded-md m-auto w-full aspect-auto"
+            class="shadow-lg rounded-md m-auto w-full aspect-auto"
           />
 
-          <figcaption class="text-sm mt-2">That's me, the one in the middle!</figcaption>
+          <figcaption class="text-sm mt-2">That's me, the one on the drums!</figcaption>
         </div>
 
         <section class="w-full md:w-1/2 mt-8 md:mt-0 ml-0 md:ml-12">
@@ -35,35 +35,33 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 
           <p class="text-base">
             I'm a Senior Software Engineer at <a href="https://rover.com">Rover.com</a>
-
-            <strong class="block font-bold mt-4">Previous:</strong>
-            <ul>
-              <li>
-                Engineering Manager II @ <a href="https://selinc.com/">Schweitzer Engineering Laboratories</a>
-              </li>
-              <li>
-                <a href="https://www.mobygames.com/developer/sheet/view/developerId,783203/">
-                  Web developer @ Sony PlayStation
-                </a>
-              </li>
-              <li>Student web developer @ <a href="https://www.ewu.edu/">Eastern Washington University</a></li>
-            </ul>
           </p>
-
           <p class="text-base mt-6">
             I play drums in a emo/math rock band, <a href="https://griffeymusic.bandcamp.com/">Griffey</a>.
           </p>
 
+          <strong class="block font-bold mt-4 mb-0">Previous:</strong>
+          <ul class="m-0">
+            <li>Engineering Manager II @ <a href="https://selinc.com/">Schweitzer Engineering Laboratories</a></li>
+            <li>
+              <a href="https://www.mobygames.com/developer/sheet/view/developerId,783203/"
+                >Web developer @ Sony PlayStation
+              </a>
+            </li>
+            <li>Student web developer @ <a href="https://www.ewu.edu/">Eastern Washington University</a></li>
+          </ul>
+
           <div class="w-full mt-12">
             <SubHeading>Talks</SubHeading>
             <ul class="list-disc list-inside ml-4">
+              <li>Developing Software at SEL (Presentation for EWU students 2022)</li>
+              <li>NPM, Dependencies, and JS Modules (Internal Presentation 2021)</li>
+              <li>Making React Fast (Internal Presentation 2019)</li>
               <li>
                 <a target="_blank" href="https://introduction-functional-programming-boise.netlify.com/#/"
                   >Functional Programming Light (Boise Code Camp 2019)</a
                 >
               </li>
-              <li>Making React Fast (Internal Presentation 2019)</li>
-              <li>NPM, Dependencies, and JS Modules (Internal Presentation 2021)</li>
             </ul>
           </div>
         </section>

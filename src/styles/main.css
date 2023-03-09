@@ -59,7 +59,6 @@ html {
   font-weight: 400;
   line-height: 1.5;
   color: var(--primary-100);
-  font-variation-settings: "wght" 400, "slnt" 0;
 }
 
 @supports (font-variation-settings: normal) {
@@ -93,7 +92,6 @@ h5 {
   margin: 1rem 0 0.875rem;
   font-weight: 600;
   line-height: 1.15;
-  font-variation-settings: "wght" 700, "slnt" 0 !important;
   @apply tracking-tight;
 }
 
@@ -196,7 +194,7 @@ ol li::marker {
   left: 0;
   right: 0;
   background: #1e1c63;
-  color: #FFF;
+  color: #fff;
   z-index: 999;
   padding: 8px;
 }
@@ -388,6 +386,6 @@ p + ol {
 :not(.astro-code) > code {
   padding: 2px 4px;
   border-radius: 5px;
-  color: #79C0FF;
+  color: #79c0ff;
   background-color: #0d1117;
 }

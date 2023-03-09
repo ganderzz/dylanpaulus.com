@@ -10,7 +10,7 @@ const { page } = Astro.props as Props;
 
 <div class="flex">
   <a
-    href={!page.url.prev ? "/" : page.url.prev}
+    href={!page.url.prev ? "/posts" : page.url.prev}
     aria-label="Previous page"
     aria-disabled={!page.url.prev}
     class={`${!page.url.prev ? `opacity-50` : ``}`}
@@ -36,7 +36,7 @@ const { page } = Astro.props as Props;
         <a
           style={{ width: "24px", textAlign: "center" }}
           aria-label={`Go to page`}
-          href={`/${pageIndex === 1 ? "" : pageIndex}`}
+          href={`/${pageIndex === 1 ? "/posts" : `/posts/${pageIndex}`}`}
         >
           {pageIndex}
         </a>

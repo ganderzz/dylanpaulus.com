@@ -1,0 +1,55 @@
+---
+import { Picture } from "@astrojs/image/components";
+import BaseLayout from "@layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Dylan Paulus" description="">
+  <section
+    id="main-content"
+    tab-index="-1"
+    class="flex flex-col items-center justify-center max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl mx-auto mt-8"
+  >
+    <div class="flex flex-col lg:flex-row w-full mb-16">
+      <Picture
+        src="/images/boise-code-camp.jpeg"
+        widths={[200, 400, 800]}
+        aspectRatio="4:3"
+        sizes="(max-width: 800px) 100vw, 600px"
+        alt="Image of Dylan playing drums"
+        class="shadow-lg rounded-md m-auto w-full aspect-auto"
+      />
+
+      <div class="flex flex-col lg:ml-14 lg:mt-0 mt-8">
+        <h2 class="m-0">Hi, I'm Dylan Paulus. 👋</h2>
+        <p class="text-xl opacity-90 m-0 mt-1">Full-Stack Software Engineer / Engineering Manager</p>
+
+        <p class="mt-6 opacity-80 max-w-2xl break-keep">
+          I have been building highly performant software and engineering teams for close to a decade. Currently, I'm
+          focused on writing code that lets everyone experience the unconditional love of a pet at <a
+            href="https://www.rover.com/"
+            target="_blank"
+            ><svg
+              height={20}
+              width={20}
+              class="inline"
+              xmlns="http://www.w3.org/2000/svg"
+              width="28"
+              height="28"
+              viewBox="0 0 28 28"
+            >
+              <path
+                fill="currentColor"
+                d="M10 6v2H5v11h11v-5h2v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h6zm11-3v9l-3.794-3.793l-5.999 6l-1.414-1.414l5.999-6L12 3h9z"
+              ></path>
+            </svg>Rover.com</a
+          >.
+        </p>
+
+        <a
+          class="flex items-center px-6 py-4 mt-8 rounded-md dark:bg-[#ff99c7] dark:hover:bg-[#ffcce3] bg-[#5755c9] hover:bg-[#1e1c63] text-white hover:text-white dark:text-black transform-gpu hover:scale-105 transition-all"
+          href="/about">Learn more about me</a
+        >
+      </div>
+    </div>
+  </section>
+</BaseLayout>
