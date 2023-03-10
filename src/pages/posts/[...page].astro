@@ -12,8 +12,13 @@ import { getTags, orderByPopular } from "@utils/tags";
 import TagList from "@components/TagList.astro";
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
-  const unsortedPosts = await getCollection("post", ({ data }) => data.published);
-  const posts = unsortedPosts.sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf());
+  const unsortedPosts = await getCollection(
+    "post",
+    ({ data }) => data.published
+  );
+  const posts = unsortedPosts.sort(
+    (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf()
+  );
 
   const tags = orderByPopular(await getTags(unsortedPosts));
 
@@ -24,16 +29,20 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   }));
 }
 
-const { page, tags } = Astro.props as { tags: string[]; page: Page<CollectionEntry<"post">> };
+const { page, tags } = Astro.props as {
+  tags: string[];
+  page: Page<CollectionEntry<"post">>;
+};
 ---
 
-<BaseLayout title="Dylan Paulus" description="">
+<BaseLayout
+  title="Posts | Dylan Paulus"
+  description="A collection of articles written about software, management, and life.">
   <section
     id="main-content"
     tab-index="-1"
-    class="flex max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl mx-auto mt-8"
-  >
-    <div class="w-full sm:w-2/3 md:px-8 mt-8">
+    class="flex max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl mx-auto">
+    <div class="w-full sm:w-2/3 md:px-8">
       <div class="flex flex-col md:flex-row mb-4">
         <div class="flex flex-1 items-center">
           <SubHeading>Recently Published</SubHeading>
@@ -45,7 +54,7 @@ const { page, tags } = Astro.props as { tags: string[]; page: Page<CollectionEnt
 
       {page.data.map((post) => <PostListItem data={post} />)}
 
-      <div class="flex items-center justify-end mt-8 mx-auto">
+      <div class="flex items-center justify-end mx-auto">
         <Pagination page={page} />
       </div>
     </div>
