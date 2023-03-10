@@ -4,7 +4,7 @@ import SiteLayout from "@layouts/SiteLayout.astro";
 ---
 
 <SiteLayout title="Dylan Paulus" description="">
-  <div class="flex flex-col md:flex-row justify-between w-full mb-16">
+  <div class="flex flex-col md:flex-row justify-between w-full">
     <div class="flex flex-col w-full lg:w-1/2">
       <h2 class="m-0">Hi, I'm Dylan Paulus.</h2>
       <p class="text-xl opacity-90 m-0 mt-1">
@@ -50,5 +50,20 @@ import SiteLayout from "@layouts/SiteLayout.astro";
         class="shadow-lg rounded-md"
       />
     </div>
+  </div>
+
+  <div
+    class="w-full pt-4 mt-40 mb-32 border-t-2 border-gray-200 dark:border-slate-600">
+    <h3>Get in Touch</h3>
+    <p class="mb-12">
+      Do you have a question? Feedback? Or have an opportunity you'd like to
+      discuss?
+    </p>
+
+    <a
+      href="mailto:dylantpaulus@gmail.com"
+      class="opacity-90 hover:opacity-100 px-6 py-4 rounded-md dark:bg-[#ff99c7] dark:hover:bg-[#ffcce3] bg-[#5755c9] hover:bg-[#1e1c63] text-white hover:text-white dark:text-black transform-gpu hover:scale-105 transition-all"
+      >Contact me</a
+    >
   </div>
 </SiteLayout>
