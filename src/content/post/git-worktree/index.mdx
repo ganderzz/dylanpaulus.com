@@ -1,0 +1,54 @@
+---
+title: "Git Worktree: Enhance your Git Workflow"
+tags: ["Git", "Workflow", "Productivity"]
+date: "2023-03-10"
+published: true
+---
+
+Have you ever been in the middle of coding a feature, and out of nowhere you get a notification that production is down?
+If you're using Git you now have a few options: commit your work, stash your work, or discard your work.
+All of these come with their problems depending on the situation.
+If you commit half-baked code you may want to come back later and rebase to clean up your commit history.
+Stashing can cause problems, because what if you need to stash additional code later before switching back to your original feature work?
+Maybe I'll throw away my current changes if they're small, but otherwise no thanks.
+
+I recently stumbled upon [Git worktree](https://git-scm.com/docs/git-worktree/2.39.0), and it has been an amazing boost in my productivity.
+
+### What is Git Worktree?
+
+Git worktree allows us to checkout multiple branches in a git repository. This lets us to switch between different branches in a Git repository without losing our non-committed work.
+Git does this by creating new, separate directories called a "linked worktree" that is associated with a single "main worktree" (the directory created using `git clone` or `git init`).
+
+To checkout a new worktree we use the `worktree add` command: `git worktree add <path> <branch_name>`.
+Worktrees are created as new directories; we give the add command a path to where we want the new directory created and which git branch we want to checkout.
+
+Just like `git checkout -b` we can create brand new branches by adding the `-b` argument (`git worktree add -b <branch_name> <path>`).
+
+We can see all the worktrees we've created using the `git worktree list` command.
+
+<script
+  async
+  data-speed="1.4"
+  data-idleTimeLimit="1.5"
+  id="asciicast-4OQWztFetatQAkZblFz7cANUm"
+  src="https://asciinema.org/a/4OQWztFetatQAkZblFz7cANUm.js"></script>
+
+With our different linked worktrees created, we can safely modify code and switch between isolated instances of our codebase. The changes done in one worktree do not affect the other worktrees.
+
+<script
+  async
+  data-speed="1.4"
+  data-idleTimeLimit="1.5"
+  id="asciicast-mBldDWAWpgHtzmDl1BnsheDuj"
+  src="https://asciinema.org/a/mBldDWAWpgHtzmDl1BnsheDuj.js"></script>
+
+What about if we want to commit and push our changes out to Github? No problem! Git worktree is a way to checkout multiple branches.
+So once we're done making changes in our worktree we can `git add`, `git commit`, and `git push origin` just like if we are working on a different branch.
+The changes would show up on Github under the `<branch_name>` we gave in `git worktree add <path> <branch_name>`.
+
+Once we are done with any worktree we can call `git worktree remove <path_to_worktree>` to delete it.
+
+### End
+
+I keep all worktrees in a separate directory `~/.worktree`, outside of my general projects directory `~/projects`, to reduce clutter and keep "main worktrees" explicit from "linked worktrees".
+I am constantly switching between branches and code, and Git worktree has been a huge help to my workflow!

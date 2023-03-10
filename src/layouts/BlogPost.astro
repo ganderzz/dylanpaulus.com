@@ -10,22 +10,27 @@ export interface Props {
 const { frontmatter } = Astro.props as Props;
 ---
 
-<BaseLayout title={frontmatter.title} description={frontmatter.description ?? frontmatter.excerpt ?? ""}>
+<BaseLayout
+  title={frontmatter.title}
+  description={frontmatter.description ?? frontmatter.excerpt ?? ""}>
   <div class="blog-post__header text-center mt-8">
     <FrontmatterInfo frontmatter={frontmatter} />
   </div>
 
   <section class="mt-4" id="main-content" tab-index="-1">
     <h1
-      class={`${frontmatter.series ? "mb-0" : "mb-10"} mt-4 mx-auto font-bold text-center`}
-      style={{ maxWidth: "45ch" }}
-    >
+      class={`${
+        frontmatter.series ? "mb-0" : "mb-10"
+      } mt-4 mx-auto font-bold text-center`}
+      style={{ maxWidth: "45ch" }}>
       {frontmatter.title}
     </h1>
 
     {
       frontmatter.series && (
-        <h6 class="mb-10 mt-0 mx-auto italic text-center" style={{ maxWidth: "45ch" }}>
+        <h6
+          class="mb-10 mt-0 mx-auto italic text-center"
+          style={{ maxWidth: "45ch" }}>
           Part of the {frontmatter.series} series.
         </h6>
       )

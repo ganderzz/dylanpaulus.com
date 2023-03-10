@@ -128,6 +128,13 @@ declare module 'astro:content' {
   collection: "post",
   data: InferEntrySchema<"post">
 } & { render(): Render[".md"] },
+"git-worktree/index.mdx": {
+  id: "git-worktree/index.mdx",
+  slug: "git-worktree",
+  body: string,
+  collection: "post",
+  data: InferEntrySchema<"post">
+} & { render(): Render[".mdx"] },
 "global-component-registration/index.md": {
   id: "global-component-registration/index.md",
   slug: "global-component-registration",

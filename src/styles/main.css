@@ -38,7 +38,7 @@ html[data-theme="dark"] {
   --font-color-secondary: rgba(160, 160, 160, var(--font-color-opacity));
 
   --link-color: #b3e3ff;
-  --link-hover-color: #a1cce6;
+  --link-hover-color: #84acc5;
 }
 
 /* base styling */
