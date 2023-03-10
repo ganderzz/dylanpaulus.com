@@ -1,92 +1,104 @@
 ---
-import { Image, Picture } from "@astrojs/image/components";
+import { Picture } from "@astrojs/image/components";
 import SubHeading from "@components/SubHeading.astro";
-import BaseLayout from "@layouts/BaseLayout.astro";
+import SiteLayout from "@layouts/SiteLayout.astro";
+import TagList from "~/src/components/TagList.astro";
+import { Content } from "~/src/content/about_me.md";
 ---
 
-<BaseLayout title="About | Dylan Paulus" description="About me">
-  <section
-    id="main-content"
-    tab-index="-1"
-    class="max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl mx-auto mt-8">
-    <div class="flex flex-col gap-4 leading-loose">
-      <div class="flex flex-col md:flex-row w-full">
-        <div class="text-center w-full md:w-1/2">
-          <Picture
-            src="/images/about-image.jpg"
-            widths={[200, 400, 800]}
-            aspectRatio="4:4"
-            sizes="(max-width: 800px) 100vw, 800px"
-            alt="Image of Dylan playing drums"
-            class="shadow-lg rounded-md m-auto w-full aspect-auto"
-          />
+<SiteLayout title="About | Dylan Paulus" description="About me">
+  <div class="flex flex-col gap-4 leading-loose">
+    <div class="flex flex-col md:flex-row w-full">
+      <div class="text-center w-full md:w-1/3">
+        <Picture
+          src="/images/about-image.jpg"
+          widths={[200, 400, 800]}
+          aspectRatio="4:4"
+          sizes="(max-width: 800px) 100vw, 800px"
+          alt="Image of Dylan playing drums"
+          class="shadow-lg rounded-md m-auto w-full aspect-auto"
+        />
 
-          <figcaption class="text-sm mt-2">
-            That's me, the one on the drums!
-          </figcaption>
-        </div>
+        <figcaption class="text-sm mt-2">
+          That's me, the one on the drums!
+        </figcaption>
+      </div>
 
-        <section class="w-full md:w-1/2 mt-8 md:mt-0 ml-0 md:ml-12">
-          <SubHeading class="hidden md:block" style={{ marginTop: 0 }}>
-            About
-          </SubHeading>
-          <em
-            class="text-3xl bg-clip-text text-transparent bg-gradient-to-tr from-blue-500 to-purple-800 dark:from-blue-100 dark:to-orange-300 font-bold">
-            Hi, I'm Dylan.
-          </em>
+      <section class="w-full md:w-2/3 mt-8 md:mt-0 ml-0 md:ml-12">
+        <SubHeading>About</SubHeading>
 
-          <p class="text-base">
-            I'm a Senior Software Engineer at <a href="https://rover.com"
-              >Rover.com</a
+        <div class="mb-12"><Content /></div>
+
+        <SubHeading>Experience</SubHeading>
+        <ul class="m-0">
+          <li>
+            Senior Software Engineer @ <a href="https://rover.com/">Rover.com</a
             >
-          </p>
-          <p class="text-base mt-6">
-            I play drums in a emo/math rock band, <a
-              href="https://griffeymusic.bandcamp.com/">Griffey</a
-            >.
-          </p>
+          </li>
+          <li>
+            Engineering Manager II @ <a href="https://selinc.com/"
+              >Schweitzer Engineering Laboratories</a
+            >
+          </li>
+          <li>
+            Web developer @ <a
+              href="https://www.mobygames.com/developer/sheet/view/developerId,783203/"
+              >Sony PlayStation
+            </a>
+          </li>
+          <li>
+            Student web developer @ <a href="https://www.ewu.edu/"
+              >Eastern Washington University</a
+            >
+          </li>
+        </ul>
 
-          <strong class="block font-bold mt-4 mb-0">Previous:</strong>
-          <ul class="m-0">
+        <div class="w-full mt-12">
+          <SubHeading>Talks I've Given</SubHeading>
+          <ul class="list-disc list-inside ml-4">
             <li>
-              Engineering Manager II @ <a href="https://selinc.com/"
-                >Schweitzer Engineering Laboratories</a
-              >
+              Developing Software at SEL (Presentation for EWU students 2022)
             </li>
+            <li>
+              NPM, Dependencies, and JS Modules (Internal Presentation 2021)
+            </li>
+            <li>Making React Fast (Internal Presentation 2019)</li>
             <li>
               <a
-                href="https://www.mobygames.com/developer/sheet/view/developerId,783203/"
-                >Web developer @ Sony PlayStation
-              </a>
-            </li>
-            <li>
-              Student web developer @ <a href="https://www.ewu.edu/"
-                >Eastern Washington University</a
+                target="_blank"
+                href="https://introduction-functional-programming-boise.netlify.com/#/"
+                >Functional Programming Light (Boise Code Camp 2019)</a
               >
             </li>
           </ul>
+        </div>
 
-          <div class="w-full mt-12">
-            <SubHeading>Talks</SubHeading>
-            <ul class="list-disc list-inside ml-4">
-              <li>
-                Developing Software at SEL (Presentation for EWU students 2022)
-              </li>
-              <li>
-                NPM, Dependencies, and JS Modules (Internal Presentation 2021)
-              </li>
-              <li>Making React Fast (Internal Presentation 2019)</li>
-              <li>
-                <a
-                  target="_blank"
-                  href="https://introduction-functional-programming-boise.netlify.com/#/"
-                  >Functional Programming Light (Boise Code Camp 2019)</a
-                >
-              </li>
-            </ul>
-          </div>
-        </section>
-      </div>
+        <div class="w-full mt-12">
+          <SubHeading>Technologies I've Used</SubHeading>
+          <TagList
+            shouldDisableLink
+            tags={[
+              "C#",
+              "Python",
+              "HTML",
+              "JavaScript/TypeScript",
+              "CSS",
+              "React",
+              "Django",
+              "ASPCore",
+              "Postgres",
+              "Redis",
+              "Docker",
+              "Kubernetes",
+              "Helm",
+              "Istio",
+              "Tilt",
+              "Azure",
+              "Git",
+            ]}
+          />
+        </div>
+      </section>
     </div>
-  </section>
-</BaseLayout>
+  </div>
+</SiteLayout>

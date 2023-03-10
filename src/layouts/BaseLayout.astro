@@ -27,14 +27,19 @@ const { title, description } = Astro.props as Props;
 
     <Footer />
 
-    <script data-goatcounter="https://dylanpaulus.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    <script
+      data-goatcounter="https://dylanpaulus.goatcounter.com/count"
+      async
+      src="//gc.zgo.at/count.js"
+    ></script>
     <script is:inline>
       /**
        * Show the correct theme on page load and page switching.
        * This code prevents the site from flickering light/dark.
        */
       const theme = (() => {
-        const mode = typeof localStorage !== "undefined" && localStorage.getItem("theme");
+        const mode =
+          typeof localStorage !== "undefined" && localStorage.getItem("theme");
 
         if (mode) {
           return mode;

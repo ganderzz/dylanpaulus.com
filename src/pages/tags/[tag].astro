@@ -1,11 +1,14 @@
 ---
 import PostListItem from "@components/PostListItem.astro";
-import BaseLayout from "@layouts/BaseLayout.astro";
+import SiteLayout from "@layouts/SiteLayout.astro";
 import { getTags, normalizeTag } from "@utils/tags";
 import { CollectionEntry, getCollection } from "astro:content";
 
 export async function getStaticPaths() {
-  const unsortedPosts = await getCollection("post", ({ data }) => data.published);
+  const unsortedPosts = await getCollection(
+    "post",
+    ({ data }) => data.published
+  );
   const tags = await getTags(unsortedPosts);
 
   return Object.entries(tags).map(([tag, count]) => ({
@@ -14,7 +17,9 @@ export async function getStaticPaths() {
     },
     props: {
       count,
-      posts: unsortedPosts.filter((post) => post.data.tags.map(normalizeTag).includes(tag)),
+      posts: unsortedPosts.filter((post) =>
+        post.data.tags.map(normalizeTag).includes(tag)
+      ),
     },
   }));
 }
@@ -26,17 +31,13 @@ const { count, posts } = Astro.props as {
 };
 ---
 
-<BaseLayout title={`${tag} | Dylan Paulus`} description={`A tags list for ${tag}`}>
-  <section
-    id="main-content"
-    tab-index="-1"
-    class="flex flex-col max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl mx-auto mt-8"
-  >
-    <div class="flex items-center">
-      <h2 class="flex my-0">{tag}</h2>
-      <p class="flex ml-4 my-0">- {count} article{count !== 1 && "s"}</p>
-    </div>
+<SiteLayout
+  title={`${tag} | Dylan Paulus`}
+  description={`A tags list for ${tag}`}>
+  <div class="flex items-center">
+    <h2 class="flex my-0">{tag}</h2>
+    <p class="flex ml-4 my-0">- {count} article{count !== 1 && "s"}</p>
+  </div>
 
-    <div class="mt-8">{posts.map((post) => <PostListItem data={post} />)}</div>
-  </section>
-</BaseLayout>
+  <div class="mt-8">{posts.map((post) => <PostListItem data={post} />)}</div>
+</SiteLayout>

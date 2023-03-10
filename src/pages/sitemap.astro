@@ -1,22 +1,19 @@
 ---
 import SubHeading from "@components/SubHeading.astro";
-import BaseLayout from "@layouts/BaseLayout.astro";
+import SiteLayout from "@layouts/SiteLayout.astro";
 import { getCollection } from "astro:content";
 import { getTags, orderByPopular } from "@utils/tags";
 import TagList from "@components/TagList.astro";
 
-const unsortedPosts = await getCollection("post", ({ data }) => data.published && data.tags);
+const unsortedPosts = await getCollection(
+  "post",
+  ({ data }) => data.published && data.tags
+);
 const tags = orderByPopular(await getTags(unsortedPosts));
 ---
 
-<BaseLayout title="Sitemap | Dylan Paulus" description="Sitemap">
-  <section
-    id="main-content"
-    tab-index="-1"
-    class="flex flex-col max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl mx-auto mt-8"
-  >
-    <h2 class="mb-0">Sitemap</h2>
-    <SubHeading>All Tags</SubHeading>
-    <TagList tags={Object.keys(tags)} />
-  </section>
-</BaseLayout>
+<SiteLayout title="Sitemap | Dylan Paulus" description="Sitemap">
+  <h2 class="mb-0">Sitemap</h2>
+  <SubHeading>All Tags</SubHeading>
+  <TagList tags={Object.keys(tags)} />
+</SiteLayout>
