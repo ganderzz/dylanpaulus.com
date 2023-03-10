@@ -1,10 +1,5 @@
 @import url("https://rsms.me/inter/inter.css");
 
-@font-face {
-  font-family: "Inter", sans-serif;
-  font-display: swap;
-}
-
 :root {
   --border-radius: 0.5rem;
 }
@@ -42,8 +37,8 @@ html[data-theme="dark"] {
   --font-color: rgba(255, 255, 255, var(--font-color-opacity));
   --font-color-secondary: rgba(160, 160, 160, var(--font-color-opacity));
 
-  --link-color: hsl(332.8, 100%, 80%);
-  --link-hover-color: hsl(332.8, 100%, 90%);
+  --link-color: #b3e3ff;
+  --link-hover-color: #a1cce6;
 }
 
 /* base styling */
@@ -59,12 +54,6 @@ html {
   font-weight: 400;
   line-height: 1.5;
   color: var(--primary-100);
-}
-
-@supports (font-variation-settings: normal) {
-  html {
-    font-family: "Inter var", sans-serif;
-  }
 }
 
 html,

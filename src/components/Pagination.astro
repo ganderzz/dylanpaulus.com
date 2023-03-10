@@ -6,17 +6,28 @@ export type Props = {
 };
 
 const { page } = Astro.props as Props;
+
+const hasPreviousPage = Boolean(page.url.prev);
+const hasNextPage = Boolean(page.url.next);
 ---
 
 <div class="flex">
   <a
-    href={!page.url.prev ? "/posts" : page.url.prev}
+    href={page.url.prev ?? ""}
     aria-label="Previous page"
-    aria-disabled={!page.url.prev}
-    class={`${!page.url.prev ? `opacity-50` : ``}`}
-  >
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32"
-      ><path fill="currentColor" d="M10 16L20 6l1.4 1.4l-8.6 8.6l8.6 8.6L20 26z"></path></svg
+    aria-disabled={!hasPreviousPage}
+    class={`${
+      !hasPreviousPage
+        ? `opacity-50 dark:text-slate-300 text-slate-900 cursor-default`
+        : ``
+    }`}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 32 32"
+      ><path fill="currentColor" d="M10 16L20 6l1.4 1.4l-8.6 8.6l8.6 8.6L20 26z"
+      ></path></svg
     >
   </a>
 
@@ -25,19 +36,14 @@ const { page } = Astro.props as Props;
       const pageIndex = index + 1;
 
       if (pageIndex == page.currentPage) {
-        return (
-          <strong class="font-bold" style={{ width: "24px", textAlign: "center" }}>
-            {pageIndex}
-          </strong>
-        );
+        return <strong class="font-bold text-center w-6">{pageIndex}</strong>;
       }
 
       return (
         <a
-          style={{ width: "24px", textAlign: "center" }}
-          aria-label={`Go to page`}
-          href={`/${pageIndex === 1 ? "/posts" : `/posts/${pageIndex}`}`}
-        >
+          class="text-center w-6"
+          aria-label={`Go to page ${pageIndex}`}
+          href={pageIndex === 1 ? "/posts" : `/posts/${pageIndex}`}>
           {pageIndex}
         </a>
       );
@@ -45,13 +51,22 @@ const { page } = Astro.props as Props;
   }
 
   <a
-    href={page.url.next}
+    href={page.url.next ?? ""}
     aria-label="Next page"
-    aria-disabled={!page.url.next}
-    class={`${!page.url.next ? `opacity-50` : ``}`}
-  >
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32" class="transform rotate-180"
-      ><path fill="currentColor" d="M10 16L20 6l1.4 1.4l-8.6 8.6l8.6 8.6L20 26z"></path></svg
+    aria-disabled={!hasNextPage}
+    class={`${
+      !hasNextPage
+        ? `opacity-50 dark:text-slate-300 text-slate-900 cursor-default`
+        : ``
+    }`}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 32 32"
+      class="transform rotate-180"
+      ><path fill="currentColor" d="M10 16L20 6l1.4 1.4l-8.6 8.6l8.6 8.6L20 26z"
+      ></path></svg
     >
   </a>
 </div>
