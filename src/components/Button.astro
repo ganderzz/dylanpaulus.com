@@ -5,12 +5,12 @@ type Props = {
   href: string;
 };
 
-const { href, target, class: className } = Astro.props as Props;
+const { href, target, class: className = "" } = Astro.props as Props;
 ---
 
 <a
   href={href}
   target={target}
-  class={`${className} opacity-90 hover:opacity-100 px-6 py-4 rounded-md dark:bg-[#b3e3ff] dark:hover:bg-[#84acc5] bg-[#5755c9] hover:bg-[#1e1c63] text-white hover:text-white dark:text-black transform-gpu hover:scale-105 transition-all`}
+  class={`opacity-90 hover:opacity-100 px-6 py-4 rounded-md dark:bg-[#b3e3ff] dark:hover:bg-[#84acc5] bg-[#5755c9] hover:bg-[#1e1c63] text-white hover:text-white dark:text-black transform-gpu hover:scale-105 transition-all ${className}`}
   ><slot /></a
 >

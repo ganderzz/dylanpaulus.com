@@ -170,13 +170,13 @@ declare module 'astro:content' {
   collection: "post",
   data: InferEntrySchema<"post">
 } & { render(): Render[".md"] },
-"intro-functional-programming/index.md": {
-  id: "intro-functional-programming/index.md",
+"intro-functional-programming/index.mdx": {
+  id: "intro-functional-programming/index.mdx",
   slug: "intro-functional-programming",
   body: string,
   collection: "post",
   data: InferEntrySchema<"post">
-} & { render(): Render[".md"] },
+} & { render(): Render[".mdx"] },
 "intro-to-flight-js/index.md": {
   id: "intro-to-flight-js/index.md",
   slug: "intro-to-flight-js",

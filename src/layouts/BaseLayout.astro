@@ -19,9 +19,11 @@ const { title, description } = Astro.props as Props;
   </head>
 
   <body>
+    <a href="#main" class="skip-link">Skip to main content</a>
+
     <Header />
 
-    <main class="p-4 sm:p-0 w-full text-base">
+    <main id="main" class="p-4 sm:p-0 w-full text-base">
       <slot />
     </main>
 

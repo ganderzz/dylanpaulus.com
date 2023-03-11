@@ -182,8 +182,8 @@ ol li::marker {
   top: -40px;
   left: 0;
   right: 0;
-  background: #1e1c63;
-  color: #fff;
+  @apply bg-slate-900;
+  @apply text-white;
   z-index: 999;
   padding: 8px;
 }
@@ -257,31 +257,8 @@ p + ol {
   margin-top: 5px;
 }
 
-.katex-display {
-  margin: 2rem 0;
-}
-
 .font-bold {
   font-variation-settings: "wght" 700, "slnt" 0;
-}
-
-.gatsby-highlight-code-line {
-  display: block;
-  background: var(--code-highlight-bg);
-  padding: 4px;
-  font-size: 1rem;
-  border-radius: 4px;
-}
-
-.gatsby-resp-image-figure {
-  @apply my-16;
-  @apply p-4;
-}
-
-.gatsby-resp-image-figcaption {
-  font-size: 0.825rem;
-  @apply mt-4;
-  text-align: center;
 }
 
 .table__contents ul {
@@ -304,21 +281,6 @@ p + ol {
 .table__contents ul li,
 .table__contents ul li p {
   margin: 0;
-}
-
-/* ---- Utilities ---- */
-.skewed {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  width: 100%;
-  height: 9rem;
-  min-height: 168px;
-  z-index: 0;
-  transform: skewY(1deg);
-  transform-origin: top right;
 }
 
 /* ---- Animations ---- */
