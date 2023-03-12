@@ -6,12 +6,11 @@ import { remarkExcerpt } from "./plugins/remark-excerpt.mjs";
 import { remarkReadingTime } from "./plugins/remark-reading-time.mjs";
 import compress from "astro-compress";
 import sitemap from "@astrojs/sitemap";
-
 import mdx from "@astrojs/mdx";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [compress(), image(), preact(), tailwind(), sitemap(), mdx()],
+  integrations: [image(), preact(), tailwind(), sitemap(), mdx(), compress()],
   output: "static",
   site: "https://dylanpaulus.com",
   vite: {
