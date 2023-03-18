@@ -79,4 +79,4 @@ I recently released a course, Creating React Libraries from Scratch, where we wa
 
 To learn more click the image below!
 
-[![Click here to learn more!](images/create-react-libraries-card.png)](https://www.newline.co/courses/creating-react-libraries-from-scratch)
+[![Click here to learn more!](/images/create-react-libraries-card.png)](https://www.newline.co/courses/creating-react-libraries-from-scratch)

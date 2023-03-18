@@ -7,7 +7,7 @@ published: true
 
 ### Introduction
 
-There is a technique for creating reusable components that got missed in my last post, [Tips on Creating Reusable Components](/reactjs/2017/09/08/tips-on-creating-reusable-components.1/), that I'd like to talk about. That is, components that have functions as children. This is a great tool that mirrors higher order components, in that it lets us abstract away reusable states. We'll start out with an example.
+There is a technique for creating reusable components that got missed in my last post, [Tips on Creating Reusable Components](/posts/tips-on-creating-reusable-components/), that I'd like to talk about. That is, components that have functions as children. This is a great tool that mirrors higher order components, in that it lets us abstract away reusable states. We'll start out with an example.
 
 ### Breaking down functional children
 
@@ -76,7 +76,13 @@ class Toggle extends React.Component {
 }
 
 function ToggleButton() {
-  return <Toggle>{(isToggled, toggle) => <button onClick={toggle}>{isToggled ? "ON" : "off"}</button>}</Toggle>;
+  return (
+    <Toggle>
+      {(isToggled, toggle) => (
+        <button onClick={toggle}>{isToggled ? "ON" : "off"}</button>
+      )}
+    </Toggle>
+  );
 }
 ```
 

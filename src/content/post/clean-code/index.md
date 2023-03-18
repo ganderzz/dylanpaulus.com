@@ -171,7 +171,7 @@ and one blank line before:
 
 ## Functions/Methods
 
-We can take a lot of useful ideas from functional programming ([I give an introduction of function programming here!](https://www.dylanpaulus.com/2019-03-31-functional-programming/)) when it comes to writing clean code. Let's look at one of these ideas from the functional programming paradigm.
+We can take a lot of useful ideas from functional programming ([I give an introduction of function programming here!](/posts/functional-programming/)) when it comes to writing clean code. Let's look at one of these ideas from the functional programming paradigm.
 
 ### Only do one thing!
 
@@ -201,6 +201,6 @@ Don't just avoid `or` or `and` while naming functions--be honest with yourself! 
 
 ### Finally,
 
-# Be Consistent!
+**Be Consistent!**
 
 The biggest aspect of writing clean code, even if you end up not using any of the styles above, is to be consistent! Keeping you and your team's coding style the same makes it easier to get up to speed with current projects, and any future endeavors.

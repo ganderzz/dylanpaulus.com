@@ -7,7 +7,7 @@ published: true
 
 ### Introduction
 
-A huge selling point of React is its use of composable, reusable components. Everything is built off the idea of `V = F(d)`, or view/UI is created by some function acting on data/state. How do we create more advanced user interface? Well, just add more functions to the party (For example `V = G(F(E(S(d))))`). That's cute, why does this matter? Thinking of our components as functions, even if we use _class_, will help us create more reusable components. It even helps us write super helpful utility functions called [Higher Order Components](http://dylanpaulus.com/reactjs/2017/08/17/higher-order-components/).
+A huge selling point of React is its use of composable, reusable components. Everything is built off the idea of `V = F(d)`, or view/UI is created by some function acting on data/state. How do we create more advanced user interface? Well, just add more functions to the party (For example `V = G(F(E(S(d))))`). That's cute, why does this matter? Thinking of our components as functions, even if we use _class_, will help us create more reusable components. It even helps us write super helpful utility functions called [Higher Order Components](/posts/higher-order-components/).
 
 We'll look at ways to improve our reusability and composition of components by using an example component a long the way. For this article, we'll use a component that adds an Icon to a button.
 
@@ -52,7 +52,9 @@ class IconAdder extends React.Component {
 to consume it
 
 ```jsx
-<IconAdder component={<Button onClick={() => alert("Click!")}>Click Me!</Button>} />
+<IconAdder
+  component={<Button onClick={() => alert("Click!")}>Click Me!</Button>}
+/>
 ```
 
 IconAdder allows us to throw any ol' component we want into it, and it'll add an Icon to it. Nice.
@@ -85,7 +87,7 @@ The `<Button>` component will be inserted in IconAdder's `{this.props.children}`
 
 ### Injecting HTML Types
 
-I wrote an article on this [subject here](http://dylanpaulus.com/reactjs/2017/07/26/injecting-react-tag-types/) already so I'll be brief.
+I wrote an article on this [subject here](/posts/injecting-react-tag-types/) already so I'll be brief.
 
 As someone consuming a component, I want as little pollution of my code as possible. Pollution in this case could be anything: event handlers, code size, or even HTML elements. In the case of our IconAdder component, a parent `<div>` wrapper gets added to every component using it. It would be great if we could get rid of the div, and just make it our child component. Well... we're in luck. We can specify a tag property, and then use that property. This lets the end-user be in control of their DOM structure.
 
@@ -140,7 +142,11 @@ class IconAdder extends React.Component {
 to consume it
 
 ```jsx
-<IconAdder tag={Button} onClick={() => alert("Click!")} style={{ fontWeight: "800" }} title="A button for clicking">
+<IconAdder
+  tag={Button}
+  onClick={() => alert("Click!")}
+  style={{ fontWeight: "800" }}
+  title="A button for clicking">
   Click Me!
 </IconAdder>
 ```

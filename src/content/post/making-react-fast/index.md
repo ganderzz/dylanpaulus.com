@@ -104,7 +104,7 @@ _Warning:_ Don't get `React.memo()` confused with `React.useMemo()`. These are d
 
 ### Hooks (useMemo, useCallback)
 
-I won't specifically go over how hooks work in this section. For an introduction, [check out the infinitely better documentation](https://reactjs.org/docs/hooks-intro.html) from the official website. Instead, we'll be checking out two hooks that help us improve the rendering speed of our applications.
+I won't specifically go over how hooks work in this section. For an introduction, [check out the infinitely better documentation](https://react.dev/learn#using-hooks) from the official website. Instead, we'll be checking out two hooks that help us improve the rendering speed of our applications.
 
 `useMemo()` is useful for 'caching' the results of a computationally expensive expression which returns a value. For example,
 
