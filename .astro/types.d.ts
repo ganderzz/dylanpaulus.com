@@ -226,6 +226,13 @@ declare module 'astro:content' {
   collection: "post",
   data: InferEntrySchema<"post">
 } & { render(): Render[".md"] },
+"postgres-is-a-graph-database/index.mdx": {
+  id: "postgres-is-a-graph-database/index.mdx",
+  slug: "postgres-is-a-graph-database",
+  body: string,
+  collection: "post",
+  data: InferEntrySchema<"post">
+} & { render(): Render[".mdx"] },
 "react-controlling-rendering-with-keys/index.md": {
   id: "react-controlling-rendering-with-keys/index.md",
   slug: "react-controlling-rendering-with-keys",

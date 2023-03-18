@@ -1,0 +1,96 @@
+---
+title: "Postgres is a Graph Database"
+tags: ["Postgres", "Database"]
+date: "2023-03-16"
+published: false
+---
+
+PostgreSQL is a powerful open-source relational database management system that has the capability to handle complex data structures, including graph data structures. While PostgreSQL was not originally designed for storing graph data structures, it has some built-in features that allow it to store and query graph data efficiently.
+
+In this article, we'll discuss how to use PostgreSQL as a way to store graph data structures.
+
+## Understanding Graph Data Structures
+
+A graph data structure is a collection of nodes and edges, where each node represents an entity and each edge represents a relationship between two nodes. Graphs can be used to model complex systems such as social networks, transportation systems, and biological systems.
+
+Graph data structures can be represented in various ways, including adjacency lists, adjacency matrices, and edge lists. Each representation has its own strengths and weaknesses depending on the type of query that needs to be performed.
+Storing Graph Data Structures in PostgreSQL
+
+To store graph data structures in PostgreSQL, we need to create two tables: one for nodes and one for edges. The nodes table will store information about each entity, while the edges table will store information about the relationships between entities.
+
+Let's start by creating a nodes table:
+
+```sql
+CREATE TABLE nodes (
+  id SERIAL PRIMARY KEY,
+  label VARCHAR(255),
+  properties JSONB
+);
+```
+
+In this table, we have defined three columns: id, label, and properties. The id column is an auto-incrementing integer that serves as the primary key for the table. The label column is a string that represents the name of the entity, and the properties column is a JSONB column that stores any additional properties associated with the entity.
+
+Next, we'll create an edges table:
+
+```sql
+CREATE TABLE edges (
+  id SERIAL PRIMARY KEY,
+  source INTEGER REFERENCES nodes(id),
+  target INTEGER REFERENCES nodes(id),
+  properties JSONB
+);
+```
+
+In this table, we have defined four columns: id, source, target, and properties. The id column is an auto-incrementing integer that serves as the primary key for the table. The source and target columns are foreign keys that reference the id column of the nodes table. These columns represent the starting and ending nodes of the edge. The properties column is a JSONB column that stores any additional properties associated with the edge.
+
+Once we have created these two tables, we can start inserting data into them. For example, to insert a node, we would execute the following SQL statement:
+
+```sql
+INSERT INTO nodes (label, properties)
+VALUES ('Node 1', '{"color": "blue", "size": 10}');
+```
+
+To insert an edge, we would execute the following SQL statement:
+
+```sql
+INSERT INTO edges (source, target, properties)
+VALUES (1, 2, '{"weight": 0.5}');
+```
+
+## Querying Graph Data Structures in PostgreSQL
+
+Once we have stored our graph data structures in PostgreSQL, we can query them using SQL statements. For example, to retrieve all nodes in the graph, we would execute the following SQL statement:
+
+```sql
+SELECT * FROM nodes;
+```
+
+To retrieve all edges in the graph, we would execute the following SQL statement:
+
+```sql
+SELECT * FROM edges;
+```
+
+We can also perform more complex queries using PostgreSQL's built-in support for recursive queries. Recursive queries allow us to traverse the graph starting from a specific node and following its edges. For example, to find all nodes that are reachable from a specific node, we would execute the following SQL statement:
+
+```sql
+WITH RECURSIVE reachable_nodes AS (
+  SELECT id, label, properties
+  FROM nodes
+  WHERE id = 1
+  UNION
+  SELECT nodes.id, nodes.label
+  nodes.properties
+FROM nodes
+JOIN edges ON nodes.id = edges.target
+JOIN reachable_nodes ON edges.source = reachable_nodes.id
+)
+SELECT DISTINCT id, label, properties
+FROM reachable_nodes;
+```
+
+This SQL statement starts by selecting the node with `id` 1 and adding it to the `reachable_nodes` CTE (common table expression). It then recursively selects nodes that are connected to the nodes in the `reachable_nodes` CTE until no more nodes are found. Finally, it returns all nodes that were found.
+
+## Conclusion
+
+PostgreSQL is a powerful database management system that can be used to store graph data structures efficiently. By using the built-in support for foreign keys and JSONB data types, we can represent nodes and edges in separate tables and store any additional properties associated with each entity. With PostgreSQL's support for recursive queries, we can traverse the graph and retrieve any information we need. By using PostgreSQL to store graph data structures, we can easily integrate our graph data with other relational data and leverage the power of SQL to query and analyze our data.
