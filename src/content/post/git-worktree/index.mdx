@@ -15,14 +15,13 @@ Recently, I stumbled upon [Git worktree](https://git-scm.com/docs/git-worktree/2
 
 ### What is Git Worktree?
 
-Git worktree allows us to checkout many branches in a git repository. This lets us switch between different branches in a Git repository without losing our non-committed work.
-Git does this by creating new, separate directories called a "linked worktree" that gets associated with a single "main worktree" (the directory created using `git clone` or `git init`).
+Git worktree allows us to checkout multiple branches in a Git repository, enabling us to switch between different branches without losing our non-committed work.
+Git achieves this by creating new, separate directories called "linked worktrees" that are associated with a single "main worktree" (the directory created using git clone or git init).
 
-To checkout a new worktree we use the `worktree add` command: `git worktree add <path> <branch_name>`.
-Worktrees get created as new directories. We give the add command a path to where we want the new directory created and which git branch we want to checkout.
-Like `git checkout -b` we can create brand new branches by adding the `-b` argument (`git worktree add -b <branch_name> <path>`).
+To checkout a new worktree, we use the `git worktree add <path> <branch_name>` command. Worktrees are created as new directories, with the add command taking a path argument to specify where to create the new directory, and a branch name argument to specify which Git branch to checkout.
+We can create new branches by adding the `-b` argument, like this: `git worktree add -b <branch_name> <path>`.
 
-We can see all the worktrees we've created using the `git worktree list` command.
+We can view all the worktrees we've created using the `git worktree list` command.
 
 <div style="height:476px;" class="mb-12">
   <script
