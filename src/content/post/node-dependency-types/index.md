@@ -7,7 +7,7 @@ published: true
 
 <!-- What are dependencies -->
 
-Code dependencies are like [Lego's](https://www.lego.com/en-us). We're able to pull in other people's code; combining and stacking different packages together to fulfill our goals. Using dependencies greatly reduces the complexity of developing software. We can take advantage of the hard work someone has already done to solve a problem so we can continue to build the projects we want. A development pipeline can have multiple kinds of code dependencies:
+Code dependencies are like [Lego's](https://www.lego.com/en-us). We are able to pull in other people's code, combining and stacking different packages together to achieve our goals. Using dependencies greatly reduces the complexity of developing software. We can take advantage of the hard work someone has already done to solve a problem so that we can continue building the projects we want. A development pipeline can have multiple kinds of code dependencies:
 
 <!-- npm's different types -->
 
@@ -37,13 +37,13 @@ In JavaScript, we have a `package.json` file that holds metadata about our proje
 
 ## Production vs. Development
 
-Depending on the instance where code will be used changes the type of dependency a package is. There are packages that our users will need to run our code. A user is someone not directly working in our code-base. This could mean a person interacting with an application we wrote, or a developer writing a completely separate library. In other words, this is a production environment. Alternatively, there are packages that a developer or system only needs while working in our code. For example linters, testing frameworks, build tools, etc. Packages that a user won't need, but a developer or build system will need.
+The type of dependency a package is changes depending on the instance where code will be used. Some packages are necessary for users to run our code. By "users", we refer to people who are not directly working in our code-base, such as those who interact with an application we wrote or a developer writing a separate library. In other words, these are packages that are required in a production environment. On the other hand, there are packages that are only needed by developers or systems while working in our code, such as linters, testing frameworks, and build tools. These are packages that users won't need, but developers or build systems will need.
 
 <!-- dependencies -->
 
 ## Dependencies
 
-Dependencies are packages our project uses in _production_. These get included with our code and are vital for making our application run. Whenever we install a dependency the package and any of its dependencies get downloaded onto our local hard drive. The more dependencies we add, the bigger our production code becomes. This is because each new dependency gets included in the production build of our code. Evaluate adding new dependencies unless they're needed!
+Dependencies refer to packages that our project uses in _production_. They are essential for making our application run, as they are included with our code. Whenever we install a dependency, the package and any of its dependencies are downloaded onto our local hard drive. The more dependencies we add, the larger our production code becomes, since each new dependency is included in the production build of our code. It's important to evaluate whether new dependencies are truly needed before adding them, in order to minimize the size of our production code.
 
 Dependencies are installed using `npm install X` or `yarn add X`
 

@@ -14,7 +14,7 @@ This is a series I'm starting called, "CSS: The Important Stuff". The goal is to
 
 ## What is the Box Model?
 
-It comes with great danger to myself to tell you that the web is made of boxes. Yes, it's boxes all the way down. Take a look at this website—open the Element Inspector in the browser's dev tools and add <br />`* { border: 1px solid red; }` . Look at all those fine boxes.
+It comes with great danger to myself to tell you that the web is made of boxes. Yes, it's boxes all the way down. Take a look at this website—open the Element Inspector in the browser's dev tools and add `* { border: 1px solid red; }`. Look at all those fine boxes.
 
 <div class="full-bleed">
   <img src="css-box-model/css-box-model-red-boxes.png" alt="The dylanpaulus.com website with visible borders around each box element." />
