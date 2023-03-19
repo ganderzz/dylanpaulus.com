@@ -44,6 +44,8 @@ async function getContent() {
 }
 
 async function run() {
+  console.log("Generating social og images...");
+
   const interBold = await fetchInter("Bold");
   const interRegular = await fetchInter("SemiBold");
   const contents = await getContent();
