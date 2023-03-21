@@ -114,13 +114,13 @@ declare module 'astro:content' {
   collection: "post",
   data: InferEntrySchema<"post">
 } & { render(): Render[".md"] },
-"encapsulating-state-with-functional-children/index.md": {
-  id: "encapsulating-state-with-functional-children/index.md",
+"encapsulating-state-with-functional-children/index.mdx": {
+  id: "encapsulating-state-with-functional-children/index.mdx",
   slug: "encapsulating-state-with-functional-children",
   body: string,
   collection: "post",
   data: InferEntrySchema<"post">
-} & { render(): Render[".md"] },
+} & { render(): Render[".mdx"] },
 "generic-jsx-type-argument/index.md": {
   id: "generic-jsx-type-argument/index.md",
   slug: "generic-jsx-type-argument",

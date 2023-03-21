@@ -5,7 +5,12 @@ date: "2017-09-14"
 published: true
 ---
 
-### Introduction
+import Alert from "../../../components/Alert.astro";
+
+<Alert
+  type="info"
+  body={`Update (3/20/2023): Since writing this post the community has called this technique "Render Props".`}
+/>
 
 There is a technique for creating reusable components that got missed in my last post, [Tips on Creating Reusable Components](/posts/tips-on-creating-reusable-components/), that I'd like to talk about. That is, components that have functions as children. This is a great tool that mirrors higher order components, in that it lets us abstract away reusable states. We'll start out with an example.
 
