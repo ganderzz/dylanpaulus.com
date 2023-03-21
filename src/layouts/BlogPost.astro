@@ -1,7 +1,7 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import FrontmatterInfo from "../components/FrontmatterInfo.astro";
-import Newsletter from "../components/Newsletter.astro";
+import { Newsletter } from "../components/Newsletter";
 import BaseLayout from "./BaseLayout.astro";
 
 export interface Props {
@@ -40,6 +40,10 @@ const { frontmatter } = Astro.props as Props;
     <article class="blog__post mb-10 dark:text-gray-100 leading-relaxed">
       <slot />
     </article>
+
+    <div class="flex items-center justify-center my-10">
+      <Newsletter client:only />
+    </div>
 
     <div class="blog__post my-4">
       <script
