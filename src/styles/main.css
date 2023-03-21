@@ -335,13 +335,15 @@ p + ol {
 }
 
 .astro-code {
-  padding: 8px 12px;
+  padding: 12px 16px;
   margin: 8px 0;
+  font-size: 1rem;
+  border-radius: 0.5rem;
 }
 
 :not(.astro-code) > code {
   padding: 2px 4px;
-  border-radius: 5px;
+  border-radius: 0.5rem;
   color: #79c0ff;
   background-color: #0d1117;
 }

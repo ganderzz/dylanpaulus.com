@@ -1,4 +1,4 @@
-import fs from "fs";
+import { promises } from "fs";
 import sharp from "sharp";
 import { fileURLToPath } from "url";
 import path from "path";
@@ -15,19 +15,24 @@ const fetchInter = (type) =>
     })
     .then((result) => result.data);
 
+/**
+ * Gets the content from index.md files in the content directory.
+ *
+ * @returns {Promise<{ fileDirectory: string, title: string }[]>}
+ */
 async function getContent() {
-  const directories = await fs.promises.readdir(CONTENT_PATH);
+  const directories = await promises.readdir(CONTENT_PATH);
   let results = [];
 
   for (const directory of directories) {
-    const files = await fs.promises.readdir(path.join(CONTENT_PATH, directory));
+    const files = await promises.readdir(path.join(CONTENT_PATH, directory));
 
     for (const file of files) {
       if (!file.includes("index.md")) {
         continue;
       }
 
-      const markdownFile = await fs.promises.readFile(
+      const markdownFile = await promises.readFile(
         path.join(CONTENT_PATH, directory, file)
       );
 
