@@ -210,6 +210,30 @@ ol li::marker {
   grid-column: 2;
 }
 
+.blog__post table {
+  border-radius: 5px;
+  margin: 1.5rem 0;
+  background: var(--secondary-200);
+  @apply text-base;
+  @apply shadow;
+}
+
+.blog__post td,
+.blog__post th {
+  padding: 0.5rem 0.8rem;
+}
+
+.blog__post thead {
+  background: var(--secondary-300);
+  border-radius: 5px;
+}
+
+.blog__post thead,
+.blog__post tr:not(:last-child) {
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
 .blog__post ul,
 .blog__post ol {
   margin-bottom: 1.15rem;
