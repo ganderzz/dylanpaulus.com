@@ -22,3 +22,23 @@ const { Content, remarkPluginFrontmatter } = await post.render();
 <BlogPost frontmatter={{ ...post.data, ...remarkPluginFrontmatter }}>
   <Content />
 </BlogPost>
+
+<script client:only>
+  const codeblocks = document.querySelectorAll("pre code");
+
+  codeblocks.forEach((block) => {
+    const copyButton = document.createElement("button");
+    copyButton.innerText = "Copy";
+    copyButton.classList.add("copy-button");
+
+    copyButton.addEventListener("click", () => {
+      navigator.clipboard.writeText(block.innerText);
+      copyButton.innerText = "Copied!";
+      setTimeout(() => {
+        copyButton.innerText = "Copy";
+      }, 2000);
+    });
+
+    block.parentNode.appendChild(copyButton);
+  });
+</script>

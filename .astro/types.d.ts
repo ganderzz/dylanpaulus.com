@@ -114,6 +114,13 @@ declare module 'astro:content' {
   collection: "post",
   data: InferEntrySchema<"post">
 } & { render(): Render[".md"] },
+"debugging-using-python/index.mdx": {
+  id: "debugging-using-python/index.mdx",
+  slug: "debugging-using-python",
+  body: string,
+  collection: "post",
+  data: InferEntrySchema<"post">
+} & { render(): Render[".mdx"] },
 "encapsulating-state-with-functional-children/index.mdx": {
   id: "encapsulating-state-with-functional-children/index.mdx",
   slug: "encapsulating-state-with-functional-children",

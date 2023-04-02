@@ -2,7 +2,6 @@ import { promises } from "fs";
 import sharp from "sharp";
 import { fileURLToPath } from "url";
 import path from "path";
-import axios from "axios";
 import { LOGO } from "./logo-img.mjs";
 import { generateCard } from "./card.mjs";
 

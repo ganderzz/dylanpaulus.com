@@ -365,6 +365,7 @@ p + ol {
   margin: 8px 0 calc(1.15rem + 8px) 0;
   font-size: 1rem;
   border-radius: 0.5rem;
+  position: relative;
 }
 
 .astro-code + figcaption {
@@ -376,6 +377,20 @@ p + ol {
 .astro-code + figcaption > p,
 .astro-code + div p {
   font-size: 0.95rem;
+}
+
+.copy-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 4px 10px;
+  transition: background 0.15s;
+  background: rgba(200, 200, 200, 0.1);
+  border-bottom-left-radius: 5px;
+}
+
+.copy-button:hover {
+  background: rgba(200, 200, 200, 0.2);
 }
 
 :not(.astro-code) > code {
