@@ -16,6 +16,32 @@ const { title, description } = Astro.props as Props;
 <html lang="en">
   <head>
     <BaseHead title={title} description={description} />
+
+    <script is:inline>
+        /**
+         * Show the correct theme on page load and page switching.
+         * This code prevents the site from flickering light/dark.
+         */
+        const theme = (() => {
+          const mode =
+            typeof localStorage !== "undefined" && localStorage.getItem("theme");
+  
+          if (mode) {
+            return mode;
+          }
+  
+          if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+            return "dark";
+          }
+  
+          return "light";
+        })();
+  
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.classList.remove("light", "dark");
+        document.documentElement.classList.add(theme);
+        localStorage.setItem("theme", theme);
+      </script>
   </head>
 
   <body>
@@ -34,30 +60,5 @@ const { title, description } = Astro.props as Props;
       async
       src="//gc.zgo.at/count.js"
     ></script>
-    <script is:inline>
-      /**
-       * Show the correct theme on page load and page switching.
-       * This code prevents the site from flickering light/dark.
-       */
-      const theme = (() => {
-        const mode =
-          typeof localStorage !== "undefined" && localStorage.getItem("theme");
-
-        if (mode) {
-          return mode;
-        }
-
-        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-          return "dark";
-        }
-
-        return "light";
-      })();
-
-      document.documentElement.dataset.theme = theme;
-      document.documentElement.classList.remove("light", "dark");
-      document.documentElement.classList.add(theme);
-      localStorage.setItem("theme", theme);
-    </script>
   </body>
 </html>
