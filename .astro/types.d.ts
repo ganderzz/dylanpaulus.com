@@ -196,6 +196,13 @@ declare module 'astro:content' {
   collection: "post",
   data: InferEntrySchema<"post">
 } & { render(): Render[".md"] },
+"improve-your-prompts-llms/index.mdx": {
+  id: "improve-your-prompts-llms/index.mdx",
+  slug: "improve-your-prompts-llms",
+  body: string,
+  collection: "post",
+  data: InferEntrySchema<"post">
+} & { render(): Render[".mdx"] },
 "injecting-react-tag-types/index.md": {
   id: "injecting-react-tag-types/index.md",
   slug: "injecting-react-tag-types",
