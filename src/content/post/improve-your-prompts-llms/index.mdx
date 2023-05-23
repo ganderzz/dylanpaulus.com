@@ -5,6 +5,8 @@ date: "2023-05-09"
 published: false
 ---
 
+import { Prompt } from "./prompt";
+
 Tools like ChatGPT and Bing have been skyrocketing in popularity.
 ChatGPT took five days since launch to [reach 1 million users](https://twitter.com/rauchg/status/1655950701951082497?s=20).
 Governments all over the world are trying to [figure out](https://www.asahi.com/ajw/articles/14903078) what to do [with this technology](https://www.bbc.com/news/technology-65139406).
@@ -32,15 +34,78 @@ Regardless of which tool you use, the question remains: how do we get the most o
 
 ## Prompt Engineering
 
-We interact with LLM's by giving them a prompt in the form of a question or instruction--a prompt instructs the LLM on what to do.
+We interact with LLM's by giving them a prompt, or text input, generally in the form of a question or instruction.
+LLM's then reason out the answer and provide a response.
 Prompt Engineering is a term coined to describe the process of writing prompts to get the best results from LLM's.
-Just like in everyday conversation, the words we choose to ask a question can dramatically change the response we get.
+Just like in everyday conversation, the words we choose to ask in a question can dramatically change the response we get.
+For example, if I ask "What is the best way to get to the airport?" I'll get a different response than if I ask "How do I get to the airport?".
+
+Throughout this article we'll build on a prompt to create a meal plan for one day; taking advantage of different Prompt Engineering techniques.
+I'll provide the prompt used, and the response I got back from the LLM--in my case I'll be using ChatGPT-3.
+Try it for yourself, but remember that the results will vary by the LLM being used.
+
+<Prompt header="Prompt">
+  Please create me a low sugar meal plan for one day.
+</Prompt>
+
+<Prompt header="(LLM) Response">
+<strong>Low-Sugar Meal Plan for One Day</strong>
+<br />
+<strong>Breakfast</strong>
+<ul>
+  <li>Scrambled eggs with vegetables (spinach, bell peppers, mushrooms)</li>
+  <li>Whole grain toast</li>
+  <li>A small serving of fresh berries (such as strawberries or blueberries)</li>
+  <li>Herbal tea or black coffee (unsweetened)</li>
+</ul>
+
+<strong>Snack</strong>
+<ul>
+  <li>Greek yogurt with a sprinkle of cinnamon</li>
+  <li>A handful of unsalted almonds</li>
+</ul>
+
+<strong>Lunch</strong>
+<ul>
+  <li>Grilled chicken breast</li>
+  <li>Mixed greens salad with cherry tomatoes, cucumber, and avocado</li>
+  <li>Olive oil and lemon juice dressing (no added sugar)</li>
+  <li>Steamed broccoli</li>
+</ul>
+
+<strong>Snack</strong>
+<ul>
+  <li>Sliced cucumber and carrot sticks with hummus</li>
+</ul>
+
+<strong>Dinner</strong>
+<ul>
+  <li>Baked salmon fillet with lemon and dill</li>
+  <li>Quinoa pilaf with mixed vegetables (broccoli, carrots, peas)</li>
+  <li>Steamed asparagus</li>
+</ul>
+
+<strong>Dessert</strong>
+<ul>
+  <li>Fresh fruit salad (such as watermelon, cantaloupe, and kiwi)</li>
+</ul>
+
+<p>
+  <strong>Note:</strong> Remember to drink plenty of water throughout the day.
+  Adjust portion sizes according to your specific dietary needs and consult with
+  a healthcare professional or a registered dietitian for personalized advice.
+</p>
+</Prompt>
 
 ### Constraints
 
-_"Grab me that red stuff?"_ vs. _"Can you bring me the ketchup from the fridge?"_ Which question is more likely to get you the ketchup?
-Just like people, LLM's need constraints and clarity to understand what we're asking. Be specific when writing prompts.
+Just like people, LLM's need constraints and clarity to understand what we're asking.
+Be specific when writing prompts, and have a desired outcome in mind.
+The best mental model I've been told is to think of LLM's as an intern, brand new to the job.
+They need clear and direct instructions, but eager to get stuff done.
 
 ### Role prompting, or "Act like a..."
 
 ### Few shot prompting
+
+> Act as a professional painter. Generate a picture of a landscape you took at sun set. Include a river running east to west with birds and fish in the river. There is a tall mountain in the background with deep green pine trees. There are deep orange and blue colors caused by the sky and water. The river is calm. Two clouds in the sky of medium size.
