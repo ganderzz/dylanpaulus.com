@@ -10,102 +10,425 @@ import { Prompt } from "./prompt";
 Tools like ChatGPT and Bing have been skyrocketing in popularity.
 ChatGPT took five days since launch to [reach 1 million users](https://twitter.com/rauchg/status/1655950701951082497?s=20).
 Governments all over the world are trying to [figure out](https://www.asahi.com/ajw/articles/14903078) what to do [with this technology](https://www.bbc.com/news/technology-65139406).
-Sweet [AI generated images](https://www.theguardian.com/technology/2022/nov/12/when-ai-can-make-art-what-does-it-mean-for-creativity-dall-e-midjourney) are showing up everywhere; like this dog I generated using Bing:
+Sweet [AI-generated images](https://www.theguardian.com/technology/2022/nov/12/when-ai-can-make-art-what-does-it-mean-for-creativity-dall-e-midjourney) are showing up everywhere; like this dog I generated using Bing:
 
-![AI generated picture of a astronaut dog jumping over a fire on the moon](/posts/improve-prompts-llm/dog-fire.jpeg)
+![AI-generated picture of a astronaut dog jumping over a fire on the moon](/posts/improve-prompts-llm/dog-fire.jpeg)
 
 <figcaption class="text-sm mb-4 text-center">
   "Can you generate a picture of a astronaut dog jumping over a fire on the
   moon?"
 </figcaption>
 
-Though LLM's (Large Language Models) are still in their infancy, research has shown some [pretty big productivity boosts](https://www.oneusefulthing.org/p/secret-cyborgs-the-present-disruption) in range of different professions.
+Though LLMs (Large Language Models) are still in their infancy, research has shown some [pretty big productivity boosts](https://www.oneusefulthing.org/p/secret-cyborgs-the-present-disruption) in a range of different professions.
 Using metrics from Github Copilot, an AI-based coding tool, Github has found that developers [complete tasks in 55% less time](https://github.blog/2022-09-07-research-quantifying-github-copilots-impact-on-developer-productivity-and-happiness/).
 
-This is all to say that LLM's are a tool we'll need to learn to use, and use well.
+This is all to say that LLMs are a tool we'll need to learn to use and use well.
 
-There are quite a few options for LLM's out there, with the most popular being ChatGPT and Bing.
-OpenAI's [ChatGPT](https://chat.openai.com/) is the most well known, but if we want to use the latest features like ChatGPT-4 (an upgrade to ChatGPT-3) we'll need to pay $20 a month.
-Microsoft has released new [Bing](https://www.bing.com/new) that takes advantage of ChatGPT-4 behind the scenes, and is free to use.
+There are quite a few options for LLMs, with the most popular being ChatGPT and Bing.
+OpenAI's [ChatGPT](https://chat.openai.com/) is the most well-known, but if we want to use the latest features like ChatGPT-4 (an upgrade to ChatGPT-3) we'll need to pay $20 a month.
+Microsoft has released new [Bing](https://www.bing.com/new) that takes advantage of ChatGPT-4 behind the scenes and is free to use.
 Finally, Google has [Bard](https://bard.google.com/) which is also free to use.
-All offerings come with their own pros and cons.
+All offerings come with their unique pros and cons.
 
 Regardless of which tool you use, the question remains: how do we get the most out of these tools?
 
 ## Prompt Engineering
 
-We interact with LLM's by giving them a prompt, or text input, generally in the form of a question or instruction.
-LLM's then reason out the answer and provide a response.
-Prompt Engineering is a term coined to describe the process of writing prompts to get the best results from LLM's.
+We interact with LLMs by giving them a prompt, or text input, generally in the form of a question or instruction.
+LLMs then reason out the answer and respond.
+Prompt Engineering is a term coined to describe the process of writing prompts to get the best results from LLMs.
 Just like in everyday conversation, the words we choose to ask in a question can dramatically change the response we get.
-For example, if I ask "What is the best way to get to the airport?" I'll get a different response than if I ask "How do I get to the airport?".
+For example, if I ask “What is the best way to get to the airport?” I’ll get a different response than asking “How do I get to the airport?“.
 
-Throughout this article we'll build on a prompt to create a meal plan for one day; taking advantage of different Prompt Engineering techniques.
-I'll provide the prompt used, and the response I got back from the LLM--in my case I'll be using ChatGPT-3.
+Throughout this article we’ll build on a prompt to create a meal plan for a single day; taking advantage of different Prompt Engineering techniques.
+I’ll provide the prompt used, and the response I got back from the LLM—in my case I’ll be using ChatGPT-3.
 Try it for yourself, but remember that the results will vary by the LLM being used.
 
-<Prompt header="Prompt">
+<section class="full-bleed">
+<div class="lg:flex justify-between gap-4 max-w-7xl mx-auto px-4">
+<Prompt header="Prompt" className="w-full lg:w-1/2">
   Please create me a low sugar meal plan for one day.
 </Prompt>
 
-<Prompt header="(LLM) Response">
-<strong>Low-Sugar Meal Plan for One Day</strong>
-<br />
-<strong>Breakfast</strong>
-<ul>
-  <li>Scrambled eggs with vegetables (spinach, bell peppers, mushrooms)</li>
-  <li>Whole grain toast</li>
-  <li>A small serving of fresh berries (such as strawberries or blueberries)</li>
-  <li>Herbal tea or black coffee (unsweetened)</li>
-</ul>
+<Prompt header="🤖 (LLM) Response" className="w-full lg:w-1/2" isResponse>
+**Low-Sugar Meal Plan for One Day**
 
-<strong>Snack</strong>
-<ul>
-  <li>Greek yogurt with a sprinkle of cinnamon</li>
-  <li>A handful of unsalted almonds</li>
-</ul>
+**Breakfast**
 
-<strong>Lunch</strong>
-<ul>
-  <li>Grilled chicken breast</li>
-  <li>Mixed greens salad with cherry tomatoes, cucumber, and avocado</li>
-  <li>Olive oil and lemon juice dressing (no added sugar)</li>
-  <li>Steamed broccoli</li>
-</ul>
+- Scrambled eggs with vegetables (spinach, bell peppers, mushrooms)
+- Whole grain toast
+- A small serving of fresh berries (such as strawberries or blueberries)
+- Herbal tea or black coffee (unsweetened)
 
-<strong>Snack</strong>
-<ul>
-  <li>Sliced cucumber and carrot sticks with hummus</li>
-</ul>
+**Snack**
 
-<strong>Dinner</strong>
-<ul>
-  <li>Baked salmon fillet with lemon and dill</li>
-  <li>Quinoa pilaf with mixed vegetables (broccoli, carrots, peas)</li>
-  <li>Steamed asparagus</li>
-</ul>
+- Greek yogurt with a sprinkle of cinnamon
+- A handful of unsalted almonds
 
-<strong>Dessert</strong>
-<ul>
-  <li>Fresh fruit salad (such as watermelon, cantaloupe, and kiwi)</li>
-</ul>
+**Lunch**
 
-<p>
-  <strong>Note:</strong> Remember to drink plenty of water throughout the day.
-  Adjust portion sizes according to your specific dietary needs and consult with
-  a healthcare professional or a registered dietitian for personalized advice.
-</p>
-</Prompt>
+- Grilled chicken breast
+- Mixed greens salad with cherry tomatoes, cucumber, and avocado
+- Olive oil and lemon juice dressing (no added sugar)
+- Steamed broccoli
+
+**Snack**
+
+- Sliced cucumber and carrot sticks with hummus
+
+**Dinner**
+
+- Baked salmon fillet with lemon and dill
+- Quinoa pilaf with mixed vegetables (broccoli, carrots, peas)
+- Steamed asparagus
+
+**Dessert**
+
+- Fresh fruit salad (such as watermelon, cantaloupe, and kiwi)
+
+_Note:_ Remember to drink plenty of water throughout the day.
+Adjust portion sizes according to your specific dietary needs and consult with
+a healthcare professional or a registered dietitian for personalized advice.
+
+  </Prompt>
+  </div>
+  </section>
 
 ### Constraints
 
-Just like people, LLM's need constraints and clarity to understand what we're asking.
+Just like people, LLMs need constraints and clarity to understand what's being asking.
 Be specific when writing prompts, and have a desired outcome in mind.
-The best mental model I've been told is to think of LLM's as an intern, brand new to the job.
-They need clear and direct instructions, but eager to get stuff done.
+The best mental model I've been told is to think of LLMs as an intern, brand new to the job.
+They are eager to get stuff done, but need clear and direct instructions.
+The best way to get the best results out of LLMs is to be specific.
+
+Let's improve upon our prompt by adding some constraints.
+
+<section class="full-bleed">
+<div class="lg:flex justify-between gap-4 max-w-7xl mx-auto px-4">
+<Prompt header="Prompt" className="w-full lg:w-1/2">
+  Please create me a low sugar meal plan for one day. The plan should be a
+  maximum 1,800 calories, and do not include breakfast. No gluten. High in
+  protein.
+</Prompt>
+
+<Prompt header="🤖 (LLM) Response" className="w-full lg:w-1/2" isResponse>
+**Low-Sugar, Gluten-Free, High-Protein Meal Plan for One Day**
+
+**Lunch**
+
+- Grilled chicken breast (4 oz)
+- Quinoa salad with mixed vegetables (cucumber, cherry tomatoes, bell peppers)
+  dressed with lemon vinaigrette
+- Steamed broccoli (1 cup)
+
+**Snack**
+
+- Greek yogurt (6 oz) with sliced almonds (1 tbsp) and a sprinkle of cinnamon
+
+**Dinner**
+
+- Baked salmon fillet (4 oz) with garlic and herbs
+- Sautéed kale (1 cup) with garlic and olive oil
+- Roasted sweet potatoes (1 medium) with a sprinkle of paprika
+
+**Snack**
+
+- Celery sticks with almond butter (2 tbsp)
+
+**Dessert**
+
+- Mixed berries (1 cup) with a dollop of unsweetened whipped cream
+
+  _Note:_ Please note that portion sizes and specific calorie counts may
+  vary depending on the size and brand of the ingredients used. Adjust the
+  portion sizes and consult a healthcare professional or a registered
+  dietitian for any specific dietary needs or concerns.
+
+</Prompt>
+</div>
+</section>
 
 ### Role prompting, or "Act like a..."
 
+Role Prompting or "Act like a ..." is a technique that can be used to provide more context and constraints to LLMs.
+First we tell the LLM to assume a role or persona. Then we provide a prompt.
+For example, if we had a question about woodworking we might say, `"Act like a master woodworker. What is the best way to cut a dovetail joint?"`.
+Role prompting is another great way to provide constraints to LLMs.
+
+Let's improve upon our meal plan prompt by adding a role.
+
+<section class="full-bleed">
+<div class="lg:flex justify-between gap-4 max-w-7xl mx-auto px-4">
+<Prompt header="Prompt" className="w-full lg:w-1/2">
+  Act as an expert nutritionist with 20 years of experience. Please create me a
+  low sugar meal plan for one day. The plan should be a maximum 1,800 calories,
+  and do not include breakfast. No gluten. High in protein.
+</Prompt>
+
+<Prompt header="🤖 (LLM) Response" className="w-full lg:w-1/2" isResponse>
+**Low Sugar Meal Plan**
+
+**Maximum 1,800 Calories | No Gluten | High in Protein**
+
+**Lunch**
+
+- Grilled chicken breast (4 oz) seasoned with herbs and spices
+- Quinoa salad with mixed vegetables (such as bell peppers, cucumbers, and cherry
+  tomatoes) dressed with lemon juice and olive oil
+- Steamed broccoli (1 cup) -
+  Mixed greens salad with avocado slices and a light vinaigrette dressing
+- Sparkling water with a squeeze of fresh lemon
+
+**Snack**
+
+- Greek yogurt (6 oz) topped with mixed berries (such as strawberries and
+  blueberries)
+- Handful of unsalted almonds
+
+**Dinner**
+
+- Baked salmon fillet (4 oz) marinated in a mix of lemon juice, garlic, and dill
+- Roasted Brussels sprouts with garlic and olive oil (1 cup)
+- Steamed asparagus (1 cup)
+- Quinoa (1/2 cup) cooked with vegetable broth
+- Herbal tea or water with a slice of lemon
+
+**Evening Snack**
+
+- Celery sticks and carrot sticks with hummus
+- Green tea or water
+
+This meal plan is designed to be low in added sugars and gluten-free while
+providing ample protein from lean sources like chicken, fish, and Greek
+yogurt. It incorporates a variety of colorful vegetables, healthy fats from
+avocado and olive oil, and whole grains like quinoa for additional fiber.
+Remember to drink plenty of water throughout the day to stay hydrated.
+
+Please note that this is a generalized meal plan, and it's always a good idea to consult with a registered dietitian or nutritionist who can create a personalized meal plan based on your specific dietary needs and health goals.
+
+  </Prompt>
+  </div>
+  </section>
+
 ### Few shot prompting
 
-> Act as a professional painter. Generate a picture of a landscape you took at sun set. Include a river running east to west with birds and fish in the river. There is a tall mountain in the background with deep green pine trees. There are deep orange and blue colors caused by the sky and water. The river is calm. Two clouds in the sky of medium size.
+Few shot prompting is my favorite technique, and can really take the performance of LLMs to the next level.
+First we provide the LLM with a few examples (or shots) of what we want, and then we ask the LLM to generate a similar response (furthering adding constraints to our prompt).
+The term "shot" is synonymous with "example". In Pompt Engineering you will also find zero shot prompting and one shot prompting.
+
+- **Zero Shot Prompting:** No examples are provided
+- **One Shot Prompting:** One example is provided
+- **Few Shot Promping:** Two or more examples are provided
+
+The shots, or examples, can be given in the same prompt, or broken out into separate prompts.
+
+For example, in our meal plan example we could ask the LLM in a single prompt:
+
+<section class="full-bleed">
+<div class="lg:flex justify-between gap-4 max-w-7xl mx-auto px-4">
+<Prompt header="Prompt">
+Use the following examples of a meal plan:
+
+**example 1:**
+
+**Breakfast (364 calories)**
+
+- 1 serving Egg & Avocado Toast with Spinach & Salsa
+
+**A.M. Snack (59 calories)**
+
+- 1 medium peach
+
+**Lunch (584 calories)**
+
+- 1 serving Hot Turkey Pesto Sandwich
+
+**P.M. Snack (200 calories)**
+
+- 1 cup edamame in pods
+
+**Dinner (306 calories)**
+
+- 1 serving One-Pot Lentil & Vegetable Soup with Parmesan
+
+Daily Totals: 1,512 calories, 65g fat, 93g protein, 140g carbohydrate, 34g fiber, 1,538mg sodium
+
+To make it 1,200 calories: Omit the morning and afternoon snacks and reduce the pesto from 1 Tbsp. to 1 tsp. on the sandwich at lunch.
+
+To make it 2,000 calories: Add 1/2 cup unsalted roasted cashews to A.M. snack and increase to 1 1/2 cups edamame at P.M. snack.
+
+---
+
+**example 2:**
+
+**Breakfast (302 calories)**
+
+- 1 serving Copycat Spinach and Mushroom Egg Bites
+- 1 slice whole-wheat bread
+- 1 1/4 cups sliced strawberries
+
+**A.M. Snack (315 calories)**
+
+- 1 medium banana
+- 2 Tbsp. creamy natural peanut butter
+
+**Lunch (306 calories)**
+
+- 1 serving One-Pot Lentil & Vegetable Soup with Parmesan
+
+**P.M. Snack (247 calories)**
+
+- 32 unsalted dry-roasted almonds
+
+**Dinner (349 calories)**
+
+- 1 serving Chicken, Quinoa & Sweet Potato Casserole
+
+Daily Totals: 1,518 calories, 67g fat, 75g protein, 158g carbohydrate, 31g fiber, 1,482mg sodium
+
+To make it 1,200 calories: Omit peanut butter at A.M. snack and reduce almonds to 18 at P.M. snack.
+
+To make it 2,000 calories: Increase to 2 slices bread and 1 1/2 cups strawberries at breakfast, increase peanut butter to 1/4 cup at A.M. snack, and increase almonds to 1/2 cup at P.M. snack.
+
+---
+
+Act as an expert nutritionist with 20 years of experience. Please create me a
+low sugar meal plan for one day. The plan should be a maximum 1,800 calories,
+and do not include breakfast. No gluten. High in protein.
+
+</Prompt>
+</div>
+</section>
+
+Or ask the LLM to read a few examples first before we ask our question.
+To reduce the amount of time needed for the LLM to repond, we can ask it to confirm once it has read the example.
+
+<section class="full-bleed">
+<div class="lg:lg:flex justify-between gap-4 max-w-7xl mx-auto px-4">
+<div class="w-full lg:w-1/2">
+<Prompt header="First Prompt" >
+Read the following meal plan and respond with, "yes" once you read it.
+
+**Breakfast (364 calories)**
+
+- 1 serving Egg & Avocado Toast with Spinach & Salsa
+
+**A.M. Snack (59 calories)**
+
+- 1 medium peach
+
+**Lunch (584 calories)**
+
+- 1 serving Hot Turkey Pesto Sandwich
+
+**P.M. Snack (200 calories)**
+
+- 1 cup edamame in pods
+
+**Dinner (306 calories)**
+
+- 1 serving One-Pot Lentil & Vegetable Soup with Parmesan
+
+Daily Totals: 1,512 calories, 65g fat, 93g protein, 140g carbohydrate, 34g fiber, 1,538mg sodium
+
+To make it 1,200 calories: Omit the morning and afternoon snacks and reduce the pesto from 1 Tbsp. to 1 tsp. on the sandwich at lunch.
+
+To make it 2,000 calories: Add 1/2 cup unsalted roasted cashews to A.M. snack and increase to 1 1/2 cups edamame at P.M. snack.
+
+</Prompt>
+
+<Prompt header="Second Prompt">
+Read the following meal plan and respond with, "yes" once you read it.
+
+**Breakfast (302 calories)**
+
+- 1 serving Copycat Spinach and Mushroom Egg Bites
+- 1 slice whole-wheat bread
+- 1 1/4 cups sliced strawberries
+
+**A.M. Snack (315 calories)**
+
+- 1 medium banana
+- 2 Tbsp. creamy natural peanut butter
+
+**Lunch (306 calories)**
+
+- 1 serving One-Pot Lentil & Vegetable Soup with Parmesan
+
+**P.M. Snack (247 calories)**
+
+- 32 unsalted dry-roasted almonds
+
+**Dinner (349 calories)**
+
+- 1 serving Chicken, Quinoa & Sweet Potato Casserole
+
+Daily Totals: 1,518 calories, 67g fat, 75g protein, 158g carbohydrate, 31g fiber, 1,482mg sodium
+
+To make it 1,200 calories: Omit peanut butter at A.M. snack and reduce almonds to 18 at P.M. snack.
+
+To make it 2,000 calories: Increase to 2 slices bread and 1 1/2 cups strawberries at breakfast, increase peanut butter to 1/4 cup at A.M. snack, and increase almonds to 1/2 cup at P.M. snack.
+
+</Prompt>
+
+<Prompt header="Third Prompt">
+Using the meal plan examples from before act as an expert nutritionist with 20 years of experience. Please create me a
+low sugar meal plan for one day. The plan should be a maximum 1,800 calories,
+and do not include breakfast. No gluten. High in protein.
+
+</Prompt>
+</div>
+
+<Prompt header="🤖 (LLM) Response" className="w-full lg:w-1/2" isResponse>
+As an expert nutritionist with 20 years of experience, I've created a low-sugar meal plan for one day that is gluten-free, 
+high in protein, and falls within the maximum 1,800 calorie range. 
+Please note that individual nutritional needs may vary, so it's always a good idea to consult with a healthcare professional or registered dietitian for personalized advice. Here's the meal plan:
+
+**Lunch (approximately 400-500 calories):**
+
+**Grilled Chicken Salad with Avocado Dressing:**
+
+- 4-6 ounces of grilled chicken breast
+- Mixed salad greens (spinach, arugula, or your preferred greens)
+- Sliced cucumber, cherry tomatoes, and red onion
+- 1/4 avocado, sliced
+- 1-2 tablespoons of homemade avocado dressing (made with avocado, lemon juice, olive oil, salt, and pepper)
+
+**Afternoon Snack (approximately 150 calories):**
+
+**Greek Yogurt Parfait:**
+
+- 1/2 cup of plain Greek yogurt
+- 1/4 cup of mixed berries (such as blueberries and raspberries)
+- 1 tablespoon of chopped nuts (almonds, walnuts, or your preference)
+- Optional: sprinkle of cinnamon or drizzle of honey (if desired)
+
+**Dinner (approximately 500-600 calories):**
+
+**Baked Salmon with Quinoa and Roasted Vegetables:**
+
+- 4-6 ounces of baked or grilled salmon fillet
+- 1/2 cup of cooked quinoa
+- Roasted vegetables of your choice (such as broccoli, bell peppers, and zucchini) seasoned with herbs and olive oil
+
+**Evening Snack (approximately 150-200 calories):**
+
+**Celery with Almond Butter and Chia Seeds:**
+
+- 2-3 celery stalks
+- 1-2 tablespoons of almond butter (make sure it's free of added sugars)
+- Sprinkle of chia seeds for added fiber and healthy fats
+
+Remember to drink plenty of water throughout the day and adjust portion sizes based on your individual needs and preferences.
+It's also essential to include regular physical activity and maintain a balanced overall diet for optimal health.
+
+</Prompt>
+</div>
+</section>
+
+### Conclusion
+
+Compare the first meal plan to the final result. After taking advantage of the prompt engineering techniques we learned, we can see that the last meal plan is much more specific, detailed, and closer to the answer we would expect!
+
+Using constraints, role prompting, and shot prompting, we can improve the quality of our prompts, impress our friends, and increase our productivity.
