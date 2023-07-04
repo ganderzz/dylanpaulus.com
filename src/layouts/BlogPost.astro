@@ -30,9 +30,9 @@ const { frontmatter } = Astro.props as Props;
     {
       frontmatter.series && (
         <h6
-          class="mb-10 mt-0 mx-auto italic text-center dark:text-slate-300 text-gray-600"
+          class="mb-10 mt-2 mx-auto italic text-center dark:text-slate-300 text-gray-600"
           style={{ maxWidth: "40ch" }}>
-          Part of the {frontmatter.series} series.
+          Part of the <strong>{frontmatter.series}</strong> series.
         </h6>
       )
     }

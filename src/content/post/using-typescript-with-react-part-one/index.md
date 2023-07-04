@@ -154,4 +154,4 @@ We create a new private method called `handleClick` that will take care of our b
 
 Our counter is now complete with TypeScript types!
 
-[To be continued in part two...]({% post_url 2018-7-15-using-typescript-with-redux-part-two %})
+[To be continued in part two...](/posts/using-typescript-with-redux-part-two)

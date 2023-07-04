@@ -6,29 +6,57 @@ export type Props = {
   frontmatter: CollectionEntry<"post">["data"] & Record<string, string>;
 };
 
+const dateFormatter = new Intl.DateTimeFormat("en-us", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+  timeZone: "UTC",
+});
+
 const { frontmatter } = Astro.props as Props;
 ---
 
-<span class="opacity-75 text-base md:flex hidden justify-center items-center md:pb-1">
-  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32" class="mr-2 inline"
+<span
+  class="opacity-75 text-base md:flex hidden justify-center items-center md:pb-1">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 32 32"
+    class="mr-2 inline"
     ><path
       fill="currentColor"
       d="M26 4h-4V2h-2v2h-8V2h-2v2H6c-1.1 0-2 .9-2 2v20c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 22H6V12h20v14zm0-16H6V6h4v2h2V6h8v2h2V6h4v4z"
     ></path></svg
   >
-  {frontmatter.date}
-  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32" class="mr-2 ml-8 inline"
+  {dateFormatter.format(new Date(frontmatter.date))}
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 32 32"
+    class="mr-2 ml-8 inline"
     ><path
       fill="currentColor"
-      d="M10 14a4 4 0 1 1 4-4a4.005 4.005 0 0 1-4 4Zm0-6a2 2 0 1 0 1.998 2.004A2.002 2.002 0 0 0 10 8Z"></path><path
+      d="M10 14a4 4 0 1 1 4-4a4.005 4.005 0 0 1-4 4Zm0-6a2 2 0 1 0 1.998 2.004A2.002 2.002 0 0 0 10 8Z"
+    ></path><path
       fill="currentColor"
       d="M16.644 29.415L2.586 15.354A2 2 0 0 1 2 13.941V4a2 2 0 0 1 2-2h9.941a2 2 0 0 1 1.414.586l14.06 14.058a2 2 0 0 1 0 2.828l-9.943 9.943a2 2 0 0 1-2.829 0ZM4 4v9.942L18.058 28L28 18.058L13.942 4Z"
     ></path></svg
   >
   <TagList class="sm:inline block" tags={frontmatter.tags} />
-  <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 ml-4 inline" width="20" height="20" viewBox="0 0 32 32"
-    ><path fill="currentColor" d="M16 30a14 14 0 1 1 14-14a14 14 0 0 1-14 14Zm0-26a12 12 0 1 0 12 12A12 12 0 0 0 16 4Z"
-    ></path><path fill="currentColor" d="M20.59 22L15 16.41V7h2v8.58l5 5.01L20.59 22z"></path></svg
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    class="mr-2 ml-4 inline"
+    width="20"
+    height="20"
+    viewBox="0 0 32 32"
+    ><path
+      fill="currentColor"
+      d="M16 30a14 14 0 1 1 14-14a14 14 0 0 1-14 14Zm0-26a12 12 0 1 0 12 12A12 12 0 0 0 16 4Z"
+    ></path><path
+      fill="currentColor"
+      d="M20.59 22L15 16.41V7h2v8.58l5 5.01L20.59 22z"></path></svg
   >
   {frontmatter.timeToRead}
 </span>
