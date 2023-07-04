@@ -46,12 +46,15 @@ export const Newsletter = () => {
 
   return (
     <form
-      class="text-black dark:text-white py-4 border-t-2 border-b-2 dark:border-slate-700 border-slate-100"
+      class="text-black dark:text-white mt-10 py-10 w-full border-t-2 border-b-2 dark:border-slate-700 border-slate-100"
       onSubmit={subscribe}>
       <div class="flex flex-col items-center">
-        <div>
-          <h2 class="m-0 mb-1">📧 Subscribe to Get Updates</h2>
-          <p class="text-center">Get updates when I post new articles!</p>
+        <div class="text-center lg:text-left">
+          <h4 class="m-0 mb-1">📧 Subscribe to Get Updates</h4>
+          <p>
+            Get updates when I post new articles! No spam. Unsubscribe at any
+            time.
+          </p>
         </div>
 
         {result?.type === "error" ? (
@@ -73,15 +76,9 @@ export const Newsletter = () => {
           />
           <button
             type="submit"
-            class="ml-0 mt-2 md:ml-2 md:mt-0 px-6 py-2 bg-[#5755c9] dark:bg-[#b3e3ff] dark:text-black text-white rounded">
+            class="ml-0 mt-2 md:ml-2 md:mt-0 px-6 py-2 bg-[#5755c9] hover:bg-[#4543a5] dark:bg-[#b3e3ff] dark:hover:bg-[#85afc8] transition-colors dark:text-black text-white rounded">
             Subscribe
           </button>
-        </div>
-        <div
-          class="text-xs opacity-80 mt-8"
-          style="font-size: 13px; font-weight: 400;"
-          data-element="guarantee">
-          <p>No spam. Unsubscribe at any time.</p>
         </div>
       </div>
     </form>

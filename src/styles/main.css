@@ -12,7 +12,7 @@
 html,
 html[data-theme="light"] {
   --primary-100: #111;
-  --secondary-100: #fff;
+  --secondary-100: #fafafa;
   --secondary-200: #f1f1f1;
   --secondary-300: #ddd;
   --secondary-400: #ccc;
