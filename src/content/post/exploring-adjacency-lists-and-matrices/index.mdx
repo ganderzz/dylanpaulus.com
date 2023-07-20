@@ -139,7 +139,7 @@ adjacency_matrix = [
 
 ### What about non-DAG graphs?
 
-For unidirected graphs, graphs where all connections are bidirectional, the setup is the same to create the adjacency matrix.
+For undirected graphs, graphs where all connections are bidirectional, the setup is the same to create the adjacency matrix.
 The only difference is our graph has no explicit _direction_. If `A` connects to `B`, then `B` also connects to `A`. 
 Let's take our previous DAG graph, and remove the direction.
 
@@ -193,7 +193,7 @@ Let's take our previous DAG graph, and remove the direction.
 
 </section>
 
-A cool property emerges from unidirected graphs. Can you spot a pattern in the table above?
+A cool property emerges from undirected graphs. Can you spot a pattern in the table above?
 Draw a diagonal line from the top left of our matrix to the bottom right (sandwich square style) and fold the matrix along this line.
 
 
@@ -209,7 +209,7 @@ Draw a diagonal line from the top left of our matrix to the bottom right (sandwi
 </section>
 
 The connections mirror each other across this line. Our matrix is considered [symmetric](https://en.wikipedia.org/wiki/Symmetric_matrix) when this occurs.
-Symmetric matrices appear in all unidirected graphs, but not DAGs!
+Symmetric matrices appear in all undirected graphs, but not DAGs!
 
 
 ### This is great, but why would we use an Adjacency Matrix?
