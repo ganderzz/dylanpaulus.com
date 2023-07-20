@@ -1,0 +1,258 @@
+---
+title: "Unraveling Graph Structures: Exploring Adjacency Lists and Matrices"
+series: "From Nodes to Connections"
+tags: ["Data Structures", "Graphs"]
+date: "2023-07-19"
+published: true 
+---
+
+In [Postgres: The Graph Database You Didn't Know You Had](/posts/postgres-is-a-graph-database) we covered how we can store a DAG (Directed Acyclic Graph) in a relational database.
+We looked at one representation of a graph data structure called an adjacency list--a table with two columns representing how nodes connect.
+The columns store connections from the <em>source</em> or <em>"from"</em> node to a <em>destination</em> or <em>"to"</em> node.
+
+<div class="lg:mt-8" />
+
+<section class="full-bleed">
+    <div class="lg:flex justify-between gap-4 max-w-7xl mx-auto px-4">
+        <div class="w-full lg:w-1/2 text-center">
+            <strong>Our Graph</strong>
+            <img
+            src="from-nodes-to-connections-graph-data/base_graph.svg"
+            alt="A graph data structure with three nodes: a, b, and c. A has edges that connect to b and c."
+            class="dark:invert mx-auto"
+            />
+        </div>
+
+        <div class="w-full lg:w-1/2 mt-16 lg:mt-0 mx-auto">
+            <strong>Adjacency List</strong>
+            <table class="w-full mx-auto">
+                <thead>
+                    <tr>
+                        <th colspan="2">Edges</th>
+                    </tr>
+                    <tr>
+                        <th>Source</th>
+                        <th>Destination</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>A</td>
+                        <td>B</td>
+                    </tr>
+                    <tr>
+                        <td>A</td>
+                        <td>C</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>
+
+Using Python, a code representation would look like:
+
+```python
+class Node:
+    pass
+
+A = Node()
+B = Node()
+C = Node()
+
+adjacency_list = [
+    { "source": A, "destination": B },
+    { "source": A, "destination": C },
+]
+```
+
+An adjacency list is a simple and efficient way to store graph data, but there are many more ways to represent graphs.
+In this article, we'll explore one of these alternatives called the adjacency matrix.
+
+## Adjacency Matrix
+
+An adjacency matrix is a table with a row and column for each node in the graph (or NxN matrix).
+To represent the edges we store a 1 in a column for a connection and a 0 for no connection.
+We will start out exploring how to represent DAG's as an adjacency matrix since we covered DAG's in the Postgres article. 
+To store _direction_ in an adjacency matrix the x-axis or rows represent the "from" or "source" node.
+The y-axis represents the connection.
+Using the same graph as above, the adjacency matrix would look like this:
+
+<div class="lg:mt-8" />
+<section class="full-bleed">
+    <div class="lg:flex justify-between gap-4 max-w-7xl mx-auto px-4">
+        <div class="w-full lg:w-1/2 text-center">
+            <strong>Our Graph</strong>
+            <img
+            src="from-nodes-to-connections-graph-data/base_graph.svg"
+            alt="A graph data structure with three nodes: a, b, and c. A has edges that connect to b and c."
+            class="dark:invert mx-auto"
+            />
+        </div>
+
+        <div class="w-full lg:w-1/2 mt-16 lg:mt-0 mx-auto">
+            <strong>Adjacency Matrix</strong>
+            <table class="w-full mx-auto">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>A</th>
+                        <th>B</th>
+                        <th>C</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+
+        <td class="bg-secondary-300">A</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+        <td class="bg-secondary-300">B</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                        <tr>
+        <td class="bg-secondary-300">C</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>
+
+```python
+adjacency_matrix = [
+  [0, 1, 1],
+  [0, 0, 0],
+  [0, 0, 0]
+]
+```
+
+### What about non-DAG graphs?
+
+For unidirected graphs, graphs where all connections are bidirectional, the setup is the same to create the adjacency matrix.
+The only difference is our graph has no explicit _direction_. If `A` connections to `B`, then `B` also connects to `A`. 
+Let's take our previous DAG graph, and remove the direction.
+
+<div class="lg:mt-8" />
+<section class="full-bleed">
+    <div class="lg:flex justify-between gap-4 max-w-7xl mx-auto px-4">
+        <div class="w-full lg:w-1/2 text-center">
+            <strong>Our Graph</strong>
+            <img
+            src="from-nodes-to-connections-graph-data/unidirect.svg"
+            alt="A graph data structure with three nodes: a, b, and c. A has edges that connect to b and c."
+            class="dark:invert mx-auto"
+            />
+        </div>
+
+        <div class="w-full lg:w-1/2 mt-16 lg:mt-0 mx-auto">
+            <strong>Adjacency Matrix</strong>
+            <table class="w-full mx-auto">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>A</th>
+                        <th>B</th>
+                        <th>C</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+
+        <td class="bg-secondary-300">A</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+        <td class="bg-secondary-300">B</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                        <tr>
+        <td class="bg-secondary-300">C</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>
+
+A cool property emerges from unidirected graphs. Can you spot a pattern in the table above?
+Draw a diagonal line from the top left of our matrix to the bottom right (sandwich square style) and fold the matrix along this line.
+
+
+<div class="lg:mt-8" />
+<section class="full-bleed">
+    <div class="lg:flex justify-between gap-4 max-w-7xl mx-auto px-4">
+<img
+  src="from-nodes-to-connections-graph-data/table.svg"
+  alt="A graph data structure with three nodes: a, b, and c. A has edges that connect to b and c."
+  class="dark:invert mx-auto"
+/>
+</div>
+</section>
+
+The connections mirror each other across this line. Our matrix is considered [symmetric](https://en.wikipedia.org/wiki/Symmetric_matrix) when this occurs.
+Symmetric matrices appear in all unidirected graphs, but not DAGs!
+
+
+### This is great, but why would we use an Adjacency Matrix?
+
+**Matrices are incredibly fast at checking if two nodes are connected**
+
+Instead of having to loop through all the edges in an adjacency list to find if two nodes are connected, an adjacency matrix acts
+as a hash table. In our example graph above, if we wanted to check if *A* has an edge to *B* it would be as simple as checking the `[B][A]` position
+in the matrix.
+
+_Note: Since we're working with DAG's and 2D arrays, the order we look up a connection is flipped: `[Destination][Source]`._
+
+```python
+A = 0
+B = 1
+
+has_connection = adjacency_matrix[B][A]
+```
+
+Removing and adding a connection between nodes is similar and run in constant time.
+Need to connect two nodes? Modify the position in the matrix to be `1` (`adjacency_matrix[destiation][source] = 1`).
+What about deleting an edge? Update the value to be `0` (`adjacency_matrix[destiation][source] = 0`)!
+
+### Why would I not use an Adjacency Matrix?
+
+**They're huge!**
+
+If we look at an adjacency matrix we need to store every bit of information about the graph, the connected nodes (1's), and not connected nodes(0's). 
+Compared to an adjacency list which stores only the connections; adjacency matrices take up a lot of space!
+
+
+**It's expensive to add/remove nodes**
+
+We talked about how adjacency matrices are fast at looking up, adding, and removing connections between nodes. 
+On the flip side, adjacency matrices are slow when adding or removing nodes from the graph. 
+To add a node we need to copy our matrix to a new matrix with an additional row and column(of size N+1 x N+1). 
+Then, populate the matrix with the connections to or from the new node. 
+To compare, adding a new node to an adjacency list is a matter of pushing a new node to the list of nodes.
+
+
+### End
+
+There are many different ways to represent and visualize a graph. 
+A different representation may be better based on your personal use cases and requirements.
+Need to quickly look up which nodes are connected or need to quickly add or remove edges? Then the adjacency matrix may be the best choice.
+Are you constantly adding nodes to the graph and are limited in your memory footprint? The adjacency list is the representation for you!

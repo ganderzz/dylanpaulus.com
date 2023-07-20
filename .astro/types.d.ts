@@ -241,9 +241,9 @@ declare module 'astro:content' {
   collection: "post";
   data: InferEntrySchema<"post">
 } & { render(): Render[".mdx"] };
-"from-nodes-to-connections-graph-data/index.mdx": {
-	id: "from-nodes-to-connections-graph-data/index.mdx";
-  slug: "from-nodes-to-connections-graph-data";
+"exploring-adjacency-lists-and-matrices/index.mdx": {
+	id: "exploring-adjacency-lists-and-matrices/index.mdx";
+  slug: "exploring-adjacency-lists-and-matrices";
   body: string;
   collection: "post";
   data: InferEntrySchema<"post">
