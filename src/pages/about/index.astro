@@ -1,5 +1,5 @@
 ---
-import { Picture } from "@astrojs/image/components";
+import { Image } from "astro:assets";
 import SubHeading from "@components/SubHeading.astro";
 import SiteLayout from "@layouts/SiteLayout.astro";
 import TagList from "~/src/components/TagList.astro";
@@ -9,11 +9,10 @@ import { Content } from "~/src/markdown/about_me.md";
 <SiteLayout title="About | Dylan Paulus" description="About me">
   <div class="flex flex-col md:flex-row w-full">
     <div class="text-center w-full md:w-1/3">
-      <Picture
+      <Image
         src="/images/about-image.jpg"
-        widths={[200, 400, 800]}
-        aspectRatio="4:4"
-        sizes="(max-width: 800px) 100vw, 800px"
+        width={800}
+        height={600}
         alt="Image of Dylan playing drums"
         class="shadow-lg rounded-md m-auto w-full aspect-auto"
         loading="eager"
@@ -58,6 +57,10 @@ import { Content } from "~/src/markdown/about_me.md";
         <ul class="list-disc list-inside ml-4 leading-relaxed">
           <li>
             Developing Software at SEL (Presentation for EWU students 2022)
+          </li>
+          <li>
+            Blazing Fast: An introduction to cache efficient code (Internal
+            Presentation 2022)
           </li>
           <li>
             NPM, Dependencies, and JS Modules (Internal Presentation 2021)

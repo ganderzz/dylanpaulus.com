@@ -1,5 +1,5 @@
 ---
-import { Image } from "@astrojs/image/components";
+import { Image } from "astro:assets";
 import SiteLayout from "@layouts/SiteLayout.astro";
 import Button from "~/src/components/Button.astro";
 ---
@@ -12,7 +12,6 @@ import Button from "~/src/components/Button.astro";
         alt="Creating React Libraries from Scratch course"
         class="rounded-md mx-auto shadow"
         format="png"
-        aspectRatio="5:3"
         height={300}
         width={500}
         loading="eager"

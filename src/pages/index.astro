@@ -1,5 +1,5 @@
 ---
-import { Picture } from "@astrojs/image/components";
+import { Image } from "astro:assets";
 import SiteLayout from "@layouts/SiteLayout.astro";
 import Button from "../components/Button.astro";
 ---
@@ -39,11 +39,10 @@ import Button from "../components/Button.astro";
     </div>
 
     <div class="max-w-md md:max-w-sm lg:max-w-md hidden lg:block lg:w-1/2">
-      <Picture
+      <Image
         src="/images/boise-code-camp.jpeg"
-        widths={[200, 400, 800]}
-        aspectRatio="4:3"
-        sizes="(max-width: 800px) 100vw, 800px"
+        width={800}
+        height={336}
         alt="Dylan presenting at Boise Code Camp teaching the fundamentals of functional programming"
         class="shadow-lg rounded-md"
         loading="eager"

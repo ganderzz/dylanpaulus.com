@@ -1,7 +1,6 @@
 import { defineConfig } from "astro/config";
 import preact from "@astrojs/preact";
 import tailwind from "@astrojs/tailwind";
-import image from "@astrojs/image";
 import { remarkExcerpt } from "./plugins/remark-excerpt.mjs";
 import { remarkReadingTime } from "./plugins/remark-reading-time.mjs";
 import compress from "astro-compress";
@@ -10,7 +9,7 @@ import mdx from "@astrojs/mdx";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [image(), preact(), tailwind(), sitemap(), mdx(), compress()],
+  integrations: [preact(), tailwind(), sitemap(), mdx(), compress()],
   output: "static",
   site: "https://dylanpaulus.com",
   vite: {
