@@ -270,9 +270,9 @@ declare module 'astro:content' {
   collection: "post";
   data: InferEntrySchema<"post">
 } & { render(): Render[".md"] };
-"how-to-reduce-your-postgresql-database-size /index.mdx": {
-	id: "how-to-reduce-your-postgresql-database-size /index.mdx";
-  slug: "how-to-reduce-your-postgresql-database-size-";
+"how-to-reduce-your-postgresql-database-size/index.mdx": {
+	id: "how-to-reduce-your-postgresql-database-size/index.mdx";
+  slug: "how-to-reduce-your-postgresql-database-size";
   body: string;
   collection: "post";
   data: InferEntrySchema<"post">

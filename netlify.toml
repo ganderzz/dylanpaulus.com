@@ -1,186 +1,186 @@
 [build]
-  command = "npm run build"
-  publish = "/dist/"
+command = "yarn build"
+publish = "/dist/"
 
 [[headers]]
-  for = "/*"
-  [headers.values]
-    # Prevent XSS through Iframes
-    X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"
+for = "/*"
+[headers.values]
+# Prevent XSS through Iframes
+X-Frame-Options = "DENY"
+X-XSS-Protection = "1; mode=block"
 
 # Blog post redirects to keep old Jenkins URL paths active
 [[redirects]]
-  from = "/tips-for-new-software-engineers"
-  to = "/posts/advice-for-new-software-engineers"
-  status = 301
+from = "/tips-for-new-software-engineers"
+to = "/posts/advice-for-new-software-engineers"
+status = 301
 
 [[redirects]]
-  from = "/2020-02-04-making-react-fast"
-  to = "/posts/making-react-fast"
-  status = 301
+from = "/2020-02-04-making-react-fast"
+to = "/posts/making-react-fast"
+status = 301
 
 [[redirects]]
-  from = "2019-12-29-2020-albums-decade"
-  to = "/posts/albums-2010-2020-decade"
-  status = 301
+from = "2019-12-29-2020-albums-decade"
+to = "/posts/albums-2010-2020-decade"
+status = 301
 
 [[redirects]]
-  from = "2019-12-01-lost-connections"
-  to = "/posts/lost-connections"
-  status = 301
+from = "2019-12-01-lost-connections"
+to = "/posts/lost-connections"
+status = 301
 
 [[redirects]]
-  from = "2019-11-24-how-fb-avoids-adblockers"
-  to = "/posts/how-fb-avoids-adblockers"
-  status = 301
+from = "2019-11-24-how-fb-avoids-adblockers"
+to = "/posts/how-fb-avoids-adblockers"
+status = 301
 
 [[redirects]]
-  from = "2015-11-17-intro-to-flight-js"
-  to = "/posts/intro-to-flight-js"
-  status = 301
+from = "2015-11-17-intro-to-flight-js"
+to = "/posts/intro-to-flight-js"
+status = 301
 
 [[redirects]]
-  from = "2019-07-21-clean-code"
-  to = "/posts/clean-code"
-  status = 301
+from = "2019-07-21-clean-code"
+to = "/posts/clean-code"
+status = 301
 
 [[redirects]]
-  from = "2019-06-17-level-terminal-navigation"
-  to = "/posts/level-terminal-navigation"
-  status = 301
+from = "2019-06-17-level-terminal-navigation"
+to = "/posts/level-terminal-navigation"
+status = 301
 
 [[redirects]]
-  from = "2019-03-31-functional-programming"
-  to = "/posts/intro-functional-programming"
-  status = 301
+from = "2019-03-31-functional-programming"
+to = "/posts/intro-functional-programming"
+status = 301
 
 [[redirects]]
-  from = "2018-11-03-introducing-react-scroll-to-v2"
-  to = "/posts/introducing-react-scroll-to-v2"
-  status = 301
+from = "2018-11-03-introducing-react-scroll-to-v2"
+to = "/posts/introducing-react-scroll-to-v2"
+status = 301
 
 [[redirects]]
-  from = "2018-10-18-react-controlling-rendering-with-keys"
-  to = "/posts/react-controlling-rendering-with-keys"
-  status = 301
+from = "2018-10-18-react-controlling-rendering-with-keys"
+to = "/posts/react-controlling-rendering-with-keys"
+status = 301
 
 [[redirects]]
-  from = "2018-10-11-tips-on-improving-fabricjs-speed"
-  to = "/posts/tips-on-improving-fabricjs-speed"
-  status = 301
+from = "2018-10-11-tips-on-improving-fabricjs-speed"
+to = "/posts/tips-on-improving-fabricjs-speed"
+status = 301
 
 [[redirects]]
-  from = "start-with-no"
-  to = "/posts/start-with-no"
-  status = 301
+from = "start-with-no"
+to = "/posts/start-with-no"
+status = 301
 
 [[redirects]]
-  from = "advice-for-new-software-engineers"
-  to = "/posts/advice-for-new-software-engineers"
-  status = 301
+from = "advice-for-new-software-engineers"
+to = "/posts/advice-for-new-software-engineers"
+status = 301
 
 [[redirects]]
-  from = "node-dependency-types"
-  to = "/posts/node-dependency-types"
-  status = 301
+from = "node-dependency-types"
+to = "/posts/node-dependency-types"
+status = 301
 
 [[redirects]]
-  from = "css-box-model"
-  to = "/posts/css-box-model"
-  status = 301
+from = "css-box-model"
+to = "/posts/css-box-model"
+status = 301
 
 [[redirects]]
-  from = "making-react-fast"
-  to = "/posts/making-react-fast"
-  status = 301
+from = "making-react-fast"
+to = "/posts/making-react-fast"
+status = 301
 
 [[redirects]]
-  from = "how-fb-avoids-adblockers"
-  to = "/posts/how-fb-avoids-adblockers"
-  status = 301
+from = "how-fb-avoids-adblockers"
+to = "/posts/how-fb-avoids-adblockers"
+status = 301
 
 [[redirects]]
-  from = "2018-10-05-not-everything-is-state"
-  to = "/posts/not-everything-is-state"
-  status = 301
+from = "2018-10-05-not-everything-is-state"
+to = "/posts/not-everything-is-state"
+status = 301
 
 [[redirects]]
-  from = "2018-7-29-write-software-that-evolves"
-  to = "/posts/write-software-that-evolves"
-  status = 301
+from = "2018-7-29-write-software-that-evolves"
+to = "/posts/write-software-that-evolves"
+status = 301
 
 [[redirects]]
-  from = "2018-7-15-using-typescript-with-redux-part-two"
-  to = "/posts/using-typescript-with-redux-part-two"
-  status = 301
+from = "2018-7-15-using-typescript-with-redux-part-two"
+to = "/posts/using-typescript-with-redux-part-two"
+status = 301
 
 [[redirects]]
-  from = "2018-6-02-generic-jsx-type-argument"
-  to = "/posts/generic-jsx-type-argument"
-  status = 301
+from = "2018-6-02-generic-jsx-type-argument"
+to = "/posts/generic-jsx-type-argument"
+status = 301
 
 [[redirects]]
-  from = "2018-5-16-using-typescript-with-react-part-one"
-  to = "/posts/using-typescript-with-react-part-one"
-  status = 301
+from = "2018-5-16-using-typescript-with-react-part-one"
+to = "/posts/using-typescript-with-react-part-one"
+status = 301
 
 [[redirects]]
-  from = "2018-7-15-using-typescript-with-redux-part-two"
-  to = "/posts/using-typescript-with-redux-part-two"
-  status = 301
+from = "2018-7-15-using-typescript-with-redux-part-two"
+to = "/posts/using-typescript-with-redux-part-two"
+status = 301
 
 [[redirects]]
-  from = "2018-4-10-reusable-components-factory-component"
-  to = "/posts/reusable-components-factory-component"
-  status = 301
+from = "2018-4-10-reusable-components-factory-component"
+to = "/posts/reusable-components-factory-component"
+status = 301
 
 [[redirects]]
-  from = "2017-12-08-global-component-registration"
-  to = "/posts/2017-12-08-global-component-registration"
-  status = 301
+from = "2017-12-08-global-component-registration"
+to = "/posts/2017-12-08-global-component-registration"
+status = 301
 
 [[redirects]]
-  from = "2017-09-14-encapsulating-state-with-functional-children"
-  to = "/posts/encapsulating-state-with-functional-children"
-  status = 301
+from = "2017-09-14-encapsulating-state-with-functional-children"
+to = "/posts/encapsulating-state-with-functional-children"
+status = 301
 
 [[redirects]]
-  from = "2017-08-17-higher-order-components"
-  to = "/posts/higher-order-components"
-  status = 301
+from = "2017-08-17-higher-order-components"
+to = "/posts/higher-order-components"
+status = 301
 
 [[redirects]]
-  from = "2017-09-08-tips-on-creating-reusable-components"
-  to = "/posts/tips-on-creating-reusable-components"
-  status = 301
+from = "2017-09-08-tips-on-creating-reusable-components"
+to = "/posts/tips-on-creating-reusable-components"
+status = 301
 
 [[redirects]]
-  from = "2017-07-26-injecting-react-tag-types"
-  to = "/posts/injecting-react-tag-types"
-  status = 301
+from = "2017-07-26-injecting-react-tag-types"
+to = "/posts/injecting-react-tag-types"
+status = 301
 
 # Redirect to social media and other common sites!
 [[redirects]]
-  from = "/gh"
-  to = "https://github.com/ganderzz/"
+from = "/gh"
+to = "https://github.com/ganderzz/"
 
 [[redirects]]
-  from = "github"
-  to = "https://github.com/ganderzz/"
+from = "github"
+to = "https://github.com/ganderzz/"
 
 [[redirects]]
-  from = "linkedin"
-  to = "https://www.linkedin.com/in/dylanpaulus/"
+from = "linkedin"
+to = "https://www.linkedin.com/in/dylanpaulus/"
 
 [[redirects]]
-  from = "dev"
-  to = "https://dev.to/ganderzz/"
+from = "dev"
+to = "https://dev.to/ganderzz/"
 
 [[redirects]]
-  from = "twitter"
-  to = "https://twitter.com/DylanPaulus/"
+from = "twitter"
+to = "https://twitter.com/DylanPaulus/"
 
 [[redirects]]
-  from = "mastodon"
-  to = "https://hachyderm.io/web/@ganderzz"
+from = "mastodon"
+to = "https://hachyderm.io/web/@ganderzz"

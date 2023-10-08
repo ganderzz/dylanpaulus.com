@@ -26,7 +26,7 @@ If we consider the following HTML:
 
 Then the data structure representation would look like:
 
-![DOM tree structure](making-react-fast/html-diagram.svg)
+![DOM tree structure](./html-diagram.svg)
 
 React takes the same DOM (Document Object Model.. ie. HTML) tree structure, and mirrors it in memory--called the Virtual DOM. Kind of like how a cache is to I/O, the Virtual DOM is to the DOM Tree. It's faster to perform CRUD operations (Create, Read, Update, Delete) in the Virtual DOM. The browser performs massive amounts of work when the DOM Tree is changed: painting, layout, calculations, etc. The Virtual DOM is only a representation of the DOM in memory, so things like painting and layout don't need to be calculated. It's easier to perform many changes to the Virtual DOM then commit the final result, than it is to perform each change to the browser's DOM tree.
 
@@ -36,7 +36,7 @@ When thinking to optimizing React, think of the Virtual and browser's DOM Tree. 
 
 There are two main reasons for components to render in React: when a component's _state_ changes, or when its _props_ change. Out of the box React chooses the naive approach in deciding what needs re-rendered. Re-render the element, and any of its children nodes, every time the props/state changes. For example in the figure below, say we change the state of node 2. All elements contained within the dashed line would also be re-rendered.
 
-![Shows two DOM tree structures with one being re-rendered](making-react-fast/react-rendering.svg)
+![Shows two DOM tree structures with one being re-rendered](./react-rendering.svg)
 
 Don't take this as a bad thing! React cannot make any preconceived assumptions on how our application functions, so it chooses the most user friendly approach. It would instead be frustrating if we updated our application with a logged-in user prop, and the MenuBar component six layers deep didn't reflect this change.
 
