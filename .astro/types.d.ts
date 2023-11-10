@@ -220,6 +220,13 @@ declare module 'astro:content' {
   collection: "post";
   data: InferEntrySchema<"post">
 } & { render(): Render[".mdx"] };
+"easily-generate-mock-data-with-postgresql/index.mdx": {
+	id: "easily-generate-mock-data-with-postgresql/index.mdx";
+  slug: "easily-generate-mock-data-with-postgresql";
+  body: string;
+  collection: "post";
+  data: InferEntrySchema<"post">
+} & { render(): Render[".mdx"] };
 "encapsulating-state-with-functional-children/index.mdx": {
 	id: "encapsulating-state-with-functional-children/index.mdx";
   slug: "encapsulating-state-with-functional-children";
@@ -276,13 +283,6 @@ declare module 'astro:content' {
   collection: "post";
   data: InferEntrySchema<"post">
 } & { render(): Render[".md"] };
-"how-to-generate-test-data-in-postgres-the-easy-way/index.mdx": {
-	id: "how-to-generate-test-data-in-postgres-the-easy-way/index.mdx";
-  slug: "how-to-generate-test-data-in-postgres-the-easy-way";
-  body: string;
-  collection: "post";
-  data: InferEntrySchema<"post">
-} & { render(): Render[".mdx"] };
 "how-to-reduce-bloat-in-large-postgresql-tables/index.mdx": {
 	id: "how-to-reduce-bloat-in-large-postgresql-tables/index.mdx";
   slug: "how-to-reduce-bloat-in-large-postgresql-tables";
