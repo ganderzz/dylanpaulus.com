@@ -23,7 +23,7 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
 
   // Generate pages from our array of astronauts, with 2 to a page
   return paginate(posts, { pageSize: 5 }).map((data) => ({
-    props: { ...data.props, tags: Object.keys(tags).slice(0, 7) },
+    props: { ...data.props, tags: Object.keys(tags).slice(0, 12) },
     params: data.params,
   }));
 }

@@ -4,6 +4,7 @@ import { fileURLToPath } from "url";
 import path from "path";
 import { LOGO } from "./logo-img.mjs";
 import { generateCard } from "./card.mjs";
+import { generateText } from "./text.mjs";
 
 const DIRNAME = path.dirname(fileURLToPath(import.meta.url));
 const CONTENT_PATH = path.resolve(DIRNAME, "../src/content/post");
@@ -24,6 +25,9 @@ async function getContent() {
   let results = [];
 
   for (const directory of directories) {
+    if (directory.toLocaleLowerCase().includes(".ds_store")) {
+      continue;
+    }
     const files = await promises.readdir(path.join(CONTENT_PATH, directory));
 
     for (const file of files) {
@@ -37,9 +41,17 @@ async function getContent() {
 
       const contents = markdownFile.toString();
       const match = /^title:\s*\"(.*)\"\s*$/m.exec(contents);
+      const imageMatch = /^image:\s*\"(.*)\"\s*$/m.exec(contents);
+      const imagePath = imageMatch
+        ? path.join(CONTENT_PATH, directory, imageMatch[1])
+        : null;
 
       if (match?.length > 0) {
-        results.push({ fileDirectory: directory, title: match[1] });
+        results.push({
+          fileDirectory: directory,
+          title: match[1],
+          image: imagePath,
+        });
       }
     }
   }
@@ -59,14 +71,34 @@ async function getContent() {
 async function generateThumbnail({
   fileDirectory,
   title,
+  image,
   interBold,
   interRegular,
 }) {
   console.log(`Creating Thumbnail for ${title}...`);
 
-  const svg = await generateCard({ title, interBold, interRegular });
+  const svg = await generateCard();
+  const text = await generateText({ title, image, interBold, interRegular });
+
+  const additionalImages = [];
+  if (image) {
+    const bgImage = await sharp(image)
+      .removeAlpha()
+      .ensureAlpha(0.08)
+      .resize({ width: 1200, height: 630 })
+      .toBuffer();
+    additionalImages.push({
+      input: bgImage,
+      left: 0,
+      right: 0,
+      top: 0,
+      bottom: 0,
+    });
+  }
+
   await sharp(Buffer.from(svg, "utf-8"))
     .composite([
+      ...additionalImages,
       {
         input: await sharp(Buffer.from(LOGO, "utf-8"))
           .resize({ height: 110 })
@@ -74,6 +106,12 @@ async function generateThumbnail({
         gravity: "southwest",
         left: 40,
         top: 40,
+      },
+      {
+        input: await sharp(Buffer.from(text, "utf-8")).toBuffer(),
+        gravity: "northwest",
+        left: 10,
+        top: 20,
       },
     ])
     .toFile(
@@ -96,9 +134,15 @@ async function run() {
   const contents = await getContent();
   const promises = [];
 
-  for (const { fileDirectory, title } of contents) {
+  for (const { fileDirectory, title, image } of contents) {
     promises.push(
-      generateThumbnail({ fileDirectory, title, interBold, interRegular })
+      generateThumbnail({
+        fileDirectory,
+        title,
+        image,
+        interBold,
+        interRegular,
+      })
     );
   }
 

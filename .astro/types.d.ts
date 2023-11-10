@@ -22,7 +22,12 @@ declare module 'astro:content' {
 	export { z } from 'astro/zod';
 
 	type Flatten<T> = T extends { [K: string]: infer U } ? U : never;
-	export type CollectionEntry<C extends keyof AnyEntryMap> = Flatten<AnyEntryMap[C]>;
+
+	export type CollectionKey = keyof AnyEntryMap;
+	export type CollectionEntry<C extends CollectionKey> = Flatten<AnyEntryMap[C]>;
+
+	export type ContentCollectionKey = keyof ContentEntryMap;
+	export type DataCollectionKey = keyof DataEntryMap;
 
 	// This needs to be in sync with ImageMetadata
 	export type ImageFunction = () => import('astro/zod').ZodObject<{
@@ -38,6 +43,7 @@ declare module 'astro:content' {
 				import('astro/zod').ZodLiteral<'webp'>,
 				import('astro/zod').ZodLiteral<'gif'>,
 				import('astro/zod').ZodLiteral<'svg'>,
+				import('astro/zod').ZodLiteral<'avif'>,
 			]
 		>;
 	}>;
@@ -270,6 +276,20 @@ declare module 'astro:content' {
   collection: "post";
   data: InferEntrySchema<"post">
 } & { render(): Render[".md"] };
+"how-to-generate-test-data-in-postgres-the-easy-way/index.mdx": {
+	id: "how-to-generate-test-data-in-postgres-the-easy-way/index.mdx";
+  slug: "how-to-generate-test-data-in-postgres-the-easy-way";
+  body: string;
+  collection: "post";
+  data: InferEntrySchema<"post">
+} & { render(): Render[".mdx"] };
+"how-to-reduce-bloat-in-large-postgresql-tables/index.mdx": {
+	id: "how-to-reduce-bloat-in-large-postgresql-tables/index.mdx";
+  slug: "how-to-reduce-bloat-in-large-postgresql-tables";
+  body: string;
+  collection: "post";
+  data: InferEntrySchema<"post">
+} & { render(): Render[".mdx"] };
 "how-to-reduce-your-postgresql-database-size/index.mdx": {
 	id: "how-to-reduce-your-postgresql-database-size/index.mdx";
   slug: "how-to-reduce-your-postgresql-database-size";

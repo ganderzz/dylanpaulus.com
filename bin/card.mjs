@@ -1,6 +1,6 @@
 import satori from "satori";
 
-export const generateCard = async ({ title, interBold, interRegular }) =>
+export const generateCard = async () =>
   await satori(
     <div
       style={{
@@ -17,42 +17,13 @@ export const generateCard = async ({ title, interBold, interRegular }) =>
           width: "100%",
           height: "100%",
           display: "flex",
-          fontSize: 32,
+
           background:
             "linear-gradient(342deg, rgba(42,53,70,1) 0%, rgba(60,73,94,1) 100%)",
-          color: "#fff",
-        }}>
-        <h1
-          style={{
-            width: "100%",
-            marginTop: 160,
-            marginLeft: 20,
-            marginRight: 20,
-            fontSize: title.length < 40 ? 92 : 78,
-            fontWeight: 600,
-            padding: 20,
-            borderTop: "2px solid rgba(255, 255, 255, 0.2)",
-          }}>
-          {title}
-        </h1>
-      </div>
+        }}></div>
     </div>,
     {
       height: 630,
       width: 1200,
-      fonts: [
-        {
-          name: "Inter",
-          data: interRegular,
-          weight: 400,
-          style: "normal",
-        },
-        {
-          name: "Inter",
-          data: interBold,
-          weight: 600,
-          style: "normal",
-        },
-      ],
     }
   );

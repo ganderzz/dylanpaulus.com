@@ -1,7 +1,6 @@
 ---
 title: "CSS Box Model"
 tags: ["CSS", "Frontend"]
-image: "banner.jpg"
 image_credit: "https://unsplash.com/photos/ybrHV5FWqr4"
 series: "CSS: The Important Stuff"
 date: "2020-10-24"
