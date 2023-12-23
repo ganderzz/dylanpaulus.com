@@ -206,6 +206,13 @@ declare module 'astro:content' {
   collection: "post";
   data: InferEntrySchema<"post">
 } & { render(): Render[".md"] };
+"creating-fast-time-series-graph-with-postgres/index.mdx": {
+	id: "creating-fast-time-series-graph-with-postgres/index.mdx";
+  slug: "creating-fast-time-series-graph-with-postgres";
+  body: string;
+  collection: "post";
+  data: InferEntrySchema<"post">
+} & { render(): Render[".mdx"] };
 "css-box-model/index.md": {
 	id: "css-box-model/index.md";
   slug: "css-box-model";

@@ -182,5 +182,9 @@ from = "twitter"
 to = "https://twitter.com/DylanPaulus/"
 
 [[redirects]]
+from = "x"
+to = "https://twitter.com/DylanPaulus/"
+
+[[redirects]]
 from = "mastodon"
 to = "https://hachyderm.io/web/@ganderzz"
