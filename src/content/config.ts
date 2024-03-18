@@ -7,7 +7,7 @@ const post = defineCollection({
     tags: z.array(z.string()),
     description: z.optional(z.string()),
     banner: z.optional(z.string()),
-    timeToRead: z.optional(z.number()),
+    timeToRead: z.optional(z.union([z.number(), z.string()])),
     published: z.optional(z.boolean()),
     external: z.optional(z.boolean()),
     excerpt: z.optional(z.string()),
