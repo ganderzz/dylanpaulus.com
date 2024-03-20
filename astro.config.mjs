@@ -9,7 +9,13 @@ import mdx from "@astrojs/mdx";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [preact(), tailwind(), sitemap(), mdx(), compress()],
+  integrations: [
+    preact(),
+    tailwind(),
+    sitemap(),
+    mdx(),
+    compress({ Image: false }),
+  ],
   output: "static",
   site: "https://dylanpaulus.com",
   vite: {

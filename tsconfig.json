@@ -13,7 +13,6 @@
     "strictNullChecks": true,
     "noEmit": true,
     "strict": true,
-    "importsNotUsedAsValues": "error",
     "jsx": "react-jsx",
     "jsxImportSource": "preact",
     "allowSyntheticDefaultImports": true,
