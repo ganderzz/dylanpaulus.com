@@ -318,13 +318,13 @@ declare module 'astro:content' {
   collection: "post";
   data: InferEntrySchema<"post">
 } & { render(): Render[".md"] };
-"making-react-fast/index.md": {
-	id: "making-react-fast/index.md";
+"making-react-fast/index.mdx": {
+	id: "making-react-fast/index.mdx";
   slug: "making-react-fast";
   body: string;
   collection: "post";
   data: InferEntrySchema<"post">
-} & { render(): Render[".md"] };
+} & { render(): Render[".mdx"] };
 "node-dependency-types/index.md": {
 	id: "node-dependency-types/index.md";
   slug: "node-dependency-types";
