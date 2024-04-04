@@ -3,6 +3,9 @@ import { getCollection } from "astro:content";
 
 export const GET = async () => {
   const posts = await getCollection("post");
+  posts.sort((a, b) => {
+    return (new Date(b.data.date) as any) - (new Date(a.data.date) as any);
+  });
 
   return rss({
     title: "Dylan Paulus' Blog",
