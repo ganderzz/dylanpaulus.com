@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build && npm run generate-og",
+    "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
     "generate-og": "ts-node --esm ./bin/generate-og.mjs"
