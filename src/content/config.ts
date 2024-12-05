@@ -10,6 +10,7 @@ const post = defineCollection({
     timeToRead: z.optional(z.union([z.number(), z.string()])),
     published: z.optional(z.boolean()),
     external: z.optional(z.boolean()),
+    tip: z.optional(z.boolean()),
     excerpt: z.optional(z.string()),
     series: z.optional(z.string()),
   }),

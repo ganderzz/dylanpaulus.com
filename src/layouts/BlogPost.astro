@@ -41,11 +41,8 @@ const { frontmatter } = Astro.props as Props;
       <slot />
     </article>
 
-    <div class="flex items-center justify-center my-10">
-      <Newsletter client:only />
-    </div>
-
-    <div class="blog__post my-4">
+    <div
+      class="blog__post lg:w-1/2 w-full mx-auto my-6 pt-6 border-t dark:border-slate-600 border-slate-300">
       <script
         src="https://giscus.app/client.js"
         data-repo="ganderzz/dylanpaulus.com"
@@ -60,8 +57,7 @@ const { frontmatter } = Astro.props as Props;
         data-theme="preferred_color_scheme"
         data-lang="en"
         crossorigin="anonymous"
-        async
-      ></script>
+        async></script>
     </div>
   </section>
 </BaseLayout>

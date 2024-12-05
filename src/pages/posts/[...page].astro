@@ -1,10 +1,10 @@
 ---
 import type { GetStaticPathsOptions } from "astro";
+import type { Page } from "astro";
+import type { CollectionEntry } from "astro:content";
 import SubHeading from "@components/SubHeading.astro";
 import PostListItem from "@components/PostListItem.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
-import type { Page } from "astro";
-import type { CollectionEntry } from "astro:content";
 import { getCollection } from "astro:content";
 import Pagination from "@components/Pagination.astro";
 import { getTags, orderByPopular } from "@utils/tags";
@@ -22,7 +22,7 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   const tags = orderByPopular(await getTags(unsortedPosts));
 
   // Generate pages from our array of astronauts, with 2 to a page
-  return paginate(posts, { pageSize: 10 }).map((data) => ({
+  return paginate(posts, { pageSize: 15 }).map((data) => ({
     props: { ...data.props, tags: Object.keys(tags).slice(0, 12) },
     params: data.params,
   }));
