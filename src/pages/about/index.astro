@@ -3,6 +3,7 @@ import { Image } from "astro:assets";
 import SubHeading from "@components/SubHeading.astro";
 import SiteLayout from "@layouts/SiteLayout.astro";
 import TagList from "~/src/components/TagList.astro";
+import Tag from "~/src/components/Tag.astro";
 import { Content } from "~/src/markdown/about_me.md";
 ---
 
@@ -59,17 +60,18 @@ import { Content } from "~/src/markdown/about_me.md";
         <SubHeading>Talks I've Given</SubHeading>
         <ul class="list-disc list-inside ml-4 leading-relaxed">
           <li>
-            Developing Software at SEL (Presentation for EWU students 2022)
+            <Tag>2022</Tag> Developing Software at SEL
           </li>
           <li>
-            Blazing Fast: An introduction to cache efficient code (Internal
-            Presentation 2022)
+            <Tag>2022</Tag> Blazing Fast: An introduction to cache efficient code
           </li>
           <li>
-            NPM, Dependencies, and JS Modules (Internal Presentation 2021)
+            <Tag>2021</Tag> NPM, Dependencies, and JS Modules
           </li>
-          <li>Making React Fast (Internal Presentation 2019)</li>
-          <li>Functional Programming Light (Boise Code Camp 2019)</li>
+          <li><Tag>2019</Tag> Making React Fast</li>
+          <li>
+            <Tag>2019</Tag> Functional Programming Light (Boise Code Camp)
+          </li>
         </ul>
       </div>
 
