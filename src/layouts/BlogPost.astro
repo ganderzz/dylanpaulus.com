@@ -1,7 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import FrontmatterInfo from "../components/FrontmatterInfo.astro";
-import { Newsletter } from "../components/Newsletter";
 import BaseLayout from "./BaseLayout.astro";
 
 export interface Props {
@@ -40,24 +39,5 @@ const { frontmatter } = Astro.props as Props;
     <article class="blog__post mb-10 dark:text-gray-100 leading-relaxed">
       <slot />
     </article>
-
-    <div
-      class="blog__post lg:w-1/2 w-full mx-auto my-6 pt-6 border-t dark:border-slate-600 border-slate-300">
-      <script
-        src="https://giscus.app/client.js"
-        data-repo="ganderzz/dylanpaulus.com"
-        data-repo-id="MDEwOlJlcG9zaXRvcnk3NjUzNTg5OQ=="
-        data-category="Announcements"
-        data-category-id="DIC_kwDOBI_YW84B-i8I"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="bottom"
-        data-theme="preferred_color_scheme"
-        data-lang="en"
-        crossorigin="anonymous"
-        async></script>
-    </div>
   </section>
 </BaseLayout>

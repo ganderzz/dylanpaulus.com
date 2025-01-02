@@ -24,6 +24,8 @@ html[data-theme="light"] {
   --font-color: rgba(0, 0, 0, var(--font-color-opacity));
   --font-color-secondary: rgba(80, 80, 80, var(--font-color-opacity));
 
+  --accent: #f2e5fb;
+
   --link-color: #5755c9;
   --link-hover-color: #1e1c63;
 }
@@ -41,6 +43,8 @@ html[data-theme="dark"] {
   --font-color-opacity: 1;
   --font-color: rgba(255, 255, 255, var(--font-color-opacity));
   --font-color-secondary: rgba(160, 160, 160, var(--font-color-opacity));
+
+  --accent: #2e2a46;
 
   --link-color: #b3e3ff;
   --link-hover-color: #84acc5;
@@ -69,6 +73,9 @@ body {
 
 body {
   background-color: var(--secondary-100);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23000000' fill-opacity='0.15' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-blend-mode: soft-light;
   font-size: 1rem;
 }
 
