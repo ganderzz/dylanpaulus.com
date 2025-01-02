@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <!-- Modern gradient background -->
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1A1A2E"/>
+      <stop offset="100%" style="stop-color:#16213E"/>
+    </linearGradient>
+    
+    <!-- Glow effect -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg-gradient)"/>
+  
+  <!-- Abstract debugging flow lines -->
+  <path d="M200 315 L1000 315" stroke="#2F6690" stroke-width="2" stroke-dasharray="8,8"/>
+  <path d="M200 215 L1000 215" stroke="#2F6690" stroke-width="2" stroke-dasharray="8,8"/>
+  <path d="M200 415 L1000 415" stroke="#2F6690" stroke-width="2" stroke-dasharray="8,8"/>
+  
+  <!-- Main content container -->
+  <rect x="300" y="140" width="600" height="350" rx="15" fill="#0A192F" opacity="0.95"/>
+  
+  <!-- Code window decoration -->
+  <circle cx="330" cy="170" r="6" fill="#FF5F56"/>
+  <circle cx="360" cy="170" r="6" fill="#FFBD2E"/>
+  <circle cx="390" cy="170" r="6" fill="#27C93F"/>
+  
+  <!-- Code content with improved line height -->
+  <g font-family="Monaco, Consolas, monospace" font-size="16">
+    <text x="330" y="220" fill="#8A8F98">def debug_code():</text>
+    <text x="360" y="250" fill="#61DAFB">    breakpoint()</text>
+    <text x="360" y="280" fill="#8A8F98">    # Start debugging here</text>
+  </g>
+  
+  <!-- Main title with improved typography -->
+  <g text-anchor="middle">
+    <!-- Main heading -->
+    <text x="600" y="380" font-family="Inter, -apple-system, system-ui, sans-serif" font-size="48" fill="white" font-weight="700" letter-spacing="-0.02em">Python Debugging</text>
+    
+    <!-- Subheading with proper spacing -->
+    <text x="600" y="430" font-family="Inter, -apple-system, system-ui, sans-serif" font-size="24" fill="#61DAFB" letter-spacing="-0.01em">Faster and Easier with breakpoint()</text>
+  </g>
+  
+  <!-- Decorative elements -->
+  <circle cx="200" cy="315" r="4" fill="#61DAFB" filter="url(#glow)"/>
+  <circle cx="1000" cy="315" r="4" fill="#61DAFB" filter="url(#glow)"/>
+  
+  <!-- Abstract debugging points -->
+  <g fill="#61DAFB" filter="url(#glow)">
+    <circle cx="400" cy="315" r="3"/>
+    <circle cx="600" cy="315" r="3"/>
+    <circle cx="800" cy="315" r="3"/>
+  </g>
+</svg>

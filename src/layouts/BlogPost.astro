@@ -2,12 +2,16 @@
 import type { CollectionEntry } from "astro:content";
 import FrontmatterInfo from "../components/FrontmatterInfo.astro";
 import BaseLayout from "./BaseLayout.astro";
+import { Image } from "astro:assets";
 
 export interface Props {
   frontmatter: CollectionEntry<"post">["data"] & Record<string, any>;
 }
 
 const { frontmatter } = Astro.props as Props;
+
+const isExternal = frontmatter.externalLink ?? false;
+const normalizedTitle = frontmatter.title.toLowerCase().replace(/\s/g, "-");
 ---
 
 <BaseLayout
@@ -36,8 +40,39 @@ const { frontmatter } = Astro.props as Props;
       )
     }
 
+    {
+      frontmatter.heroImage && (
+        <Image
+          width={800}
+          height={600}
+          class="mx-auto mt-4 mb-10 rounded-lg shadow-lg"
+          src={frontmatter.heroImage}
+          alt={`Hero image for ${frontmatter.title}`}
+        />
+      )
+    }
+
     <article class="blog__post mb-10 dark:text-gray-100 leading-relaxed">
+      {
+        isExternal && (
+          <h6 class="text-sm text-center mb-10 mt-0 italic dark:text-slate-300 text-gray-600">
+            This is an external article made in collaboration with another
+            source. Click the button below the view the whole article.
+          </h6>
+        )
+      }
       <slot />
+
+      {
+        isExternal && (
+          <a
+            data-goatcounter-click={`${normalizedTitle}__click`}
+            class="mt-4 opacity-90 hover:opacity-100 text-center font-bold px-6 py-4 rounded-md dark:bg-[#b3e3ff] dark:hover:bg-[#84acc5] bg-[#5755c9] hover:bg-[#1e1c63] text-white hover:text-white dark:text-black transform-gpu hover:scale-105 transition-all"
+            href={frontmatter.externalLink}>
+            {frontmatter.title}
+          </a>
+        )
+      }
     </article>
   </section>
 </BaseLayout>
