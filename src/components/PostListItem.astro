@@ -1,5 +1,7 @@
 ---
+import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
+import TagList from "./TagList.astro";
 
 export type Props = {
   data: CollectionEntry<"post">;
@@ -16,34 +18,47 @@ const dateFormatter = new Intl.DateTimeFormat("en-us", {
 });
 ---
 
-<div class="block mb-20 max-w-max md:max-w-screen-md lg:max-w-screen-lg">
-  <div
-    style={{ color: "var(--font-color)", minHeight: 24 }}
-    class="flex font-medium text-md opacity-75">
-    <span class="flex content-center mr-2"
-      >{dateFormatter.format(new Date(data.data.date))}</span
-    >•
-    <span class="ml-2">{remarkPluginFrontmatter.timeToRead}</span>
-    {
-      data.data.externalLink && (
-        <>
-          <div class="inline-block mx-2">•</div>
-          <span>External article</span>
-        </>
-      )
-    }
+<div
+  class="block mb-10 max-w-max md:max-w-screen-md lg:max-w-screen-lg rounded-lg dark:bg-slate-700 bg-gray-100 p-4">
+  <div>
+    <div
+      style={{ color: "var(--font-color)", minHeight: 24 }}
+      class="flex font-medium text-md opacity-75">
+      <span class="flex content-center mr-2"
+        >{dateFormatter.format(new Date(data.data.date))}</span
+      >•
+      <span class="ml-2">{remarkPluginFrontmatter.timeToRead}</span>
+      {
+        data.data.externalLink && (
+          <>
+            <div class="inline-block mx-2">•</div>
+            <span>External article</span>
+          </>
+        )
+      }
+    </div>
+
+    <div class="flex flex-row gap-4">
+      <a
+        href={`/posts/${data.slug}`}
+        title={data.data.title}
+        class="font-bold text-3xl">
+        {data.data.title}
+      </a>
+    </div>
+
+    <aside
+      style={{ color: "var(--font-color)" }}
+      class="text-base leading-12 mt-4">
+      {data.data.description ?? remarkPluginFrontmatter.excerpt}
+    </aside>
+
+    <div>
+      <TagList
+        tags={data.data.tags}
+        class="mx-0 ml-0 mt-6 opacity-55"
+        shouldDisableLink
+      />
+    </div>
   </div>
-
-  <a
-    href={`/posts/${data.slug}`}
-    title={data.data.title}
-    class="font-bold text-3xl">
-    {data.data.title}
-  </a>
-
-  <aside
-    style={{ color: "var(--font-color)" }}
-    class="text-base leading-12 mt-2">
-    {data.data.description ?? remarkPluginFrontmatter.excerpt}
-  </aside>
 </div>
