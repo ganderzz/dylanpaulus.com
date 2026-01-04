@@ -20,7 +20,9 @@ const { Content, remarkPluginFrontmatter } = await post.render();
 ---
 
 <BlogPost frontmatter={{ ...post.data, ...remarkPluginFrontmatter }}>
-  <Content />
+  <div data-pagefind-body>
+    <Content />
+  </div>
 </BlogPost>
 
 <script client:only>

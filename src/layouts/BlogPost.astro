@@ -26,7 +26,8 @@ const normalizedTitle = frontmatter.title.toLowerCase().replace(/\s/g, "-");
       class={`${
         frontmatter.series ? "mb-0" : "mb-10"
       } mt-4 mx-auto px-4 font-bold text-center`}
-      style={{ maxWidth: "40ch" }}>
+      style={{ maxWidth: "40ch" }}
+      data-pagefind-body>
       {frontmatter.title}
     </h1>
 

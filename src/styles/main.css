@@ -12,7 +12,7 @@
 html,
 html[data-theme="light"] {
   --primary-100: #111;
-  --secondary-100: #fafafa;
+  --secondary-100: #F9F9F8;
   --secondary-200: #f1f1f1;
   --secondary-300: #ddd;
   --secondary-400: #ccc;
@@ -24,7 +24,7 @@ html[data-theme="light"] {
   --font-color: rgba(0, 0, 0, var(--font-color-opacity));
   --font-color-secondary: rgba(80, 80, 80, var(--font-color-opacity));
 
-  --accent: #f2e5fb;
+  --accent: #e3d2ef;
 
   --link-color: #5755c9;
   --link-hover-color: #1e1c63;
@@ -405,4 +405,75 @@ p + ol {
   border-radius: 0.5rem;
   color: #79c0ff;
   background-color: #0d1117;
+}
+
+.pagefind-ui {
+    margin-bottom: 1rem;
+}
+
+.pagefind-ui__form {
+    position: relative;
+}
+
+.pagefind-ui__search-clear {
+    position: absolute;
+    right: 8px;
+    top: 20%;
+}
+
+.pagefind-ui__message, .pagefind-ui__result-excerpt, .pagefind-ui__button {
+    display: none;
+}
+
+.pagefind-ui__drawer {
+    position: absolute;
+    margin-top: 0.5rem;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    background-color: var(--secondary-200);
+    color: var(--primary-100);
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.pagefind-ui__results {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.pagefind-ui__result:first-child {
+    border-top: none;
+}
+.pagefind-ui__result {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    margin: 0;
+    border-top: 1px solid var(--border-color);
+    transition: background-color 0.2s ease-in-out;
+}
+
+.pagefind-ui__result-link {
+    font-weight: 600;
+    padding: 0;
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.pagefind-ui__result-title { margin: 0; }
+
+.pagefind-ui__search-input {
+    width: 100%;
+    padding: 0.5rem 4rem 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--border-color);
+    background-color: var(--secondary-100);
+    color: var(--primary-100);
+    font-size: 1rem;
+    line-height: 1.5;
+    outline: none;
+    transition: border-color 0.2s ease-in-out;
 }

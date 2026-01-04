@@ -185,13 +185,6 @@ declare module 'astro:content' {
   collection: "post";
   data: InferEntrySchema<"post">
 } & { render(): Render[".mdx"] };
-"deploying-your-own-github-actions-runners-on-aws/index.mdx": {
-	id: "deploying-your-own-github-actions-runners-on-aws/index.mdx";
-  slug: "deploying-your-own-github-actions-runners-on-aws";
-  body: string;
-  collection: "post";
-  data: InferEntrySchema<"post">
-} & { render(): Render[".mdx"] };
 "easily-generate-mock-data-with-postgresql/index.mdx": {
 	id: "easily-generate-mock-data-with-postgresql/index.mdx";
   slug: "easily-generate-mock-data-with-postgresql";
@@ -318,13 +311,6 @@ declare module 'astro:content' {
   collection: "post";
   data: InferEntrySchema<"post">
 } & { render(): Render[".md"] };
-"layoffs-are-a-management-problem/index.mdx": {
-	id: "layoffs-are-a-management-problem/index.mdx";
-  slug: "layoffs-are-a-management-problem";
-  body: string;
-  collection: "post";
-  data: InferEntrySchema<"post">
-} & { render(): Render[".mdx"] };
 "level-terminal-navigation/index.md": {
 	id: "level-terminal-navigation/index.md";
   slug: "level-terminal-navigation";
@@ -465,13 +451,6 @@ declare module 'astro:content' {
   collection: "post";
   data: InferEntrySchema<"post">
 } & { render(): Render[".md"] };
-"writing-a-mcp-server/index.mdx": {
-	id: "writing-a-mcp-server/index.mdx";
-  slug: "writing-a-mcp-server";
-  body: string;
-  collection: "post";
-  data: InferEntrySchema<"post">
-} & { render(): Render[".mdx"] };
 };
 
 	};

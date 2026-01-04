@@ -63,14 +63,17 @@ const { title, description } = Astro.props as Props;
       async
       src="//gc.zgo.at/count.js"></script>
 
+    <script is:inline src="/pagefind/pagefind-ui.js"></script>
+
     <script is:inline>
       window.onload = function () {
         console.log(
-          `%cHello There! 👋🏼 \n%c%s\n${JSON.stringify(["AstroJS", "TailwindCSS", "TypeScript", "Netlify"], null, 2)}\n\n%s`,
+          `%cHello There! 👋🏼 \n%c%s\n${JSON.stringify(["AstroJS", "TailwindCSS", "TypeScript", "Netlify"], null, 2)}\n\n%s\n\n%s`,
           "font-weight: bold; font-size: 50px;color: #FFF; text-shadow: 0px 0px 5px #111; margin-bottom: 22px;margin-top: 12px;",
           "font-size: 12px;",
-          "Since you're probably here to see how this site works. This site was built using:",
-          "If you want to dive deeper, feel free to poke around the source code on GitHub: https://github.com/ganderzz/dylanpaulus.com"
+          "If you're wondering how this site works, it was built using:",
+          "If you want to dive deeper, feel free to poke around the source code on GitHub: https://github.com/ganderzz/dylanpaulus.com",
+          "Feel free to create an issue if you find a bug, or leave a discussion question if you have any questions."
         );
       };
     </script>

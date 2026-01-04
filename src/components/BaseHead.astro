@@ -21,13 +21,13 @@ const cardPath = /posts\/(.+?)/i.exec(Astro.url.pathname)
 <link rel="icon" href="/favicon.svg" />
 <meta name="robots" content="index, follow" />
 <meta name="generator" content={Astro.generator} />
-<link rel="canonical" href={canonicalURL} />
+<link rel="canonical" href={canonicalURL} data-pagefind-meta="url[href]" />
 
 <link
-    rel="alternate"
-    type="application/rss+xml"
-    title="Dylan Paulus"
-    href={new URL("rss.xml", Astro.site)}
+  rel="alternate"
+  type="application/rss+xml"
+  title="Dylan Paulus"
+  href={new URL("rss.xml", Astro.site)}
 />
 
 <!-- Primary Meta Tags -->
