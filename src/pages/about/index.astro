@@ -4,6 +4,7 @@ import SubHeading from "@components/SubHeading.astro";
 import SiteLayout from "@layouts/SiteLayout.astro";
 import TagList from "~/src/components/TagList.astro";
 import Tag from "~/src/components/Tag.astro";
+import Button from "~/src/components/Button.astro";
 import { Content } from "~/src/markdown/about_me.md";
 ---
 
@@ -106,6 +107,7 @@ import { Content } from "~/src/markdown/about_me.md";
             "Webpack",
             "AstroJS",
             "Django",
+            "Django Rest Framework",
             "ASPCore",
             "PostgreSQL",
             "Redis",
@@ -127,6 +129,15 @@ import { Content } from "~/src/markdown/about_me.md";
             "Fastlane",
           ]}
         />
+      </div>
+
+      <div class="w-full mt-12">
+        <SubHeading class="mb-4">Misc.</SubHeading>
+        <ul class="list-disc list-inside ml-4 leading-relaxed">
+          <li>
+            <a href="/elsewhere">Other places I've appeared</a>
+          </li>
+        </ul>
       </div>
     </section>
   </div>

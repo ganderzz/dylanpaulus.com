@@ -465,6 +465,13 @@ declare module 'astro:content' {
   collection: "post";
   data: InferEntrySchema<"post">
 } & { render(): Render[".md"] };
+"writing-a-mcp-server/index.mdx": {
+	id: "writing-a-mcp-server/index.mdx";
+  slug: "writing-a-mcp-server";
+  body: string;
+  collection: "post";
+  data: InferEntrySchema<"post">
+} & { render(): Render[".mdx"] };
 };
 
 	};
