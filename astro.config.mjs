@@ -8,17 +8,17 @@ import mdx from "@astrojs/mdx";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [preact(), tailwind(), sitemap(), mdx()],
-  output: "static",
-  site: "https://dylanpaulus.com",
-  vite: {
-    ssr: {
-      external: ["svgo"],
+    integrations: [preact(), tailwind(), sitemap(), mdx()],
+    output: "static",
+    site: "https://dylanpaulus.com",
+    vite: {
+        ssr: {
+            external: ["svgo"],
+        },
     },
-  },
-  markdown: {
-    extendDefaultPlugins: true,
-    syntaxHighlight: "shiki",
-    remarkPlugins: [remarkReadingTime, remarkExcerpt],
-  },
+    markdown: {
+        extendDefaultPlugins: true,
+        syntaxHighlight: "shiki",
+        remarkPlugins: [remarkReadingTime, remarkExcerpt],
+    },
 });
