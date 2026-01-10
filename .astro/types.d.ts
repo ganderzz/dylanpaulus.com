@@ -248,6 +248,13 @@ declare module 'astro:content' {
   collection: "post";
   data: InferEntrySchema<"post">
 } & { render(): Render[".md"] };
+"how-this-site-works/index.mdx": {
+	id: "how-this-site-works/index.mdx";
+  slug: "how-this-site-works";
+  body: string;
+  collection: "post";
+  data: InferEntrySchema<"post">
+} & { render(): Render[".mdx"] };
 "how-to-design-postgres-database-schemas/index.mdx": {
 	id: "how-to-design-postgres-database-schemas/index.mdx";
   slug: "how-to-design-postgres-database-schemas";
