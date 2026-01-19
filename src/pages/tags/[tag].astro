@@ -17,9 +17,12 @@ export async function getStaticPaths() {
     },
     props: {
       count,
-      posts: unsortedPosts.filter((post) =>
-        post.data.tags.map(normalizeTag).includes(tag)
-      ),
+      posts: unsortedPosts
+        .filter((post) => post.data.tags.map(normalizeTag).includes(tag))
+        .map((post) => ({
+          ...post,
+          slug: post.slug.replace(/\b\d{4}\b\//g, ""),
+        })),
     },
   }));
 }
