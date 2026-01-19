@@ -1,6 +1,13 @@
+import React from "preact";
 import satori from "satori";
 
-export const generateText = async ({ title, interBold, interRegular }) =>
+type Props  = {
+    title: string;
+    interBold: ArrayBuffer;
+    interRegular: ArrayBuffer;
+};
+
+export const generateText = async ({ title, interBold, interRegular }: Props) =>
   await satori(
     <h1
       style={{
@@ -8,7 +15,6 @@ export const generateText = async ({ title, interBold, interRegular }) =>
         marginTop: 160,
         marginLeft: 20,
         marginRight: 20,
-        fontSize: title.length < 40 ? 92 : 78,
         fontWeight: 600,
         padding: 20,
         fontSize: title.length > 62 ? 64 : 82,

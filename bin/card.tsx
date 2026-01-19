@@ -1,3 +1,4 @@
+import React from "preact";
 import satori from "satori";
 
 export const generateCard = async () =>
@@ -25,5 +26,6 @@ export const generateCard = async () =>
     {
       height: 630,
       width: 1200,
+      fonts: [],
     }
   );

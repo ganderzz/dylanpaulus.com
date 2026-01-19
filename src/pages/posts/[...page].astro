@@ -15,15 +15,19 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
     "post",
     ({ data }) => data.published
   );
-  const posts = unsortedPosts.sort(
+  let posts = unsortedPosts.sort(
     (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf()
   );
+  // Hack to override the string literal expected for slug
+  posts = posts.map((p) => ({ ...p, slug: p.slug.split("/")[1] }) as any);
 
   const tags = orderByPopular(await getTags(unsortedPosts));
 
-  // Generate pages from our array of astronauts, with 2 to a page
   return paginate(posts, { pageSize: 10 }).map((data) => ({
-    props: { ...data.props, tags: Object.keys(tags).slice(0, 12) },
+    props: {
+      ...data.props,
+      tags: Object.keys(tags).slice(0, 12),
+    },
     params: data.params,
   }));
 }

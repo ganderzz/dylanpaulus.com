@@ -8,7 +8,14 @@ import mdx from "@astrojs/mdx";
 
 // https://astro.build/config
 export default defineConfig({
-    integrations: [preact(), tailwind(), sitemap(), mdx()],
+    integrations: [preact(), tailwind(), sitemap({
+        serialize(item) {
+            return {
+                ...item,
+                url: item.url.replace(/\b\d{4}\b/g, "")
+            };
+        }
+    }), mdx()],
     output: "static",
     site: "https://dylanpaulus.com",
     vite: {

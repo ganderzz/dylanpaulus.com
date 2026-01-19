@@ -11,10 +11,13 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+.astro
+.vscode
+
 
 # environment variables
 .env
-.env.production
+.env.*
 
 # macOS-specific files
 .DS_Store
