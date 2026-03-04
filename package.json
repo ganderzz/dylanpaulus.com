@@ -22,7 +22,7 @@
         "reading-time": "1.5.0",
         "sanitize-html": "2.17.0",
         "satori": "0.7.4",
-        "svgo": "3.0.2",
+        "svgo": "3.3.3",
         "tsx": "4.21.0",
         "typescript": "5.9.3"
     },
