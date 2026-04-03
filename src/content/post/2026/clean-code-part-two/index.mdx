@@ -1,0 +1,44 @@
+---
+title: "Clean Code: You Don't Need Else-Statements"
+tags: ["programming", "software-engineering", "code-quality"]
+date: "2026-01-18"
+heroImage: /images/clean-code-pt-two.png
+series: "Clean Code"
+published: true
+---
+
+It's been a few years since I've written about what makes ["Clean Code"](/posts/clean-code).
+In the post I went over some basics of writing clean code like using good names and formatting.
+Though naming things is one of the [two hardest parts of programming](https://martinfowler.com/bliki/TwoHardThings.html), there is much more to writing quality code then just naming things.
+This is why I'm starting a series of posts tackling different areas of writing clean code. 
+The goal is to start with semantics and move up to architecture. 
+
+In this post we're looking at if-statements and function structure. 
+More specifically, I want to convince you that the following is true: else-statements make your code less readable. 
+Throw em' away. Intrigued yet? Alright, let's get started.
+
+
+## You Don't Need Else Statements
+
+For this whole post we'll use the following Python code based on a real-ish world function you may write.
+The function takes a `total_price` of an item, and the `membership_level` of the current user. Then returns a discount
+price based on the `membership_level`.
+
+```py
+def apply_membership_discount(
+    total_price: float, 
+    membership_level: str) -> float:
+    """Calculates the final price based on user membership tier."""
+    
+    if membership_level == "Gold":
+        discount = 0.20
+    elif membership_level == "Silver":
+        discount = 0.10
+    elif membership_level == "Bronze":
+        discount = 0.05
+    else:
+        discount = 0.0
+        
+    final_price = total_price * (1 - discount)
+    return final_price
+```
