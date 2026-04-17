@@ -1,5 +1,6 @@
 ---
 title: "React: Not Everything is State"
+description: "Not every value in a React component belongs in state. Using class properties for IDs, timers, and non-rendering data keeps components simpler and faster."
 tags: ["React", "Javascript"]
 date: "2018-10-05"
 published: true

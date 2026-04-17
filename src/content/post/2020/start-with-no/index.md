@@ -1,5 +1,6 @@
 ---
 title: "Start With No"
+description: "Why saying 'no' as a default to feature requests protects your product, your team, and your users from the lifecycle that kills most software."
 tags: ["Project Management"]
 date: "2020-09-13"
 published: true

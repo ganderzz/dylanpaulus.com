@@ -1,5 +1,6 @@
 ---
 title: "Reusable Components: Factory Components"
+description: "How to use the Factory Component pattern in React to split bloated 'mega components' with dozens of props into small, focused pieces."
 tags: ["React", "Javascript"]
 date: "2018-04-10"
 published: true

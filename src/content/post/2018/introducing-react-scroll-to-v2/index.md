@@ -1,5 +1,6 @@
 ---
 title: "Introducing React-Scroll-To v2"
+description: "Release notes and usage guide for react-scroll-to v2, a React component for scrolling to a point, a ref, or smoothly animating between them."
 tags: ["React", "Javascript"]
 date: "2018-11-03"
 published: true

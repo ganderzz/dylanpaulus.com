@@ -1,5 +1,6 @@
 ---
 title: "Leveling Up Your Terminal/Command-Line Navigation"
+description: "Keyboard shortcuts and commands that make navigating the terminal drastically faster, covering movement, history, editing, and process control."
 tags: ["terminal", "productivity", "command-line"]
 date: "2019-06-17"
 published: true

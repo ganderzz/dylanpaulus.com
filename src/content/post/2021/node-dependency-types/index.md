@@ -1,5 +1,6 @@
 ---
 title: "NPM: What are project dependencies?"
+description: "The difference between dependencies, devDependencies, and peerDependencies in a package.json, and when to use each type in a Node.js project."
 tags: ["Javascript", "NodeJS", "React"]
 date: "2021-08-17"
 published: true

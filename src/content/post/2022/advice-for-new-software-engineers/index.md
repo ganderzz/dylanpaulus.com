@@ -1,5 +1,6 @@
 ---
 title: "Advice for New Software Engineers"
+description: "Honest career advice for new software engineers from an engineering manager: what college misses, how to grow, and why business sense matters."
 tags: ["advice", "software-engineering", "beginner"]
 date: "2022-07-04"
 published: true

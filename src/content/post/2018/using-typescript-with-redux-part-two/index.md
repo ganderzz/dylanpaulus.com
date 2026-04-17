@@ -1,5 +1,6 @@
 ---
 title: "Part Two: Using Typescript with Redux"
+description: "Part two of using TypeScript with React: adding Redux. How to type actions, reducers, and connected components without fighting the compiler."
 tags: ["React", "Typescript", "Javascript"]
 date: "2018-07-15"
 series: "Using Typescript with React"

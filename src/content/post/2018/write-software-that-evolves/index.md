@@ -1,5 +1,6 @@
 ---
 title: "Write Software that Evolves"
+description: "How to avoid analysis paralysis and ship software that grows with changing requirements, using continuous MVP development and lazy evaluation."
 tags: ["Software Engineering"]
 date: "2018-07-29"
 published: true

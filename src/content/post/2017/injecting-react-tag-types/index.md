@@ -1,5 +1,6 @@
 ---
 title: "Injecting Dynamic Elements to Components"
+description: "A flexible React pattern for letting consumers swap the underlying HTML tag or component of a reusable UI element, without duplicating components."
 tags: ["Javascript", "Frontend", "React"]
 date: "2017-07-26"
 published: true

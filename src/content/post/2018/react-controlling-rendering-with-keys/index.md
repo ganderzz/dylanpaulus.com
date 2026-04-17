@@ -1,5 +1,6 @@
 ---
 title: "React: Controlling Rendering with Keys"
+description: "The React key prop does more than silence warnings. Use it to force components to re-mount on demand, with a concrete example of why that helps."
 tags: ["React", "Javascript"]
 date: "2018-10-18"
 published: true

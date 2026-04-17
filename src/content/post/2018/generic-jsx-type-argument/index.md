@@ -1,5 +1,6 @@
 ---
 title: "Generic Type Arguments in JSX Elements"
+description: "How to use TypeScript 2.9's generic type arguments in JSX to build React components that extend their props while staying fully type-safe."
 tags: ["React", "Typescript", "Javascript"]
 date: "2018-06-02"
 published: true

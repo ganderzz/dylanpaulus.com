@@ -1,5 +1,6 @@
 ---
 title: "Lost Connections: Why You’re Depressed and How to Find Hope"
+description: "Reflections on Johann Hari's Lost Connections: the nine social and cultural disconnections he argues are fueling modern depression and anxiety."
 author: "Johann Hari"
 tags: ["mental health", "depression", "anxiety", "books I read"]
 date: "2019-12-01"

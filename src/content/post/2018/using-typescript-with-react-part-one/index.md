@@ -1,5 +1,6 @@
 ---
 title: "Part One: Using Typescript with React"
+description: "Part one of a hands-on series on using TypeScript with React — building a typed counter and covering props, state, and common setup pitfalls."
 tags: ["React", "Typescript", "Javascript"]
 date: "2018-05-16"
 series: "Using Typescript with React"
