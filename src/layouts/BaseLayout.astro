@@ -1,5 +1,6 @@
 ---
 import BaseHead from "@components/BaseHead.astro";
+import type { PostMeta } from "@components/BaseHead.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
 
@@ -8,14 +9,15 @@ import "@styles/main.css";
 export interface Props {
   title: string;
   description: string;
+  post?: PostMeta;
 }
 
-const { title, description } = Astro.props as Props;
+const { title, description, post } = Astro.props as Props;
 ---
 
 <html lang="en-US" class="scroll-smooth antialiased transition-colors">
   <head>
-    <BaseHead title={title} description={description} />
+    <BaseHead title={title} description={description} post={post} />
 
     <script is:inline>
       /**

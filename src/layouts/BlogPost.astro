@@ -16,7 +16,15 @@ const normalizedTitle = frontmatter.title.toLowerCase().replace(/\s/g, "-");
 
 <BaseLayout
   title={frontmatter.title}
-  description={frontmatter.description ?? frontmatter.excerpt ?? ""}>
+  description={frontmatter.description ?? frontmatter.excerpt ?? ""}
+  post={{
+    title: frontmatter.title,
+    description: frontmatter.description,
+    excerpt: frontmatter.excerpt,
+    date: frontmatter.date,
+    heroImage: frontmatter.heroImage,
+    tags: frontmatter.tags,
+  }}>
   <div class="blog-post__header text-center mt-8">
     <FrontmatterInfo frontmatter={frontmatter} />
   </div>

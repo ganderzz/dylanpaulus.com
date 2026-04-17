@@ -5,9 +5,16 @@ publish = "/dist/"
 [[headers]]
 for = "/*"
 [headers.values]
-# Prevent XSS through Iframes
+# Prevent clickjacking
 X-Frame-Options = "DENY"
-X-XSS-Protection = "1; mode=block"
+# Prevent MIME-type sniffing
+X-Content-Type-Options = "nosniff"
+# Enforce HTTPS for one year, include subdomains, eligible for preload list
+Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+# Send origin+path on same-origin, only origin cross-origin, nothing on downgrade
+Referrer-Policy = "strict-origin-when-cross-origin"
+# Disable browser features the site does not use
+Permissions-Policy = "camera=(), microphone=(), geolocation=(), interest-cohort=()"
 
 # Blog post redirects to keep old Jenkins URL paths active
 [[redirects]]
