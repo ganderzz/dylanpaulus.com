@@ -1,6 +1,6 @@
 ---
 title: "Tips on Creating Reusable Components"
-description: "Practical tips for building reusable React components: keeping them small, composable, and thinking about UI as a function of state."
+description: "Tips for building reusable React components: keep them small, keep them composable, treat UI as a function of state."
 tags: ["React", "Javascript"]
 date: "2017-09-08"
 published: true

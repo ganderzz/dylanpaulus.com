@@ -1,6 +1,6 @@
 ---
 title: "Intro to FlightJS"
-description: "A beginner's guide to FlightJS, Twitter's lightweight component-based JavaScript framework, building a working counter component from scratch."
+description: "Building a counter component with FlightJS, Twitter's component-based JavaScript framework, from scratch."
 tags: ["Javascript", "FlightJS"]
 date: "2015-11-17"
 published: true

@@ -1,6 +1,6 @@
 ---
 title: "Introduction to Higher Order Components"
-description: "A plain-English introduction to Higher Order Components (HOCs) in React: what they are, why they work, and how to write one from scratch."
+description: "Higher Order Components (HOCs) in React, explained: what they are, why they work, and how to write one from scratch."
 tags: ["Javascript", "Frontend", "React"]
 date: "2017-08-17"
 published: true

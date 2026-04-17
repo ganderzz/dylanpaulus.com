@@ -1,6 +1,6 @@
 ---
 title: "How Facebook Avoids Ad Blockers"
-description: "A look at the clever techniques Facebook uses to hide the word 'Sponsored' from ad blockers, from per-character spans to DOM obfuscation."
+description: "How Facebook hides the word 'Sponsored' from ad blockers using per-character spans and DOM obfuscation, pulled apart piece by piece."
 tags: ["encryption", "facebook", "interesting", "ads"]
 date: "2019-11-24"
 published: true

@@ -1,6 +1,6 @@
 ---
 title: "On Writing Clean Code"
-description: "Practical techniques for writing cleaner code: naming variables well, picking good function signatures, and writing code your future self can actually read."
+description: "Writing cleaner code: name variables well, pick good function signatures, and leave behind code your future self can read without cursing."
 tags: ["programming", "software-engineering", "beginner"]
 date: "2019-07-21"
 published: true

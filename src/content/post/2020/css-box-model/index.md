@@ -1,6 +1,6 @@
 ---
 title: "CSS Box Model"
-description: "Part one of 'CSS: The Important Stuff' — how the CSS Box Model (content, padding, border, margin) actually lays out every element on a web page."
+description: "Part one of 'CSS: The Important Stuff'. How content, padding, border, and margin actually lay out every element on a web page."
 tags: ["CSS", "Frontend"]
 image_credit: "https://unsplash.com/photos/ybrHV5FWqr4"
 series: "CSS: The Important Stuff"

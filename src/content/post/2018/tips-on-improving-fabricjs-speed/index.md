@@ -1,6 +1,6 @@
 ---
 title: "Tips on Improving FabricJS Speed"
-description: "Techniques we used to speed up FabricJS when rendering ~10k objects on a Canvas: disabling renderOnAddRemove, using enlivenObjects, and more."
+description: "Techniques that sped up FabricJS rendering of ~10k objects on a Canvas: disabling renderOnAddRemove, using enlivenObjects, and batching object loading."
 tags: ["Javascript", "FabricJS"]
 date: "2018-10-11"
 published: true

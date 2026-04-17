@@ -1,6 +1,6 @@
 ---
 title: "Music That Defined My Decade: 2010-2019"
-description: "A personal anthology of the albums and songs that shaped a decade of my life, from post-rock to math-rock and every odd time signature in between."
+description: "The albums and songs that shaped a decade of my life. Heavy on post-rock, math-rock, and odd time signatures."
 tags: ["music", "personal"]
 date: "2019-12-29"
 published: true

@@ -1,6 +1,6 @@
 ---
 title: "Global Component Registration"
-description: "A pattern for registering React components globally, inspired by Insomnia's source, that makes modals and similar widgets easy to show from anywhere."
+description: "Registering React components in a global store so modals and similar widgets can be triggered from anywhere in the app. Borrowed from Insomnia's source."
 tags: ["React", "Javascript"]
 date: "2017-12-08"
 published: true
