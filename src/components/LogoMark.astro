@@ -1,0 +1,26 @@
+---
+type Props = {
+  size?: number;
+  class?: string;
+};
+
+const { size = 20, class: className = "" } = Astro.props as Props;
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  class:list={[className]}
+  height={size}
+  viewBox="14 5 144 145"
+  aria-hidden="true">
+  <path
+    class="fill-[#2b5cbf] dark:fill-[#01F9EF]"
+    d="M36 77.5l21.88-21.88V38.4l-39.1 39.1 39.1 39.1V99.38z"></path>
+  <path
+    class="fill-[#f8d306] dark:fill-[#f8d306]"
+    d="M132.52 77.5l-21.88 21.88v17.22l39.1-39.1-39.1-39.1v17.22z"></path>
+  <path class="fill-[#5755C9]" d="M66.84 10.75h12.18v106.23H66.84z"></path>
+  <path
+    class="fill-[#ce4da1] dark:fill-[#CB54A1]"
+    d="M89.5 38.02h12.17v106.23H89.5z"></path>
+</svg>

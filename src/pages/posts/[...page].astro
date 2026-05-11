@@ -2,13 +2,10 @@
 import type { GetStaticPathsOptions } from "astro";
 import type { Page } from "astro";
 import type { CollectionEntry } from "astro:content";
-import SubHeading from "@components/SubHeading.astro";
-import PostListItem from "@components/PostListItem.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
+import TagChip from "@components/TagChip.astro";
 import { getCollection } from "astro:content";
-import Pagination from "@components/Pagination.astro";
 import { getTags, orderByPopular } from "@utils/tags";
-import TagList from "@components/TagList.astro";
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   const unsortedPosts = await getCollection(
@@ -18,7 +15,6 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   let posts = unsortedPosts.sort(
     (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf()
   );
-  // Hack to override the string literal expected for slug
   posts = posts.map((p) => ({ ...p, slug: p.slug.split("/")[1] }) as any);
 
   const tags = orderByPopular(await getTags(unsortedPosts));
@@ -26,59 +22,441 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   return paginate(posts, { pageSize: 10 }).map((data) => ({
     props: {
       ...data.props,
-      tags: Object.keys(tags).slice(0, 12),
+      tags,
+      totalPosts: posts.length,
     },
     params: data.params,
   }));
 }
 
-const { page, tags } = Astro.props as {
-  tags: string[];
+const { page, tags, totalPosts } = Astro.props as {
+  tags: Record<string, number>;
+  totalPosts: number;
   page: Page<CollectionEntry<"post">>;
 };
+
+const isFirstPage = page.currentPage === 1;
+const featured = isFirstPage ? page.data[0] : null;
+const listPosts = isFirstPage ? page.data.slice(1) : page.data;
+
+const dateFormatter = new Intl.DateTimeFormat("en-us", {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+  timeZone: "UTC",
+});
+
+const popularTags = Object.entries(tags).slice(0, 12);
+
+const renderedListPosts = await Promise.all(
+  listPosts.map(async (post) => {
+    const { remarkPluginFrontmatter } = await post.render();
+    return { post, remark: remarkPluginFrontmatter };
+  })
+);
+
+const featuredRendered = featured ? await featured.render() : null;
+const featuredFm = featuredRendered?.remarkPluginFrontmatter ?? {};
+
+function trimDescription(text: string | undefined, max: number) {
+  if (!text) return "";
+  if (text.length <= max) return text;
+  return text.slice(0, max).trimEnd() + "…";
+}
 ---
 
 <BaseLayout
   title="Posts | Dylan Paulus"
-  description="A collection of articles written about software, management, and life.">
-  <section
-    id="main-content"
-    tab-index="-1"
-    class="flex max-w-full lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl mx-auto">
-    <div class="w-full sm:w-2/3 md:px-8">
-      <div class="flex flex-col md:flex-row mb-4">
-        <div class="flex flex-1 items-center">
-          <SubHeading>Recently Published</SubHeading>
-        </div>
-        <div class="flex flex-1 items-center justify-end">
-          <Pagination page={page} />
-        </div>
+  description="A collection of articles written about software, management, and life."
+  footerVariant="minimal">
+  <div class="max-w-screen-2xl mx-auto">
+    <section class="px-6 sm:px-10 lg:px-14 pt-12 lg:pt-16 pb-8">
+      <div
+        class="flex items-center gap-3.5 text-[12px] font-semibold uppercase mb-7"
+        style="letter-spacing: 0.18em; color: var(--brand-fg2);">
+        <span>{totalPosts} articles since 2015</span>
       </div>
 
-      {page.data.map((post) => <PostListItem data={post} />)}
-
-      <div class="flex items-center justify-end mx-auto">
-        <Pagination page={page} />
+      <div>
+        <h1
+          class="kb-archive-h1 m-0"
+          style="text-wrap: balance; color: var(--brand-ink); font-weight: 700;">
+          Recently
+          <span class="font-display-italic" style="color: var(--brand-indigo);"
+            >published</span
+          ><span style="color: var(--brand-indigo);">.</span>
+        </h1>
       </div>
-    </div>
+    </section>
 
-    <aside class="sm:flex flex-col w-1/3 md:px-8 hidden">
-      <div id="search"></div>
-      <script is:inline>
-        window.addEventListener("DOMContentLoaded", () => {
-          new PagefindUI({
-            element: "#search",
-            pageSize: 6,
-            showImages: false,
-          });
-        });
-      </script>
+    {/* Filter / pagination strip */}
+    <section class="px-6 sm:px-10 lg:px-14 pt-4 pb-4">
+      <div
+        class="kb-strip flex flex-col md:flex-row md:items-center md:justify-between gap-4 px-5 py-3.5"
+        style="border: 1px solid var(--brand-rule); border-radius: 999px; background: rgba(255,255,255,0.7); backdrop-filter: blur(6px);">
+        <div class="flex items-center gap-1.5 flex-wrap">
+          <span
+            class="text-[11px] font-bold uppercase mr-2"
+            style="letter-spacing: 0.2em; color: var(--brand-fg2);">
+            Filter
+          </span>
+          <a
+            href="/posts"
+            class="px-3.5 py-2 rounded-full text-[13px] font-medium no-underline"
+            style={isFirstPage
+              ? "background: var(--brand-ink); color: var(--brand-paper);"
+              : "color: var(--brand-ink);"}>
+            All
+          </a>
+          {
+            popularTags.slice(0, 4).map(([t]) => (
+              <a
+                href={`/tags/${t}`}
+                class="px-3.5 py-2 rounded-full text-[13px] font-medium no-underline capitalize"
+                style="color: var(--brand-ink);">
+                {t}
+              </a>
+            ))
+          }
+        </div>
+        <div
+          class="flex items-center gap-1.5 flex-wrap justify-start md:justify-end">
+          <span
+            class="text-[12px] mr-2 tabular-nums"
+            style="color: var(--brand-fg2);">
+            Page <strong style="color: var(--brand-ink);"
+              >{page.currentPage}</strong
+            > of {page.lastPage}
+          </span>
+          <a
+            href={page.url.prev ?? "#"}
+            aria-label="Previous page"
+            aria-disabled={!page.url.prev}
+            class="inline-grid place-items-center w-9 h-9 rounded-full text-sm no-underline"
+            style={`border: 1px solid var(--brand-rule); color: var(--brand-fg2); ${!page.url.prev ? "opacity: 0.4; pointer-events: none;" : ""}`}>
+            ←
+          </a>
+          {
+            Array.from({ length: page.lastPage }).map((_, i) => {
+              const n = i + 1;
+              const isActive = n === page.currentPage;
+              const href = n === 1 ? "/posts" : `/posts/${n}`;
+              return (
+                <a
+                  href={href}
+                  aria-label={`Go to page ${n}`}
+                  class:list={[
+                    "inline-grid place-items-center w-9 h-9 rounded-full text-[13px] font-semibold no-underline tabular-nums",
+                    isActive && "kb-indigo-fill",
+                  ]}
+                  style={isActive ? undefined : "color: var(--brand-ink);"}>
+                  {n}
+                </a>
+              );
+            })
+          }
+          <a
+            href={page.url.next ?? "#"}
+            aria-label="Next page"
+            aria-disabled={!page.url.next}
+            class="inline-grid place-items-center w-9 h-9 rounded-full text-sm no-underline"
+            style={`border: 1px solid var(--brand-rule-strong); color: var(--brand-ink); ${!page.url.next ? "opacity: 0.4; pointer-events: none;" : ""}`}>
+            →
+          </a>
+        </div>
+      </div>
+    </section>
 
-      <a class="block w-fit" href="/sitemap">
-        <SubHeading>Popular Tags</SubHeading>
-      </a>
+    {/* Featured post (page 1 only) */}
+    {
+      featured && (
+        <section class="px-6 sm:px-10 lg:px-14 pt-5 pb-6">
+          <a
+            href={featured.data.externalLink ?? `/posts/${featured.slug}`}
+            target={featured.data.externalLink ? "_blank" : undefined}
+            rel={featured.data.externalLink ? "noopener noreferrer" : undefined}
+            class="grid grid-cols-1 md:grid-cols-2 overflow-hidden no-underline"
+            style="background: var(--brand-card); border: 1px solid var(--brand-rule); border-radius: 28px; color: var(--brand-ink);">
+            <div class="p-9 lg:p-12 flex flex-col gap-5">
+              <div class="flex flex-wrap gap-2 items-center">
+                <span
+                  class="px-3 py-1.5 rounded-full text-[11px] font-bold uppercase"
+                  style="background: var(--brand-yellow); color: #111; letter-spacing: 0.14em;">
+                  Latest
+                </span>
+                <span class="text-[13px]" style="color: var(--brand-fg2);">
+                  ·
+                </span>
+                <span
+                  class="text-[13px] tabular-nums"
+                  style="color: var(--brand-fg2);">
+                  {dateFormatter.format(new Date(featured.data.date))}
+                </span>
+                {featuredFm.timeToRead && (
+                  <>
+                    <span class="text-[13px]" style="color: var(--brand-fg2);">
+                      ·
+                    </span>
+                    <span class="text-[13px]" style="color: var(--brand-fg2);">
+                      {featuredFm.timeToRead}
+                    </span>
+                  </>
+                )}
+                {featured.data.externalLink && (
+                  <span
+                    class="px-2 py-0.5 rounded-full text-[11px] font-semibold uppercase"
+                    style="border: 1px solid var(--brand-indigo); color: var(--brand-indigo); letter-spacing: 0.14em;">
+                    ↗ External
+                  </span>
+                )}
+              </div>
+              <h2
+                class="kb-feature-title m-0"
+                style="text-wrap: balance; color: var(--brand-ink); font-weight: 600;">
+                {featured.data.title}
+              </h2>
+              {(featured.data.description ?? featuredFm.excerpt) && (
+                <p
+                  class="m-0 max-w-[460px]"
+                  style="font-size: 18px; line-height: 1.6; color: var(--brand-fg1);">
+                  {trimDescription(
+                    featured.data.description ?? featuredFm.excerpt,
+                    220
+                  )}
+                </p>
+              )}
+              <div class="flex gap-2 flex-wrap">
+                {featured.data.tags.slice(0, 4).map((t) => (
+                  <TagChip tag={t} disableLink />
+                ))}
+              </div>
+              <div class="mt-1">
+                <span
+                  class="inline-flex items-center gap-2.5 px-5 py-3 rounded-full text-[14px] font-semibold"
+                  style="background: var(--brand-ink); color: var(--brand-paper);">
+                  Read the post →
+                </span>
+              </div>
+            </div>
+            <div
+              class="relative min-h-[280px] md:min-h-[380px] overflow-hidden"
+              style={`background: linear-gradient(135deg, var(--accent) 0%, var(--brand-paper) 80%);`}>
+              <svg
+                viewBox="0 0 200 200"
+                preserveAspectRatio="xMidYMid slice"
+                class="absolute inset-0 w-full h-full"
+                aria-hidden="true">
+                <g transform="translate(100, 100)">
+                  <path
+                    fill="var(--brand-blue)"
+                    opacity="0.92"
+                    d="M-46 0L-18 -28V-12L-30 0L-18 12V28z"
+                  />
+                  <path
+                    fill="var(--brand-yellow)"
+                    opacity="0.92"
+                    d="M46 0L18 28V12L30 0L18 -12V-28z"
+                  />
+                  <rect
+                    fill="var(--brand-indigo)"
+                    opacity="0.92"
+                    x="-14"
+                    y="-50"
+                    width="9"
+                    height="80"
+                  />
+                  <rect
+                    fill="var(--brand-magenta)"
+                    opacity="0.92"
+                    x="3"
+                    y="-30"
+                    width="9"
+                    height="80"
+                  />
+                </g>
+              </svg>
+            </div>
+          </a>
+        </section>
+      )
+    }
 
-      <TagList tags={tags} />
-    </aside>
-  </section>
+    {/* The list */}
+    <section class="px-6 sm:px-10 lg:px-14 pt-6 pb-8">
+      <div class="flex items-baseline justify-between mb-7 flex-wrap gap-2">
+        <h3
+          class="m-0"
+          style="font-size: 28px; font-weight: 500; letter-spacing: -0.02em; color: var(--brand-ink);">
+          {isFirstPage ? "Everything else" : "Older posts"}
+        </h3>
+        <span
+          class="text-[12px] uppercase font-bold"
+          style="letter-spacing: 0.18em; color: var(--brand-fg2);">
+          {listPosts.length} posts · sorted newest
+        </span>
+      </div>
+
+      <div style="border-top: 1px solid var(--brand-rule-strong);">
+        {
+          renderedListPosts.map(({ post, remark }) => {
+            const date = dateFormatter.format(new Date(post.data.date));
+            const desc = post.data.description ?? remark.excerpt ?? "";
+            const isExternal = Boolean(post.data.externalLink);
+            const href = post.data.externalLink ?? `/posts/${post.slug}`;
+            return (
+              <a
+                href={href}
+                target={isExternal ? "_blank" : undefined}
+                rel={isExternal ? "noopener noreferrer" : undefined}
+                class="kb-post-row block py-7 px-2 no-underline transition-colors"
+                style="color: var(--brand-ink); border-bottom: 1px solid var(--brand-rule);">
+                <div class="kb-post-row-grid w-full">
+                  <div class="kb-content min-w-0">
+                    <div class="flex items-baseline gap-3.5 flex-wrap">
+                      <h4
+                        class="m-0"
+                        style="font-size: clamp(20px, 2.4vw, 28px); line-height: 1.15; letter-spacing: -0.02em; font-weight: 500; color: var(--brand-ink);">
+                        {post.data.title}
+                      </h4>
+
+                      {isExternal && (
+                        <span
+                          class="text-[11px] font-semibold uppercase px-2 py-0.5 rounded-full"
+                          style="letter-spacing: 0.14em; color: var(--brand-indigo); border: 1px solid var(--brand-indigo);">
+                          ↗ External
+                        </span>
+                      )}
+                    </div>
+                    {desc && (
+                      <p
+                        class="mt-2 mb-0 max-w-[720px]"
+                        style="font-size: 15px; line-height: 1.55; color: var(--brand-fg2);">
+                        {trimDescription(desc, 160)}
+                      </p>
+                    )}
+                  </div>
+                  <div class="kb-tags flex gap-1.5 flex-wrap">
+                    {post.data.tags.slice(0, 3).map((t) => (
+                      <TagChip tag={t} disableLink />
+                    ))}
+                  </div>
+                  <div class="kb-meta flex gap-3 items-center justify-end">
+                    <div class="text-right">
+                      <div
+                        class="text-[13.5px] tabular-nums"
+                        style="color: var(--brand-ink); font-weight: 500;">
+                        {date}
+                      </div>
+                      {remark.timeToRead && (
+                        <div
+                          class="text-[12px] mt-0.5"
+                          style="color: var(--brand-fg2);">
+                          {remark.timeToRead}
+                        </div>
+                      )}
+                    </div>
+                    <span
+                      class="inline-grid place-items-center w-[38px] h-[38px] rounded-full text-[15px] shrink-0"
+                      style="border: 1px solid var(--brand-rule-strong); color: var(--brand-ink);">
+                      {isExternal ? "↗" : "→"}
+                    </span>
+                  </div>
+                </div>
+              </a>
+            );
+          })
+        }
+      </div>
+    </section>
+
+    <section class="px-6 sm:px-10 lg:px-14 pt-6 pb-14">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start mt-4">
+        <div>
+          <div
+            class="text-[11px] uppercase font-bold mb-4"
+            style="letter-spacing: 0.2em; color: var(--brand-fg2);">
+            Popular tags
+          </div>
+          <div class="flex gap-2 flex-wrap">
+            {
+              popularTags.map(([t, count]) => (
+                <TagChip tag={t} count={count} showHash />
+              ))
+            }
+          </div>
+          <a
+            href="/sitemap"
+            class="inline-block mt-4 text-[14px] font-semibold no-underline"
+            style="color: var(--brand-indigo); border-bottom: 2px solid var(--brand-indigo);">
+            Browse the full sitemap →
+          </a>
+        </div>
+        <div class="flex items-center gap-3.5 lg:justify-end flex-wrap">
+          <span
+            class="text-[13px] tabular-nums"
+            style="color: var(--brand-fg2);">
+            Page <strong style="color: var(--brand-ink);"
+              >{page.currentPage}</strong
+            > of {page.lastPage}
+          </span>
+          {
+            page.url.next ? (
+              <a
+                href={page.url.next}
+                class="px-5 py-3.5 rounded-full no-underline font-semibold text-[14px] inline-flex items-center gap-2.5 hover:scale-105 transform-gpu transition-transform"
+                style="background: var(--brand-ink); color: var(--brand-paper);">
+                Older posts →
+              </a>
+            ) : (
+              <span
+                class="px-5 py-3.5 rounded-full text-[14px]"
+                style="border: 1px solid var(--brand-rule); color: var(--brand-fg2);">
+                You're all caught up.
+              </span>
+            )
+          }
+        </div>
+      </div>
+    </section>
+  </div>
 </BaseLayout>
+
+<style>
+  .kb-archive-h1 {
+    font-size: clamp(32px, 11vw, 56px);
+    line-height: 0.9;
+    letter-spacing: -0.05em;
+  }
+  .kb-feature-title {
+    font-size: clamp(32px, 5vw, 56px);
+    line-height: 0.98;
+    letter-spacing: -0.04em;
+  }
+  .kb-post-row:hover {
+    background: rgba(87, 85, 201, 0.05);
+  }
+  :global(html[data-theme="dark"]) .kb-post-row:hover {
+    background: rgba(179, 227, 255, 0.06);
+  }
+  .kb-post-row-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  @media (min-width: 768px) {
+    .kb-post-row-grid {
+      grid-template-columns: 1fr 220px 200px;
+      gap: 24px;
+      align-items: center;
+    }
+  }
+  @media (min-width: 1024px) {
+    .kb-post-row-grid {
+      grid-template-columns: 1fr 240px 200px;
+      gap: 24px;
+    }
+  }
+  :global(html[data-theme="dark"]) .kb-strip {
+    background: rgba(255, 255, 255, 0.05) !important;
+  }
+</style>

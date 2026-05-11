@@ -1,0 +1,62 @@
+---
+import { normalizeTag } from "@utils/tags";
+
+type Props = {
+  tag: string;
+  filled?: boolean;
+  showHash?: boolean;
+  count?: number;
+  href?: string;
+  disableLink?: boolean;
+};
+
+const {
+  tag,
+  filled = false,
+  showHash = false,
+  count,
+  href,
+  disableLink = false,
+} = Astro.props as Props;
+
+const target = href ?? `/tags/${normalizeTag(tag)}`;
+const label = `${showHash ? "#" : ""}${tag}`;
+
+const baseClass =
+  "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[12px] font-semibold no-underline transition-colors";
+const filledStyle = "border: 1px solid transparent;";
+const outlineStyle =
+  "background: transparent; color: var(--brand-fg1); border: 1px solid var(--brand-rule);";
+const wrapperClass = `${baseClass}${filled ? " kb-indigo-fill" : ""}`;
+---
+
+{
+  disableLink ? (
+    <span
+      class={wrapperClass}
+      style={`letter-spacing: 0.04em; ${filled ? filledStyle : outlineStyle}`}>
+      {label}
+      {typeof count === "number" && (
+        <span
+          class="text-[11px] opacity-70"
+          style="font-variant-numeric: tabular-nums;">
+          {count}
+        </span>
+      )}
+    </span>
+  ) : (
+    <a
+      href={target}
+      class={wrapperClass}
+      style={`letter-spacing: 0.04em; ${filled ? filledStyle : outlineStyle}`}>
+      {label}
+      {typeof count === "number" && (
+        <span
+          class="text-[11px] opacity-70"
+          style="font-variant-numeric: tabular-nums;">
+          {count}
+        </span>
+      )}
+    </a>
+  )
+}

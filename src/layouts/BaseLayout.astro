@@ -10,9 +10,10 @@ export interface Props {
   title: string;
   description: string;
   post?: PostMeta;
+  footerVariant?: "full" | "minimal";
 }
 
-const { title, description, post } = Astro.props as Props;
+const { title, description, post, footerVariant = "full" } = Astro.props as Props;
 ---
 
 <html lang="en-US" class="scroll-smooth antialiased transition-colors">
@@ -53,12 +54,12 @@ const { title, description, post } = Astro.props as Props;
   <body>
     <a href="#main" class="skip-link">Skip to main content</a>
 
-    <main id="main" class="p-4 sm:p-0 w-full text-base">
+    <main id="main" class="w-full text-base">
       <Header />
       <slot />
     </main>
 
-    <Footer />
+    <Footer variant={footerVariant} />
 
     <script
       data-goatcounter="https://dylanpaulus.goatcounter.com/count"

@@ -1,154 +1,363 @@
 ---
 import { Image } from "astro:assets";
-import SubHeading from "@components/SubHeading.astro";
-import SiteLayout from "@layouts/SiteLayout.astro";
-import TagList from "~/src/components/TagList.astro";
-import Tag from "~/src/components/Tag.astro";
-import Button from "~/src/components/Button.astro";
-import { Content } from "~/src/markdown/about_me.md";
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+const experience = [
+  {
+    years: "Current",
+    role: "Staff Fullstack Software Engineer",
+    company: "AirGarage",
+    href: "https://www.airgarage.com/",
+    current: true,
+  },
+  {
+    years: "Current",
+    role: "Technical Cofounder",
+    company: "Unicorncat Consulting",
+    href: "https://www.linkedin.com/company/unicorncatconsulting",
+    current: true,
+  },
+  {
+    years: "2024 — 2025",
+    role: "Staff Software Engineer",
+    company: "Zeal",
+    href: "https://www.zeal.com/",
+    current: false,
+  },
+  {
+    years: "2022 — 2024",
+    role: "Senior Software Engineer",
+    company: "Rover.com",
+    href: "https://rover.com/",
+    current: false,
+  },
+  {
+    years: "2017 — 2022",
+    role: "Engineering Manager II",
+    company: "Schweitzer Engineering Laboratories",
+    href: "https://selinc.com/",
+    current: false,
+  },
+  {
+    years: "2015 — 2017",
+    role: "Web developer",
+    company: "Sony PlayStation",
+    href: "https://www.mobygames.com/developer/sheet/view/developerId,783203/",
+    current: false,
+  },
+  {
+    years: "2014 — 2015",
+    role: "Student web developer",
+    company: "Eastern Washington University",
+    href: "https://www.ewu.edu/",
+    current: false,
+  },
+];
+
+const talks = [
+  { year: "2022", title: "Developing Software at SEL", venue: "" },
+  {
+    year: "2022",
+    title: "Blazing Fast: An introduction to cache efficient code",
+    venue: "",
+  },
+  { year: "2021", title: "NPM, Dependencies, and JS Modules", venue: "" },
+  { year: "2019", title: "Making React Fast", venue: "" },
+  {
+    year: "2019",
+    title: "Functional Programming Light",
+    venue: "Boise Code Camp",
+  },
+];
+
+const stack = [
+  "C#",
+  "Python",
+  "HTML",
+  "JavaScript/TypeScript",
+  "CSS",
+  "React",
+  "Redux",
+  "NextJS",
+  "Remix",
+  "NodeJS",
+  "Webpack",
+  "AstroJS",
+  "Django",
+  "Django Rest Framework",
+  "ASPCore",
+  "PostgreSQL",
+  "Redis",
+  "RabbitMQ",
+  "Docker",
+  "Kubernetes",
+  "Helm",
+  "Istio",
+  "Tilt",
+  "Azure",
+  "AWS",
+  "Git",
+  "Jenkins",
+  "Github Actions",
+  "Nginx",
+  "IIS",
+  "React Native",
+  "Expo",
+  "Fastlane",
+  "Vite",
+  "Playwright",
+  "...and more!",
+];
 ---
 
-<SiteLayout title="About | Dylan Paulus" description="About me">
-  <div class="flex flex-col md:flex-row w-full">
-    <div class="text-center w-full md:w-1/3">
-      <Image
-        src="/images/about-image.jpg"
-        width={800}
-        height={600}
-        alt="Image of Dylan playing drums"
-        class="shadow-lg rounded-md m-auto w-full aspect-auto"
-        loading="eager"
-      />
+<BaseLayout
+  title="About | Dylan Paulus"
+  description="About me"
+  footerVariant="minimal">
+  <div class="kb-page max-w-screen-2xl mx-auto">
+    <section class="px-6 sm:px-10 lg:px-14 pt-12 pb-10 lg:pt-20 lg:pb-12">
+      <h1
+        class="kb-about-h1 m-0"
+        style="text-wrap: balance; color: var(--brand-ink); font-weight: 700;">
+        Hi, I'm <span class="highlight-pill">Dylan.</span>
+      </h1>
+    </section>
 
-      <figcaption class="text-sm mt-2">
-        That's me, the one on the drums!
-      </figcaption>
-    </div>
+    <section class="px-6 sm:px-10 lg:px-14 pt-2 pb-14">
+      <div
+        class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-[1.6fr_1fr_1.6fr] gap-5">
+        <div
+          class="kb-photo-card relative rounded-3xl overflow-hidden"
+          style="aspect-ratio: 4 / 3; box-shadow: 0 10px 30px -8px rgba(0,0,0,0.18);">
+          <Image
+            src="/images/about-image.jpg"
+            width={1200}
+            height={900}
+            alt="Image of Dylan playing drums"
+            class="w-full h-full object-cover"
+            loading="eager"
+          />
+        </div>
 
-    <section class="w-full md:w-2/3 mt-8 md:mt-0 ml-0 md:ml-12">
-      <SubHeading>About</SubHeading>
+        <div
+          class="kb-photo-card relative rounded-3xl overflow-hidden"
+          style="aspect-ratio: 3/4; box-shadow: 0 10px 30px -8px rgba(0,0,0,0.18);">
+          <Image
+            src="/images/hike.jpg"
+            width={900}
+            height={1200}
+            alt="Dylan hiking Golden Lakes Loops"
+            class="w-full h-full object-cover"
+            loading="eager"
+          />
+        </div>
 
-      <div class="mb-12"><Content /></div>
+        <div
+          class="kb-photo-card relative rounded-3xl overflow-hidden"
+          style="aspect-ratio: 4 / 3; box-shadow: 0 10px 30px -8px rgba(0,0,0,0.18);">
+          <Image
+            src="/images/boise-code-camp.jpeg"
+            width={1200}
+            height={900}
+            alt="Dylan presenting at Boise Code Camp"
+            class="w-full h-full object-cover"
+            loading="eager"
+          />
+        </div>
+      </div>
+    </section>
 
-      <SubHeading>Experience</SubHeading>
-      <ul class="m-0 leading-relaxed">
-        <li>
-          <Tag>Current</Tag>
-          Staff Fullstack Software Engineer @ <a
-            href="https://www.airgarage.com/">AirGarage</a
+    <section class="px-6 sm:px-10 lg:px-14 pt-2 pb-14">
+      <div class="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-8 lg:gap-16">
+        <h3
+          class="m-0"
+          style="font-size: clamp(28px, 3vw, 36px); line-height: 1; letter-spacing: -0.03em; font-weight: 500; color: var(--brand-ink);">
+          About <span
+            class="font-display-italic"
+            style="color: var(--brand-indigo);">me</span
           >
-        </li>
-        <li>
-          <Tag>Current</Tag>
-          Technical Cofounder @ <a
-            href="https://www.linkedin.com/company/unicorncatconsulting"
-            >UnicornCat Consulting</a
+        </h3>
+
+        <div class="max-w-[740px]">
+          <p
+            class="mt-6"
+            style="font-size: 18px; line-height: 1.7; color: var(--brand-fg1);">
+            My interest in computers started when I was six years old, waking up
+            for Christmas, ripping open a brand new <em
+              class="font-display-italic">Nintendo 64</em
+            > gaming console, slamming in the Super Mario 64 cartridge, and seeing
+            the red hat plumber in all his 3D glory. Ever since then I have been learning
+            everything I can about software development.
+          </p>
+          <p
+            class="mt-4"
+            style="font-size: 18px; line-height: 1.7; color: var(--brand-fg1);">
+            Fast-forward to today, I am a Staff Fullstack Software Engineer at <a
+              href="https://www.airgarage.com/"
+              data-goatcounter-click="airgarage__click"
+              target="_blank"
+              rel="noopener noreferrer"
+              style="color: var(--brand-indigo); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px;"
+              >AirGarage</a
+            >.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    {/* Experience */}
+    <section
+      class="px-6 sm:px-10 lg:px-14 pt-10 pb-14"
+      style="border-top: 1px solid var(--brand-rule-strong);">
+      <div
+        class="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-8 lg:gap-16 pt-10">
+        <h3
+          class="m-0"
+          style="font-size: clamp(28px, 3vw, 36px); line-height: 1; letter-spacing: -0.03em; font-weight: 500; color: var(--brand-ink);">
+          Experience<span
+            class="font-display-italic"
+            style="color: var(--brand-indigo);">.</span
           >
-        </li>
-        <li>
-          <Tag>2024-2025</Tag>
-          Staff Software Engineer @ <a href="https://www.zeal.com/">Zeal</a>
-        </li>
-        <li>
-          <Tag>2022-2024</Tag>
-          Senior Software Engineer @ <a href="https://rover.com/">Rover.com</a>
-        </li>
-        <li>
-          <Tag>2017-2022</Tag>
-          Engineering Manager II @ <a href="https://selinc.com/"
-            >Schweitzer Engineering Laboratories</a
+        </h3>
+        <div>
+          {
+            experience.map((e) => (
+              <div
+                class="grid grid-cols-[120px_1fr_auto] sm:grid-cols-[180px_1fr_auto] gap-6 py-6 items-baseline"
+                style="border-bottom: 1px solid var(--brand-rule);">
+                <div
+                  class="text-[14px] tabular-nums"
+                  style="color: var(--brand-fg2); letter-spacing: 0.04em;">
+                  {e.years}
+                </div>
+                <div>
+                  <div
+                    class="text-[20px] sm:text-[26px]"
+                    style="font-weight: 500; letter-spacing: -0.015em; color: var(--brand-ink);">
+                    {e.role}
+                  </div>
+                  <a
+                    href={e.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-[15px] mt-1 inline-block"
+                    style="color: var(--brand-fg2);">
+                    {e.company}
+                  </a>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 sm:px-10 lg:px-14 pt-10 pb-14">
+      <div class="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-8 lg:gap-16">
+        <h3
+          class="m-0"
+          style="font-size: clamp(28px, 3vw, 36px); line-height: 1; letter-spacing: -0.03em; font-weight: 500; color: var(--brand-ink);">
+          Technologies <span
+            class="font-display-italic"
+            style="color: var(--brand-indigo);">I've Worked In</span
           >
-        </li>
-        <li>
-          <Tag>2015-2017</Tag>
-          Web developer @ <a
-            data-goatcounter-click="moby-games__click"
-            href="https://www.mobygames.com/developer/sheet/view/developerId,783203/"
-            >Sony PlayStation
+        </h3>
+        <div class="flex flex-wrap gap-2.5">
+          {
+            stack.map((name) => {
+              return (
+                <span
+                  class="px-4 py-2.5 rounded-full text-[15px] font-medium"
+                  style={`border: 1px solid var(--brand-rule-strong); background: transparent; color: var(--brand-ink);`}>
+                  {name}
+                </span>
+              );
+            })
+          }
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="px-6 sm:px-10 lg:px-14 pt-10 pb-16"
+      style="border-top: 1px solid var(--brand-rule-strong);">
+      <div
+        class="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-8 lg:gap-16 pt-10">
+        <h3
+          class="m-0"
+          style="font-size: clamp(28px, 3vw, 36px); line-height: 1; letter-spacing: -0.03em; font-weight: 500; color: var(--brand-ink);">
+          Talks I've <span
+            class="font-display-italic"
+            style="color: var(--brand-indigo);">Given</span
+          >
+        </h3>
+        <div>
+          {
+            talks.map((t) => (
+              <div
+                class="grid grid-cols-[60px_1fr_auto] sm:grid-cols-[80px_1fr_auto] gap-6 py-5 items-baseline"
+                style="border-bottom: 1px solid var(--brand-rule); color: var(--brand-ink);">
+                <span
+                  class="text-[16px] tabular-nums"
+                  style="color: var(--brand-fg2);">
+                  {t.year}
+                </span>
+                <span
+                  class="text-[18px] sm:text-[22px]"
+                  style="font-weight: 500; letter-spacing: -0.01em;">
+                  {t.title}
+                </span>
+                <span
+                  class="text-[14px] hidden sm:inline"
+                  style="color: var(--brand-fg2);">
+                  {t.venue}
+                </span>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 sm:px-10 lg:px-14 pt-10 pb-20">
+      <div
+        class="relative overflow-hidden rounded-3xl p-10 lg:p-12 grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-10 items-center bg-white dark:bg-slate-700">
+        <div class="relative">
+          <div
+            class="text-[11px] uppercase font-bold mb-3.5"
+            style="letter-spacing: 0.2em; color: var(--brand-fg2);">
+            Get in Touch
+          </div>
+          <h3
+            class="m-0"
+            style="font-size: clamp(28px, 4vw, 44px); line-height: 1.05; letter-spacing: -0.03em; font-weight: 500;">
+            Do you have a question? Feedback? Or have an opportunity you'd like
+            to discuss?
+          </h3>
+        </div>
+        <div class="flex flex-col gap-3 items-end">
+          <a
+            href="mailto:hey@dylanpaulus.com"
+            data-goatcounter-click="contact-me__click"
+            class="inline-flex items-center gap-2.5 px-6 py-4 rounded-full font-semibold text-base no-underline hover:scale-105 transform-gpu transition-transform"
+            style="background: var(--brand-yellow); color: #111;">
+            Contact me →
           </a>
-        </li>
-        <li>
-          <Tag>2014-2015</Tag>
-          Student web developer @ <a href="https://www.ewu.edu/"
-            >Eastern Washington University</a
-          >
-        </li>
-      </ul>
-
-      <div class="w-full mt-12">
-        <SubHeading>Talks I've Given</SubHeading>
-        <ul class="list-disc list-inside ml-4 leading-relaxed">
-          <li>
-            <Tag>2022</Tag> Developing Software at SEL
-          </li>
-          <li>
-            <Tag>2022</Tag> Blazing Fast: An introduction to cache efficient code
-          </li>
-          <li>
-            <Tag>2021</Tag> NPM, Dependencies, and JS Modules
-          </li>
-          <li>
-            <Tag>2019</Tag> Making React Fast
-          </li>
-          <li>
-            <Tag>2019</Tag> Functional Programming Light (Boise Code Camp)
-          </li>
-        </ul>
-      </div>
-
-      <div class="w-full mt-12">
-        <SubHeading>Technologies I've Worked In</SubHeading>
-        <TagList
-          shouldDisableLink
-          tags={[
-            "C#",
-            "Python",
-            "HTML",
-            "JavaScript/TypeScript",
-            "CSS",
-            "React",
-            "Redux",
-            "NextJS",
-            "Remix",
-            "NodeJS",
-            "Webpack",
-            "AstroJS",
-            "Django",
-            "Django Rest Framework",
-            "ASPCore",
-            "PostgreSQL",
-            "Redis",
-            "RabbitMQ",
-            "Docker",
-            "Kubernetes",
-            "Helm",
-            "Istio",
-            "Tilt",
-            "Azure",
-            "AWS",
-            "Git",
-            "Jenkins",
-            "Github Actions",
-            "Nginx",
-            "IIS",
-            "React Native",
-            "Expo",
-            "Fastlane",
-            "Vite",
-            "Playwright",
-            "...and more!",
-          ]}
-        />
-      </div>
-
-      <div class="w-full mt-12">
-        <SubHeading class="mb-4">Misc.</SubHeading>
-        <ul class="list-disc list-inside ml-4 leading-relaxed">
-          <li>
-            <a href="/elsewhere">Other places I've appeared</a>
-          </li>
-        </ul>
+        </div>
       </div>
     </section>
   </div>
-</SiteLayout>
+</BaseLayout>
+
+<style>
+  .kb-about-h1 {
+    font-size: clamp(32px, 10vw, 56px);
+    line-height: 0.9;
+    letter-spacing: -0.05em;
+  }
+  .kb-section-h3 {
+    font-size: clamp(36px, 5vw, 56px);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+  }
+</style>

@@ -1,22 +1,41 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import FrontmatterInfo from "../components/FrontmatterInfo.astro";
 import BaseLayout from "./BaseLayout.astro";
+import TagChip from "@components/TagChip.astro";
 import { Image } from "astro:assets";
 
 export interface Props {
   frontmatter: CollectionEntry<"post">["data"] & Record<string, any>;
+  slug?: string;
+  relatedPosts?: Array<{
+    slug: string;
+    title: string;
+    description?: string;
+    excerpt?: string;
+    date: string;
+    tags: string[];
+    num?: string;
+    externalLink?: string;
+  }>;
 }
 
-const { frontmatter } = Astro.props as Props;
+const { frontmatter, slug = "", relatedPosts = [] } = Astro.props as Props;
 
 const isExternal = frontmatter.externalLink ?? false;
 const normalizedTitle = frontmatter.title.toLowerCase().replace(/\s/g, "-");
+
+const dateFormatter = new Intl.DateTimeFormat("en-us", {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+  timeZone: "UTC",
+});
 ---
 
 <BaseLayout
   title={frontmatter.title}
   description={frontmatter.description ?? frontmatter.excerpt ?? ""}
+  footerVariant="minimal"
   post={{
     title: frontmatter.title,
     description: frontmatter.description,
@@ -25,63 +44,558 @@ const normalizedTitle = frontmatter.title.toLowerCase().replace(/\s/g, "-");
     heroImage: frontmatter.heroImage,
     tags: frontmatter.tags,
   }}>
-  <div class="blog-post__header text-center mt-8">
-    <FrontmatterInfo frontmatter={frontmatter} />
-  </div>
+  {/* Article header */}
+  <article
+    class="px-6 sm:px-10 lg:px-14 pt-12 lg:pt-16 pb-0 max-w-screen-2xl mx-auto">
+    <div
+      class="flex items-center gap-3 text-[13px] mb-7 flex-wrap"
+      style="color: var(--brand-fg2);">
+      <a href="/posts" class="no-underline" style="color: var(--brand-fg2);"
+        >Posts</a
+      >
+      <span>/</span>
+      <span class="font-mono text-[12px]">{slug}</span>
+    </div>
 
-  <section class="mt-4" id="main-content" tab-index="-1">
+    <div
+      class="flex items-center gap-3.5 text-[12px] font-semibold uppercase mb-6 flex-wrap"
+      style="letter-spacing: 0.18em; color: var(--brand-fg2);">
+      <span>
+        {dateFormatter.format(new Date(frontmatter.date))}
+      </span>
+    </div>
+
     <h1
-      class={`${
-        frontmatter.series ? "mb-0" : "mb-10"
-      } mt-4 mx-auto px-4 font-bold text-center`}
-      style={{ maxWidth: "40ch" }}
+      id="main-content"
+      tabindex="-1"
+      class="kb-post-h1 m-0"
+      style="text-wrap: balance; color: var(--brand-ink); font-weight: 700;"
       data-pagefind-body>
       {frontmatter.title}
     </h1>
 
     {
       frontmatter.series && (
-        <h6
-          class="mb-10 mt-2 mx-auto italic text-center dark:text-slate-300 text-gray-600"
-          style={{ maxWidth: "40ch" }}>
+        <p
+          class="mt-4 mb-0 font-display-italic"
+          style="color: var(--brand-fg2); font-size: 18px;">
           Part of the <strong>{frontmatter.series}</strong> series.
-        </h6>
+        </p>
       )
     }
 
-    {
-      frontmatter.heroImage && (
-        <Image
-          width={600}
-          height={400}
-          class="mx-auto mt-4 mb-10 rounded-lg shadow-lg"
-          src={frontmatter.heroImage}
-          alt={`Hero image for ${frontmatter.title}`}
-        />
-      )
-    }
-
-    <article class="blog__post mb-10 dark:text-gray-100 leading-relaxed">
+    <div
+      class="mt-9 py-5 flex items-center gap-7 flex-wrap"
+      style="border-top: 1px solid var(--brand-rule); border-bottom: 1px solid var(--brand-rule);">
       {
-        isExternal && (
-          <h6 class="text-sm text-center mb-10 mt-0 italic dark:text-slate-300 text-gray-600">
-            This is an external article made in collaboration with another
-            source. Click the button below the view the whole article.
-          </h6>
+        frontmatter.timeToRead && (
+          <div class="flex items-center gap-2.5">
+            <span
+              class="text-[11px] font-semibold uppercase"
+              style="letter-spacing: 0.18em; color: var(--brand-fg2);">
+              Read time
+            </span>
+            <span
+              class="text-[14px] font-medium tabular-nums"
+              style="color: var(--brand-ink);">
+              {frontmatter.timeToRead}
+            </span>
+          </div>
         )
       }
-      <slot />
+      <span
+        class="hidden sm:block w-px h-5"
+        style="background: var(--brand-rule);"></span>
+      <div class="flex gap-2 flex-wrap">
+        {frontmatter.tags.slice(0, 4).map((t: string) => <TagChip tag={t} />)}
+      </div>
+    </div>
+  </article>
 
-      {
-        isExternal && (
-          <a
-            data-goatcounter-click={`${normalizedTitle}__click`}
-            class="mt-4 opacity-90 hover:opacity-100 text-center font-bold px-6 py-4 rounded-md dark:bg-[#b3e3ff] dark:hover:bg-[#84acc5] bg-[#5755c9] hover:bg-[#1e1c63] text-white hover:text-white dark:text-black transform-gpu hover:scale-105 transition-all"
-            href={frontmatter.externalLink}>
-            {frontmatter.title}
-          </a>
-        )
-      }
-    </article>
+  <section class="kb-post-body-section px-6 sm:px-10 lg:px-14 pt-10 pb-14">
+    <div class="kb-post-grid mx-auto">
+      <div class="kb-article-col min-w-0">
+        {
+          frontmatter.heroImage && (
+            <Image
+              width={720}
+              height={400}
+              class="rounded-2xl shadow-lg mb-8 w-full"
+              src={frontmatter.heroImage}
+              alt={`Hero image for ${frontmatter.title}`}
+            />
+          )
+        }
+
+        <article class="kb-article" data-pagefind-body>
+          {
+            isExternal && (
+              <div
+                class="mb-8 rounded-2xl p-5"
+                style="background: var(--brand-card); border: 1px solid var(--brand-rule);">
+                <div
+                  class="text-[11px] uppercase font-bold mb-1.5"
+                  style="letter-spacing: 0.18em; color: var(--brand-indigo);">
+                  ↗ External article
+                </div>
+                <p
+                  class="m-0"
+                  style="font-size: 16px; line-height: 1.6; color: var(--brand-fg1);">
+                  This is an external article made in collaboration with another
+                  source. Click the button below to view the whole article.
+                </p>
+              </div>
+            )
+          }
+
+          <slot />
+
+          {
+            isExternal && (
+              <div class="mt-10">
+                <a
+                  data-goatcounter-click={`${normalizedTitle}__click`}
+                  class="inline-flex items-center gap-2.5 px-6 py-4 rounded-full no-underline text-white font-semibold hover:scale-105 transform-gpu transition-transform"
+                  style="background: var(--brand-indigo);"
+                  href={frontmatter.externalLink}>
+                  Read on the original site ↗
+                </a>
+              </div>
+            )
+          }
+        </article>
+      </div>
+
+      <aside class="kb-toc-col" aria-label="Table of contents">
+        <div class="kb-toc sticky top-6">
+          <div
+            class="text-[11px] uppercase font-bold mb-3.5"
+            style="letter-spacing: 0.2em; color: var(--brand-fg2);">
+            On this page
+          </div>
+          <ul class="list-none p-0 m-0 flex flex-col gap-2.5" id="kb-toc-list">
+            {/* Filled by client script */}
+          </ul>
+
+          <div
+            class="mt-8 p-4 rounded-2xl"
+            style="background: var(--brand-card); border: 1px solid var(--brand-rule);">
+            <div
+              class="text-[11px] uppercase font-bold mb-2"
+              style="letter-spacing: 0.18em; color: var(--brand-fg2);">
+              Quick links
+            </div>
+            <a
+              href={`https://github.com/ganderzz/dylanpaulus.com/discussions`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block text-[14px] no-underline mb-1.5"
+              style="color: var(--brand-ink);">
+              ↗ Discuss on GitHub
+            </a>
+            <a
+              href="/rss.xml"
+              data-goatcounter-click="rss__click"
+              class="block text-[14px] no-underline"
+              style="color: var(--brand-ink);">
+              ↗ RSS feed
+            </a>
+          </div>
+        </div>
+      </aside>
+    </div>
   </section>
+
+  {/* Related posts */}
+  {
+    relatedPosts.length > 0 && (
+      <section class="px-6 sm:px-10 lg:px-14 pt-6 pb-14 max-w-screen-2xl mx-auto">
+        <div class="flex items-baseline justify-between mb-7 flex-wrap gap-3">
+          <h3
+            class="kb-related-h3 m-0"
+            style="font-weight: 500; color: var(--brand-ink);">
+            More{" "}
+            <span
+              class="font-display-italic"
+              style="color: var(--brand-indigo);">
+              like this
+            </span>
+          </h3>
+          <a
+            href="/posts"
+            class="text-[14px] font-semibold no-underline"
+            style="color: var(--brand-indigo); border-bottom: 2px solid var(--brand-indigo);">
+            All posts →
+          </a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {relatedPosts.slice(0, 3).map((p) => {
+            const desc = p.description ?? p.excerpt ?? "";
+            const trimmed = desc.length > 110 ? desc.slice(0, 110) + "…" : desc;
+            const href = p.externalLink ?? `/posts/${p.slug}`;
+            const isExternal = Boolean(p.externalLink);
+            return (
+              <a
+                href={href}
+                target={p.externalLink ? "_blank" : undefined}
+                rel={p.externalLink ? "noopener noreferrer" : undefined}
+                class="flex flex-col gap-4 p-7 no-underline rounded-2xl hover:scale-[1.01] transform-gpu transition-transform"
+                style="background: var(--brand-card); border: 1px solid var(--brand-rule); color: var(--brand-ink);">
+                <div class="flex items-baseline gap-2.5 flex-wrap">
+                  <h4
+                    class="m-0"
+                    style="font-size: 22px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 500; color: var(--brand-ink);">
+                    {p.title}
+                  </h4>
+                  {isExternal && (
+                    <span
+                      class="text-[11px] font-semibold uppercase px-2 py-0.5 rounded-full"
+                      style="letter-spacing: 0.14em; color: var(--brand-indigo); border: 1px solid var(--brand-indigo);">
+                      ↗ External
+                    </span>
+                  )}
+                </div>
+                {trimmed && (
+                  <p
+                    class="m-0"
+                    style="font-size: 14px; line-height: 1.55; color: var(--brand-fg2);">
+                    {trimmed}
+                  </p>
+                )}
+                <div class="flex gap-1.5 flex-wrap mt-auto">
+                  {p.tags.slice(0, 2).map((t) => (
+                    <TagChip tag={t} disableLink />
+                  ))}
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </section>
+    )
+  }
 </BaseLayout>
+
+<script>
+  // Build the table of contents from h2s in the article
+  const article = document.querySelector(".kb-article");
+  const tocList = document.getElementById("kb-toc-list");
+  if (article && tocList) {
+    const headings = Array.from(
+      article.querySelectorAll("h2")
+    ) as HTMLElement[];
+    headings.forEach((h, i) => {
+      if (!h.id) {
+        h.id = `section-${i + 1}`;
+      }
+      const li = document.createElement("li");
+      li.className = "kb-toc-item";
+      li.dataset.target = h.id;
+      li.innerHTML = `
+        <a class="kb-toc-link" href="#${h.id}">${h.textContent ?? ""}</a>
+      `;
+      tocList.appendChild(li);
+    });
+
+    if (headings.length > 0 && "IntersectionObserver" in window) {
+      const items = Array.from(
+        tocList.querySelectorAll<HTMLLIElement>(".kb-toc-item")
+      );
+      const setActive = (id: string) => {
+        items.forEach((it) => {
+          it.classList.toggle("is-active", it.dataset.target === id);
+        });
+      };
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          const visible = entries
+            .filter((e) => e.isIntersecting)
+            .sort(
+              (a, b) =>
+                a.target.getBoundingClientRect().top -
+                b.target.getBoundingClientRect().top
+            );
+          if (visible[0]) {
+            setActive(visible[0].target.id);
+          }
+        },
+        { rootMargin: "-15% 0px -65% 0px", threshold: 0 }
+      );
+      headings.forEach((h) => observer.observe(h));
+      setActive(headings[0].id);
+    }
+  }
+
+  // Add Copy chip to code blocks
+  const codeblocks = document.querySelectorAll<HTMLElement>(".kb-article pre");
+  codeblocks.forEach((block) => {
+    if (block.querySelector(".kb-copy-chip")) return;
+    const chip = document.createElement("button");
+    chip.className = "kb-copy-chip";
+    chip.type = "button";
+    chip.innerHTML =
+      '<span class="kb-copy-dot"></span><span class="kb-copy-text">Copy</span>';
+    chip.addEventListener("click", () => {
+      const code = block.querySelector("code");
+      if (!code) return;
+      navigator.clipboard.writeText(code.textContent ?? "");
+      const text = chip.querySelector(".kb-copy-text");
+      if (!text) return;
+      text.textContent = "Copied";
+      setTimeout(() => {
+        text.textContent = "Copy";
+      }, 1200);
+    });
+    block.appendChild(chip);
+  });
+</script>
+
+<style is:global>
+  .kb-post-h1 {
+    font-size: clamp(40px, 8vw, 96px);
+    line-height: 0.95;
+    letter-spacing: -0.045em;
+  }
+  .kb-related-h3 {
+    font-size: clamp(36px, 5vw, 56px);
+    line-height: 0.98;
+    letter-spacing: -0.04em;
+  }
+
+  /* Centered fixed-track grid */
+  .kb-post-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 720px);
+    gap: 64px;
+    justify-content: center;
+  }
+  @media (min-width: 1100px) {
+    .kb-post-grid {
+      grid-template-columns: 720px 220px;
+    }
+  }
+  .kb-toc-col {
+    display: none;
+  }
+  @media (min-width: 1100px) {
+    .kb-toc-col {
+      display: block;
+    }
+  }
+
+  /* Article body */
+  .kb-article {
+    font-size: 19px;
+    line-height: 1.75;
+    color: var(--brand-ink);
+  }
+  .kb-article > p:first-of-type {
+    font-size: 24px;
+    line-height: 1.55;
+    color: var(--brand-fg1);
+    margin-bottom: 28px;
+    font-weight: 400;
+    text-wrap: pretty;
+  }
+  .kb-article p {
+    margin: 0 0 22px;
+    font-size: 19px;
+    line-height: 1.75;
+    color: var(--brand-ink);
+    opacity: 1;
+  }
+  .kb-article h2 {
+    font-size: 40px;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    font-weight: 600;
+    margin: 48px 0 20px;
+    scroll-margin-top: 24px;
+  }
+  .kb-article h3 {
+    font-size: 26px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    font-weight: 600;
+    margin: 36px 0 14px;
+    color: var(--brand-ink);
+  }
+  .kb-article h4,
+  .kb-article h5,
+  .kb-article h6 {
+    margin: 28px 0 12px;
+    color: var(--brand-ink);
+  }
+  .kb-article a {
+    color: var(--brand-indigo);
+  }
+  .kb-article a:hover {
+    color: var(--brand-indigo-hover);
+  }
+  .kb-article ul,
+  .kb-article ol {
+    margin: 0 0 22px 1.5rem;
+    font-size: 18px;
+    line-height: 1.75;
+  }
+  .kb-article ul {
+    list-style: disc;
+  }
+  .kb-article ol {
+    list-style: decimal;
+  }
+  .kb-article li {
+    margin: 0.4rem 0;
+  }
+  .kb-article :not(pre) > code {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.88em;
+    padding: 2px 8px;
+    border-radius: 6px;
+    background: rgba(87, 85, 201, 0.1);
+    color: var(--brand-indigo-hover);
+    border: 1px solid rgba(87, 85, 201, 0.2);
+  }
+  html[data-theme="dark"] .kb-article :not(pre) > code {
+    background: rgba(179, 227, 255, 0.1);
+    color: var(--brand-indigo);
+    border-color: rgba(179, 227, 255, 0.2);
+  }
+  .kb-article pre {
+    position: relative;
+    background: #1a1f2b !important;
+    color: #f3f3f3;
+    border-radius: 14px;
+    margin: 16px 0 24px;
+    padding: 20px 22px;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 13.5px;
+    line-height: 1.7;
+    overflow: auto;
+  }
+  .kb-article pre code {
+    background: transparent;
+    color: inherit;
+    border: 0;
+    padding: 0;
+    font-size: inherit;
+  }
+  .kb-article blockquote {
+    margin: 32px 0;
+    padding: 8px 0 8px 28px;
+    border-left: 4px solid var(--brand-yellow);
+    background: transparent;
+    font-family: Georgia, "Times New Roman", serif;
+    font-style: italic;
+    font-size: 24px;
+    line-height: 1.5;
+    color: var(--brand-ink);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+  .kb-article blockquote::before {
+    content: none;
+  }
+  .kb-article blockquote p {
+    display: inline;
+    font-size: inherit;
+    color: inherit;
+    line-height: inherit;
+  }
+  .kb-article img {
+    border-radius: 18px;
+    margin: 16px 0 8px;
+    max-width: 100%;
+  }
+  .kb-article figure {
+    margin: 12px 0 24px;
+  }
+  .kb-article figcaption {
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--brand-fg2) !important;
+    font-family: Georgia, serif;
+    font-style: italic;
+    text-align: center;
+  }
+  .kb-article hr {
+    border: 0;
+    border-top: 1px solid var(--brand-rule);
+    margin: 36px 0;
+  }
+  .kb-article table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 16px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--brand-rule);
+  }
+  .kb-article th,
+  .kb-article td {
+    padding: 0.6rem 0.9rem;
+    text-align: left;
+    border-bottom: 1px solid var(--brand-rule);
+  }
+  .kb-article thead {
+    background: var(--brand-card);
+  }
+
+  /* Code block copy chip */
+  .kb-article pre .kb-copy-chip {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.85);
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .kb-article pre .kb-copy-chip:hover {
+    background: rgba(255, 255, 255, 0.12);
+  }
+  .kb-article pre .kb-copy-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--brand-yellow);
+  }
+
+  /* TOC */
+  .kb-toc-item {
+    display: block;
+  }
+  .kb-toc-link {
+    display: block;
+    font-size: 14px;
+    line-height: 1.4;
+    text-decoration: none;
+    color: var(--brand-fg1);
+    font-weight: 500;
+    border-left: 2px solid transparent;
+    padding-left: 10px;
+    margin-left: -12px;
+    transition:
+      color 0.15s,
+      border-color 0.15s;
+  }
+  .kb-toc-item.is-active .kb-toc-link {
+    color: var(--brand-ink);
+    font-weight: 600;
+    border-left-color: var(--brand-indigo);
+  }
+  .kb-toc-link:hover {
+    color: var(--brand-ink);
+  }
+</style>

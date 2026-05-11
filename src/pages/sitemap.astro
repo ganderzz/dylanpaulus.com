@@ -1,19 +1,301 @@
 ---
-import SubHeading from "@components/SubHeading.astro";
-import SiteLayout from "@layouts/SiteLayout.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 import { getTags, orderByPopular } from "@utils/tags";
-import TagList from "@components/TagList.astro";
 
 const unsortedPosts = await getCollection(
   "post",
   ({ data }) => data.published && data.tags
 );
 const tags = orderByPopular(await getTags(unsortedPosts));
+const tagEntries = Object.entries(tags).map(([name, count]) => ({
+  name,
+  count,
+}));
+const totalPosts = unsortedPosts.length;
+
+// Editorial clusters — hand-assigned from real tag list, with a fallback bucket
+const clusters = [
+  {
+    letter: "A",
+    label: "Frontend craft",
+    names: [
+      "javascript",
+      "typescript",
+      "react",
+      "frontend",
+      "css",
+      "webdev",
+      "astro",
+      "netlify",
+      "flightjs",
+      "fabricjs",
+    ],
+  },
+  {
+    letter: "B",
+    label: "Data & databases",
+    names: [
+      "postgresql",
+      "databases",
+      "timescaledb",
+      "sql",
+      "data-structures",
+      "data-generation",
+      "graphs",
+      "encryption",
+    ],
+  },
+  {
+    letter: "C",
+    label: "Engineering practice",
+    names: [
+      "software-engineering",
+      "productivity",
+      "workflow",
+      "project-management",
+      "debugging",
+      "git",
+      "devops",
+      "aws",
+      "mac",
+      "terminal",
+      "command-line",
+      "nodejs",
+      "python",
+    ],
+  },
+  {
+    letter: "D",
+    label: "Thinking & writing",
+    names: [
+      "programming",
+      "functional-programming",
+      "beginner",
+      "advice",
+      "meta",
+      "books-i-read",
+      "personal",
+      "mental-health",
+      "anxiety",
+      "depression",
+      "music",
+    ],
+  },
+  {
+    letter: "E",
+    label: "AI & internet",
+    names: [
+      "ai",
+      "llms",
+      "chatgpt",
+      "bard",
+      "bing",
+      "prompt-engineering",
+      "facebook",
+      "ads",
+      "interesting",
+    ],
+  },
+];
+
+// Bucket actual tags into clusters (and an "Other" cluster for stragglers)
+const assigned = new Set<string>();
+const builtClusters = clusters.map((cl) => {
+  const items = cl.names
+    .map((n) => tagEntries.find((t) => t.name === n))
+    .filter(Boolean) as Array<{ name: string; count: number }>;
+  items.forEach((t) => assigned.add(t.name));
+  return { ...cl, items };
+});
+
+const leftover = tagEntries.filter((t) => !assigned.has(t.name));
+if (leftover.length > 0) {
+  builtClusters.push({
+    letter: "F",
+    label: "Other",
+    names: leftover.map((l) => l.name),
+    items: leftover,
+  });
+}
+
+const renderClusters = builtClusters.filter((c) => c.items.length > 0);
+
+const pages = [
+  {
+    group: "Reading",
+    items: [
+      { path: "/", title: "Home" },
+      { path: "/posts", title: `All posts (${totalPosts})` },
+    ],
+  },
+  {
+    group: "Surfaces",
+    items: [
+      { path: "/about", title: "About" },
+      { path: "/courses", title: "Course" },
+      { path: "/elsewhere", title: "Elsewhere" },
+      { path: "/sitemap", title: "Sitemap", current: true },
+    ],
+  },
+  {
+    group: "Feeds",
+    items: [
+      { path: "/rss.xml", title: "RSS feed" },
+      { path: "/sitemap-index.xml", title: "XML sitemap (for crawlers)" },
+    ],
+  },
+];
 ---
 
-<SiteLayout title="Sitemap | Dylan Paulus" description="Sitemap">
-  <h2 class="mb-0">Sitemap</h2>
-  <SubHeading>All Tags</SubHeading>
-  <TagList tags={Object.keys(tags)} />
-</SiteLayout>
+<BaseLayout
+  title="Sitemap | Dylan Paulus"
+  description="Sitemap"
+  footerVariant="minimal">
+  <div class="max-w-screen-2xl mx-auto">
+    <section class="px-6 sm:px-10 lg:px-14 pt-12 lg:pt-16 pb-6">
+      <div
+        class="flex items-center gap-3.5 text-[12px] font-semibold uppercase mb-7"
+        style="letter-spacing: 0.18em; color: var(--brand-fg2);">
+        <span>Sitemap · everything in one place</span>
+      </div>
+      <h1
+        class="kb-sitemap-h1 m-0"
+        style="line-height: 0.94; letter-spacing: -0.035em; font-weight: 500; color: var(--brand-ink);">
+        The whole<br />
+        <span class="font-display-italic" style="color: var(--brand-indigo);"
+          >map</span
+        ><span style="color: var(--brand-indigo);">.</span>
+      </h1>
+    </section>
+
+    {/* Pages */}
+    <section class="px-6 sm:px-10 lg:px-14 pt-10 pb-6">
+      <div
+        class="kb-pages-grid"
+        style="border-top: 1px solid var(--brand-rule-strong); border-bottom: 1px solid var(--brand-rule-strong);">
+        {
+          pages.map((g) => (
+            <div class="kb-pages-cluster py-7">
+              <div
+                class="text-[11px] uppercase font-bold mb-4"
+                style="letter-spacing: 0.2em; color: var(--brand-fg2);">
+                {g.group}
+              </div>
+              <ul class="list-none p-0 m-0 flex flex-col gap-3">
+                {g.items.map((it) => (
+                  <li>
+                    <a
+                      href={it.path}
+                      class="flex items-baseline gap-3 no-underline"
+                      style="color: var(--brand-ink);">
+                      <span
+                        class="font-mono text-[12px] tabular-nums"
+                        style="color: var(--brand-fg2); min-width: 140px;">
+                        {it.path}
+                      </span>
+                      <span
+                        class="text-[16px]"
+                        style={
+                          it.current
+                            ? "font-weight: 600; border-bottom: 2px solid var(--brand-indigo);"
+                            : ""
+                        }>
+                        {it.title}
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    {/* Tag clusters */}
+    <section class="px-6 sm:px-10 lg:px-14 pt-10 pb-6">
+      <div class="flex items-baseline justify-between mb-9 flex-wrap gap-3">
+        <h3
+          class="kb-sitemap-h3 m-0"
+          style="line-height: 0.98; letter-spacing: -0.04em; font-weight: 500; color: var(--brand-ink);">
+          The tag <span
+            class="font-display-italic"
+            style="color: var(--brand-indigo);">index</span
+          >
+        </h3>
+        <span
+          class="text-[12px] uppercase font-bold"
+          style="letter-spacing: 0.18em; color: var(--brand-fg2);">
+          {tagEntries.length} tags · grouped by theme
+        </span>
+      </div>
+
+      <div class="flex flex-col">
+        {
+          renderClusters.map((cl) => (
+            <div
+              class="grid grid-cols-1 md:grid-cols-[120px_1fr] gap-6 md:gap-8 items-start py-8"
+              style="border-top: 1px solid var(--brand-rule-strong);">
+              <div>
+                <div
+                  class="font-display-italic text-[64px] md:text-[96px] mb-2"
+                  style="color: var(--brand-indigo); line-height: 0.9;">
+                  {cl.letter}.
+                </div>
+                <div
+                  class="text-[13px] font-medium"
+                  style="color: var(--brand-fg1); line-height: 1.3;">
+                  {cl.label}
+                </div>
+              </div>
+              <div
+                class="flex flex-wrap items-baseline pt-2 md:pt-4"
+                style="gap: 6px 16px;">
+                {cl.items.map((t) => (
+                  <a
+                    href={`/tags/${t.name}`}
+                    class="inline-flex items-baseline gap-1.5 no-underline font-mono"
+                    style="color: var(--brand-ink); font-size: 16px; line-height: 1.4; font-weight: 400;">
+                    <span style="color: var(--brand-fg2);">#</span>
+                    {t.name}
+                  </a>
+                ))}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .kb-sitemap-h1 {
+    font-size: clamp(32px, 6vw, 64px);
+  }
+  .kb-sitemap-h3 {
+    font-size: clamp(36px, 5vw, 56px);
+  }
+  .kb-pages-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 768px) {
+    .kb-pages-grid {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+    .kb-pages-cluster {
+      padding-left: 28px;
+      padding-right: 28px;
+      border-right: 1px solid var(--brand-rule);
+    }
+    .kb-pages-cluster:first-child {
+      padding-left: 0;
+    }
+    .kb-pages-cluster:last-child {
+      border-right: none;
+      padding-right: 0;
+    }
+  }
+</style>

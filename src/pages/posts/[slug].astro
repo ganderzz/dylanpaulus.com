@@ -6,41 +6,73 @@ import BlogPost from "@layouts/BlogPost.astro";
 export async function getStaticPaths() {
   const posts = await getCollection("post");
 
-  return posts.map((post) => ({
-    params: { slug: post.slug.split("/")[1] },
-    props: { post },
-  }));
+  const sorted = [...posts]
+    .filter((p) => p.data.published)
+    .sort(
+      (a, b) =>
+        new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf()
+    );
+
+  const total = sorted.length;
+  const numByOriginalSlug = new Map<string, number>();
+  sorted.forEach((p, i) => {
+    numByOriginalSlug.set(p.slug, total - i);
+  });
+
+  return posts.map((post) => {
+    const fullSlug = post.slug;
+    const cleanSlug = fullSlug.split("/")[1];
+    const number = numByOriginalSlug.get(fullSlug);
+
+    const tagSet = new Set(post.data.tags ?? []);
+    const related = sorted
+      .filter((p) => p.slug !== fullSlug)
+      .map((p) => {
+        const overlap = (p.data.tags ?? []).filter((t) => tagSet.has(t)).length;
+        return { post: p, overlap };
+      })
+      .filter((x) => x.overlap > 0)
+      .sort((a, b) => b.overlap - a.overlap)
+      .slice(0, 3)
+      .map(({ post: rp }) => ({
+        slug: rp.slug.split("/")[1],
+        title: rp.data.title,
+        description: rp.data.description,
+        excerpt: rp.data.excerpt,
+        date: rp.data.date,
+        tags: rp.data.tags,
+        externalLink: rp.data.externalLink,
+        num: numByOriginalSlug.get(rp.slug)
+          ? String(numByOriginalSlug.get(rp.slug)).padStart(3, "0")
+          : undefined,
+      }));
+
+    return {
+      params: { slug: cleanSlug },
+      props: {
+        post,
+        cleanSlug,
+        postNumber: number ? String(number).padStart(3, "0") : undefined,
+        relatedPosts: related,
+      },
+    };
+  });
 }
 
-const { post } = Astro.props as {
+const { post, cleanSlug, postNumber, relatedPosts } = Astro.props as {
   post: CollectionEntry<"post">;
+  cleanSlug: string;
+  postNumber?: string;
+  relatedPosts: any[];
 };
 
 const { Content, remarkPluginFrontmatter } = await post.render();
 ---
 
-<BlogPost frontmatter={{ ...post.data, ...remarkPluginFrontmatter }}>
-  <div data-pagefind-body>
-    <Content />
-  </div>
+<BlogPost
+  frontmatter={{ ...post.data, ...remarkPluginFrontmatter }}
+  slug={cleanSlug}
+  postNumber={postNumber}
+  relatedPosts={relatedPosts}>
+  <Content />
 </BlogPost>
-
-<script client:only>
-  const codeblocks = document.querySelectorAll("pre code");
-
-  codeblocks.forEach((block) => {
-    const copyButton = document.createElement("button");
-    copyButton.innerText = "Copy";
-    copyButton.classList.add("copy-button", "text-white");
-
-    copyButton.addEventListener("click", () => {
-      navigator.clipboard.writeText(block.innerText);
-      copyButton.innerText = "Copied!";
-      setTimeout(() => {
-        copyButton.innerText = "Copy";
-      }, 2000);
-    });
-
-    block.parentNode.appendChild(copyButton);
-  });
-</script>

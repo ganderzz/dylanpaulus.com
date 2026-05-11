@@ -1,67 +1,158 @@
 ---
-import { Image } from "astro:assets";
-import SiteLayout from "@layouts/SiteLayout.astro";
-import Button from "../components/Button.astro";
+import { getCollection } from "astro:content";
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+const allPosts = (await getCollection("post", ({ data }) => data.published))
+  .sort(
+    (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf()
+  )
+  .slice(0, 5);
+
+const dateFormatter = new Intl.DateTimeFormat("en-us", {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+  timeZone: "UTC",
+});
 ---
 
-<SiteLayout title="Dylan Paulus" description="">
-  <div class="flex flex-col md:flex-row justify-between w-full">
-    <div class="flex flex-col w-full lg:w-1/2">
-      <h1 class="m-0">Hi, I'm Dylan Paulus.</h1>
-      <p class="text-xl opacity-90 m-0 mt-1">
-        Full-Stack Software Engineer / Engineering Manager
-      </p>
+<BaseLayout title="Dylan Paulus" description="" footerVariant="minimal">
+  <div class="kb-page max-w-screen-2xl mx-auto">
+    <section
+      class="kb-hero px-6 sm:px-10 lg:px-14 pt-12 pb-14 lg:pt-20 lg:pb-14 relative">
+      <h1
+        class="kb-h1 m-0"
+        style="text-wrap: balance; color: var(--brand-ink); font-weight: 700;">
+        <span>Hi, I'm </span><span class="highlight-pill">Dylan.</span><br />
+        <span class="font-display-italic" style="color: var(--brand-indigo);"
+          >Full-Stack Software Engineer</span
+        >
+        <span> / Engineering Manager</span>
+      </h1>
 
-      <p class="mt-6 mb-14 opacity-80 max-w-2xl break-keep text-lg">
-        I have been building highly performant software and engineering teams
-        for over a decade. Currently, I'm bringing real estage online as a Staff
-        Fullstack Software Engineer at <a
-          href="https://www.airgarage.com/"
-          data-goatcounter-click="airgarage__click"
-          target="_blank"
-          ><svg
-            height={20}
-            width={20}
-            class="inline"
-            xmlns="http://www.w3.org/2000/svg"
-            width="28"
-            height="28"
-            viewBox="0 0 28 28">
-            <path
-              fill="currentColor"
-              d="M10 6v2H5v11h11v-5h2v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h6zm11-3v9l-3.794-3.793l-5.999 6l-1.414-1.414l5.999-6L12 3h9z"
-            ></path>
-          </svg>AirGarage</a
-        >.
-      </p>
+      <div
+        class="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-10 lg:gap-16 mt-10 lg:mt-14 items-end">
+        <p
+          class="m-0 max-w-3xl"
+          style="font-size: 22px; line-height: 1.55; color: var(--brand-fg1); font-weight: 400;">
+          I have been building highly performant software and engineering teams
+          for over a decade. Currently, I'm bringing real estage online as a
+          Staff Fullstack Software Engineer at <a
+            href="https://www.airgarage.com/"
+            data-goatcounter-click="airgarage__click"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="color: var(--brand-indigo); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px;"
+            >AirGarage</a
+          >.
+        </p>
+      </div>
 
-      <div><Button href="/about">Learn more about me →</Button></div>
-    </div>
+      <div class="flex flex-wrap gap-4 mt-12 items-center">
+        <a
+          href="/posts"
+          class="inline-flex items-center gap-2.5 px-6 py-4 rounded-full text-[15px] font-semibold no-underline hover:scale-105 transform-gpu transition-transform"
+          style="background: var(--brand-ink); color: var(--brand-paper);">
+          Read the blog →
+        </a>
+        <a
+          href="/about"
+          class="inline-flex items-center gap-2 px-6 py-4 rounded-full text-[15px] font-medium no-underline hover:scale-105 transform-gpu transition-transform"
+          style="border: 1px solid var(--brand-rule-strong); color: var(--brand-ink);">
+          Learn more about me →
+        </a>
+      </div>
+    </section>
 
-    <div class="max-w-md md:max-w-sm lg:max-w-xl hidden lg:block lg:w-1/2">
-      <Image
-        src="/images/boise-code-camp.jpeg"
-        width={800}
-        height={336}
-        alt="Dylan presenting at Boise Code Camp teaching the fundamentals of functional programming"
-        class="shadow-lg rounded-md"
-        loading="eager"
-      />
-    </div>
+    <section class="px-6 sm:px-10 lg:px-14 pt-16 pb-12 lg:pt-20 lg:pb-12">
+      <div
+        class="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-4 items-end mb-10">
+        <h2
+          class="kb-h2 m-0"
+          style="font-weight: 600; color: var(--brand-ink);">
+          Recent <span
+            class="font-display-italic"
+            style="color: var(--brand-indigo);">writing</span
+          >
+        </h2>
+        <a
+          href="/posts"
+          class="text-[15px] font-semibold no-underline self-end inline-flex items-center gap-2 pb-0.5"
+          style="color: var(--brand-indigo); border-bottom: 2px solid var(--brand-indigo);">
+          See all posts →
+        </a>
+      </div>
+
+      <div style="border-top: 1px solid var(--brand-rule-strong);">
+        {
+          allPosts.map((post, i) => {
+            const slug = post.slug.includes("/")
+              ? post.slug.split("/")[1]
+              : post.slug;
+            return (
+              <a
+                href={`/posts/${slug}`}
+                class="kb-post-row grid gap-4 sm:gap-8 items-center py-7 no-underline transition-colors"
+                style="grid-template-columns: 1fr; color: var(--brand-ink); border-bottom: 1px solid var(--brand-rule);">
+                <div class="flex flex-col sm:grid sm:grid-cols-[1fr_auto_auto] sm:items-center sm:gap-8 gap-3 w-full">
+                  <div class="flex items-baseline gap-4 flex-wrap">
+                    <h3
+                      class="kb-post-title m-0"
+                      style="color: var(--brand-ink); font-weight: 500;">
+                      {post.data.title}
+                    </h3>
+                  </div>
+                  <div class="flex gap-2.5 flex-wrap">
+                    {post.data.tags.slice(0, 3).map((t) => (
+                      <span
+                        class="text-[13px]"
+                        style="color: var(--brand-fg2);">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                  <div class="flex gap-4 items-center justify-start sm:justify-end sm:min-w-[200px]">
+                    <span
+                      class="text-[13.5px] tabular-nums"
+                      style="color: var(--brand-fg2);">
+                      {dateFormatter.format(new Date(post.data.date))}
+                    </span>
+                    <span
+                      class="inline-grid place-items-center w-10 h-10 rounded-full text-base"
+                      style="border: 1px solid var(--brand-rule-strong); color: var(--brand-ink);">
+                      →
+                    </span>
+                  </div>
+                </div>
+              </a>
+            );
+          })
+        }
+      </div>
+    </section>
   </div>
+</BaseLayout>
 
-  <div
-    class="w-full pt-4 mt-40 mb-32 border-t-2 border-gray-200 dark:border-slate-600">
-    <h3>Get in Touch</h3>
-    <p class="mb-12">
-      Do you have a question? Feedback? Or have an opportunity you'd like to
-      discuss?
-    </p>
-
-    <Button
-      data-goatcounter-click="contact-me__click"
-      href="mailto:hey@dylanpaulus.com">
-      Contact me →
-    </Button>
-  </div>
-</SiteLayout>
+<style>
+  .kb-h1 {
+    font-size: clamp(32px, 11vw, 56px);
+    line-height: 0.9;
+    letter-spacing: -0.05em;
+  }
+  .kb-h2 {
+    font-size: clamp(36px, 5vw, 56px);
+    line-height: 0.98;
+    letter-spacing: -0.04em;
+  }
+  .kb-post-title {
+    font-size: clamp(20px, 2.4vw, 28px);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+  .kb-post-row:hover {
+    background: rgba(87, 85, 201, 0.05);
+  }
+  :global(html[data-theme="dark"]) .kb-post-row:hover {
+    background: rgba(179, 227, 255, 0.06);
+  }
+</style>

@@ -1,72 +1,260 @@
 ---
+import BaseLayout from "@layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
-import SiteLayout from "@layouts/SiteLayout.astro";
-import Button from "~/src/components/Button.astro";
+
+const modules = [
+  {
+    title: "Initializing a new npm package",
+    topics: ["package.json deep-dive", "Choosing a license", "Folder layout"],
+  },
+  {
+    title: "Module formats & build tooling",
+    topics: [
+      "Modules that work in NodeJS and the Web",
+      "Maintaining code quality",
+      "Source maps",
+    ],
+  },
+  {
+    title: "TypeScript & type exports",
+    topics: [
+      "Exposing typing using TypeScript",
+      "Generated .d.ts files",
+      "Public API surface",
+    ],
+  },
+  {
+    title: "Testing & code quality",
+    topics: [
+      "Unit-testing",
+      "Keeping contributors on track",
+      "Continuous integration",
+    ],
+  },
+  {
+    title: "Storybook for component demos",
+    topics: ["Setup", "Writing stories", "Deploying as docs"],
+  },
+  {
+    title: "Publishing & maintenance",
+    topics: [
+      "Publishing to npm",
+      "Versioning workflow",
+      "Long-term maintenance",
+    ],
+  },
+];
 ---
 
-<SiteLayout title="Courses | Dylan Paulus" description="Courses I have created">
-  <div class="flex flex-col md:flex-row w-full">
-    <div class="w-full lg:w-1/2">
-      <Image
-        src="/images/create-react-libraries-card.png"
-        alt="Creating React Libraries from Scratch course"
-        class="rounded-md mx-auto shadow"
-        format="png"
-        height={300}
-        width={500}
-        loading="eager"
-      />
-    </div>
+<BaseLayout
+  title="Courses | Dylan Paulus"
+  description="Courses I have created"
+  footerVariant="minimal">
+  <div class="max-w-screen-2xl mx-auto">
+    <section class="px-6 sm:px-10 lg:px-14 pt-12 lg:pt-16 pb-10">
+      <h1
+        class="kb-courses-h1 m-0"
+        style="text-wrap: pretty; color: var(--brand-ink); font-weight: 500;">
+        Courses
+      </h1>
+    </section>
 
-    <div
-      class="mt-6 lg:mt-0 w-full md:ml-2 lg:w-1/2 justify-between flex flex-col">
-      <div>
-        <h3 class="m-0">Creating React Libraries from Scratch</h3>
+    {/* Featured course card */}
+    <section class="px-6 sm:px-10 lg:px-14 pt-5 pb-6">
+      <div
+        class="grid grid-cols-1 md:grid-cols-[1.05fr_1fr] overflow-hidden"
+        style="background: var(--brand-card); border: 1px solid var(--brand-rule); border-radius: 28px;">
+        <div class="p-9 lg:p-14 flex flex-col gap-6">
+          <div class="flex flex-wrap gap-2 items-center">
+            <span
+              class="px-3 py-1.5 rounded-full text-[11px] font-bold uppercase text-white"
+              style="background: var(--brand-indigo); letter-spacing: 0.14em;">
+              Featured
+            </span>
+            <span class="text-[13px]" style="color: var(--brand-fg2);">·</span>
+            <span class="text-[13px]" style="color: var(--brand-fg2);">
+              newline.co
+            </span>
+          </div>
+          <h2
+            class="kb-course-title m-0"
+            style="text-wrap: balance; color: var(--brand-ink); font-weight: 500;">
+            Creating <span
+              class="font-display-italic"
+              style="color: var(--brand-indigo);">React Libraries</span
+            > from Scratch
+          </h2>
+          <p
+            class="m-0 max-w-[520px]"
+            style="font-size: 19px; line-height: 1.55; color: var(--brand-fg1);">
+            Building a library is so much more than just the code. We need to
+            know the ins and outs of versioning, deploying, building,
+            documenting, dependency management, module types, tooling, and more.
+            This is a daunting task for just one tutorial to cover. Creating
+            React Libraries from Scratch will teach you everything you need to
+            know to succeed in creating a library.
+          </p>
+          <div class="flex gap-2 flex-wrap">
+            {
+              ["React", "TypeScript", "npm", "Storybook", "Tooling"].map(
+                (t) => (
+                  <span
+                    class="px-3 py-1.5 rounded-full text-[12px] font-semibold"
+                    style="background: transparent; color: var(--brand-fg1); border: 1px solid var(--brand-rule); letter-spacing: 0.04em;">
+                    {t}
+                  </span>
+                )
+              )
+            }
+          </div>
+          <div class="mt-2">
+            <a
+              href="https://www.newline.co/courses/creating-react-libraries-from-scratch"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-goatcounter-click="creating-react-libraries-from-scratch__click"
+              class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full no-underline font-semibold text-[15px] hover:scale-105 transform-gpu transition-transform"
+              style="background: var(--brand-ink); color: var(--brand-paper);">
+              Go to Course →
+            </a>
+          </div>
+        </div>
 
-        <p class="mt-4">
-          Building a library is so much more than just the code. We need to know
-          the ins and outs of versioning, deploying, building, documenting,
-          dependency management, module types, tooling, and more. This is a
-          daunting task for just one tutorial to cover. Creating React Libraries
-          from Scratch will teach you everything you need to know to succeed in
-          creating a library.
-        </p>
+        <div
+          class="relative flex items-center justify-center overflow-hidden p-10 lg:p-14"
+          style="background: linear-gradient(135deg, var(--accent) 0%, var(--brand-paper) 80%);">
+          <div
+            class="w-full max-w-[380px] overflow-hidden rounded-2xl"
+            style="background: #fff; border: 1px solid var(--brand-rule); box-shadow: 0 30px 60px rgba(0,0,0,0.08); transform: rotate(-2deg);">
+            <div class="px-6 py-12">
+              <Image
+                src="/images/create-react-libraries-card.png"
+                alt="Creating React Libraries from Scratch course"
+                format="png"
+                height={300}
+                width={500}
+                class="rounded-md mx-auto shadow"
+                loading="eager"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <strong class="font-bold"
-          >Creating React Libraries from Scratch covers:</strong
-        >
-        <ul>
-          <li>initializing a new npm package</li>
-          <li>maintaining code quality</li>
-          <li>publishing to npm</li>
-          <li>keeping contributors on track</li>
-          <li>exposing modules that work in NodeJS and the Web</li>
-          <li>unit-testing</li>
-          <li>Storybook for demoing components</li>
-          <li>exposing typing using TypeScript</li>
-          <li>and more!</li>
-        </ul>
+    {/* Curriculum */}
+    <section class="px-6 sm:px-10 lg:px-14 pt-10 pb-6">
+      <div class="flex items-baseline justify-between flex-wrap gap-3 mb-9">
+        <h3
+          class="kb-courses-h3 m-0"
+          style="font-weight: 500; color: var(--brand-ink);">
+          What you'll <span
+            class="font-display-italic"
+            style="color: var(--brand-indigo);">cover</span
+          >
+        </h3>
+        <span
+          class="text-[12px] uppercase font-bold"
+          style="letter-spacing: 0.18em; color: var(--brand-fg2);">
+          6 chapters
+        </span>
       </div>
 
-      <Button
-        target="_blank"
-        class="mt-8"
-        data-goatcounter-click="creating-react-libraries-from-scratch__click"
-        href="https://www.newline.co/courses/creating-react-libraries-from-scratch">
-        <svg
-          height={20}
-          width={20}
-          class="inline mr-2"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24">
-          <path
-            fill="currentColor"
-            d="M10 6v2H5v11h11v-5h2v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h6zm11-3v9l-3.794-3.793l-5.999 6l-1.414-1.414l5.999-6L12 3h9z"
-          ></path>
-        </svg>Go to Course →
-      </Button>
-    </div>
+      <div
+        class="grid grid-cols-1 md:grid-cols-2"
+        style="border-top: 1px solid var(--brand-rule-strong);">
+        {
+          modules.map((m) => (
+            <div
+              class="kb-module p-7"
+              style="border-bottom: 1px solid var(--brand-rule);">
+              <div
+                class="text-[22px] font-medium mb-3"
+                style="letter-spacing: -0.015em; line-height: 1.25; color: var(--brand-ink);">
+                {m.title}
+              </div>
+              <ul class="list-none p-0 m-0 flex flex-col gap-1.5">
+                {m.topics.map((t) => (
+                  <li
+                    class="text-[14px] flex gap-2"
+                    style="color: var(--brand-fg1);">
+                    <span style="color: var(--brand-fg2);">—</span>
+                    {t}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    {/* Three info cards */}
+    <section class="px-6 sm:px-10 lg:px-14 pt-10 pb-14">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {
+          [
+            {
+              eyebrow: "Who it's for",
+              title: "Engineers shipping their first library",
+              body: "You've built apps, you know React. You want to extract a piece of work into something other people install.",
+            },
+            {
+              eyebrow: "What you'll need",
+              title: "Working knowledge of React + TS",
+              body: "No prior tooling experience required. We start from npm init and end at a versioned, published package on npm.",
+            },
+            {
+              eyebrow: "Format",
+              title: "Video, code along, transcripts",
+              body: "Hosted on newline.co. Pace it as you like. Source repo provided. Lifetime access.",
+            },
+          ].map((c) => (
+            <div
+              class="p-7 rounded-3xl"
+              style="border: 1px solid var(--brand-rule); background: var(--brand-paper);">
+              <div
+                class="text-[11px] uppercase font-bold mb-3.5"
+                style="letter-spacing: 0.2em; color: var(--brand-fg2);">
+                {c.eyebrow}
+              </div>
+              <div
+                class="text-[22px] font-medium mb-2.5"
+                style="letter-spacing: -0.015em; line-height: 1.25; color: var(--brand-ink);">
+                {c.title}
+              </div>
+              <p
+                class="m-0"
+                style="font-size: 14px; color: var(--brand-fg1); line-height: 1.55;">
+                {c.body}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
   </div>
-</SiteLayout>
+</BaseLayout>
+
+<style>
+  .kb-courses-h1 {
+    font-size: clamp(32px, 6vw, 64px);
+    line-height: 0.94;
+    letter-spacing: -0.035em;
+  }
+  .kb-course-title {
+    font-size: clamp(34px, 5vw, 64px);
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+  }
+  .kb-courses-h3 {
+    font-size: clamp(36px, 5vw, 56px);
+    line-height: 0.98;
+    letter-spacing: -0.04em;
+  }
+  @media (min-width: 768px) {
+    .kb-module:nth-child(odd) {
+      border-right: 1px solid var(--brand-rule);
+    }
+  }
+</style>

@@ -1,7 +1,7 @@
 ---
-import PostListItem from "@components/PostListItem.astro";
-import SiteLayout from "@layouts/SiteLayout.astro";
-import { getTags, normalizeTag } from "@utils/tags";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import TagChip from "@components/TagChip.astro";
+import { getTags, normalizeTag, orderByPopular } from "@utils/tags";
 import { CollectionEntry, getCollection } from "astro:content";
 
 export async function getStaticPaths() {
@@ -11,36 +11,295 @@ export async function getStaticPaths() {
   );
   const tags = await getTags(unsortedPosts);
 
-  return Object.entries(tags).map(([tag, count]) => ({
-    params: {
-      tag,
-    },
-    props: {
-      count,
-      posts: unsortedPosts
-        .filter((post) => post.data.tags.map(normalizeTag).includes(tag))
-        .map((post) => ({
-          ...post,
-          slug: post.slug.replace(/\b\d{4}\b\//g, ""),
-        })),
-    },
+  // Sorted master list to know each post's stable number across the whole archive
+  const allSorted = [...unsortedPosts].sort(
+    (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf()
+  );
+  const totalPosts = allSorted.length;
+  const numberByOriginalSlug = new Map<string, number>();
+  allSorted.forEach((p, i) => {
+    numberByOriginalSlug.set(p.slug, totalPosts - i);
+  });
+
+  const popularTags = orderByPopular(tags);
+  const popularTagNames = Object.entries(popularTags).map(([k, v]) => ({
+    name: k,
+    count: v,
   }));
+
+  return Object.entries(tags).map(([tag, count]) => {
+    const matched = unsortedPosts
+      .filter((post) => post.data.tags.map(normalizeTag).includes(tag))
+      .sort(
+        (a, b) =>
+          new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf()
+      );
+
+    const renderable = matched.map((p) => ({
+      slug: p.slug.split("/")[1],
+      originalSlug: p.slug,
+      title: p.data.title,
+      description: p.data.description,
+      tags: p.data.tags,
+      date: p.data.date,
+      externalLink: p.data.externalLink,
+      number: numberByOriginalSlug.get(p.slug) ?? 0,
+    }));
+
+    // Sibling tags: tags that co-occur with this tag, ordered by frequency
+    const siblingCounts: Record<string, number> = {};
+    matched.forEach((p) => {
+      p.data.tags.forEach((t) => {
+        const n = normalizeTag(t);
+        if (n === tag) return;
+        siblingCounts[n] = (siblingCounts[n] ?? 0) + 1;
+      });
+    });
+    const siblings = Object.entries(siblingCounts)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 8)
+      .map(([name, c]) => ({ name, count: c }));
+
+    return {
+      params: { tag },
+      props: {
+        tag,
+        count,
+        posts: renderable,
+        siblings,
+        popularTagNames,
+      },
+    };
+  });
 }
 
-const { tag } = Astro.params;
-const { count, posts } = Astro.props as {
+const { tag, count, posts, siblings } = Astro.props as {
+  tag: string;
   count: number;
-  posts: CollectionEntry<"post">[];
+  posts: Array<{
+    slug: string;
+    title: string;
+    description?: string;
+    tags: string[];
+    date: string;
+    externalLink?: string;
+    number: number;
+  }>;
+  siblings: Array<{ name: string; count: number }>;
+  popularTagNames: Array<{ name: string; count: number }>;
 };
+
+const dateFormatter = new Intl.DateTimeFormat("en-us", {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+  timeZone: "UTC",
+});
+
+const yearRange = (() => {
+  if (posts.length === 0) return "";
+  const years = posts.map((p) => new Date(p.date).getUTCFullYear());
+  const min = Math.min(...years);
+  const max = Math.max(...years);
+  return min === max ? `${min}` : `${min} → ${max}`;
+})();
+
+function trimDescription(text: string | undefined, max: number) {
+  if (!text) return "";
+  if (text.length <= max) return text;
+  return text.slice(0, max).trimEnd() + "…";
+}
 ---
 
-<SiteLayout
+<BaseLayout
   title={`${tag} | Dylan Paulus`}
-  description={`A tags list for ${tag}`}>
-  <div class="flex items-center">
-    <h2 class="flex my-0">{tag}</h2>
-    <p class="flex ml-4 my-0">- {count} article{count !== 1 && "s"}</p>
-  </div>
+  description={`A tags list for ${tag}`}
+  footerVariant="minimal">
+  <div class="max-w-screen-2xl mx-auto">
+    <section class="px-6 sm:px-10 lg:px-14 pt-10 lg:pt-14 pb-2">
+      <div class="font-mono text-[13px] mb-7" style="color: var(--brand-fg2);">
+        <a href="/posts" class="no-underline" style="color: var(--brand-fg2);"
+          >Posts</a
+        >
+        <span class="mx-2">/</span>
+        <a href="/sitemap" class="no-underline" style="color: var(--brand-fg2);"
+          >Tags</a
+        >
+        <span class="mx-2">/</span>
+        <span style="color: var(--brand-ink);">{tag}</span>
+      </div>
+    </section>
 
-  <div class="mt-8">{posts.map((post) => <PostListItem data={post} />)}</div>
-</SiteLayout>
+    <section class="px-6 sm:px-10 lg:px-14 pt-2 pb-8">
+      <div
+        class="flex items-center gap-3.5 text-[12px] font-semibold uppercase mb-7"
+        style="letter-spacing: 0.18em; color: var(--brand-fg2);">
+        <span>
+          Tag · {count} article{count !== 1 && "s"}
+        </span>
+      </div>
+      <h1
+        class="kb-tag-h1 m-0"
+        style="line-height: 0.94; letter-spacing: -0.035em; font-weight: 500; color: var(--brand-ink); text-wrap: pretty;">
+        <span style="color: var(--brand-fg2);">#</span><span
+          class="font-display-italic"
+          style="color: var(--brand-indigo);">{tag}</span
+        >
+      </h1>
+    </section>
+
+    {
+      siblings.length > 0 && (
+        <section class="px-6 sm:px-10 lg:px-14 pt-2 pb-6">
+          <div
+            class="kb-strip flex items-center gap-3.5 px-5 py-3.5 overflow-x-auto"
+            style="border: 1px solid var(--brand-rule); border-radius: 999px; background: rgba(255,255,255,0.7); backdrop-filter: blur(6px);">
+            <span
+              class="text-[11px] uppercase font-bold flex-shrink-0"
+              style="letter-spacing: 0.2em; color: var(--brand-fg2);">
+              Often with
+            </span>
+            {siblings.map((s) => (
+              <a
+                href={`/tags/${s.name}`}
+                class="px-3 py-1.5 rounded-full text-[13px] font-medium no-underline inline-flex items-center gap-2 flex-shrink-0 font-mono"
+                style="border: 1px solid var(--brand-rule); color: var(--brand-ink);">
+                {s.name}
+                <span
+                  class="text-[11px] tabular-nums"
+                  style="color: var(--brand-fg2);">
+                  {s.count}
+                </span>
+              </a>
+            ))}
+            <a
+              href="/sitemap"
+              class="ml-auto text-[13px] no-underline flex-shrink-0"
+              style="color: var(--brand-indigo); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px;">
+              All tags →
+            </a>
+          </div>
+        </section>
+      )
+    }
+
+    <section class="px-6 sm:px-10 lg:px-14 pt-6 pb-6">
+      <div class="flex items-baseline justify-between mb-6 flex-wrap gap-3">
+        <h3
+          class="m-0"
+          style="font-size: 28px; font-weight: 500; letter-spacing: -0.02em; color: var(--brand-ink);">
+          Articles
+        </h3>
+      </div>
+
+      <div style="border-top: 1px solid var(--brand-rule-strong);">
+        {
+          posts.map((p) => {
+            const isExternal = Boolean(p.externalLink);
+            const href = p.externalLink ?? `/posts/${p.slug}`;
+            const num = String(p.number).padStart(3, "0");
+            const desc = trimDescription(p.description, 200);
+            return (
+              <a
+                href={href}
+                target={isExternal ? "_blank" : undefined}
+                rel={isExternal ? "noopener noreferrer" : undefined}
+                class="kb-tag-row block py-6 px-2 no-underline transition-colors"
+                style="color: var(--brand-ink); border-bottom: 1px solid var(--brand-rule);">
+                <div class="kb-tag-row-grid">
+                  <div class="min-w-0">
+                    <div class="flex items-baseline gap-3 flex-wrap">
+                      <h4
+                        class="m-0"
+                        style="font-size: clamp(18px, 2vw, 22px); font-weight: 500; letter-spacing: -0.012em; line-height: 1.25; color: var(--brand-ink); text-wrap: balance;">
+                        {p.title}
+                      </h4>
+                      {isExternal && (
+                        <span
+                          class="text-[11px] font-semibold uppercase px-2 py-0.5 rounded-full"
+                          style="letter-spacing: 0.14em; color: var(--brand-indigo); border: 1px solid var(--brand-indigo);">
+                          ↗ External
+                        </span>
+                      )}
+                    </div>
+                    {desc && (
+                      <p
+                        class="mt-1.5 mb-2.5 max-w-[720px]"
+                        style="font-size: 14px; line-height: 1.5; color: var(--brand-fg1);">
+                        {desc}
+                      </p>
+                    )}
+                    <div class="flex gap-1.5 flex-wrap">
+                      {p.tags.map((t) => {
+                        const isActive = normalizeTag(t) === tag;
+                        return (
+                          <span
+                            class:list={[
+                              "px-2.5 py-0.5 rounded-full text-[11px] font-semibold",
+                              isActive && "kb-indigo-fill",
+                            ]}
+                            style={
+                              isActive
+                                ? "border: 1px solid transparent; letter-spacing: 0.04em;"
+                                : "background: transparent; color: var(--brand-fg2); border: 1px solid var(--brand-rule); letter-spacing: 0.04em;"
+                            }>
+                            {t}
+                          </span>
+                        );
+                      })}
+                    </div>
+                  </div>
+                  <div
+                    class="text-[13px] tabular-nums hidden md:block"
+                    style="color: var(--brand-fg2);">
+                    {dateFormatter.format(new Date(p.date))}
+                  </div>
+                  <div class="hidden md:flex items-center justify-end">
+                    <span
+                      class="inline-grid place-items-center w-7 h-7 rounded-full text-[14px]"
+                      style="background: var(--accent); color: var(--brand-ink);">
+                      {isExternal ? "↗" : "→"}
+                    </span>
+                  </div>
+                </div>
+              </a>
+            );
+          })
+        }
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .kb-tag-h1 {
+    font-size: clamp(32px, 6vw, 64px);
+  }
+  .kb-tag-row:hover {
+    background: rgba(87, 85, 201, 0.05);
+  }
+  :global(html[data-theme="dark"]) .kb-tag-row:hover {
+    background: rgba(179, 227, 255, 0.06);
+  }
+  :global(html[data-theme="dark"]) .kb-strip {
+    background: rgba(255, 255, 255, 0.05) !important;
+  }
+  .kb-tag-row-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  @media (min-width: 768px) {
+    .kb-tag-row-grid {
+      grid-template-columns: 1fr 32px;
+      gap: 24px;
+      align-items: center;
+    }
+  }
+  @media (min-width: 1024px) {
+    .kb-tag-row-grid {
+      grid-template-columns: 1fr 180px 32px;
+      gap: 24px;
+    }
+  }
+</style>

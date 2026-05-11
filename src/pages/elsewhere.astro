@@ -1,126 +1,363 @@
 ---
-import SiteLayout from "@layouts/SiteLayout.astro";
-import SubHeading from "@components/SubHeading.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+const socials = [
+  {
+    name: "GitHub",
+    handle: "@ganderzz",
+    url: "github.com/ganderzz",
+    href: "https://github.com/ganderzz",
+    color: "var(--brand-ink)",
+    click: "github__click",
+  },
+  {
+    name: "LinkedIn",
+    handle: "in/dylanpaulus",
+    url: "linkedin.com/in/dylanpaulus",
+    href: "https://www.linkedin.com/in/dylanpaulus/",
+    color: "var(--brand-indigo)",
+    click: "linkedin__click",
+  },
+  {
+    name: "Ko-fi",
+    handle: "@dylanpaulus",
+    url: "ko-fi.com/dylanpaulus",
+    href: "https://ko-fi.com/dylanpaulus",
+    color: "var(--brand-magenta)",
+    click: "kofi__click",
+  },
+  {
+    name: "Email",
+    handle: "hey@dylanpaulus.com",
+    url: "mailto:hey@dylanpaulus.com",
+    href: "mailto:hey@dylanpaulus.com",
+    color: "var(--brand-indigo)",
+    click: "contact-me__click",
+  },
+  {
+    name: "RSS",
+    handle: "/rss.xml",
+    url: "dylanpaulus.com/rss.xml",
+    href: "/rss.xml",
+    color: "var(--brand-yellow)",
+    click: "rss__click",
+  },
+];
+
+const writingPublishers = [
+  {
+    name: "Tiger Data (formally TimeScale)",
+    items: [
+      {
+        title: "How to Reduce Bloat in Large PostgreSQL Tables",
+        href: "https://www.tigerdata.com/learn/how-to-reduce-bloat-in-large-postgresql-tables",
+      },
+      {
+        title: "Recursive Query in SQL: What It Is, and How to Write One",
+        href: "https://www.tigerdata.com/learn/recursive-query-in-sql-what-it-is-and-how-to-write-one",
+      },
+      {
+        title: "Guide to PostgreSQL Security",
+        href: "https://www.tigerdata.com/learn/guide-to-postgresql-security",
+      },
+      {
+        title: "How to Use a Common Table Expression (CTE) in SQL",
+        href: "https://www.tigerdata.com/learn/how-to-use-common-table-expression-sql",
+      },
+      {
+        title: "Explaining PostgreSQL EXPLAIN",
+        href: "https://www.tigerdata.com/learn/explaining-postgresql-explain",
+      },
+      {
+        title: "Understanding Foreign Keys in PostgreSQL",
+        href: "https://www.tigerdata.com/learn/understanding-foreign-keys-in-postgresql",
+      },
+      {
+        title: "How to Use PostgreSQL for Data Normalization",
+        href: "https://www.tigerdata.com/learn/how-to-use-postgresql-for-data-normalization",
+      },
+      {
+        title:
+          "Creating a Fast Time-Series Graph With Postgres Materialized Views",
+        href: "https://www.tigerdata.com/blog/creating-a-fast-time-series-graph-with-postgres-materialized-views",
+      },
+      {
+        title: "Understanding PostgreSQL",
+        href: "https://www.tigerdata.com/learn/understanding-postgresql",
+      },
+      {
+        title: "How to Reduce Your PostgreSQL Database Size",
+        href: "https://www.tigerdata.com/blog/how-to-reduce-your-postgresql-database-size",
+      },
+      {
+        title: "Understanding Serverless PostgreSQL",
+        href: "https://www.tigerdata.com/blog/understanding-serverless-postgresql",
+      },
+      {
+        title: "Understanding SQL Aggregate Functions",
+        href: "https://www.tigerdata.com/learn/understanding-sql-aggregate-functions",
+      },
+      {
+        title: "How to Design Your PostgreSQL Database: Two Schema Examples",
+        href: "https://www.tigerdata.com/learn/how-to-design-postgresql-database-two-schema-examples",
+      },
+    ],
+  },
+  {
+    name: "Fortune Magazine",
+    items: [
+      {
+        title: "Facial Recognition Opt Out",
+        href: "https://fortune.com/2019/12/04/facial-recognition-opt-out/",
+      },
+    ],
+  },
+  {
+    name: "Newline",
+    items: [
+      {
+        title: "Creating React Libraries from Scratch",
+        href: "https://www.newline.co/courses/creating-react-libraries-from-scratch",
+      },
+    ],
+  },
+  {
+    name: "CssTricks",
+    items: [
+      {
+        title: "How Facebook Avoids Ad Blockers",
+        href: "https://css-tricks.com/how-facebook-avoids-ad-blockers/",
+      },
+    ],
+  },
+];
+
+const totalWriting = writingPublishers.reduce(
+  (sum, p) => sum + p.items.length,
+  0
+);
+
+const talks = [
+  { year: "2022", title: "Developing Software at SEL", venue: "" },
+  {
+    year: "2022",
+    title: "Blazing Fast: An introduction to cache efficient code",
+    venue: "",
+  },
+  { year: "2021", title: "NPM, Dependencies, and JS Modules", venue: "" },
+  { year: "2019", title: "Making React Fast", venue: "" },
+  {
+    year: "2019",
+    title: "Functional Programming Light",
+    venue: "Boise Code Camp",
+  },
+];
 ---
 
-<SiteLayout title="Dylan Paulus" description="">
-  <div class="flex flex-col md:flex-row justify-between w-full">
-    <div class="flex flex-col w-full lg:w-1/2">
-      <p class="mb-0">Places I've appeared outside of this website.</p>
-      <em class="block mb-4 opacity-70"
-        >Found somewhere else? Let me know in a <a
+<BaseLayout
+  title="Elsewhere | Dylan Paulus"
+  description="Places I've appeared outside of this website."
+  footerVariant="minimal">
+  <div class="max-w-screen-2xl mx-auto">
+    <section class="px-6 sm:px-10 lg:px-14 pt-12 lg:pt-16 pb-8">
+      <h1
+        class="kb-elsewhere-h1 m-0"
+        style="line-height: 0.94; letter-spacing: -0.035em; font-weight: 500; color: var(--brand-ink);">
+        Where else<br />
+        you'll <span
+          class="font-display-italic"
+          style="color: var(--brand-indigo);">find me</span
+        ><span style="color: var(--brand-indigo);">.</span>
+      </h1>
+      <p
+        class="mt-6 max-w-[640px] font-display-italic"
+        style="font-size: 17px; line-height: 1.55; color: var(--brand-fg2);">
+        Found somewhere else? Let me know in a <a
           href="https://github.com/ganderzz/dylanpaulus.com/issues/new"
+          style="color: var(--brand-indigo); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px;"
           >Github issue</a
-        >!</em
-      >
+        >!
+      </p>
+    </section>
 
-      <SubHeading>Tiger Data (formally TimeScale)</SubHeading>
-      <ul class="list-disc list-inside leading-relaxed mb-4">
-        <li>
-          <a
-            href="https://www.tigerdata.com/learn/how-to-reduce-bloat-in-large-postgresql-tables"
-            >How to Reduce Bloat in Large PostgreSQL Tables
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://www.tigerdata.com/learn/recursive-query-in-sql-what-it-is-and-how-to-write-one"
-            >Recursive Query in SQL: What It Is, and How to Write One
-          </a>
-        </li>
-        <li>
-          <a href="https://www.tigerdata.com/learn/guide-to-postgresql-security"
-            >Guide to PostgreSQL Security
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://www.tigerdata.com/learn/how-to-use-common-table-expression-sql"
-            >How to Use a Common Table Expression (CTE) in SQL
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://www.tigerdata.com/learn/explaining-postgresql-explain"
-            >Explaining PostgreSQL EXPLAIN
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://www.tigerdata.com/learn/understanding-foreign-keys-in-postgresql"
-            >Understanding Foreign Keys in PostgreSQL
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://www.tigerdata.com/learn/how-to-use-postgresql-for-data-normalization"
-            >How to Use PostgreSQL for Data Normalization
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://www.tigerdata.com/blog/creating-a-fast-time-series-graph-with-postgres-materialized-views"
-            >Creating a Fast Time-Series Graph With Postgres Materialized Views
-          </a>
-        </li>
-        <li>
-          <a href="https://www.tigerdata.com/learn/understanding-postgresql"
-            >Understanding PostgreSQL
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://www.tigerdata.com/blog/how-to-reduce-your-postgresql-database-size"
-            >How to Reduce Your PostgreSQL Database Size
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://www.tigerdata.com/blog/understanding-serverless-postgresql"
-            >Understanding Serverless PostgreSQL
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://www.tigerdata.com/learn/understanding-sql-aggregate-functions"
-            >Understanding SQL Aggregate Functions
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://www.tigerdata.com/learn/how-to-design-postgresql-database-two-schema-examples"
-            >How to Design Your PostgreSQL Database: Two Schema Examples
-          </a>
-        </li>
-      </ul>
+    {/* Socials grid */}
+    <section class="px-6 sm:px-10 lg:px-14 pt-8 pb-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {
+          socials.map((s) => (
+            <a
+              href={s.href}
+              data-goatcounter-click={s.click}
+              class="relative overflow-hidden flex flex-col gap-3.5 p-7 rounded-3xl no-underline"
+              style="border: 1px solid var(--brand-rule); background: var(--brand-paper); color: var(--brand-ink);">
+              <span
+                class="absolute top-0 left-0 right-0 h-1"
+                style={`background: ${s.color};`}
+              />
+              <div class="flex items-center justify-between">
+                <div
+                  class="text-[11px] uppercase font-bold"
+                  style="letter-spacing: 0.2em; color: var(--brand-fg2);">
+                  {s.name}
+                </div>
+                <span
+                  class="inline-grid place-items-center w-7 h-7 rounded-full text-[13px]"
+                  style="background: var(--accent); color: var(--brand-ink);">
+                  ↗
+                </span>
+              </div>
+              <div
+                class="text-[26px] sm:text-[28px] font-medium"
+                style="letter-spacing: -0.02em; line-height: 1.15; color: var(--brand-ink);">
+                {s.handle}
+              </div>
+              <div
+                class="text-[13px] font-mono"
+                style="color: var(--brand-fg2);">
+                {s.url}
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </section>
 
-      <SubHeading>Fortune Magazine</SubHeading>
-      <ul class="list-disc list-inside leading-relaxed">
-        <li>
-          <a href="https://fortune.com/2019/12/04/facial-recognition-opt-out/"
-            >Facial Recognition Opt Out</a
+    {/* Writing elsewhere */}
+    <section class="px-6 sm:px-10 lg:px-14 pt-10 pb-6">
+      <div class="flex items-baseline justify-between mb-6 flex-wrap gap-3">
+        <h3
+          class="kb-elsewhere-h3 m-0"
+          style="font-weight: 500; color: var(--brand-ink);">
+          Writing <span
+            class="font-display-italic"
+            style="color: var(--brand-indigo);">elsewhere</span
           >
-        </li>
-      </ul>
+        </h3>
+      </div>
 
-      <SubHeading>Newline</SubHeading>
-      <ul class="list-disc list-inside leading-relaxed">
-        <li>
-          <a
-            href="https://www.newline.co/courses/creating-react-libraries-from-scratch"
-            >Creating React Libraries from Scratch
-          </a>
-        </li>
-      </ul>
+      <div class="flex flex-col gap-10">
+        {
+          writingPublishers.map((pub) => (
+            <div>
+              <div
+                class="flex items-baseline gap-3 mb-4 flex-wrap pb-3"
+                style="border-bottom: 1px solid var(--brand-rule-strong);">
+                <h4
+                  class="m-0 text-[20px] sm:text-[22px]"
+                  style="font-weight: 500; letter-spacing: -0.015em; color: var(--brand-ink);">
+                  {pub.name}
+                </h4>
+                <span
+                  class="text-[12px] tabular-nums"
+                  style="color: var(--brand-fg2);">
+                  {pub.items.length}
+                </span>
+              </div>
+              <ul class="list-none p-0 m-0">
+                {pub.items.map((it) => (
+                  <li>
+                    <a
+                      href={it.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="kb-elsewhere-row grid items-center gap-4 py-4 px-2 no-underline transition-colors"
+                      style="grid-template-columns: 1fr 32px; color: var(--brand-ink); border-bottom: 1px solid var(--brand-rule);">
+                      <div
+                        class="text-[16px] sm:text-[18px]"
+                        style="font-weight: 500; line-height: 1.35; text-wrap: balance; color: var(--brand-ink);">
+                        {it.title}
+                      </div>
+                      <span
+                        class="inline-grid place-items-center w-7 h-7 rounded-full text-[13px] justify-self-end"
+                        style="background: var(--accent); color: var(--brand-ink);">
+                        ↗
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </section>
 
-      <SubHeading>CssTricks</SubHeading>
-      <ul class="list-disc list-inside leading-relaxed">
-        <li>
-          <a href="https://css-tricks.com/how-facebook-avoids-ad-blockers/"
-            >How Facebook Avoids Ad Blockers
-          </a>
-        </li>
-      </ul>
-    </div>
+    {/* Talks */}
+    <section class="px-6 sm:px-10 lg:px-14 pt-12 pb-14">
+      <div class="flex items-baseline justify-between mb-6 flex-wrap gap-3">
+        <h3
+          class="kb-elsewhere-h3 m-0"
+          style="font-weight: 500; color: var(--brand-ink);">
+          Talks I've <span
+            class="font-display-italic"
+            style="color: var(--brand-indigo);">given</span
+          >
+        </h3>
+        <span
+          class="text-[12px] uppercase font-bold"
+          style="letter-spacing: 0.18em; color: var(--brand-fg2);">
+          {talks.length} talks
+        </span>
+      </div>
+
+      <div style="border-top: 1px solid var(--brand-rule-strong);">
+        {
+          talks.map((t) => (
+            <div
+              class="kb-talks-row grid items-center gap-4 py-5 px-2"
+              style="color: var(--brand-ink); border-bottom: 1px solid var(--brand-rule);">
+              <div
+                class="font-mono text-[13px]"
+                style="color: var(--brand-fg2);">
+                {t.year}
+              </div>
+              <div>
+                <span
+                  class="px-2.5 py-1 rounded-full text-[11px] font-bold uppercase"
+                  style="background: var(--brand-yellow); color: #111; letter-spacing: 0.04em;">
+                  Talk
+                </span>
+              </div>
+              <div
+                class="text-[18px] sm:text-[22px]"
+                style="font-weight: 500; letter-spacing: -0.012em; line-height: 1.25; color: var(--brand-ink);">
+                {t.title}
+              </div>
+              <div
+                class="text-[14px] hidden md:block"
+                style="color: var(--brand-fg1);">
+                {t.venue || "—"}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </section>
   </div>
-</SiteLayout>
+</BaseLayout>
+
+<style>
+  .kb-elsewhere-h1 {
+    font-size: clamp(32px, 6vw, 64px);
+  }
+  .kb-elsewhere-h3 {
+    font-size: clamp(28px, 4vw, 36px);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+  }
+  .kb-elsewhere-row:hover {
+    background: rgba(87, 85, 201, 0.05);
+  }
+  :global(html[data-theme="dark"]) .kb-elsewhere-row:hover {
+    background: rgba(179, 227, 255, 0.06);
+  }
+  .kb-talks-row {
+    grid-template-columns: 60px 70px 1fr;
+  }
+  @media (min-width: 768px) {
+    .kb-talks-row {
+      grid-template-columns: 64px 80px 1fr 200px;
+      gap: 24px;
+    }
+  }
+</style>
