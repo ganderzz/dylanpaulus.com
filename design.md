@@ -976,76 +976,63 @@ Voice rules:
 
 ## 14. Implementation checklist when adding a new page
 
-1. Pick the closest existing page as your scaffold. Copy its frontmatter,
-   container width, and section padding ramp.
-2. Hero: optional eyebrow + H1 with one italic-indigo accent. Single
-   column — no right-column side caption. If supporting copy is needed,
-   place it directly below the H1 (left-aligned, max-w-[640px]).
-3. Use brand variables for every color. Never hard-code hex values.
-4. Use existing components for tag chips and the logo.
-   Don't re-implement them inline.
+1. Scaffold from the closest existing page — frontmatter, container
+   width (`max-w-screen-2xl mx-auto`), section padding ramp.
+2. Hero: optional eyebrow + single-column H1 with one italic-indigo
+   accent. Supporting copy goes below the H1, max-w-[640px].
+3. Colors via `var(--brand-*)`; never hard-code hex.
+4. Use existing components (TagChip, Logo, LogoMark, etc.). Don't
+   re-implement inline.
 5. Wrap dates / counts / years in `.tabular-nums`.
-6. Prefer the section divider rule pattern (top border on the
-   `<section>`) over decorative dividers.
-7. Pass `footerVariant="minimal"` to BaseLayout.
-8. Add hover states on rows: indigo wash. On cards: 1.01 scale.
-9. Verify in both light and dark mode — especially that any explicit
-   color you pass actually inverts via the brand variable, not via a
-   manual `dark:` Tailwind class.
-10. Run `yarn build` (107 pages baseline at time of writing) and check
-    no new warnings.
+6. Section transitions: top border on the `<section>`, not decorative
+   dividers.
+7. `footerVariant="minimal"` on every `<BaseLayout>` call.
+8. Row hovers = indigo wash; card hovers = `scale-[1.01]`.
+9. Verify both themes. Prefer brand-variable inversion over manual
+   `dark:` Tailwind classes.
+10. `yarn build` — 107-page baseline, no new warnings.
 
 ---
 
 ## 15. What NOT to add
 
-Patterns the site has explicitly rejected. If you find yourself
-considering one of these, stop and re-read the relevant page section.
+Patterns the site has explicitly rejected.
 
 **Chrome / global**
-- Hamburger menu (header stacks vertically on narrow viewports
-  instead).
-- 4-column "full" footer with bio/site/find-me/built-with columns.
-  Footer is one row of copyright + social icons + logo mark.
+- Hamburger menu. Header stacks vertically on narrow viewports.
+- 4-column "full" footer (bio/site/find-me/built-with). Footer is one
+  row.
 - "Made in Portland, Oregon" footer line.
-- View transitions across pages — they break the sticky TOC.
-- `target="_blank"` without `rel="noopener noreferrer"`. Always pair
-  them.
+- View transitions — they break the sticky TOC.
+- `target="_blank"` without `rel="noopener noreferrer"`.
 
 **Heroes**
-- Right-column side-caption paragraphs (e.g. "What I make", "What this
-  is", "About this tag", "The short version"). Supporting copy sits
-  below the H1 instead.
-- Leading hairline ornament (`<span class="block w-7 h-px">`) next to
-  hero eyebrows.
+- Right-column side-caption paragraphs ("What I make", "About this
+  tag", "The short version", etc.). Supporting copy goes below the H1.
+- Leading hairline ornament (`<span class="block w-7 h-px">`) on hero
+  eyebrows.
 
 **CTAs**
-- Yellow circular arrow chip inside CTA pills. Arrows are plain text.
+- Yellow circular arrow chip. Arrows are plain text.
 
 **Home**
 - "Lately" / "What I'm into right now" sidebar.
-- Marquee. The `Marquee.astro` component exists but is unused; don't
-  wire it back in.
+- Marquee (`Marquee.astro` exists but is unused).
 
 **About**
-- "Quick facts" mini-table (the photo strip is 3 photos, not 2 + a
-  table).
+- "Quick facts" mini-table.
 
 **Post detail**
-- Author byline / avatar. The site is one person's; bylines read as
-  filler.
-- Post-number / "Field notes" slug above the H1. The date strip is
-  just the formatted date.
-- Numbered section markers (the `§ NN` motif) above article H2s, course
-  modules, or TOC links.
-- Sign-off block ("Email me" CTA, "Thanks for reading" copy between two
-  hairlines). Posts end at the article body or at related posts.
+- Author byline / avatar.
+- Post-number / "Field notes" slug above the H1.
+- `§ NN` numbered section markers (article H2s, course modules, TOC).
+- Sign-off block ("Email me" CTA, "Thanks for reading" copy).
 - Meta header row (colored dot, post-number, date) on related-post
-  cards. Cards open directly with the title.
+  cards.
 
-**Posts archive & tag archive**
+**Posts & tag archives**
 - Sort options other than newest-first.
-- Sort row / sort controls on tag archive pages.
+- Sort row / sort controls on tag archive.
 
 **Tag archive**
 - Year range (`YYYY → YYYY`) in the eyebrow.
@@ -1054,8 +1041,8 @@ considering one of these, stop and re-read the relevant page section.
 - "All posts" bottom CTA.
 
 **Course**
-- "Course №01" Brewing-strip teaser for a future Postgres course (or
-  any other "coming soon" teaser).
+- "Course №01" / "Brewing" / any "coming soon" teaser for unshipped
+  courses.
 
 **Sitemap**
 - Tag font-size scaling by post count.
@@ -1070,8 +1057,8 @@ considering one of these, stop and re-read the relevant page section.
 - "Code I maintain" OSS repo list.
 
 **Newsletter**
-- Newsletter signup forms, "Subscribe" buttons, or any "subscribe to
-  my newsletter" affordance. There is no newsletter.
+- Newsletter signup forms, "Subscribe" buttons. There is no
+  newsletter.
 
 ---
 
