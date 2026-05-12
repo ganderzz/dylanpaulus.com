@@ -172,9 +172,7 @@ function trimDescription(text: string | undefined, max: number) {
       featured && (
         <section class="px-6 sm:px-10 lg:px-14 pt-5 pb-6">
           <a
-            href={featured.data.externalLink ?? `/posts/${featured.slug}`}
-            target={featured.data.externalLink ? "_blank" : undefined}
-            rel={featured.data.externalLink ? "noopener noreferrer" : undefined}
+            href={`/posts/${featured.slug}`}
             class="grid grid-cols-1 md:grid-cols-2 overflow-hidden no-underline"
             style="background: var(--brand-card); border: 1px solid var(--brand-rule); border-radius: 28px; color: var(--brand-ink);">
             <div class="p-9 lg:p-12 flex flex-col gap-5">
@@ -302,12 +300,9 @@ function trimDescription(text: string | undefined, max: number) {
             const date = dateFormatter.format(new Date(post.data.date));
             const desc = post.data.description ?? remark.excerpt ?? "";
             const isExternal = Boolean(post.data.externalLink);
-            const href = post.data.externalLink ?? `/posts/${post.slug}`;
             return (
               <a
-                href={href}
-                target={isExternal ? "_blank" : undefined}
-                rel={isExternal ? "noopener noreferrer" : undefined}
+                href={`/posts/${post.slug}`}
                 class="kb-post-row block py-7 px-2 no-underline transition-colors"
                 style="color: var(--brand-ink); border-bottom: 1px solid var(--brand-rule);">
                 <div class="kb-post-row-grid w-full">

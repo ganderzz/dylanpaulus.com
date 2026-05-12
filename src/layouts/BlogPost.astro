@@ -24,6 +24,11 @@ const { frontmatter, slug = "", relatedPosts = [] } = Astro.props as Props;
 const isExternal = frontmatter.externalLink ?? false;
 const normalizedTitle = frontmatter.title.toLowerCase().replace(/\s/g, "-");
 
+// Pillar guide membership — auto-injects a "Part of the Postgres guide" callout
+// at the top of every Postgres-tagged post for internal linking + topic clustering.
+const tagsLower = (frontmatter.tags ?? []).map((t: string) => t.toLowerCase());
+const inPostgresGuide = tagsLower.includes("postgresql");
+
 const dateFormatter = new Intl.DateTimeFormat("en-us", {
   year: "numeric",
   month: "short",
@@ -43,6 +48,7 @@ const dateFormatter = new Intl.DateTimeFormat("en-us", {
     date: frontmatter.date,
     heroImage: frontmatter.heroImage,
     tags: frontmatter.tags,
+    wordCount: frontmatter.wordCount,
   }}>
   {/* Article header */}
   <article
@@ -155,11 +161,50 @@ const dateFormatter = new Intl.DateTimeFormat("en-us", {
               <div class="mt-10">
                 <a
                   data-goatcounter-click={`${normalizedTitle}__click`}
-                  class="inline-flex items-center gap-2.5 px-6 py-4 rounded-full no-underline text-white font-semibold hover:scale-105 transform-gpu transition-transform"
-                  style="background: var(--brand-indigo);"
+                  class="kb-indigo-fill inline-flex items-center gap-2.5 px-6 py-4 rounded-full no-underline font-semibold hover:scale-105 transform-gpu transition-transform"
                   href={frontmatter.externalLink}>
                   Read on the original site ↗
                 </a>
+              </div>
+            )
+          }
+
+          {
+            inPostgresGuide && (
+              <div
+                class="mt-12 p-6 rounded-2xl"
+                style="background: var(--brand-card); border: 1px solid var(--brand-rule);">
+                <div
+                  class="text-[11px] uppercase font-bold mb-2"
+                  style="letter-spacing: 0.18em; color: var(--brand-fg2);">
+                  Keep reading the Postgres guide
+                </div>
+                <p
+                  class="m-0 mb-4"
+                  style="font-size: 16px; line-height: 1.55; color: var(--brand-fg1);">
+                  One of the Postgres posts on the site. The full track, grouped
+                  by topic, lives on{" "}
+                  <a
+                    href="/guides/postgres"
+                    style="color: var(--brand-indigo); font-weight: 600;">
+                    the guide page
+                  </a>
+                  .
+                </p>
+                <div class="flex flex-wrap gap-2.5">
+                  <a
+                    href="/guides/postgres"
+                    class="px-4 py-2 rounded-full no-underline text-[13px] font-semibold"
+                    style="background: var(--brand-ink); color: var(--brand-paper);">
+                    Open the Postgres guide →
+                  </a>
+                  <a
+                    href="/tags/postgresql"
+                    class="px-4 py-2 rounded-full no-underline text-[13px] font-semibold"
+                    style="border: 1px solid var(--brand-rule-strong); color: var(--brand-ink);">
+                    All #postgresql →
+                  </a>
+                </div>
               </div>
             )
           }
@@ -232,13 +277,10 @@ const dateFormatter = new Intl.DateTimeFormat("en-us", {
           {relatedPosts.slice(0, 3).map((p) => {
             const desc = p.description ?? p.excerpt ?? "";
             const trimmed = desc.length > 110 ? desc.slice(0, 110) + "…" : desc;
-            const href = p.externalLink ?? `/posts/${p.slug}`;
             const isExternal = Boolean(p.externalLink);
             return (
               <a
-                href={href}
-                target={p.externalLink ? "_blank" : undefined}
-                rel={p.externalLink ? "noopener noreferrer" : undefined}
+                href={`/posts/${p.slug}`}
                 class="flex flex-col gap-4 p-7 no-underline rounded-2xl hover:scale-[1.01] transform-gpu transition-transform"
                 style="background: var(--brand-card); border: 1px solid var(--brand-rule); color: var(--brand-ink);">
                 <div class="flex items-baseline gap-2.5 flex-wrap">

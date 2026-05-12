@@ -8,6 +8,7 @@ export interface PostMeta {
   date: string;
   heroImage?: string;
   tags?: string[];
+  wordCount?: number;
 }
 
 export interface Props {
@@ -79,11 +80,14 @@ const articleSchema = post
       author: person,
       publisher: person,
       keywords: post.tags?.join(", "),
+      articleSection: post.tags?.[0],
+      ...(post.wordCount ? { wordCount: post.wordCount } : {}),
       mainEntityOfPage: {
         "@type": "WebPage",
         "@id": canonicalURL.toString(),
       },
       url: canonicalURL.toString(),
+      inLanguage: "en-US",
     }
   : null;
 

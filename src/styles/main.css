@@ -102,13 +102,14 @@ html[data-theme="dark"] .highlight-pill {
 }
 
 /* Filled-indigo surfaces — flips text color in dark mode so the
-   soft-cyan indigo doesn't end up with white-on-cyan ghosting. */
+   soft-cyan indigo doesn't end up with white-on-cyan ghosting.
+   `!important` on color wins over `.kb-article a` descendant rules. */
 .kb-indigo-fill {
   background: var(--brand-indigo);
-  color: #fff;
+  color: #fff !important;
 }
 html[data-theme="dark"] .kb-indigo-fill {
-  color: var(--brand-paper);
+  color: var(--brand-paper) !important;
 }
 
 .brand-halo {

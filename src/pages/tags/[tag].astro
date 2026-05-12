@@ -196,14 +196,11 @@ function trimDescription(text: string | undefined, max: number) {
         {
           posts.map((p) => {
             const isExternal = Boolean(p.externalLink);
-            const href = p.externalLink ?? `/posts/${p.slug}`;
             const num = String(p.number).padStart(3, "0");
             const desc = trimDescription(p.description, 200);
             return (
               <a
-                href={href}
-                target={isExternal ? "_blank" : undefined}
-                rel={isExternal ? "noopener noreferrer" : undefined}
+                href={`/posts/${p.slug}`}
                 class="kb-tag-row block py-6 px-2 no-underline transition-colors"
                 style="color: var(--brand-ink); border-bottom: 1px solid var(--brand-rule);">
                 <div class="kb-tag-row-grid">

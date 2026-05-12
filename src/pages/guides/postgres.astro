@@ -1,0 +1,202 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const allPosts = await getCollection("post", ({ data }) => data.published);
+
+type PillarPost = {
+  slug: string;
+  title: string;
+  description?: string;
+  externalLink?: string;
+};
+
+const bySlug = new Map<string, PillarPost>();
+for (const p of allPosts) {
+  const clean = p.slug.split("/")[1];
+  bySlug.set(clean, {
+    slug: clean,
+    title: p.data.title,
+    description: p.data.description ?? p.data.excerpt,
+    externalLink: p.data.externalLink,
+  });
+}
+
+const sections: Array<{
+  label: string;
+  blurb: string;
+  slugs: string[];
+}> = [
+  {
+    label: "Fundamentals",
+    blurb:
+      "The building blocks: schemas, keys, normal forms, and the query patterns you will reach for every week.",
+    slugs: [
+      "how-to-design-postgres-database-schemas",
+      "understanding-postgres-foreign-keys",
+      "how-to-use-postgres-for-data-normalization",
+      "common-table-expressions-in-sql",
+      "recursive-query-in-sql-what-it-is-and-how-to-write-one",
+      "understanding-sql-aggregate-functions",
+    ],
+  },
+  {
+    label: "Performance",
+    blurb:
+      "Reading plans, taming bloat, and cutting disk usage when the table stops fitting in your head.",
+    slugs: [
+      "explaining-postgresql-explain",
+      "how-to-reduce-bloat-in-large-postgresql-tables",
+      "how-to-reduce-your-postgresql-database-size",
+      "understanding-postgres-tablespaces",
+      "creating-fast-time-series-graph-with-postgres",
+    ],
+  },
+  {
+    label: "Data patterns",
+    blurb:
+      "Shapes that do not look relational at first: graphs, adjacency structures, and quick mock data.",
+    slugs: [
+      "postgres-is-a-graph-database",
+      "exploring-adjacency-lists-and-matrices",
+      "easily-generate-mock-data-with-postgresql",
+    ],
+  },
+  {
+    label: "Production",
+    blurb:
+      "What to lock down before the database faces real users and real attackers.",
+    slugs: ["postgres-security-guide"],
+  },
+];
+
+const resolved = sections.map((s) => ({
+  ...s,
+  posts: s.slugs
+    .map((slug) => bySlug.get(slug))
+    .filter((p): p is PillarPost => Boolean(p)),
+}));
+
+const totalPosts = resolved.reduce((acc, s) => acc + s.posts.length, 0);
+---
+
+<BaseLayout
+  title="The Postgres Guide | Dylan Paulus"
+  description="A curated walk through every Postgres post on the site: fundamentals, performance, data patterns, and production."
+  footerVariant="minimal">
+  <div class="max-w-screen-2xl mx-auto">
+    <section class="px-6 sm:px-10 lg:px-14 pt-12 lg:pt-16 pb-10">
+      <div
+        class="flex items-center gap-3 text-[13px] mb-7 flex-wrap"
+        style="color: var(--brand-fg2);">
+        <a href="/" class="no-underline" style="color: var(--brand-fg2);"
+          >Home</a
+        >
+        <span>/</span>
+        <span class="font-mono text-[12px]">postgres</span>
+      </div>
+
+      <h1
+        class="kb-pillar-h1 m-0"
+        style="text-wrap: pretty; color: var(--brand-ink); font-weight: 500;">
+        The <span
+          class="font-display-italic"
+          style="color: var(--brand-indigo);">Postgres</span
+        > guide
+      </h1>
+
+      <p
+        class="mt-6 max-w-[680px]"
+        style="font-size: 20px; line-height: 1.55; color: var(--brand-fg1);">
+        {totalPosts} articles.
+      </p>
+
+      <div class="mt-7 flex flex-wrap gap-2.5">
+        {
+          resolved.map((s) => (
+            <a
+              href={`#${s.label.toLowerCase().replace(/\s/g, "-")}`}
+              class="px-3.5 py-2 rounded-full text-[13px] font-semibold no-underline"
+              style="background: var(--brand-card); border: 1px solid var(--brand-rule); color: var(--brand-ink);">
+              {s.label} · {s.posts.length}
+            </a>
+          ))
+        }
+      </div>
+    </section>
+
+    {
+      resolved.map((s) => (
+        <section
+          id={s.label.toLowerCase().replace(/\s/g, "-")}
+          class="px-6 sm:px-10 lg:px-14 pt-10 pb-6">
+          <div class="flex items-baseline gap-4 mb-4 flex-wrap">
+            <h2
+              class="kb-pillar-h2 m-0"
+              style="font-weight: 500; color: var(--brand-ink);">
+              {s.label}
+            </h2>
+          </div>
+
+          <p
+            class="mt-0 mb-7 max-w-[680px]"
+            style="font-size: 17px; line-height: 1.55; color: var(--brand-fg1);">
+            {s.blurb}
+          </p>
+
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
+            style="border-top: 1px solid var(--brand-rule-strong); padding-top: 28px;">
+            {s.posts.map((p, i) => {
+              const desc = p.description ?? "";
+              const trimmed =
+                desc.length > 140 ? desc.slice(0, 140) + "…" : desc;
+              const isExternal = Boolean(p.externalLink);
+              return (
+                <a
+                  href={`/posts/${p.slug}`}
+                  class="flex flex-col gap-3.5 p-7 no-underline rounded-2xl hover:scale-[1.01] transform-gpu transition-transform"
+                  style="background: var(--brand-card); border: 1px solid var(--brand-rule); color: var(--brand-ink);">
+                  <div class="flex items-baseline gap-2.5 flex-wrap">
+                    {isExternal && (
+                      <span
+                        class="text-[10px] font-semibold uppercase px-2 py-0.5 rounded-full"
+                        style="letter-spacing: 0.14em; color: var(--brand-indigo); border: 1px solid var(--brand-indigo);">
+                        ↗ External
+                      </span>
+                    )}
+                  </div>
+                  <h3
+                    class="m-0"
+                    style="font-size: 22px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 500; color: var(--brand-ink);">
+                    {p.title}
+                  </h3>
+                  {trimmed && (
+                    <p
+                      class="m-0"
+                      style="font-size: 14px; line-height: 1.55; color: var(--brand-fg2);">
+                      {trimmed}
+                    </p>
+                  )}
+                </a>
+              );
+            })}
+          </div>
+        </section>
+      ))
+    }
+  </div>
+</BaseLayout>
+
+<style>
+  .kb-pillar-h1 {
+    font-size: clamp(40px, 8vw, 96px);
+    line-height: 0.95;
+    letter-spacing: -0.045em;
+  }
+  .kb-pillar-h2 {
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+</style>

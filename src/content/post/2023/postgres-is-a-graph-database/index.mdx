@@ -401,3 +401,5 @@ By using features built into Postgres, we can store and query graph data structu
 We used a similar approach in my previous job to dynamically generate work instructions on a manufacturing line.
 Based on parameters given, and rules defined on each edge, we could generate the correct document by traversing a graph stored entirely in Postgres.
 If you are already using Postgres for your relational data, you can integrate graph data structures into your existing database without adding extra systems!
+
+If you want to try the queries in this post against a populated table, the [`generate_series` walkthrough](/posts/easily-generate-mock-data-with-postgresql) covers how to spin up nodes and edges quickly. For more on the recursive CTE pattern used above, see [Recursive Query in SQL: What It Is, and How to Write One](/posts/recursive-query-in-sql-what-it-is-and-how-to-write-one).
