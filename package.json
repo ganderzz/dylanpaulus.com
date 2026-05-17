@@ -9,7 +9,8 @@
         "preview": "astro preview",
         "astro": "astro",
         "build-search": "pagefind --site dist",
-        "generate-og": "tsx ./bin/generate-og.tsx"
+        "generate-og": "tsx ./bin/generate-og.tsx",
+        "import-activity": "tsx ./bin/import-activity.ts"
     },
     "devDependencies": {
         "@astrojs/preact": "4.1.3",
