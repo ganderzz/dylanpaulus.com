@@ -1,0 +1,475 @@
+---
+import { Image } from "astro:assets";
+
+type GalleryImage = {
+  src: ImageMetadata;
+  alt: string;
+  caption?: string;
+};
+
+type Props = {
+  images: GalleryImage[];
+};
+
+const { images } = Astro.props as Props;
+
+const count = images.length;
+const layout =
+  count === 1 ? "one" : count === 2 ? "two" : count === 3 ? "three" : "many";
+
+const cardAspect = (i: number) => {
+  if (layout === "one") return "3 / 2";
+  if (layout === "two") return "4 / 3";
+  if (layout === "three") return i === 1 ? "3 / 4" : "4 / 3";
+  return "4 / 3";
+};
+
+const galleryId = `kb-gallery-${Math.random().toString(36).slice(2, 9)}`;
+---
+
+<figure class="kb-gallery" data-layout={layout} aria-label="Photo gallery">
+  <div class={`kb-gallery-grid kb-gallery-grid--${layout}`}>
+    {
+      images.map((image, i) => (
+        <button
+          type="button"
+          class="kb-gallery-card"
+          style={`aspect-ratio: ${cardAspect(i)};`}
+          data-index={i}
+          aria-label={`Open photo ${i + 1} of ${count} in lightbox`}>
+          <Image
+            src={image.src}
+            alt={image.alt}
+            width={800}
+            class="kb-gallery-thumb"
+          />
+        </button>
+      ))
+    }
+  </div>
+
+  <div
+    class="kb-gallery-lightbox"
+    id={galleryId}
+    role="dialog"
+    aria-modal="true"
+    aria-label="Photo viewer"
+    aria-hidden="true"
+    hidden>
+    <div class="kb-gallery-backdrop" data-close></div>
+
+    <button
+      type="button"
+      class="kb-gallery-close"
+      data-close
+      aria-label="Close photo viewer">
+      ✕
+    </button>
+
+    {
+      count > 1 && (
+        <button
+          type="button"
+          class="kb-gallery-nav kb-gallery-prev"
+          data-prev
+          aria-label="Previous photo">
+          ‹
+        </button>
+      )
+    }
+
+    {
+      count > 1 && (
+        <button
+          type="button"
+          class="kb-gallery-nav kb-gallery-next"
+          data-next
+          aria-label="Next photo">
+          ›
+        </button>
+      )
+    }
+
+    <div class="kb-gallery-stage">
+      <div class="kb-gallery-frame">
+        {
+          images.map((image, i) => (
+            <figure class="kb-gallery-slide" data-slide={i} aria-hidden="true">
+              <Image
+                src={image.src}
+                alt={image.alt}
+                width={1600}
+                class="kb-gallery-full"
+              />
+              {image.caption && (
+                <figcaption class="kb-gallery-caption">
+                  {image.caption}
+                </figcaption>
+              )}
+            </figure>
+          ))
+        }
+      </div>
+      {
+        count > 1 && (
+          <div class="kb-gallery-counter" data-counter aria-live="polite">
+            1 / {count}
+          </div>
+        )
+      }
+    </div>
+  </div>
+</figure>
+
+<style>
+  .kb-gallery {
+    margin: 28px 0;
+  }
+
+  .kb-gallery-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  @media (min-width: 768px) {
+    .kb-gallery-grid--two {
+      grid-template-columns: 1fr 1fr;
+    }
+    .kb-gallery-grid--three {
+      grid-template-columns: 1fr 1fr;
+    }
+    .kb-gallery-grid--many {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .kb-gallery-grid--three {
+      grid-template-columns: 1.6fr 1fr 1.6fr;
+    }
+    .kb-gallery-grid--many {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .kb-gallery-card {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    border-radius: 24px;
+    overflow: hidden;
+    cursor: pointer;
+    background: var(--brand-card);
+    box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.18);
+    transition: transform 0.2s ease;
+  }
+
+  .kb-gallery-card:hover {
+    transform: scale(1.01);
+  }
+
+  .kb-gallery-card:focus-visible {
+    outline: 2px solid var(--brand-indigo);
+    outline-offset: 3px;
+  }
+
+  .kb-gallery-thumb {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .kb-gallery-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .kb-gallery-lightbox[hidden] {
+    display: none;
+  }
+
+  .kb-gallery-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 12, 18, 0.86);
+    backdrop-filter: blur(2px);
+  }
+
+  .kb-gallery-stage {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    width: min(92vw, 1100px);
+    max-height: 88vh;
+    padding: 0 8px;
+  }
+
+  .kb-gallery-frame {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .kb-gallery-slide {
+    margin: 0;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .kb-gallery-slide.is-active {
+    display: flex;
+  }
+
+  .kb-gallery-full {
+    display: block;
+    max-width: 100%;
+    max-height: 74vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 16px;
+  }
+
+  .kb-gallery-caption {
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: 14px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.82) !important;
+    max-width: 60ch;
+  }
+
+  .kb-gallery-counter {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.7);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .kb-gallery-close,
+  .kb-gallery-nav {
+    position: absolute;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    cursor: pointer;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+    line-height: 1;
+    transition:
+      background 0.15s ease,
+      transform 0.15s ease;
+  }
+
+  .kb-gallery-close:hover,
+  .kb-gallery-nav:hover {
+    background: rgba(255, 255, 255, 0.24);
+  }
+
+  .kb-gallery-close:focus-visible,
+  .kb-gallery-nav:focus-visible {
+    outline: 2px solid var(--brand-yellow);
+    outline-offset: 2px;
+  }
+
+  .kb-gallery-close {
+    top: 18px;
+    right: 18px;
+    width: 44px;
+    height: 44px;
+    font-size: 20px;
+  }
+
+  .kb-gallery-nav {
+    top: 50%;
+    transform: translateY(-50%);
+    width: 52px;
+    height: 52px;
+    font-size: 30px;
+    padding-bottom: 4px;
+  }
+
+  .kb-gallery-nav:hover {
+    transform: translateY(-50%) scale(1.06);
+  }
+
+  .kb-gallery-prev {
+    left: 14px;
+  }
+
+  .kb-gallery-next {
+    right: 14px;
+  }
+
+  @media (max-width: 767px) {
+    .kb-gallery-close {
+      width: 48px;
+      height: 48px;
+    }
+    .kb-gallery-nav {
+      width: 56px;
+      height: 56px;
+    }
+    .kb-gallery-prev {
+      left: 8px;
+    }
+    .kb-gallery-next {
+      right: 8px;
+    }
+    .kb-gallery-full {
+      max-height: 68vh;
+    }
+  }
+</style>
+
+<script>
+  const galleries =
+    document.querySelectorAll<HTMLElement>(".kb-gallery");
+
+  galleries.forEach((gallery) => {
+    const lightbox = gallery.querySelector<HTMLElement>(
+      ".kb-gallery-lightbox"
+    );
+    if (!lightbox) return;
+
+    const slides = Array.from(
+      lightbox.querySelectorAll<HTMLElement>(".kb-gallery-slide")
+    );
+    const counter = lightbox.querySelector<HTMLElement>(
+      "[data-counter]"
+    );
+    const cards = Array.from(
+      gallery.querySelectorAll<HTMLButtonElement>(".kb-gallery-card")
+    );
+    const total = slides.length;
+    if (total === 0) return;
+
+    let current = 0;
+    let lastFocused: HTMLElement | null = null;
+
+    const preload = (index: number) => {
+      const img = slides[index]?.querySelector<HTMLImageElement>("img");
+      if (img && img.loading === "lazy") {
+        img.loading = "eager";
+      }
+    };
+
+    const render = () => {
+      slides.forEach((slide, i) => {
+        const active = i === current;
+        slide.classList.toggle("is-active", active);
+        slide.setAttribute("aria-hidden", active ? "false" : "true");
+      });
+      if (counter) {
+        counter.textContent = `${current + 1} / ${total}`;
+      }
+      preload(current);
+      preload((current + 1) % total);
+      preload((current - 1 + total) % total);
+    };
+
+    const open = (index: number) => {
+      current = index;
+      lastFocused = document.activeElement as HTMLElement | null;
+      render();
+      lightbox.hidden = false;
+      lightbox.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      const closeBtn = lightbox.querySelector<HTMLElement>(
+        ".kb-gallery-close"
+      );
+      closeBtn?.focus();
+    };
+
+    const close = () => {
+      lightbox.hidden = true;
+      lightbox.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      lastFocused?.focus();
+    };
+
+    const step = (delta: number) => {
+      current = (current + delta + total) % total;
+      render();
+    };
+
+    cards.forEach((card) => {
+      card.addEventListener("click", () => {
+        const index = Number(card.dataset.index ?? "0");
+        open(index);
+      });
+    });
+
+    lightbox
+      .querySelectorAll<HTMLElement>("[data-close]")
+      .forEach((el) => el.addEventListener("click", close));
+
+    lightbox
+      .querySelector<HTMLElement>("[data-prev]")
+      ?.addEventListener("click", () => step(-1));
+
+    lightbox
+      .querySelector<HTMLElement>("[data-next]")
+      ?.addEventListener("click", () => step(1));
+
+    document.addEventListener("keydown", (event) => {
+      if (lightbox.hidden) return;
+      if (event.key === "Escape") {
+        close();
+      } else if (event.key === "ArrowLeft" && total > 1) {
+        step(-1);
+      } else if (event.key === "ArrowRight" && total > 1) {
+        step(1);
+      }
+    });
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+    const stage = lightbox.querySelector<HTMLElement>(".kb-gallery-stage");
+
+    stage?.addEventListener(
+      "touchstart",
+      (event) => {
+        const touch = event.changedTouches[0];
+        touchStartX = touch.clientX;
+        touchStartY = touch.clientY;
+      },
+      { passive: true }
+    );
+
+    stage?.addEventListener(
+      "touchend",
+      (event) => {
+        if (total < 2) return;
+        const touch = event.changedTouches[0];
+        const deltaX = touch.clientX - touchStartX;
+        const deltaY = touch.clientY - touchStartY;
+        if (Math.abs(deltaX) > 50 && Math.abs(deltaX) > Math.abs(deltaY)) {
+          step(deltaX < 0 ? 1 : -1);
+        }
+      },
+      { passive: true }
+    );
+
+    render();
+  });
+</script>
