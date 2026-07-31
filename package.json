@@ -21,7 +21,7 @@
         "mdast-util-to-string": "4.0.0",
         "pagefind": "1.4.0",
         "reading-time": "1.5.0",
-        "sanitize-html": "2.17.0",
+        "sanitize-html": "2.17.5",
         "satori": "0.7.4",
         "svgo": "3.3.3",
         "tsx": "4.21.0",
